@@ -1,0 +1,417 @@
+{
+  "character": {
+    "id": "YUNA",
+    "route": "semantic_layer_v8_beauty_main_debug_cage_split",
+    "boundary": "v8 keeps visible split leg panels in the main GLB and moves leg/boot volume guides to the cage-debug GLB. It is still a 2.5D DCC handoff, not final skinned topology.",
+    "coordinate_system": {
+      "right": "X",
+      "depth": "Y",
+      "up": "Z"
+    },
+    "viewing_cone": {
+      "primary_yaw_degrees": [
+        -30,
+        30
+      ],
+      "side_uses_cage_debug": true
+    }
+  },
+  "source_images": {
+    "front": "refs/front_rgba/yuna_front_rgba.png",
+    "side_ai_inferred": "refs/ai_turnarounds/cutouts/yuna_left_side.png",
+    "back_ai_inferred": "refs/ai_turnarounds/cutouts/yuna_back.png"
+  },
+  "mask_source": "semantic_layer_v2_front_masks_reused_as alpha textures",
+  "side_back_constraints": {
+    "policy": "side/back are ai_inferred modeling constraints, not locked geometry truth",
+    "side": {
+      "path": "refs/ai_turnarounds/cutouts/yuna_left_side.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "alpha_bbox": [
+        23,
+        50,
+        940,
+        1477
+      ],
+      "alpha_pixels": 475598,
+      "alpha_coverage": 0.3024,
+      "vertical_bands": [
+        {
+          "y": [
+            0.05,
+            0.2
+          ],
+          "alpha_width_px": 309,
+          "width_ratio": 0.3018
+        },
+        {
+          "y": [
+            0.2,
+            0.38
+          ],
+          "alpha_width_px": 461,
+          "width_ratio": 0.4502
+        },
+        {
+          "y": [
+            0.38,
+            0.58
+          ],
+          "alpha_width_px": 612,
+          "width_ratio": 0.5977
+        },
+        {
+          "y": [
+            0.58,
+            0.78
+          ],
+          "alpha_width_px": 805,
+          "width_ratio": 0.7861
+        },
+        {
+          "y": [
+            0.78,
+            0.95
+          ],
+          "alpha_width_px": 798,
+          "width_ratio": 0.7793
+        }
+      ]
+    },
+    "back": {
+      "path": "refs/ai_turnarounds/cutouts/yuna_back.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "alpha_bbox": [
+        74,
+        50,
+        1003,
+        1455
+      ],
+      "alpha_pixels": 536068,
+      "alpha_coverage": 0.3408,
+      "vertical_bands": [
+        {
+          "y": [
+            0.05,
+            0.2
+          ],
+          "alpha_width_px": 353,
+          "width_ratio": 0.3447
+        },
+        {
+          "y": [
+            0.2,
+            0.38
+          ],
+          "alpha_width_px": 513,
+          "width_ratio": 0.501
+        },
+        {
+          "y": [
+            0.38,
+            0.58
+          ],
+          "alpha_width_px": 671,
+          "width_ratio": 0.6553
+        },
+        {
+          "y": [
+            0.58,
+            0.78
+          ],
+          "alpha_width_px": 852,
+          "width_ratio": 0.832
+        },
+        {
+          "y": [
+            0.78,
+            0.95
+          ],
+          "alpha_width_px": 909,
+          "width_ratio": 0.8877
+        }
+      ]
+    },
+    "saved_alpha_constraints": {
+      "side": "semantic_layer_v8/constraints/side_alpha_constraint.png",
+      "back": "semantic_layer_v8/constraints/back_alpha_constraint.png"
+    },
+    "reference_contact_sheet": "semantic_layer_v8/validation/yuna_semantic_layer_v3_reference_constraints.png"
+  },
+  "parts": [
+    {
+      "id": "back_hair",
+      "category": "hair",
+      "generator": "hair_cards",
+      "texture": "semantic_layer_v8/textures/back_hair.png",
+      "mask_pixels": 121159,
+      "mask_bbox": [
+        130,
+        480,
+        1009,
+        1035
+      ],
+      "depth": -0.58,
+      "dcc_note": "split alpha render texture across ribbon cards; must be replaced by hand-authored strand curves for production"
+    },
+    {
+      "id": "side_hair_left",
+      "category": "hair",
+      "generator": "hair_cards",
+      "texture": "semantic_layer_v8/textures/side_hair_left.png",
+      "mask_pixels": 60950,
+      "mask_bbox": [
+        134,
+        192,
+        509,
+        822
+      ],
+      "depth": 0.16,
+      "dcc_note": "split alpha render texture across ribbon cards; must be replaced by hand-authored strand curves for production"
+    },
+    {
+      "id": "side_hair_right",
+      "category": "hair",
+      "generator": "hair_cards",
+      "texture": "semantic_layer_v8/textures/side_hair_right.png",
+      "mask_pixels": 71480,
+      "mask_bbox": [
+        542,
+        130,
+        986,
+        875
+      ],
+      "depth": 0.22,
+      "dcc_note": "split alpha render texture across ribbon cards; must be replaced by hand-authored strand curves for production"
+    },
+    {
+      "id": "torso_inner",
+      "category": "body",
+      "generator": "curved_panel",
+      "texture": "semantic_layer_v8/textures/torso_inner.png",
+      "mask_pixels": 55394,
+      "mask_bbox": [
+        263,
+        302,
+        739,
+        887
+      ],
+      "depth": 0.0,
+      "dcc_note": "front-locked curved render panel; proxy cage carries volume, not deformation topology"
+    },
+    {
+      "id": "jacket_outer",
+      "category": "costume",
+      "generator": "curved_panel",
+      "texture": "semantic_layer_v8/textures/jacket_outer.png",
+      "mask_pixels": 190363,
+      "mask_bbox": [
+        221,
+        293,
+        832,
+        1021
+      ],
+      "depth": 0.3,
+      "dcc_note": "front-locked curved render panel; proxy cage carries volume, not deformation topology"
+    },
+    {
+      "id": "cape_left",
+      "category": "cloth",
+      "generator": "cloth_sheet",
+      "texture": "semantic_layer_v8/textures/cape_left.png",
+      "mask_pixels": 117625,
+      "mask_bbox": [
+        73,
+        470,
+        443,
+        1371
+      ],
+      "depth": -0.42,
+      "dcc_note": "curved alpha sheet; DCC artist should rebuild as cloth panel with proper seams"
+    },
+    {
+      "id": "cape_right",
+      "category": "cloth",
+      "generator": "cloth_sheet",
+      "texture": "semantic_layer_v8/textures/cape_right.png",
+      "mask_pixels": 226031,
+      "mask_bbox": [
+        585,
+        430,
+        1012,
+        1344
+      ],
+      "depth": -0.36,
+      "dcc_note": "curved alpha sheet; DCC artist should rebuild as cloth panel with proper seams"
+    },
+    {
+      "id": "skirt_front",
+      "category": "cloth",
+      "generator": "cloth_sheet",
+      "texture": "semantic_layer_v8/textures/skirt_front.png",
+      "mask_pixels": 87771,
+      "mask_bbox": [
+        340,
+        640,
+        695,
+        906
+      ],
+      "depth": 0.48,
+      "dcc_note": "curved alpha sheet; DCC artist should rebuild as cloth panel with proper seams"
+    },
+    {
+      "id": "legs",
+      "category": "body",
+      "generator": "curved_panel",
+      "texture": "semantic_layer_v8/textures/legs.png",
+      "mask_pixels": 75716,
+      "mask_bbox": [
+        308,
+        812,
+        714,
+        1264
+      ],
+      "depth": 0.02,
+      "dcc_note": "front-locked curved render panel; proxy cage carries volume, not deformation topology"
+    },
+    {
+      "id": "boots",
+      "category": "costume",
+      "generator": "curved_panel",
+      "texture": "semantic_layer_v8/textures/boots.png",
+      "mask_pixels": 34076,
+      "mask_bbox": [
+        328,
+        1195,
+        736,
+        1503
+      ],
+      "depth": 0.38,
+      "dcc_note": "front-locked curved render panel; proxy cage carries volume, not deformation topology"
+    },
+    {
+      "id": "face",
+      "category": "face",
+      "generator": "face_plate",
+      "texture": "semantic_layer_v8/textures/face.png",
+      "mask_pixels": 46795,
+      "mask_bbox": [
+        414,
+        81,
+        637,
+        362
+      ],
+      "depth": 0.62,
+      "dcc_note": "front-locked anime face plate; not a real facial topology or blendshape base"
+    },
+    {
+      "id": "bangs",
+      "category": "hair",
+      "generator": "hair_cards",
+      "texture": "semantic_layer_v8/textures/bangs.png",
+      "mask_pixels": 18212,
+      "mask_bbox": [
+        367,
+        49,
+        715,
+        438
+      ],
+      "depth": 0.76,
+      "dcc_note": "split alpha render texture across ribbon cards; must be replaced by hand-authored strand curves for production"
+    },
+    {
+      "id": "weapon",
+      "category": "weapon",
+      "generator": "weapon_panel",
+      "texture": "semantic_layer_v8/textures/weapon.png",
+      "mask_pixels": 28998,
+      "mask_bbox": [
+        5,
+        607,
+        369,
+        1456
+      ],
+      "depth": 0.92,
+      "dcc_note": "independent alpha prop placeholder; next pass should use orthographic hard-surface contours"
+    }
+  ],
+  "acceptance_v4": {
+    "must_have_independent_render_meshes": [
+      "face",
+      "bangs",
+      "back_hair",
+      "cape_left",
+      "cape_right",
+      "weapon",
+      "torso_inner"
+    ],
+    "must_have_cage_guides_in_blend": [
+      "cage_head_ellipsoid",
+      "cage_torso_ellipsoid",
+      "cage_leg_L_capsule_proxy",
+      "cage_leg_R_capsule_proxy"
+    ],
+    "expected_improvement": [
+      "removes per-pixel sidewall extrusion from main render shell",
+      "reduces black horizontal side bands in yaw views",
+      "keeps side/back as soft constraints and cage debug, not locked truth"
+    ]
+  },
+  "v7_leg_cleanup": {
+    "removed_flat_parts": [
+      "legs"
+    ],
+    "visual_leg_panels": [
+      "leg_L_visual_panel",
+      "leg_R_visual_panel"
+    ],
+    "rear_volume_guides": [
+      "leg_L_retopo_proxy",
+      "leg_R_retopo_proxy"
+    ],
+    "boot_rear_proxies": [
+      "boot_L_hardsurface_proxy",
+      "boot_R_hardsurface_proxy"
+    ],
+    "debug_only_loops": [
+      "leg_L_thigh_strap_proxy",
+      "leg_R_thigh_strap_proxy",
+      "leg_L_knee_loop_proxy",
+      "leg_R_knee_loop_proxy"
+    ]
+  },
+  "acceptance_v7": {
+    "must_include_split_leg_visual_panels": true,
+    "must_keep_original_boot_panel": true,
+    "must_hide_debug_leg_loops_from_main_glb": true,
+    "known_limits": [
+      "leg panels are still 2.5D projected surfaces",
+      "rear volumes are subtle continuity guides, not deformation-ready legs",
+      "no real UV unwrap or skin weights yet"
+    ]
+  },
+  "v8_visibility_split": {
+    "main_visible_meshes": [
+      "leg_L_visual_panel",
+      "leg_R_visual_panel",
+      "boots"
+    ],
+    "debug_only_guides": [
+      "leg_L_retopo_proxy",
+      "leg_R_retopo_proxy",
+      "boot_L_hardsurface_proxy",
+      "boot_R_hardsurface_proxy",
+      "leg_L_thigh_strap_proxy",
+      "leg_R_thigh_strap_proxy",
+      "leg_L_knee_loop_proxy",
+      "leg_R_knee_loop_proxy"
+    ],
+    "reason": "Volume guides caused gray-block leg artifacts in beauty renders."
+  }
+}

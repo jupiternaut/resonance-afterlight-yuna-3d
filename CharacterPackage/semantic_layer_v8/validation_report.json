@@ -1,0 +1,636 @@
+{
+  "created_at": "2026-05-24T15:34:44.078976+00:00",
+  "route": "semantic_layer_v8_beauty_main_debug_cage_split",
+  "status": "generated_with_warnings",
+  "boundary": "Beauty GLB contains split leg visual panels only; debug GLB contains DCC leg/boot guides.",
+  "source": "refs/front_rgba/yuna_front_rgba.png",
+  "spec": "semantic_layer_v8/specs/yuna_semantic_layer_v8.json",
+  "mask_contact_sheet": "semantic_layer_v8/validation/yuna_semantic_masks_contact.png",
+  "side_back_constraints": {
+    "policy": "side/back are ai_inferred modeling constraints, not locked geometry truth",
+    "side": {
+      "path": "refs/ai_turnarounds/cutouts/yuna_left_side.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "alpha_bbox": [
+        23,
+        50,
+        940,
+        1477
+      ],
+      "alpha_pixels": 475598,
+      "alpha_coverage": 0.3024,
+      "vertical_bands": [
+        {
+          "y": [
+            0.05,
+            0.2
+          ],
+          "alpha_width_px": 309,
+          "width_ratio": 0.3018
+        },
+        {
+          "y": [
+            0.2,
+            0.38
+          ],
+          "alpha_width_px": 461,
+          "width_ratio": 0.4502
+        },
+        {
+          "y": [
+            0.38,
+            0.58
+          ],
+          "alpha_width_px": 612,
+          "width_ratio": 0.5977
+        },
+        {
+          "y": [
+            0.58,
+            0.78
+          ],
+          "alpha_width_px": 805,
+          "width_ratio": 0.7861
+        },
+        {
+          "y": [
+            0.78,
+            0.95
+          ],
+          "alpha_width_px": 798,
+          "width_ratio": 0.7793
+        }
+      ]
+    },
+    "back": {
+      "path": "refs/ai_turnarounds/cutouts/yuna_back.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "alpha_bbox": [
+        74,
+        50,
+        1003,
+        1455
+      ],
+      "alpha_pixels": 536068,
+      "alpha_coverage": 0.3408,
+      "vertical_bands": [
+        {
+          "y": [
+            0.05,
+            0.2
+          ],
+          "alpha_width_px": 353,
+          "width_ratio": 0.3447
+        },
+        {
+          "y": [
+            0.2,
+            0.38
+          ],
+          "alpha_width_px": 513,
+          "width_ratio": 0.501
+        },
+        {
+          "y": [
+            0.38,
+            0.58
+          ],
+          "alpha_width_px": 671,
+          "width_ratio": 0.6553
+        },
+        {
+          "y": [
+            0.58,
+            0.78
+          ],
+          "alpha_width_px": 852,
+          "width_ratio": 0.832
+        },
+        {
+          "y": [
+            0.78,
+            0.95
+          ],
+          "alpha_width_px": 909,
+          "width_ratio": 0.8877
+        }
+      ]
+    },
+    "saved_alpha_constraints": {
+      "side": "semantic_layer_v8/constraints/side_alpha_constraint.png",
+      "back": "semantic_layer_v8/constraints/back_alpha_constraint.png"
+    },
+    "reference_contact_sheet": "semantic_layer_v8/validation/yuna_semantic_layer_v3_reference_constraints.png"
+  },
+  "parts": [
+    {
+      "id": "back_hair",
+      "category": "hair",
+      "parent": "head_proxy",
+      "generator": "hair_cards",
+      "depth": -0.58,
+      "thickness": 0.006,
+      "curvature": "wide_wrap",
+      "bbox": [
+        130,
+        480,
+        1009,
+        1035
+      ],
+      "texture": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/semantic_layer_v8/textures/back_hair.png",
+      "card_count": 14
+    },
+    {
+      "id": "side_hair_left",
+      "category": "hair",
+      "parent": "head_proxy",
+      "generator": "hair_cards",
+      "depth": 0.16,
+      "thickness": 0.004,
+      "curvature": "left_ribbon",
+      "bbox": [
+        134,
+        192,
+        509,
+        822
+      ],
+      "texture": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/semantic_layer_v8/textures/side_hair_left.png",
+      "card_count": 8
+    },
+    {
+      "id": "side_hair_right",
+      "category": "hair",
+      "parent": "head_proxy",
+      "generator": "hair_cards",
+      "depth": 0.22,
+      "thickness": 0.004,
+      "curvature": "right_ribbon",
+      "bbox": [
+        542,
+        130,
+        986,
+        875
+      ],
+      "texture": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/semantic_layer_v8/textures/side_hair_right.png",
+      "card_count": 9
+    },
+    {
+      "id": "torso_inner",
+      "category": "body",
+      "parent": "torso_proxy",
+      "generator": "curved_panel",
+      "depth": 0.0,
+      "thickness": 0.006,
+      "curvature": "torso_wrap",
+      "bbox": [
+        263,
+        302,
+        739,
+        887
+      ],
+      "texture": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/semantic_layer_v8/textures/torso_inner.png",
+      "card_count": 1
+    },
+    {
+      "id": "jacket_outer",
+      "category": "costume",
+      "parent": "torso_proxy",
+      "generator": "curved_panel",
+      "depth": 0.3,
+      "thickness": 0.006,
+      "curvature": "torso_wrap",
+      "bbox": [
+        221,
+        293,
+        832,
+        1021
+      ],
+      "texture": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/semantic_layer_v8/textures/jacket_outer.png",
+      "card_count": 1
+    },
+    {
+      "id": "cape_left",
+      "category": "cloth",
+      "parent": "torso_proxy",
+      "generator": "cloth_sheet",
+      "depth": -0.42,
+      "thickness": 0.004,
+      "curvature": "left_cloth_drape",
+      "bbox": [
+        73,
+        470,
+        443,
+        1371
+      ],
+      "texture": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/semantic_layer_v8/textures/cape_left.png",
+      "card_count": 1
+    },
+    {
+      "id": "cape_right",
+      "category": "cloth",
+      "parent": "torso_proxy",
+      "generator": "cloth_sheet",
+      "depth": -0.36,
+      "thickness": 0.004,
+      "curvature": "right_cloth_drape",
+      "bbox": [
+        585,
+        430,
+        1012,
+        1344
+      ],
+      "texture": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/semantic_layer_v8/textures/cape_right.png",
+      "card_count": 1
+    },
+    {
+      "id": "skirt_front",
+      "category": "cloth",
+      "parent": "torso_proxy",
+      "generator": "cloth_sheet",
+      "depth": 0.48,
+      "thickness": 0.004,
+      "curvature": "shallow_panel",
+      "bbox": [
+        340,
+        640,
+        695,
+        906
+      ],
+      "texture": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/semantic_layer_v8/textures/skirt_front.png",
+      "card_count": 1
+    },
+    {
+      "id": "legs",
+      "category": "body",
+      "parent": "torso_proxy",
+      "generator": "curved_panel",
+      "depth": 0.02,
+      "thickness": 0.006,
+      "curvature": "leg_rounding",
+      "bbox": [
+        308,
+        812,
+        714,
+        1264
+      ],
+      "texture": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/semantic_layer_v8/textures/legs.png",
+      "card_count": 1
+    },
+    {
+      "id": "boots",
+      "category": "costume",
+      "parent": "torso_proxy",
+      "generator": "curved_panel",
+      "depth": 0.38,
+      "thickness": 0.008,
+      "curvature": "hard_surface",
+      "bbox": [
+        328,
+        1195,
+        736,
+        1503
+      ],
+      "texture": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/semantic_layer_v8/textures/boots.png",
+      "card_count": 1
+    },
+    {
+      "id": "face",
+      "category": "face",
+      "parent": "head_proxy",
+      "generator": "face_plate",
+      "depth": 0.62,
+      "thickness": 0.004,
+      "curvature": "face_convex",
+      "bbox": [
+        414,
+        81,
+        637,
+        362
+      ],
+      "texture": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/semantic_layer_v8/textures/face.png",
+      "card_count": 1
+    },
+    {
+      "id": "bangs",
+      "category": "hair",
+      "parent": "head_proxy",
+      "generator": "hair_cards",
+      "depth": 0.76,
+      "thickness": 0.004,
+      "curvature": "bangs_convex",
+      "bbox": [
+        367,
+        49,
+        715,
+        438
+      ],
+      "texture": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/semantic_layer_v8/textures/bangs.png",
+      "card_count": 10
+    },
+    {
+      "id": "weapon",
+      "category": "weapon",
+      "parent": "hand_R_socket",
+      "generator": "weapon_panel",
+      "depth": 0.92,
+      "thickness": 0.012,
+      "curvature": "weapon_bevel_proxy",
+      "bbox": [
+        5,
+        607,
+        369,
+        1456
+      ],
+      "texture": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/semantic_layer_v8/textures/weapon.png",
+      "card_count": 1
+    }
+  ],
+  "exports": {
+    "blend": "semantic_layer_v8/exports/yuna_semantic_layer_v8.blend",
+    "glb": "semantic_layer_v8/exports/yuna_semantic_layer_v8.glb",
+    "glb_cage_debug": "semantic_layer_v8/exports/yuna_semantic_layer_v8_cage_debug.glb",
+    "fbx": "semantic_layer_v8/exports/yuna_semantic_layer_v8.fbx",
+    "obj": "semantic_layer_v8/exports/yuna_semantic_layer_v8.obj",
+    "validation_screenshots": {
+      "front": "semantic_layer_v8/validation/yuna_semantic_layer_v8_front.png",
+      "yaw15": "semantic_layer_v8/validation/yuna_semantic_layer_v8_yaw15.png",
+      "yaw30": "semantic_layer_v8/validation/yuna_semantic_layer_v8_yaw30.png",
+      "side_cage": "semantic_layer_v8/validation/yuna_semantic_layer_v8_side_cage.png",
+      "cage_wire": "semantic_layer_v8/validation/yuna_semantic_layer_v8_cage_wire.png",
+      "exploded": "semantic_layer_v8/validation/yuna_semantic_layer_v8_exploded.png"
+    },
+    "blender_exit_code": 0,
+    "blender_log_tail": [
+      "23:34:40 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Extracting primitive: cape_left_mesh",
+      "23:34:40 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Extracting primitive: cape_right_mesh",
+      "23:34:40 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Extracting primitive: skirt_front_mesh",
+      "23:34:40 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Extracting primitive: boots_mesh",
+      "23:34:40 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Extracting primitive: face_mesh",
+      "23:34:40 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Extracting primitive: bangs_mesh",
+      "23:34:40 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Extracting primitive: weapon_mesh",
+      "23:34:40 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Extracting primitive: leg_L_visual_panel_mesh",
+      "23:34:40 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Extracting primitive: leg_R_visual_panel_mesh",
+      "23:34:40 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Extracting primitive: leg_L_retopo_proxy_mesh",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Extracting primitive: leg_R_retopo_proxy_mesh",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Extracting primitive: boot_L_hardsurface_proxy_mesh",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Extracting primitive: boot_R_hardsurface_proxy_mesh",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Extracting primitive: Torus",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Extracting primitive: Torus.001",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Extracting primitive: Torus.002",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Extracting primitive: Torus.003",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Extracting primitive: Sphere",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Extracting primitive: Sphere.001",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Extracting primitive: Cylinder",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Extracting primitive: Cylinder.001",
+      "23:34:40 | INFO: Primitives created: 1",
+      "23:34:40 | INFO: Finished glTF 2.0 export in 0.04768991470336914 s",
+      "",
+      "Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)",
+      "Writing to /Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/semantic_layer_v8/exports/yuna_semantic_layer_v8.obj",
+      "OBJ export of 'yuna_semantic_layer_v8.obj' took 9.66 ms",
+      "",
+      "Blender quit"
+    ]
+  },
+  "glb_roundtrip": {
+    "mesh_count": 14,
+    "empty_count": 9,
+    "material_count": 16,
+    "mesh_names": [
+      "back_hair",
+      "side_hair_left",
+      "side_hair_right",
+      "torso_inner",
+      "jacket_outer",
+      "cape_left",
+      "cape_right",
+      "skirt_front",
+      "boots",
+      "face",
+      "bangs",
+      "weapon",
+      "leg_L_visual_panel",
+      "leg_R_visual_panel"
+    ],
+    "empty_names": [
+      "hook_bangs_spring",
+      "hook_back_hair_spring",
+      "hook_cape_left_swing",
+      "hook_cape_right_swing",
+      "hand_R_socket_weapon",
+      "hook_knee_L",
+      "hook_knee_R",
+      "hook_ankle_L",
+      "hook_ankle_R"
+    ],
+    "status": "ok",
+    "blender_exit_code": 0
+  },
+  "cage_glb_roundtrip": {
+    "mesh_count": 26,
+    "empty_count": 9,
+    "material_count": 21,
+    "mesh_names": [
+      "back_hair",
+      "side_hair_left",
+      "side_hair_right",
+      "torso_inner",
+      "jacket_outer",
+      "cape_left",
+      "cape_right",
+      "skirt_front",
+      "boots",
+      "face",
+      "bangs",
+      "weapon",
+      "leg_L_visual_panel",
+      "leg_R_visual_panel",
+      "leg_L_retopo_proxy",
+      "leg_R_retopo_proxy",
+      "boot_L_hardsurface_proxy",
+      "boot_R_hardsurface_proxy",
+      "leg_L_thigh_strap_proxy",
+      "leg_R_thigh_strap_proxy",
+      "leg_L_knee_loop_proxy",
+      "leg_R_knee_loop_proxy",
+      "cage_head_ellipsoid",
+      "cage_torso_ellipsoid",
+      "cage_leg_L_capsule_proxy",
+      "cage_leg_R_capsule_proxy"
+    ],
+    "empty_names": [
+      "hook_bangs_spring",
+      "hook_back_hair_spring",
+      "hook_cape_left_swing",
+      "hook_cape_right_swing",
+      "hand_R_socket_weapon",
+      "hook_knee_L",
+      "hook_knee_R",
+      "hook_ankle_L",
+      "hook_ankle_R"
+    ],
+    "status": "ok",
+    "blender_exit_code": 0
+  },
+  "fbx_roundtrip": {
+    "status": "ok",
+    "error": null,
+    "kind": "fbx",
+    "mesh_count": 14,
+    "empty_count": 9,
+    "material_count": 16,
+    "mesh_names": [
+      "back_hair",
+      "bangs",
+      "boots",
+      "cape_left",
+      "cape_right",
+      "face",
+      "jacket_outer",
+      "leg_L_visual_panel",
+      "leg_R_visual_panel",
+      "side_hair_left",
+      "side_hair_right",
+      "skirt_front",
+      "torso_inner",
+      "weapon"
+    ],
+    "empty_names": [
+      "hand_R_socket_weapon",
+      "hook_ankle_L",
+      "hook_ankle_R",
+      "hook_back_hair_spring",
+      "hook_bangs_spring",
+      "hook_cape_left_swing",
+      "hook_cape_right_swing",
+      "hook_knee_L",
+      "hook_knee_R"
+    ],
+    "blender_exit_code": 0
+  },
+  "obj_roundtrip": {
+    "status": "ok",
+    "error": null,
+    "kind": "obj",
+    "mesh_count": 14,
+    "empty_count": 0,
+    "material_count": 16,
+    "mesh_names": [
+      "back_hair",
+      "bangs",
+      "boots",
+      "cape_left",
+      "cape_right",
+      "face",
+      "jacket_outer",
+      "leg_L_visual_panel",
+      "leg_R_visual_panel",
+      "side_hair_left",
+      "side_hair_right",
+      "skirt_front",
+      "torso_inner",
+      "weapon"
+    ],
+    "empty_names": [],
+    "blender_exit_code": 0
+  },
+  "quality": {
+    "status": "generated_with_warnings",
+    "failures": [],
+    "warnings": [
+      "v4 removes cutout sidewalls but still relies on alpha render shells, not clean production topology",
+      "side view should be judged with the cage-debug screenshot, not as a finished character profile",
+      "weapon is still a textured independent prop panel; hard-surface ortho reconstruction remains next",
+      "v8 removes gray leg guide blocks from beauty renders; real skinned legs still require DCC retopo"
+    ],
+    "render_shell_parts": [
+      "back_hair",
+      "side_hair_left",
+      "side_hair_right",
+      "torso_inner",
+      "jacket_outer",
+      "cape_left",
+      "cape_right",
+      "skirt_front",
+      "legs",
+      "boots",
+      "face",
+      "bangs",
+      "weapon"
+    ],
+    "mesh_counts": {
+      "main_glb_mesh_count": 14,
+      "cage_debug_glb_mesh_count": 26,
+      "fbx_mesh_count": 14,
+      "obj_mesh_count": 14,
+      "main_material_count": 16,
+      "cage_debug_material_count": 21,
+      "fbx_material_count": 16,
+      "obj_material_count": 16
+    },
+    "part_grammar_counts": {
+      "cloth_sheet": 3,
+      "curved_panel": 4,
+      "face_plate": 1,
+      "hair_cards": 4,
+      "weapon_panel": 1
+    },
+    "v8_required_main_meshes": [
+      "boots",
+      "leg_L_visual_panel",
+      "leg_R_visual_panel"
+    ],
+    "v8_debug_only_meshes": [
+      "boot_L_hardsurface_proxy",
+      "boot_R_hardsurface_proxy",
+      "leg_L_knee_loop_proxy",
+      "leg_L_retopo_proxy",
+      "leg_L_thigh_strap_proxy",
+      "leg_R_knee_loop_proxy",
+      "leg_R_retopo_proxy",
+      "leg_R_thigh_strap_proxy"
+    ]
+  },
+  "next_manual_cleanup": [
+    "Hand-retopo split leg visual panels into continuous quad loops.",
+    "Use cage-debug leg volumes only as side/depth guides.",
+    "Rebuild boots from orthographic shoe silhouettes with bevels."
+  ]
+}
