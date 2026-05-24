@@ -1,0 +1,58 @@
+{
+  "route": "semantic_layer_v9_executable_plan",
+  "created_from": "semantic_layer_v9_candidate",
+  "baseline": {
+    "route": "semantic_layer_v8_beauty_main_debug_cage_split",
+    "spec": "CharacterPackage/semantic_layer_v8/specs/yuna_semantic_layer_v8.json",
+    "beauty_glb": "CharacterPackage/semantic_layer_v8/exports/yuna_semantic_layer_v8.glb",
+    "cage_debug_glb": "CharacterPackage/semantic_layer_v8/exports/yuna_semantic_layer_v8_cage_debug.glb",
+    "validation_report": "CharacterPackage/semantic_layer_v8/validation_report.json"
+  },
+  "actuated_parts": [
+    {
+      "part_id": "weapon",
+      "actuator": "weapon_hardsurface_ortho_v0",
+      "status": "generated_with_warnings",
+      "candidate_exports": {
+        "spec": "CharacterPackage/semantic_layer_v9_weapon/specs/yuna_semantic_layer_v9_weapon.json",
+        "obj": "CharacterPackage/semantic_layer_v9_weapon/exports/yuna_semantic_layer_v9_weapon.obj",
+        "mtl": "CharacterPackage/semantic_layer_v9_weapon/exports/yuna_semantic_layer_v9_weapon.mtl",
+        "glb": "CharacterPackage/semantic_layer_v9_weapon/exports/yuna_semantic_layer_v9_weapon.glb",
+        "blend": "CharacterPackage/semantic_layer_v9_weapon/exports/yuna_semantic_layer_v9_weapon.blend",
+        "report": "CharacterPackage/semantic_layer_v9_weapon/validation_report.json"
+      },
+      "validation_report": "CharacterPackage/semantic_layer_v9_weapon/validation_report.json",
+      "blender_validation_report": "CharacterPackage/semantic_layer_v9_weapon/validation_ci/validation_ci_report.json",
+      "blender_validation_status": "passed_with_warnings",
+      "known_limits": [
+        "v0 uses an alpha-profile hard-surface proxy, not a final hand-modeled weapon.",
+        "v8 beauty weapon remains active until screenshot/import validation passes.",
+        "weapon candidate is an actuator proxy, not final DCC hard-surface art",
+        "v8 beauty GLB remains the active baseline until replacement validation is accepted"
+      ]
+    }
+  ],
+  "kept_from_v8_parts": [
+    "back_hair",
+    "side_hair_left",
+    "side_hair_right",
+    "torso_inner",
+    "jacket_outer",
+    "cape_left",
+    "cape_right",
+    "skirt_front",
+    "legs",
+    "boots",
+    "face",
+    "bangs"
+  ],
+  "replacement_policy": {
+    "replace_in_beauty_glb": false,
+    "reason": "v9 weapon is a candidate actuator output. v8 beauty meshes remain active until user accepts validation and integration pass.",
+    "must_preserve_front_identity": true,
+    "must_keep_debug_guides_out_of_beauty": true,
+    "side_back_are_soft_constraints": true
+  },
+  "next_recommended_actuator": "boot_hardsurface_ortho",
+  "next_recommended_reason": "Boots are independent enough to improve hard-surface quality without touching full leg retopology yet."
+}

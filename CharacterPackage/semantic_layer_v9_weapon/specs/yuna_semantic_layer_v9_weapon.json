@@ -1,0 +1,55 @@
+{
+  "route": "semantic_layer_v9_weapon_hardsurface_ortho_v0",
+  "source_route": "semantic_layer_v9_candidate_spec_only",
+  "baseline": "semantic_layer_v8_beauty_main_debug_cage_split",
+  "boundary": "Independent weapon candidate only. It does not replace the v8 beauty weapon until validation passes.",
+  "part": {
+    "id": "weapon",
+    "category": "weapon",
+    "generator": "weapon_hardsurface_ortho_v0",
+    "source_texture": "CharacterPackage/semantic_layer_v8/textures/weapon.png",
+    "hand_socket": "hand_R_socket",
+    "replace_in_beauty_glb": false,
+    "independent_object": true,
+    "candidate_only": true
+  },
+  "source_decision": {
+    "part_id": "weapon",
+    "decision": "upgrade_required",
+    "confidence": 0.95,
+    "old_generator": "weapon_panel",
+    "proposed_generator": "weapon_hardsurface_ortho",
+    "old_depth": 0.92,
+    "proposed_depth": 0.92,
+    "visible_in_beauty": true,
+    "visible_in_cage": true,
+    "debug_only": false,
+    "constraints_applied": [
+      "semantic_part_independence",
+      "weapon_must_remain_independent",
+      "beauty_and_cage_exports_remain_separate",
+      "side_back_are_soft_constraints",
+      "existing_beauty_mesh_kept_until_replacement_validated",
+      "front_identity_preserved"
+    ],
+    "reason": "Current weapon is an independent textured panel; the next asset route requires orthographic hard-surface reconstruction.",
+    "next_action": "Build a separate beveled hard-surface weapon mesh from the orthographic sheet."
+  },
+  "mesh": {
+    "vertices": 216,
+    "uvs": 216,
+    "faces": 214,
+    "section_count": 36,
+    "thickness": 0.16,
+    "bevel": 0.035,
+    "material_face_counts": {
+      "textured": 70,
+      "side": 144
+    }
+  },
+  "exports": {
+    "obj": "CharacterPackage/semantic_layer_v9_weapon/exports/yuna_semantic_layer_v9_weapon.obj",
+    "glb": "CharacterPackage/semantic_layer_v9_weapon/exports/yuna_semantic_layer_v9_weapon.glb",
+    "report": "CharacterPackage/semantic_layer_v9_weapon/validation_report.json"
+  }
+}

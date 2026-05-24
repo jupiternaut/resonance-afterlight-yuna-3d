@@ -101,6 +101,44 @@ class SemanticStateFilterV0Tests(unittest.TestCase):
         self.assertEqual(spec_before, sha256(SPEC_PATH))
         self.assertEqual(report_before, sha256(VALIDATION_REPORT_PATH))
 
+    def test_filter_report_and_candidate_spec_are_valid_json_contracts(self) -> None:
+        report_path = REPO_ROOT / "CharacterPackage" / "semantic_layer_v9_candidate" / "filter_report.json"
+        candidate_path = (
+            REPO_ROOT
+            / "CharacterPackage"
+            / "semantic_layer_v9_candidate"
+            / "specs"
+            / "yuna_semantic_layer_v9_candidate.json"
+        )
+
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        candidate = json.loads(candidate_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(report["route"], "semantic_state_filter_v0_on_v8")
+        self.assertEqual(candidate["route"], "semantic_layer_v9_candidate_spec_only")
+        self.assertTrue(report["constraints"]["side_back_are_soft"])
+        self.assertTrue(candidate["constraints"]["keep_beauty_and_cage_separate"])
+        self.assertFalse(
+            any(
+                decision["visible_in_beauty"]
+                for decision in report["part_decisions"]
+                if decision["debug_only"]
+            )
+        )
+
+    def test_candidate_contract_marks_weapon_boots_and_debug_guides(self) -> None:
+        report_path = REPO_ROOT / "CharacterPackage" / "semantic_layer_v9_candidate" / "filter_report.json"
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        decisions = {decision["part_id"]: decision for decision in report["part_decisions"]}
+
+        self.assertEqual(decisions["weapon"]["proposed_generator"], "weapon_hardsurface_ortho")
+        self.assertEqual(decisions["weapon"]["decision"], "upgrade_required")
+        self.assertEqual(decisions["boots"]["proposed_generator"], "boot_hardsurface_ortho")
+        self.assertEqual(decisions["boots"]["decision"], "upgrade_required")
+        self.assertEqual(decisions["leg_L_retopo_proxy"]["decision"], "keep_debug_only")
+        self.assertFalse(decisions["leg_L_retopo_proxy"]["visible_in_beauty"])
+        self.assertTrue(decisions["leg_L_retopo_proxy"]["visible_in_cage"])
+
 
 if __name__ == "__main__":
     unittest.main()
