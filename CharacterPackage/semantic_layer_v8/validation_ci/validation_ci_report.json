@@ -1,0 +1,195 @@
+{
+  "created_at": "2026-05-24T17:45:39.293533+00:00",
+  "route": "semantic_layer_validation_ci_v0",
+  "input_route": "semantic_layer_v8_beauty_main_debug_cage_split",
+  "status": "passed_with_warnings",
+  "boundary": "Screenshot validation only. This does not generate mesh or certify production topology.",
+  "inputs": {
+    "main_glb": {
+      "path": "CharacterPackage/semantic_layer_v8/exports/yuna_semantic_layer_v8.glb",
+      "exists": true,
+      "bytes": 22268232
+    },
+    "cage_glb": {
+      "path": "CharacterPackage/semantic_layer_v8/exports/yuna_semantic_layer_v8_cage_debug.glb",
+      "exists": true,
+      "bytes": 22403908
+    },
+    "source_report": {
+      "path": "CharacterPackage/semantic_layer_v8/validation_report.json",
+      "exists": true,
+      "bytes": 19479
+    }
+  },
+  "screenshots": {
+    "front": {
+      "path": "CharacterPackage/semantic_layer_v8/validation_ci/yuna_semantic_layer_v8_ci_front.png",
+      "exists": true,
+      "bytes": 2094973
+    },
+    "yaw15": {
+      "path": "CharacterPackage/semantic_layer_v8/validation_ci/yuna_semantic_layer_v8_ci_yaw15.png",
+      "exists": true,
+      "bytes": 2121964
+    },
+    "yaw30": {
+      "path": "CharacterPackage/semantic_layer_v8/validation_ci/yuna_semantic_layer_v8_ci_yaw30.png",
+      "exists": true,
+      "bytes": 2059307
+    },
+    "side_cage": {
+      "path": "CharacterPackage/semantic_layer_v8/validation_ci/yuna_semantic_layer_v8_ci_side_cage.png",
+      "exists": true,
+      "bytes": 1018403
+    },
+    "cage_wire": {
+      "path": "CharacterPackage/semantic_layer_v8/validation_ci/yuna_semantic_layer_v8_ci_cage_wire.png",
+      "exists": true,
+      "bytes": 2100290
+    },
+    "exploded": {
+      "path": "CharacterPackage/semantic_layer_v8/validation_ci/yuna_semantic_layer_v8_ci_exploded.png",
+      "exists": true,
+      "bytes": 2155456
+    }
+  },
+  "inventory": {
+    "beauty_mesh_count": 14,
+    "cage_mesh_count": 26,
+    "beauty_mesh_names": [
+      "back_hair",
+      "side_hair_left",
+      "side_hair_right",
+      "torso_inner",
+      "jacket_outer",
+      "cape_left",
+      "cape_right",
+      "skirt_front",
+      "boots",
+      "face",
+      "bangs",
+      "weapon",
+      "leg_L_visual_panel",
+      "leg_R_visual_panel"
+    ],
+    "cage_mesh_names": [
+      "back_hair.001",
+      "side_hair_left.001",
+      "side_hair_right.001",
+      "torso_inner.001",
+      "jacket_outer.001",
+      "cape_left.001",
+      "cape_right.001",
+      "skirt_front.001",
+      "boots.001",
+      "face.001",
+      "bangs.001",
+      "weapon.001",
+      "leg_L_visual_panel.001",
+      "leg_R_visual_panel.001",
+      "leg_L_retopo_proxy",
+      "leg_R_retopo_proxy",
+      "boot_L_hardsurface_proxy",
+      "boot_R_hardsurface_proxy",
+      "leg_L_thigh_strap_proxy",
+      "leg_R_thigh_strap_proxy",
+      "leg_L_knee_loop_proxy",
+      "leg_R_knee_loop_proxy",
+      "cage_head_ellipsoid",
+      "cage_torso_ellipsoid",
+      "cage_leg_L_capsule_proxy",
+      "cage_leg_R_capsule_proxy"
+    ]
+  },
+  "split_checks": {
+    "source_report": "CharacterPackage/semantic_layer_v8/validation_report.json",
+    "source_status": "generated_with_warnings",
+    "required_main_meshes": [
+      "boots",
+      "leg_L_visual_panel",
+      "leg_R_visual_panel"
+    ],
+    "debug_only_meshes": [
+      "boot_L_hardsurface_proxy",
+      "boot_R_hardsurface_proxy",
+      "leg_L_knee_loop_proxy",
+      "leg_L_retopo_proxy",
+      "leg_L_thigh_strap_proxy",
+      "leg_R_knee_loop_proxy",
+      "leg_R_retopo_proxy",
+      "leg_R_thigh_strap_proxy"
+    ],
+    "missing_main_meshes": [],
+    "debug_guides_leaked_to_beauty": [],
+    "debug_guides_missing_from_cage": [],
+    "passed": true
+  },
+  "quality": {
+    "missing_screenshots": [],
+    "inherited_warnings": [
+      "v4 removes cutout sidewalls but still relies on alpha render shells, not clean production topology",
+      "side view should be judged with the cage-debug screenshot, not as a finished character profile",
+      "weapon is still a textured independent prop panel; hard-surface ortho reconstruction remains next",
+      "v8 removes gray leg guide blocks from beauty renders; real skinned legs still require DCC retopo"
+    ],
+    "next_required_step": "Run v9 actuator only after candidate output passes these screenshot gates."
+  },
+  "wrapper": {
+    "blender": "/opt/homebrew/bin/blender",
+    "exit_code": 0,
+    "log": "CharacterPackage/semantic_layer_v8/validation_ci/blender_validation_ci.log",
+    "log_tail": [
+      "01:45:25 | INFO: Data are loaded, start creating Blender stuff",
+      "01:45:25 | INFO: Blender create Mesh node back_hair_mesh",
+      "01:45:25 | INFO: Blender create Mesh node side_hair_left_mesh",
+      "01:45:25 | INFO: Blender create Mesh node side_hair_right_mesh",
+      "01:45:25 | INFO: Blender create Mesh node torso_inner_mesh",
+      "01:45:25 | INFO: Blender create Mesh node jacket_outer_mesh",
+      "01:45:25 | INFO: Blender create Mesh node cape_left_mesh",
+      "01:45:25 | INFO: Blender create Mesh node cape_right_mesh",
+      "01:45:25 | INFO: Blender create Mesh node skirt_front_mesh",
+      "01:45:25 | INFO: Blender create Mesh node boots_mesh",
+      "01:45:25 | INFO: Blender create Mesh node face_mesh",
+      "01:45:25 | INFO: Blender create Mesh node bangs_mesh",
+      "01:45:25 | INFO: Blender create Mesh node weapon_mesh",
+      "01:45:25 | INFO: Blender create Mesh node leg_L_visual_panel_mesh",
+      "01:45:25 | INFO: Blender create Mesh node leg_R_visual_panel_mesh",
+      "01:45:25 | INFO: glTF import finished in 0.02s",
+      "01:45:25 | INFO: Data are loaded, start creating Blender stuff",
+      "01:45:25 | INFO: Blender create Mesh node back_hair_mesh",
+      "01:45:25 | INFO: Blender create Mesh node side_hair_left_mesh",
+      "01:45:25 | INFO: Blender create Mesh node side_hair_right_mesh",
+      "01:45:25 | INFO: Blender create Mesh node torso_inner_mesh",
+      "01:45:25 | INFO: Blender create Mesh node jacket_outer_mesh",
+      "01:45:25 | INFO: Blender create Mesh node cape_left_mesh",
+      "01:45:25 | INFO: Blender create Mesh node cape_right_mesh",
+      "01:45:25 | INFO: Blender create Mesh node skirt_front_mesh",
+      "01:45:25 | INFO: Blender create Mesh node boots_mesh",
+      "01:45:25 | INFO: Blender create Mesh node face_mesh",
+      "01:45:25 | INFO: Blender create Mesh node bangs_mesh",
+      "01:45:25 | INFO: Blender create Mesh node weapon_mesh",
+      "01:45:25 | INFO: Blender create Mesh node leg_L_visual_panel_mesh",
+      "01:45:25 | INFO: Blender create Mesh node leg_R_visual_panel_mesh",
+      "01:45:25 | INFO: Blender create Mesh node leg_L_retopo_proxy_mesh",
+      "01:45:25 | INFO: Blender create Mesh node leg_R_retopo_proxy_mesh",
+      "01:45:25 | INFO: Blender create Mesh node boot_L_hardsurface_proxy_mesh",
+      "01:45:25 | INFO: Blender create Mesh node boot_R_hardsurface_proxy_mesh",
+      "01:45:25 | INFO: Blender create Mesh node Torus",
+      "01:45:25 | INFO: Blender create Mesh node Torus.001",
+      "01:45:25 | INFO: Blender create Mesh node Torus.002",
+      "01:45:25 | INFO: Blender create Mesh node Torus.003",
+      "01:45:25 | INFO: Blender create Mesh node Sphere",
+      "01:45:25 | INFO: Blender create Mesh node Sphere.001",
+      "01:45:25 | INFO: Blender create Mesh node Cylinder",
+      "01:45:25 | INFO: Blender create Mesh node Cylinder.001",
+      "01:45:25 | INFO: glTF import finished in 0.03s",
+      "00:03.665  render           | Saved: '/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/validation_ci/yuna_semantic_layer_v8_ci_front.png'",
+      "00:06.254  render           | Saved: '/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/validation_ci/yuna_semantic_layer_v8_ci_yaw15.png'",
+      "00:08.440  render           | Saved: '/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/validation_ci/yuna_semantic_layer_v8_ci_yaw30.png'",
+      "00:09.823  render           | Saved: '/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/validation_ci/yuna_semantic_layer_v8_ci_side_cage.png'",
+      "00:12.391  render           | Saved: '/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/validation_ci/yuna_semantic_layer_v8_ci_cage_wire.png'",
+      "00:14.760  render           | Saved: '/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/validation_ci/yuna_semantic_layer_v8_ci_exploded.png'",
+      "Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)"
+    ]
+  }
+}
