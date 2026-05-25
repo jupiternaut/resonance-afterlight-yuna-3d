@@ -283,9 +283,11 @@ def worker_main(args: argparse.Namespace) -> int:
     bpy.context.scene.render.resolution_y = args.resolution_y
     bpy.context.scene.world.color = (0.03, 0.03, 0.03)
 
+    screenshot_prefix = args.candidate_glb.stem
+
     def render(key: str, group: str) -> Path:
         set_group_visibility(group)
-        path = args.output_dir / f"yuna_semantic_layer_v9_weapon_validation_{key}.png"
+        path = args.output_dir / f"{screenshot_prefix}_validation_{key}.png"
         bpy.context.scene.camera = cameras[key]
         bpy.context.scene.render.filepath = str(path)
         bpy.ops.render.render(write_still=True)
@@ -317,9 +319,19 @@ def worker_main(args: argparse.Namespace) -> int:
         for key, path in screenshot_paths.items()
     }
     missing_screenshots = [key for key, value in screenshot_records.items() if not value["exists"] or value["bytes"] <= 0]
-    has_socket = any(obj.name.startswith("hand_R_socket") for obj in candidate_empties)
+    candidate_part = candidate_report.get("part_id", "unknown")
+    has_weapon_socket = any(obj.name.startswith("hand_R_socket") for obj in candidate_empties)
+    has_foot_socket = any(obj.name.startswith("foot_L_socket") for obj in candidate_empties) and any(
+        obj.name.startswith("foot_R_socket") for obj in candidate_empties
+    )
     candidate_names = [obj.name for obj in candidate_meshes]
-    status = "passed_with_warnings" if not missing_screenshots and candidate_meshes and has_socket else "failed"
+    if candidate_part == "weapon":
+        contract_passed = any("weapon_hardsurface_ortho_v0" in name for name in candidate_names) and has_weapon_socket
+    elif candidate_part == "boots":
+        contract_passed = bool(candidate_meshes) and has_foot_socket
+    else:
+        contract_passed = bool(candidate_meshes)
+    status = "passed_with_warnings" if not missing_screenshots and contract_passed else "failed"
 
     report = {
         "created_at": datetime.now(timezone.utc).isoformat(),
@@ -342,14 +354,18 @@ def worker_main(args: argparse.Namespace) -> int:
             "candidate_empty_names": [obj.name for obj in candidate_empties],
         },
         "candidate_contract": {
+            "part_id": candidate_part,
+            "has_independent_candidate_mesh": bool(candidate_meshes),
             "has_independent_weapon_mesh": any("weapon_hardsurface_ortho_v0" in name for name in candidate_names),
-            "has_hand_R_socket": has_socket,
+            "has_boot_candidate_meshes": bool(candidate_meshes) if candidate_part == "boots" else None,
+            "has_hand_R_socket": has_weapon_socket,
+            "has_foot_sockets": has_foot_socket,
             "replace_in_beauty_glb": candidate_report.get("validation", {}).get("replace_in_beauty_glb"),
         },
         "quality": {
             "missing_screenshots": missing_screenshots,
             "known_limits": [
-                "weapon candidate is an actuator proxy, not final DCC hard-surface art",
+                f"{candidate_part} candidate is an actuator proxy, not final DCC hard-surface art",
                 "v8 beauty GLB remains the active baseline until replacement validation is accepted",
             ],
         },

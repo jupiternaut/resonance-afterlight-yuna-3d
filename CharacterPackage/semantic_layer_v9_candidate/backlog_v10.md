@@ -10,6 +10,8 @@
 
 ## 1. Boot Hard-Surface Ortho
 
+Status: completed as `boot_hardsurface_ortho_v0`.
+
 Goal:
 
 - Generate independent boot candidates with thickness, bevel proxy, material separation, and validation screenshots.
@@ -20,6 +22,12 @@ Acceptance:
 - Existing v8 boot beauty stays active until candidate validation passes.
 - No leg/cage debug volumes leak into beauty.
 - Screenshots: front, yaw15, yaw30, side, wire, exploded.
+
+Remaining for v1:
+
+- Remove leg/cloth texture residue from the boot source.
+- Separate left/right boot intent more cleanly.
+- Do not replace v8 beauty boots until integration validation passes.
 
 ## 2. Leg Quad-Loop Retopo Proxy
 

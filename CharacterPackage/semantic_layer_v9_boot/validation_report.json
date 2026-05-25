@@ -1,0 +1,163 @@
+{
+  "created_at": "2026-05-25T00:07:43.693284+00:00",
+  "route": "semantic_layer_v9_boot_hardsurface_ortho_v0",
+  "actuator": "boot_hardsurface_ortho_v0",
+  "status": "generated_with_warnings",
+  "part_id": "boots",
+  "decision_source": "CharacterPackage/semantic_layer_v9_candidate/filter_report.json",
+  "generated_files": {
+    "spec": "CharacterPackage/semantic_layer_v9_boot/specs/yuna_semantic_layer_v9_boot.json",
+    "obj": "CharacterPackage/semantic_layer_v9_boot/exports/yuna_semantic_layer_v9_boot.obj",
+    "mtl": "CharacterPackage/semantic_layer_v9_boot/exports/yuna_semantic_layer_v9_boot.mtl",
+    "glb": "CharacterPackage/semantic_layer_v9_boot/exports/yuna_semantic_layer_v9_boot.glb",
+    "blend": "CharacterPackage/semantic_layer_v9_boot/exports/yuna_semantic_layer_v9_boot.blend",
+    "report": "CharacterPackage/semantic_layer_v9_boot/validation_report.json"
+  },
+  "mesh_summary": {
+    "component_count": 4,
+    "vertices": 576,
+    "uvs": 576,
+    "faces": 568,
+    "thickness": 0.13,
+    "bevel": 0.025,
+    "components": [
+      {
+        "id": "boot_component_01",
+        "bbox": [
+          328,
+          1195,
+          343,
+          1263
+        ],
+        "area": 688,
+        "vertices": 144,
+        "uvs": 144,
+        "faces": 142,
+        "section_count": 24,
+        "thickness": 0.13,
+        "bevel": 0.025,
+        "material_face_counts": {
+          "textured": 46,
+          "side": 96
+        }
+      },
+      {
+        "id": "boot_component_02",
+        "bbox": [
+          380,
+          1195,
+          493,
+          1503
+        ],
+        "area": 17194,
+        "vertices": 144,
+        "uvs": 144,
+        "faces": 142,
+        "section_count": 24,
+        "thickness": 0.13,
+        "bevel": 0.025,
+        "material_face_counts": {
+          "textured": 46,
+          "side": 96
+        }
+      },
+      {
+        "id": "boot_component_03",
+        "bbox": [
+          507,
+          1195,
+          605,
+          1458
+        ],
+        "area": 13670,
+        "vertices": 144,
+        "uvs": 144,
+        "faces": 142,
+        "section_count": 24,
+        "thickness": 0.13,
+        "bevel": 0.025,
+        "material_face_counts": {
+          "textured": 46,
+          "side": 96
+        }
+      },
+      {
+        "id": "boot_component_04",
+        "bbox": [
+          695,
+          1195,
+          736,
+          1288
+        ],
+        "area": 2523,
+        "vertices": 144,
+        "uvs": 144,
+        "faces": 142,
+        "section_count": 24,
+        "thickness": 0.13,
+        "bevel": 0.025,
+        "material_face_counts": {
+          "textured": 46,
+          "side": 96
+        }
+      }
+    ]
+  },
+  "validation": {
+    "independent_objects": true,
+    "has_thickness": true,
+    "has_bevel_proxy": true,
+    "has_uvs": true,
+    "has_front_texture_material": true,
+    "has_side_material": true,
+    "has_foot_socket_metadata": true,
+    "replace_in_beauty_glb": false,
+    "obj": {
+      "path": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_boot/exports/yuna_semantic_layer_v9_boot.obj",
+      "exists": true,
+      "bytes": 52991
+    },
+    "glb": {
+      "path": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_boot/exports/yuna_semantic_layer_v9_boot.glb",
+      "exists": true,
+      "bytes": 1645300
+    },
+    "blender_glb_export": {
+      "status": "ok",
+      "blender": "/opt/homebrew/bin/blender",
+      "exit_code": 0,
+      "glb_exists": true,
+      "glb_bytes": 1645300,
+      "blend_exists": true,
+      "blend_path": "CharacterPackage/semantic_layer_v9_boot/exports/yuna_semantic_layer_v9_boot.blend",
+      "log_tail": [
+        "/var/folders/9j/cx6fkz613dd_6545wf7kvt4w0000gn/T/tmpjani8ttz.py:11: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0",
+        "  front_mat.use_nodes = True",
+        "/var/folders/9j/cx6fkz613dd_6545wf7kvt4w0000gn/T/tmpjani8ttz.py:24: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0",
+        "  side_mat.use_nodes = True",
+        "Info: Saved as \"yuna_semantic_layer_v9_boot.blend\"",
+        "INFO Draco mesh compression is available, use library at /Applications/Blender.app/Contents/Resources/5.1/scripts/addons_core/io_scene_gltf2/libextern_draco.dylib",
+        "08:07:43 | INFO: Starting glTF 2.0 export",
+        "08:07:43 | INFO: Extracting primitive: boot_component_01_mesh",
+        "08:07:43 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+        "08:07:43 | INFO: Primitives created: 2",
+        "08:07:43 | INFO: Extracting primitive: boot_component_02_mesh",
+        "08:07:43 | INFO: Primitives created: 2",
+        "08:07:43 | INFO: Extracting primitive: boot_component_03_mesh",
+        "08:07:43 | INFO: Primitives created: 2",
+        "08:07:43 | INFO: Extracting primitive: boot_component_04_mesh",
+        "08:07:43 | INFO: Primitives created: 2",
+        "08:07:43 | INFO: Finished glTF 2.0 export in 0.03504204750061035 s",
+        "",
+        "Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)",
+        "",
+        "Blender quit"
+      ]
+    }
+  },
+  "warnings": [
+    "v0 splits visible boot texture components but does not solve leg/ankle topology.",
+    "v8 beauty boots remain active until screenshot/import validation passes."
+  ],
+  "errors": []
+}

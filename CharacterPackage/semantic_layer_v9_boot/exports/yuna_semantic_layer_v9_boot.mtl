@@ -1,0 +1,12 @@
+newmtl boot_front_texture
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.100 0.100 0.100
+d 1.000
+map_Kd boots.png
+
+newmtl boot_side_material
+Ka 0.025 0.025 0.032
+Kd 0.050 0.050 0.065
+Ks 0.170 0.170 0.190
+d 1.000
