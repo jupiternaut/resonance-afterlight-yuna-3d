@@ -31,6 +31,8 @@ Remaining for v1:
 
 ## 2. Leg Quad-Loop Retopo Proxy
 
+Status: completed as `leg_quad_loop_retopo_proxy_v0`.
+
 Goal:
 
 - Prepare a retopo proxy spec for continuous thigh/knee/shin/ankle loops.
@@ -45,6 +47,12 @@ Acceptance:
 - Knee and ankle loop intent is machine-readable.
 - Proxy remains debug/cage until validated.
 - No gray volume guide leaks into beauty.
+
+Remaining for v1:
+
+- Add actual skinning/weight deformation tests for knee and ankle.
+- Refine leg centerlines from hand-authored landmarks rather than alpha-only evidence.
+- Keep v8 leg beauty panels active until deformation validation passes.
 
 ## 3. Authored Hair Ribbons
 

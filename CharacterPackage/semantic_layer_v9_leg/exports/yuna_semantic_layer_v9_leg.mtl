@@ -1,0 +1,19 @@
+newmtl leg_L_front_texture
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.050 0.050 0.050
+d 1.000
+map_Kd legs.png
+
+newmtl leg_R_front_texture
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.050 0.050 0.050
+d 1.000
+map_Kd legs.png
+
+newmtl leg_retopo_side_material
+Ka 0.080 0.072 0.078
+Kd 0.120 0.110 0.118
+Ks 0.050 0.050 0.060
+d 1.000

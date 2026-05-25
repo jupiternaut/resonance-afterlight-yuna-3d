@@ -49,7 +49,29 @@
       "known_limits": [
         "v0 splits visible boot texture components but does not solve leg/ankle topology.",
         "v8 beauty boots remain active until screenshot/import validation passes.",
-        "weapon candidate is an actuator proxy, not final DCC hard-surface art",
+        "boots candidate is an actuator proxy, not final DCC asset",
+        "v8 beauty GLB remains the active baseline until replacement validation is accepted"
+      ]
+    },
+    {
+      "part_id": "legs",
+      "actuator": "leg_quad_loop_retopo_proxy_v0",
+      "status": "generated_with_warnings",
+      "candidate_exports": {
+        "spec": "CharacterPackage/semantic_layer_v9_leg/specs/yuna_semantic_layer_v9_leg.json",
+        "obj": "CharacterPackage/semantic_layer_v9_leg/exports/yuna_semantic_layer_v9_leg.obj",
+        "mtl": "CharacterPackage/semantic_layer_v9_leg/exports/yuna_semantic_layer_v9_leg.mtl",
+        "glb": "CharacterPackage/semantic_layer_v9_leg/exports/yuna_semantic_layer_v9_leg.glb",
+        "blend": "CharacterPackage/semantic_layer_v9_leg/exports/yuna_semantic_layer_v9_leg.blend",
+        "report": "CharacterPackage/semantic_layer_v9_leg/validation_report.json"
+      },
+      "validation_report": "CharacterPackage/semantic_layer_v9_leg/validation_report.json",
+      "blender_validation_report": "CharacterPackage/semantic_layer_v9_leg/validation_ci/validation_ci_report.json",
+      "blender_validation_status": "passed_with_warnings",
+      "known_limits": [
+        "v0 creates a quad-loop retopo proxy, not final production leg topology.",
+        "knee/ankle loops are marker metadata only; skinning and weight tests are not run in this actuator.",
+        "legs candidate is an actuator proxy, not final DCC asset",
         "v8 beauty GLB remains the active baseline until replacement validation is accepted"
       ]
     }
@@ -63,17 +85,16 @@
     "cape_left",
     "cape_right",
     "skirt_front",
-    "legs",
     "face",
     "bangs"
   ],
   "replacement_policy": {
     "replace_in_beauty_glb": false,
-    "reason": "v9 weapon and boot outputs are candidate actuator outputs. v8 beauty meshes remain active until user accepts validation and integration pass.",
+    "reason": "v9 weapon, boot, and leg outputs are candidate actuator outputs. v8 beauty meshes remain active until user accepts validation and integration pass.",
     "must_preserve_front_identity": true,
     "must_keep_debug_guides_out_of_beauty": true,
     "side_back_are_soft_constraints": true
   },
-  "next_recommended_actuator": "leg_quad_loop_retopo_proxy",
-  "next_recommended_reason": "Weapon and boots now have candidate hard-surface proxies. The next biggest blocker is continuous leg/knee/ankle topology, but it must remain a proxy/spec pass rather than full production retopo."
+  "next_recommended_actuator": "authored_hair_ribbons",
+  "next_recommended_reason": "Weapon, boots, and leg retopo proxy candidates now have executable actuator outputs. The next blocker is replacing alpha-split hair cards with authored strand/ribbon curves while preserving front identity."
 }

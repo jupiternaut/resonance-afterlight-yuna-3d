@@ -62,3 +62,36 @@ def validate_boot_candidate_report(report: dict[str, Any]) -> list[str]:
     if validation.get("has_foot_socket_metadata") is not True:
         errors.append("boot candidate must include foot socket metadata")
     return errors
+
+
+def validate_leg_candidate_report(report: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    if report.get("part_id") != "legs":
+        errors.append("part_id must be legs")
+    if report.get("actuator") != "leg_quad_loop_retopo_proxy_v0":
+        errors.append("unexpected actuator")
+    if report.get("status") not in {"generated_with_warnings", "failed"}:
+        errors.append("status must be generated_with_warnings or failed")
+    mesh = report.get("mesh_summary", {})
+    if mesh.get("vertices", 0) <= 0:
+        errors.append("mesh has no vertices")
+    if mesh.get("faces", 0) <= 0:
+        errors.append("mesh has no faces")
+    if mesh.get("component_count", 0) != 2:
+        errors.append("leg candidate should contain left and right components")
+    if mesh.get("ring_count", 0) < 8:
+        errors.append("leg candidate should contain enough vertical loop rings")
+    if mesh.get("radial_segments", 0) < 8:
+        errors.append("leg candidate should contain enough radial segments")
+    if mesh.get("quad_faces_only") is not True:
+        errors.append("leg candidate must use quad faces only")
+    validation = report.get("validation", {})
+    if validation.get("independent_objects") is not True:
+        errors.append("leg candidate must use independent objects")
+    if validation.get("has_quad_loop_topology") is not True:
+        errors.append("leg candidate must expose quad-loop topology")
+    if validation.get("has_knee_ankle_loop_metadata") is not True:
+        errors.append("leg candidate must include knee/ankle loop metadata")
+    if validation.get("replace_in_beauty_glb") is not False:
+        errors.append("leg candidate must not replace v8 beauty mesh yet")
+    return errors

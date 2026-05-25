@@ -1,0 +1,170 @@
+{
+  "route": "semantic_layer_v9_leg_quad_loop_retopo_proxy_v0",
+  "source_route": "semantic_layer_v9_candidate_spec_only",
+  "baseline": "semantic_layer_v8_beauty_main_debug_cage_split",
+  "boundary": "Continuous leg quad-loop proxy only. It does not replace v8 beauty leg panels until deformation validation passes.",
+  "part": {
+    "id": "legs",
+    "category": "body",
+    "generator": "leg_quad_loop_retopo_proxy_v0",
+    "replace_in_beauty_glb": false,
+    "independent_objects": true,
+    "candidate_only": true,
+    "loop_markers": [
+      "leg_L_knee_loop",
+      "leg_L_ankle_loop",
+      "leg_R_knee_loop",
+      "leg_R_ankle_loop"
+    ]
+  },
+  "source_decisions": [
+    {
+      "part_id": "legs",
+      "decision": "retopo_required",
+      "confidence": 0.9,
+      "old_generator": "curved_panel",
+      "proposed_generator": "leg_quad_loop_retopo_proxy",
+      "old_depth": 0.02,
+      "proposed_depth": 0.02,
+      "visible_in_beauty": false,
+      "visible_in_cage": false,
+      "debug_only": false,
+      "constraints_applied": [
+        "semantic_part_independence",
+        "leg_topology_missing",
+        "beauty_and_cage_exports_remain_separate",
+        "side_back_are_soft_constraints",
+        "existing_beauty_mesh_kept_until_replacement_validated",
+        "front_identity_preserved"
+      ],
+      "reason": "v8 uses split visual leg panels for beauty and cage guides for DCC; production knee/ankle topology is still missing.",
+      "next_action": "Retopologize continuous thigh/knee/shin/ankle quad loops before skinning tests."
+    },
+    {
+      "part_id": "leg_L_visual_panel",
+      "decision": "retopo_required",
+      "confidence": 0.9,
+      "old_generator": "leg_proxy",
+      "proposed_generator": "leg_quad_loop_retopo_proxy",
+      "old_depth": null,
+      "proposed_depth": null,
+      "visible_in_beauty": true,
+      "visible_in_cage": true,
+      "debug_only": false,
+      "constraints_applied": [
+        "semantic_part_independence",
+        "leg_topology_missing",
+        "beauty_and_cage_exports_remain_separate",
+        "side_back_are_soft_constraints",
+        "existing_beauty_mesh_kept_until_replacement_validated",
+        "front_identity_preserved"
+      ],
+      "reason": "v8 uses split visual leg panels for beauty and cage guides for DCC; production knee/ankle topology is still missing.",
+      "next_action": "Retopologize continuous thigh/knee/shin/ankle quad loops before skinning tests."
+    },
+    {
+      "part_id": "leg_R_visual_panel",
+      "decision": "retopo_required",
+      "confidence": 0.9,
+      "old_generator": "leg_proxy",
+      "proposed_generator": "leg_quad_loop_retopo_proxy",
+      "old_depth": null,
+      "proposed_depth": null,
+      "visible_in_beauty": true,
+      "visible_in_cage": true,
+      "debug_only": false,
+      "constraints_applied": [
+        "semantic_part_independence",
+        "leg_topology_missing",
+        "beauty_and_cage_exports_remain_separate",
+        "side_back_are_soft_constraints",
+        "existing_beauty_mesh_kept_until_replacement_validated",
+        "front_identity_preserved"
+      ],
+      "reason": "v8 uses split visual leg panels for beauty and cage guides for DCC; production knee/ankle topology is still missing.",
+      "next_action": "Retopologize continuous thigh/knee/shin/ankle quad loops before skinning tests."
+    }
+  ],
+  "mesh": {
+    "component_count": 2,
+    "vertices": 672,
+    "uvs": 672,
+    "faces": 648,
+    "ring_count": 28,
+    "radial_segments": 12,
+    "quad_faces_only": true,
+    "components": [
+      {
+        "id": "leg_L_retopo_proxy_candidate",
+        "side": "L",
+        "bbox": [
+          308,
+          812,
+          550,
+          1264
+        ],
+        "loop_rings": {
+          "hip": 2,
+          "knee": 13,
+          "ankle": 24,
+          "foot_socket": 26
+        },
+        "loop_world_z": {
+          "hip": 0.7344247787610619,
+          "knee": 0.034247787610619466,
+          "ankle": -0.665929203539823,
+          "foot_socket": -0.791504424778761
+        },
+        "texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/textures/legs.png",
+        "vertices": 336,
+        "uvs": 336,
+        "faces": 324,
+        "section_count": 28,
+        "thickness": 0.6115929203539823,
+        "bevel": 0.0,
+        "material_face_counts": {
+          "textured": 162,
+          "side": 162
+        }
+      },
+      {
+        "id": "leg_R_retopo_proxy_candidate",
+        "side": "R",
+        "bbox": [
+          573,
+          812,
+          714,
+          1195
+        ],
+        "loop_rings": {
+          "hip": 2,
+          "knee": 13,
+          "ankle": 24,
+          "foot_socket": 26
+        },
+        "loop_world_z": {
+          "hip": 0.7342558746736292,
+          "knee": 0.033681462140992165,
+          "ankle": -0.6668929503916449,
+          "foot_socket": -0.7926370757180156
+        },
+        "texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/textures/legs.png",
+        "vertices": 336,
+        "uvs": 336,
+        "faces": 324,
+        "section_count": 28,
+        "thickness": 0.42720626631853786,
+        "bevel": 0.0,
+        "material_face_counts": {
+          "textured": 162,
+          "side": 162
+        }
+      }
+    ]
+  },
+  "exports": {
+    "obj": "CharacterPackage/semantic_layer_v9_leg/exports/yuna_semantic_layer_v9_leg.obj",
+    "glb": "CharacterPackage/semantic_layer_v9_leg/exports/yuna_semantic_layer_v9_leg.glb",
+    "report": "CharacterPackage/semantic_layer_v9_leg/validation_report.json"
+  }
+}

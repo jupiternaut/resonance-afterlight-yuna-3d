@@ -324,11 +324,17 @@ def worker_main(args: argparse.Namespace) -> int:
     has_foot_socket = any(obj.name.startswith("foot_L_socket") for obj in candidate_empties) and any(
         obj.name.startswith("foot_R_socket") for obj in candidate_empties
     )
+    has_leg_loop_markers = all(
+        any(obj.name.startswith(name) for obj in candidate_empties)
+        for name in ("leg_L_knee_loop", "leg_L_ankle_loop", "leg_R_knee_loop", "leg_R_ankle_loop")
+    )
     candidate_names = [obj.name for obj in candidate_meshes]
     if candidate_part == "weapon":
         contract_passed = any("weapon_hardsurface_ortho_v0" in name for name in candidate_names) and has_weapon_socket
     elif candidate_part == "boots":
         contract_passed = bool(candidate_meshes) and has_foot_socket
+    elif candidate_part == "legs":
+        contract_passed = bool(candidate_meshes) and has_leg_loop_markers
     else:
         contract_passed = bool(candidate_meshes)
     status = "passed_with_warnings" if not missing_screenshots and contract_passed else "failed"
@@ -358,14 +364,16 @@ def worker_main(args: argparse.Namespace) -> int:
             "has_independent_candidate_mesh": bool(candidate_meshes),
             "has_independent_weapon_mesh": any("weapon_hardsurface_ortho_v0" in name for name in candidate_names),
             "has_boot_candidate_meshes": bool(candidate_meshes) if candidate_part == "boots" else None,
+            "has_leg_candidate_meshes": bool(candidate_meshes) if candidate_part == "legs" else None,
             "has_hand_R_socket": has_weapon_socket,
             "has_foot_sockets": has_foot_socket,
+            "has_leg_loop_markers": has_leg_loop_markers,
             "replace_in_beauty_glb": candidate_report.get("validation", {}).get("replace_in_beauty_glb"),
         },
         "quality": {
             "missing_screenshots": missing_screenshots,
             "known_limits": [
-                f"{candidate_part} candidate is an actuator proxy, not final DCC hard-surface art",
+                f"{candidate_part} candidate is an actuator proxy, not final DCC asset",
                 "v8 beauty GLB remains the active baseline until replacement validation is accepted",
             ],
         },
