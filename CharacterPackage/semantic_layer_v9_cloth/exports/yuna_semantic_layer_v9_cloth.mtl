@@ -1,0 +1,33 @@
+newmtl jacket_outer_front_texture
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.040 0.040 0.050
+d 1.000
+map_Kd ../textures/jacket_outer.png
+
+newmtl cape_left_front_texture
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.040 0.040 0.050
+d 1.000
+map_Kd ../textures/cape_left.png
+
+newmtl cape_right_front_texture
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.040 0.040 0.050
+d 1.000
+map_Kd ../textures/cape_right.png
+
+newmtl skirt_front_front_texture
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.040 0.040 0.050
+d 1.000
+map_Kd ../textures/skirt_front.png
+
+newmtl cloth_seam_guide_material
+Ka 0.000 0.760 0.920
+Kd 0.000 0.760 0.920
+Ks 0.050 0.080 0.090
+d 1.000

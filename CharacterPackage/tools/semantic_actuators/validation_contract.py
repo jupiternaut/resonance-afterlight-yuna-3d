@@ -97,6 +97,57 @@ def validate_leg_candidate_report(report: dict[str, Any]) -> list[str]:
     return errors
 
 
+def validate_cloth_candidate_report(report: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    if report.get("part_id") != "cloth":
+        errors.append("part_id must be cloth")
+    if report.get("actuator") != "cloth_seam_surface_v0":
+        errors.append("unexpected actuator")
+    if report.get("status") not in {"generated_with_warnings", "failed"}:
+        errors.append("status must be generated_with_warnings or failed")
+    mesh = report.get("mesh_summary", {})
+    if mesh.get("vertices", 0) <= 0:
+        errors.append("mesh has no vertices")
+    if mesh.get("faces", 0) <= 0:
+        errors.append("mesh has no faces")
+    if mesh.get("component_count", 0) != 4:
+        errors.append("cloth candidate should contain four target cloth components")
+    if set(mesh.get("target_parts", [])) != {"jacket_outer", "cape_left", "cape_right", "skirt_front"}:
+        errors.append("cloth candidate target parts must match the requested route")
+    if mesh.get("quad_faces_only") is not True:
+        errors.append("cloth candidate must use quad faces only")
+    validation = report.get("validation", {})
+    if validation.get("independent_objects") is not True:
+        errors.append("cloth candidate must use independent objects")
+    if validation.get("has_cloth_surfaces") is not True:
+        errors.append("cloth candidate must include cloth surfaces")
+    if validation.get("has_shoulder_anchors") is not True:
+        errors.append("cloth candidate must include shoulder anchors")
+    if validation.get("has_cape_roots") is not True:
+        errors.append("cloth candidate must include cape roots")
+    if validation.get("has_skirt_waist_seam") is not True:
+        errors.append("cloth candidate must include skirt waist seam")
+    if validation.get("has_lower_cloth_edge") is not True:
+        errors.append("cloth candidate must include lower cloth edge metadata")
+    if validation.get("side_back_are_soft_constraints") is not True:
+        errors.append("cloth candidate must keep side/back as soft constraints")
+    if validation.get("replace_in_beauty_glb") is not False:
+        errors.append("cloth candidate must not replace v8 beauty mesh")
+    if validation.get("v8_beauty_replaced") is not False:
+        errors.append("cloth candidate must leave v8 beauty unchanged")
+    if validation.get("candidate_only") is not True:
+        errors.append("cloth candidate must be marked candidate-only")
+    if validation.get("dcc_handoff_only") is not True:
+        errors.append("cloth candidate must be marked DCC handoff only")
+    if validation.get("production_cloth_topology") is not False:
+        errors.append("cloth candidate must not claim production cloth topology")
+    if validation.get("ready_for_cloth_integration") is not False:
+        errors.append("cloth candidate must not mark cloth integration unblocked")
+    if validation.get("hair_route_still_blocks_cloth_integration") is not True:
+        errors.append("cloth candidate must preserve the hair-route integration blocker")
+    return errors
+
+
 def validate_hair_candidate_report(report: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     if report.get("part_id") != "hair":

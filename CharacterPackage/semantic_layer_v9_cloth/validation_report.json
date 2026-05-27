@@ -1,0 +1,612 @@
+{
+  "created_at": "2026-05-27T21:05:11.709629+00:00",
+  "route": "semantic_layer_v9_cloth_seam_surface_v0",
+  "seams": {
+    "schema": "cloth_seam_surface_v0",
+    "shoulder_anchors": {
+      "left": {
+        "label": "shoulder_anchor_left",
+        "part_id": "jacket_outer",
+        "uv_hint": [
+          0.24,
+          0.05
+        ],
+        "pixel": [
+          367.64,
+          329.4
+        ],
+        "world": [
+          -0.6015,
+          0.32277,
+          5.0275
+        ]
+      },
+      "right": {
+        "label": "shoulder_anchor_right",
+        "part_id": "jacket_outer",
+        "uv_hint": [
+          0.76,
+          0.05
+        ],
+        "pixel": [
+          685.36,
+          329.4
+        ],
+        "world": [
+          0.722333,
+          0.32277,
+          5.0275
+        ]
+      }
+    },
+    "cape_roots": {
+      "left": [
+        {
+          "label": "cape_left_root_shoulder",
+          "part_id": "cape_left",
+          "uv_hint": [
+            0.78,
+            0.02
+          ],
+          "pixel": [
+            361.6,
+            488.02
+          ],
+          "world": [
+            -0.626667,
+            -0.4718,
+            4.366583
+          ]
+        },
+        {
+          "label": "cape_left_root_falloff",
+          "part_id": "cape_left",
+          "uv_hint": [
+            0.62,
+            0.1
+          ],
+          "pixel": [
+            302.4,
+            560.1
+          ],
+          "world": [
+            -0.873333,
+            -0.4614,
+            4.06625
+          ]
+        }
+      ],
+      "right": [
+        {
+          "label": "cape_right_root_shoulder",
+          "part_id": "cape_right",
+          "uv_hint": [
+            0.2,
+            0.02
+          ],
+          "pixel": [
+            670.4,
+            448.28
+          ],
+          "world": [
+            0.66,
+            -0.4127,
+            4.532167
+          ]
+        },
+        {
+          "label": "cape_right_root_falloff",
+          "part_id": "cape_right",
+          "uv_hint": [
+            0.36,
+            0.1
+          ],
+          "pixel": [
+            738.72,
+            521.4
+          ],
+          "world": [
+            0.944667,
+            -0.4023,
+            4.2275
+          ]
+        }
+      ]
+    },
+    "skirt_waist_seam": [
+      {
+        "label": "waist_left",
+        "part_id": "skirt_front",
+        "uv_hint": [
+          0.08,
+          0.04
+        ],
+        "pixel": [
+          368.4,
+          650.64
+        ],
+        "world": [
+          -0.598333,
+          0.44053,
+          3.689
+        ]
+      },
+      {
+        "label": "waist_mid",
+        "part_id": "skirt_front",
+        "uv_hint": [
+          0.5,
+          0.02
+        ],
+        "pixel": [
+          517.5,
+          645.32
+        ],
+        "world": [
+          0.022917,
+          0.4509,
+          3.711167
+        ]
+      },
+      {
+        "label": "waist_right",
+        "part_id": "skirt_front",
+        "uv_hint": [
+          0.92,
+          0.04
+        ],
+        "pixel": [
+          666.6,
+          650.64
+        ],
+        "world": [
+          0.644167,
+          0.44053,
+          3.689
+        ]
+      }
+    ],
+    "lower_cloth_edge": {
+      "jacket_outer": [
+        {
+          "label": "lower_left",
+          "part_id": "jacket_outer",
+          "uv_hint": [
+            0.04,
+            0.98
+          ],
+          "pixel": [
+            245.44,
+            1006.44
+          ],
+          "world": [
+            -1.110667,
+            0.30567,
+            2.2065
+          ]
+        },
+        {
+          "label": "lower_mid",
+          "part_id": "jacket_outer",
+          "uv_hint": [
+            0.5,
+            0.995
+          ],
+          "pixel": [
+            526.5,
+            1017.36
+          ],
+          "world": [
+            0.060417,
+            0.345,
+            2.161
+          ]
+        },
+        {
+          "label": "lower_right",
+          "part_id": "jacket_outer",
+          "uv_hint": [
+            0.96,
+            0.98
+          ],
+          "pixel": [
+            807.56,
+            1006.44
+          ],
+          "world": [
+            1.2315,
+            0.30567,
+            2.2065
+          ]
+        }
+      ],
+      "cape_left": [
+        {
+          "label": "lower_left",
+          "part_id": "cape_left",
+          "uv_hint": [
+            0.04,
+            0.98
+          ],
+          "pixel": [
+            87.8,
+            1352.98
+          ],
+          "world": [
+            -1.7675,
+            -0.4001,
+            0.762583
+          ]
+        },
+        {
+          "label": "lower_mid",
+          "part_id": "cape_left",
+          "uv_hint": [
+            0.5,
+            0.995
+          ],
+          "pixel": [
+            258.0,
+            1366.49
+          ],
+          "world": [
+            -1.058333,
+            -0.4202,
+            0.706271
+          ]
+        },
+        {
+          "label": "lower_right",
+          "part_id": "cape_left",
+          "uv_hint": [
+            0.96,
+            0.98
+          ],
+          "pixel": [
+            428.2,
+            1352.98
+          ],
+          "world": [
+            -0.349167,
+            -0.4415,
+            0.762583
+          ]
+        }
+      ],
+      "cape_right": [
+        {
+          "label": "lower_left",
+          "part_id": "cape_right",
+          "uv_hint": [
+            0.04,
+            0.98
+          ],
+          "pixel": [
+            602.08,
+            1325.72
+          ],
+          "world": [
+            0.375333,
+            -0.3815,
+            0.876167
+          ]
+        },
+        {
+          "label": "lower_mid",
+          "part_id": "cape_right",
+          "uv_hint": [
+            0.5,
+            0.995
+          ],
+          "pixel": [
+            798.5,
+            1339.43
+          ],
+          "world": [
+            1.19375,
+            -0.3602,
+            0.819042
+          ]
+        },
+        {
+          "label": "lower_right",
+          "part_id": "cape_right",
+          "uv_hint": [
+            0.96,
+            0.98
+          ],
+          "pixel": [
+            994.92,
+            1325.72
+          ],
+          "world": [
+            2.012167,
+            -0.3401,
+            0.876167
+          ]
+        }
+      ],
+      "skirt_front": [
+        {
+          "label": "lower_left",
+          "part_id": "skirt_front",
+          "uv_hint": [
+            0.04,
+            0.98
+          ],
+          "pixel": [
+            354.2,
+            900.68
+          ],
+          "world": [
+            -0.6575,
+            0.48098,
+            2.647167
+          ]
+        },
+        {
+          "label": "lower_mid",
+          "part_id": "skirt_front",
+          "uv_hint": [
+            0.5,
+            0.995
+          ],
+          "pixel": [
+            517.5,
+            904.67
+          ],
+          "world": [
+            0.022917,
+            0.494775,
+            2.630542
+          ]
+        },
+        {
+          "label": "lower_right",
+          "part_id": "skirt_front",
+          "uv_hint": [
+            0.96,
+            0.98
+          ],
+          "pixel": [
+            680.8,
+            900.68
+          ],
+          "world": [
+            0.703333,
+            0.48098,
+            2.647167
+          ]
+        }
+      ]
+    },
+    "integration_boundary": "Metadata is for DCC handoff only; hair route still blocks cloth integration."
+  },
+  "actuator": "cloth_seam_surface_v0",
+  "status": "generated_with_warnings",
+  "part_id": "cloth",
+  "decision_source": "CharacterPackage/semantic_layer_v9_candidate/filter_report.json",
+  "generated_files": {
+    "spec": "CharacterPackage/semantic_layer_v9_cloth/specs/yuna_semantic_layer_v9_cloth.json",
+    "obj": "CharacterPackage/semantic_layer_v9_cloth/exports/yuna_semantic_layer_v9_cloth.obj",
+    "mtl": "CharacterPackage/semantic_layer_v9_cloth/exports/yuna_semantic_layer_v9_cloth.mtl",
+    "glb": "CharacterPackage/semantic_layer_v9_cloth/exports/yuna_semantic_layer_v9_cloth.glb",
+    "blend": "CharacterPackage/semantic_layer_v9_cloth/exports/yuna_semantic_layer_v9_cloth.blend",
+    "report": "CharacterPackage/semantic_layer_v9_cloth/validation_report.json",
+    "validation_ci_report": "CharacterPackage/semantic_layer_v9_cloth/validation_ci/validation_ci_report.json"
+  },
+  "mesh_summary": {
+    "component_count": 4,
+    "target_parts": [
+      "jacket_outer",
+      "cape_left",
+      "cape_right",
+      "skirt_front"
+    ],
+    "vertices": 828,
+    "uvs": 828,
+    "faces": 704,
+    "row_count": 23,
+    "column_count": 9,
+    "quad_faces_only": true,
+    "panels": [
+      {
+        "id": "jacket_outer_cloth_seam_surface_v0",
+        "source_part_id": "jacket_outer",
+        "category": "costume",
+        "source_generator": "curved_panel",
+        "bbox": [
+          221,
+          293,
+          832,
+          1021
+        ],
+        "depth": 0.3,
+        "texture": "CharacterPackage/semantic_layer_v9_cloth/textures/jacket_outer.png",
+        "mask": "semantic_layer_v8/masks/front/jacket_outer.png",
+        "vertices": 207,
+        "uvs": 207,
+        "faces": 176,
+        "section_count": 23,
+        "thickness": 0.0,
+        "bevel": 0.0,
+        "material_face_counts": {
+          "textured": 176,
+          "side": 0
+        }
+      },
+      {
+        "id": "cape_left_cloth_seam_surface_v0",
+        "source_part_id": "cape_left",
+        "category": "cloth",
+        "source_generator": "cloth_sheet",
+        "bbox": [
+          73,
+          470,
+          443,
+          1371
+        ],
+        "depth": -0.42,
+        "texture": "CharacterPackage/semantic_layer_v9_cloth/textures/cape_left.png",
+        "mask": "semantic_layer_v8/masks/front/cape_left.png",
+        "vertices": 207,
+        "uvs": 207,
+        "faces": 176,
+        "section_count": 23,
+        "thickness": 0.0,
+        "bevel": 0.0,
+        "material_face_counts": {
+          "textured": 176,
+          "side": 0
+        }
+      },
+      {
+        "id": "cape_right_cloth_seam_surface_v0",
+        "source_part_id": "cape_right",
+        "category": "cloth",
+        "source_generator": "cloth_sheet",
+        "bbox": [
+          585,
+          430,
+          1012,
+          1344
+        ],
+        "depth": -0.36,
+        "texture": "CharacterPackage/semantic_layer_v9_cloth/textures/cape_right.png",
+        "mask": "semantic_layer_v8/masks/front/cape_right.png",
+        "vertices": 207,
+        "uvs": 207,
+        "faces": 176,
+        "section_count": 23,
+        "thickness": 0.0,
+        "bevel": 0.0,
+        "material_face_counts": {
+          "textured": 176,
+          "side": 0
+        }
+      },
+      {
+        "id": "skirt_front_cloth_seam_surface_v0",
+        "source_part_id": "skirt_front",
+        "category": "cloth",
+        "source_generator": "cloth_sheet",
+        "bbox": [
+          340,
+          640,
+          695,
+          906
+        ],
+        "depth": 0.48,
+        "texture": "CharacterPackage/semantic_layer_v9_cloth/textures/skirt_front.png",
+        "mask": "semantic_layer_v8/masks/front/skirt_front.png",
+        "vertices": 207,
+        "uvs": 207,
+        "faces": 176,
+        "section_count": 23,
+        "thickness": 0.0,
+        "bevel": 0.0,
+        "material_face_counts": {
+          "textured": 176,
+          "side": 0
+        }
+      }
+    ]
+  },
+  "validation": {
+    "independent_objects": true,
+    "target_parts_present": [
+      "jacket_outer",
+      "cape_left",
+      "cape_right",
+      "skirt_front"
+    ],
+    "has_cloth_surfaces": true,
+    "has_uvs": true,
+    "quad_faces_only": true,
+    "has_shoulder_anchors": true,
+    "has_cape_roots": true,
+    "has_skirt_waist_seam": true,
+    "has_lower_cloth_edge": true,
+    "side_back_are_soft_constraints": true,
+    "replace_in_beauty_glb": false,
+    "v8_beauty_replaced": false,
+    "candidate_only": true,
+    "dcc_handoff_only": true,
+    "production_cloth_topology": false,
+    "ready_for_cloth_integration": false,
+    "hair_route_still_blocks_cloth_integration": true,
+    "current_blocker": "hair route still blocks cloth integration",
+    "obj": {
+      "path": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_cloth/exports/yuna_semantic_layer_v9_cloth.obj",
+      "exists": true,
+      "bytes": 67012
+    },
+    "glb": {
+      "path": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_cloth/exports/yuna_semantic_layer_v9_cloth.glb",
+      "exists": true,
+      "bytes": 6390076
+    },
+    "blender_glb_export": {
+      "status": "ok",
+      "blender": "/opt/homebrew/bin/blender",
+      "exit_code": 0,
+      "glb_exists": true,
+      "glb_bytes": 6390076,
+      "blend_exists": true,
+      "blend_path": "CharacterPackage/semantic_layer_v9_cloth/exports/yuna_semantic_layer_v9_cloth.blend",
+      "log_tail": [
+        "/var/folders/9j/cx6fkz613dd_6545wf7kvt4w0000gn/T/tmpaxw5gee6.py:17: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0",
+        "  seam_mat.use_nodes = True",
+        "/var/folders/9j/cx6fkz613dd_6545wf7kvt4w0000gn/T/tmpaxw5gee6.py:22: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0",
+        "  mat.use_nodes = True",
+        "Info: Saved as \"yuna_semantic_layer_v9_cloth.blend\"",
+        "INFO Draco mesh compression is available, use library at /Applications/Blender.app/Contents/Resources/5.1/scripts/addons_core/io_scene_gltf2/libextern_draco.dylib",
+        "05:04:55 | INFO: Starting glTF 2.0 export",
+        "05:04:55 | INFO: Extracting primitive: jacket_outer_cloth_seam_surface_v0_mesh",
+        "05:04:55 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+        "05:04:55 | INFO: Primitives created: 1",
+        "05:04:55 | INFO: Extracting primitive: cape_left_cloth_seam_surface_v0_mesh",
+        "05:04:55 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+        "05:04:55 | INFO: Primitives created: 1",
+        "05:04:55 | INFO: Extracting primitive: cape_right_cloth_seam_surface_v0_mesh",
+        "05:04:55 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+        "05:04:55 | INFO: Primitives created: 1",
+        "05:04:55 | INFO: Extracting primitive: skirt_front_cloth_seam_surface_v0_mesh",
+        "05:04:55 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+        "05:04:55 | INFO: Primitives created: 1",
+        "05:04:55 | INFO: Extracting primitive: cloth_shoulder_anchors_mesh",
+        "05:04:55 | INFO: Primitives created: 1",
+        "05:04:55 | INFO: Extracting primitive: cloth_cape_root_left_mesh",
+        "05:04:55 | INFO: Primitives created: 1",
+        "05:04:55 | INFO: Extracting primitive: cloth_cape_root_right_mesh",
+        "05:04:55 | INFO: Primitives created: 1",
+        "05:04:55 | INFO: Extracting primitive: cloth_skirt_waist_seam_mesh",
+        "05:04:55 | INFO: Primitives created: 1",
+        "05:04:55 | INFO: Extracting primitive: cloth_lower_edge_jacket_outer_mesh",
+        "05:04:55 | INFO: Primitives created: 1",
+        "05:04:55 | INFO: Extracting primitive: cloth_lower_edge_cape_left_mesh",
+        "05:04:55 | INFO: Primitives created: 1",
+        "05:04:55 | INFO: Extracting primitive: cloth_lower_edge_cape_right_mesh",
+        "05:04:55 | INFO: Primitives created: 1",
+        "05:04:55 | INFO: Extracting primitive: cloth_lower_edge_skirt_front_mesh",
+        "05:04:55 | INFO: Primitives created: 1",
+        "05:04:55 | INFO: Finished glTF 2.0 export in 0.08667707443237305 s",
+        "",
+        "Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)",
+        "",
+        "Blender quit"
+      ]
+    },
+    "validation_ci": {
+      "status": "passed_with_warnings",
+      "report": "CharacterPackage/semantic_layer_v9_cloth/validation_ci/validation_ci_report.json",
+      "screenshot_count": 9
+    }
+  },
+  "warnings": [
+    "cloth_seam_surface_v0 is a candidate DCC handoff route, not production cloth topology.",
+    "v8 beauty cloth remains active; replace_in_beauty_glb=false.",
+    "hair route still blocks cloth integration; this route does not mark cloth unblocked."
+  ],
+  "errors": []
+}
