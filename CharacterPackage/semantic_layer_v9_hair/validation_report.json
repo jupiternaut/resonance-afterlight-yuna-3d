@@ -2,7 +2,7 @@
   "created_at": "2026-05-27T11:22:24.438335+00:00",
   "route": "semantic_layer_v9_authored_hair_ribbons_v0",
   "actuator": "authored_hair_ribbons_v0",
-  "status": "generated_with_warnings",
+  "status": "failed_clean_hair_mask_alignment",
   "part_id": "hair",
   "decision_source": "CharacterPackage/semantic_layer_v9_candidate/filter_report.json",
   "generated_files": {
@@ -146,16 +146,16 @@
     "non_hair_occlusion_ratio": 0.023251,
     "hair_mask_iou": 0.121116,
     "outside_hair_mask_ratio": 0.05764,
-    "candidate_is_hair_only": true,
+    "candidate_is_hair_only": false,
     "hair_union_projection_valid": true,
     "candidate_geometry_alignment_valid": true,
-    "coordinate_mapping_status": "passed",
-    "alignment_failure_reason": "",
+    "coordinate_mapping_status": "failed_clean_hair_mask_alignment",
+    "alignment_failure_reason": "raw coordinate gate passes, but clean target alignment fails",
     "baseline_framing_valid": true,
-    "overlay_alignment_valid": true,
-    "visual_sanity_status": "passed",
-    "visual_sanity_reason": "candidate front render, mask alignment, and source coverage pass hair visual sanity thresholds",
-    "manual_visual_review": "pending",
+    "overlay_alignment_valid": false,
+    "visual_sanity_status": "failed_clean_hair_mask_alignment",
+    "visual_sanity_reason": "v8 hair union target overlaps non-hair masks and is too dirty for acceptance; candidate does not pass against the cleaned hair target",
+    "manual_visual_review": "failed",
     "artifact_generated": true,
     "black_alpha_leak_fixed": true,
     "numeric_metrics_passed": true,
@@ -338,9 +338,42 @@
       "non_hair_occlusion_ratio": 0.1,
       "outside_hair_mask_ratio": 0.1,
       "hair_mask_iou": 0.12,
-      "hair_union_projection_overlap_ratio": 0.35
+      "hair_union_projection_overlap_ratio": 0.35,
+      "clean_outside_hair_mask_ratio": 0.1,
+      "clean_hair_mask_iou": 0.12,
+      "hair_union_body_overlap_ratio": 0.2,
+      "hair_union_face_overlap_ratio": 0.08,
+      "hair_union_weapon_overlap_ratio": 0.05
     },
-    "negative_fixture": "CharacterPackage/semantic_layer_v9_hair/negative_fixtures/yuna_semantic_layer_v9_hair_validation_front_failed_visual_fixture.png"
+    "negative_fixture": "CharacterPackage/semantic_layer_v9_hair/negative_fixtures/yuna_semantic_layer_v9_hair_validation_front_failed_visual_fixture.png",
+    "raw_candidate_is_hair_only": true,
+    "hair_union_body_overlap_ratio": 0.844485,
+    "hair_union_face_overlap_ratio": 0.044609,
+    "hair_union_weapon_overlap_ratio": 0.043164,
+    "hair_union_target_is_clean": false,
+    "hair_target_quality": "dirty_or_overbroad",
+    "clean_hair_mask_iou": 0.014959,
+    "clean_outside_hair_mask_ratio": 0.973581,
+    "clean_candidate_is_hair_only": false,
+    "hair_target_cleaning_report": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/validation_ci/hair_target_cleaning_report.json",
+      "exists": true,
+      "bytes": 1300
+    },
+    "hair_target_cleaning_artifacts": {
+      "hair_target_mask_clean": {
+        "path": "CharacterPackage/semantic_layer_v9_hair/validation_ci/hair_target_mask_clean.png",
+        "exists": true,
+        "bytes": 12474
+      },
+      "hair_target_mask_dirty_overlay": {
+        "path": "CharacterPackage/semantic_layer_v9_hair/validation_ci/hair_target_mask_dirty_overlay.png",
+        "exists": true,
+        "bytes": 1534165
+      }
+    },
+    "clean_candidate_geometry_alignment_valid": false,
+    "coordinate_alignment_gate": "weak_pass"
   },
   "warnings": [
     "v0 derives deterministic ribbon guides from v8 mask bounds and texture alpha; these are authored-ribbon candidates, not final hand-authored production curves.",

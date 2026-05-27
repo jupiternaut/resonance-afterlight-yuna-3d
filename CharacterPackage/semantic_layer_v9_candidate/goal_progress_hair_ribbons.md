@@ -1,6 +1,8 @@
 # Goal Progress: authored_hair_ribbons_v0
 
-Status: generated as an independent candidate actuator. Coordinate alignment now passes; manual visual review is still pending.
+Status: generated as an independent candidate actuator. The raw coordinate
+alignment gate is a weak pass, but the cleaned hair-target gate fails, so this
+candidate is not accepted.
 
 ## Implemented
 
@@ -10,6 +12,8 @@ Status: generated as an independent candidate actuator. Coordinate alignment now
 - Constrains ribbon lanes to hair-mask evidence instead of broad bounding-box panels.
 - Writes sanitized per-group alpha textures so transparent pixels do not render as black.
 - Adds visual sanity gates for black alpha leakage, face/body over-occlusion, hair-mask alignment, and baseline/overlay framing validity.
+- Adds clean hair target diagnostics so the raw v8 hair union mask cannot hide
+  body/weapon contamination.
 - Writes UVs for every vertex, OBJ/MTL exports, candidate spec, and JSON validation report.
 - Exports GLB/BLEND when Blender is available.
 - Adds spring-hook metadata only; no physics, armature, or skin weights are generated.
@@ -29,14 +33,17 @@ Status: generated as an independent candidate actuator. Coordinate alignment now
 - Baseline-only front screenshot: `CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_baseline_front.png`
 - Overlay front screenshot: `CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_overlay_front.png`
 - Wire/exploded screenshots: `CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_wire.png`, `CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_exploded.png`
+- Clean target mask: `CharacterPackage/semantic_layer_v9_hair/validation_ci/hair_target_mask_clean.png`
+- Dirty target overlay: `CharacterPackage/semantic_layer_v9_hair/validation_ci/hair_target_mask_dirty_overlay.png`
+- Clean target report: `CharacterPackage/semantic_layer_v9_hair/validation_ci/hair_target_cleaning_report.json`
 - Negative fixture from the bad black-occlusion render: `CharacterPackage/semantic_layer_v9_hair/negative_fixtures/yuna_semantic_layer_v9_hair_validation_front_failed_visual_fixture.png`
 
 ## Current Result
 
-- Hair candidate status: `generated_with_warnings`.
-- Blender validation status: `passed_with_warnings`.
-- Manual visual review: `pending`.
-- Visual sanity status: `passed`.
+- Hair candidate status: `failed_clean_hair_mask_alignment`.
+- Blender validation status: `failed_clean_hair_mask_alignment`.
+- Manual visual review: `failed`.
+- Visual sanity status: `failed_clean_hair_mask_alignment`.
 - Black alpha leak fixed: `true`.
 - Numeric metrics passed: `true`.
 - Black alpha leak ratio: `0.000625`.
@@ -45,14 +52,25 @@ Status: generated as an independent candidate actuator. Coordinate alignment now
 - Non-hair occlusion ratio: `0.023251`.
 - Hair mask IoU: `0.121116`.
 - Outside hair mask ratio: `0.05764`.
-- Candidate is hair-only: `true`.
+- Raw candidate is hair-only against the dirty union: `true`.
+- Candidate is hair-only after clean target check: `false`.
+- Coordinate alignment gate: `weak_pass`.
+- Hair target quality: `dirty_or_overbroad`.
+- Hair union target clean: `false`.
+- Hair union body overlap ratio: `0.844485`.
+- Hair union face overlap ratio: `0.044609`.
+- Hair union weapon overlap ratio: `0.043164`.
+- Clean hair mask IoU: `0.014959`.
+- Clean outside hair mask ratio: `0.973581`.
+- Clean candidate is hair-only: `false`.
 - Hair union projection valid: `true`.
 - Hair union projection overlap ratio: `0.612788`.
 - Candidate geometry alignment valid: `true`.
-- Coordinate mapping status: `passed`.
-- Alignment failure reason: ``.
+- Clean candidate geometry alignment valid: `false`.
+- Coordinate mapping status: `failed_clean_hair_mask_alignment`.
+- Alignment failure reason: `raw coordinate gate passes, but clean target alignment fails`.
 - Baseline framing valid: `true`.
-- Overlay alignment valid: `true`.
+- Overlay alignment valid: `false`.
 - Ready for cloth seam surface: `false`.
 - Ribbon count: 41.
 - Group count: 4.
@@ -68,10 +86,11 @@ Status: generated as an independent candidate actuator. Coordinate alignment now
 - The candidate is still a proxy/DCC handoff asset, not final groomed production hair.
 - The previous black-occlusion render is preserved as a negative fixture; if that failure recurs, validation must report `failed_visual_sanity`.
 - This route remains a candidate, not an accepted or integrated replacement.
-- Coordinate-space debug indicates the validator projection is usable and the current candidate geometry is aligned to it.
+- Coordinate-space debug indicates the validator projection is usable, but the
+  current target mask is too dirty to treat `candidate_is_hair_only` as proven.
 
 ## Next
 
-Next step: `manual_review_authored_hair_ribbons_v0_quality`.
+Next step: `review_and_refine_hair_target_masks_v0`.
 
 `cloth_seam_surface` remains paused. Do not replace v8 beauty hair in the meantime.

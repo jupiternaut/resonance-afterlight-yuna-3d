@@ -111,6 +111,8 @@ def validate_hair_candidate_report(report: dict[str, Any]) -> list[str]:
         "failed_validation_framing",
         "failed_hair_mask_projection",
         "failed_candidate_geometry_alignment",
+        "failed_clean_hair_mask_alignment",
+        "manual_review_failed_clean_target",
         "manual_review_failed",
     }:
         errors.append("status must be generated_with_warnings, failed, or a hair visual failure status")
@@ -147,8 +149,19 @@ def validate_hair_candidate_report(report: dict[str, Any]) -> list[str]:
         "hair_mask_iou",
         "outside_hair_mask_ratio",
         "candidate_is_hair_only",
+        "raw_candidate_is_hair_only",
+        "hair_union_body_overlap_ratio",
+        "hair_union_face_overlap_ratio",
+        "hair_union_weapon_overlap_ratio",
+        "hair_union_target_is_clean",
+        "hair_target_quality",
+        "clean_hair_mask_iou",
+        "clean_outside_hair_mask_ratio",
+        "clean_candidate_is_hair_only",
         "hair_union_projection_valid",
         "candidate_geometry_alignment_valid",
+        "clean_candidate_geometry_alignment_valid",
+        "coordinate_alignment_gate",
         "coordinate_mapping_status",
         "alignment_failure_reason",
         "baseline_framing_valid",
@@ -178,6 +191,8 @@ def validate_hair_candidate_report(report: dict[str, Any]) -> list[str]:
         "failed_validation_framing",
         "failed_hair_mask_projection",
         "failed_candidate_geometry_alignment",
+        "failed_clean_hair_mask_alignment",
+        "manual_review_failed_clean_target",
         "manual_review_failed",
     }:
         errors.append("hair candidate visual_sanity_status is invalid")

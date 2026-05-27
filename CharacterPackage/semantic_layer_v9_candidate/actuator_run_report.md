@@ -50,7 +50,7 @@ checkpoint test runner for this pass was `unittest`.
 ## Tests
 
 - `python3 -m unittest discover -s CharacterPackage/tools/tests -p 'test_*.py' -v`
-- Result: 43 tests passed.
+- Result: 47 tests passed.
 
 Coverage added in this run:
 
@@ -65,6 +65,7 @@ Coverage added in this run:
 - authored hair ribbon source/mesh/OBJ/report contract.
 - authored hair ribbon mask/texture, alpha bbox, missing hook/depth rejection, Blender skip, and v8 unchanged contracts.
 - Blender semantic validation CLI/help/default input contract.
+- Blender semantic validation dirty target and clean hair target rejection contract.
 
 ## Generated Files
 
@@ -143,6 +144,9 @@ Hair Blender validation:
 - `CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_side.png`
 - `CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_wire.png`
 - `CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_exploded.png`
+- `CharacterPackage/semantic_layer_v9_hair/validation_ci/hair_target_mask_clean.png`
+- `CharacterPackage/semantic_layer_v9_hair/validation_ci/hair_target_mask_dirty_overlay.png`
+- `CharacterPackage/semantic_layer_v9_hair/validation_ci/hair_target_cleaning_report.json`
 
 Executable plan:
 
@@ -167,14 +171,15 @@ The leg retopo proxy candidate status is `generated_with_warnings`.
 
 The leg Blender validation status is `passed_with_warnings`.
 
-The authored hair ribbon candidate status is `generated_with_warnings`.
+The authored hair ribbon candidate status is `failed_clean_hair_mask_alignment`.
 
-The hair Blender validation status is `passed_with_warnings`.
+The hair Blender validation status is `failed_clean_hair_mask_alignment`.
 
-The hair visual sanity status is `passed`.
+The hair visual sanity status is `failed_clean_hair_mask_alignment`.
 
 After the coordinate-space debug pass and component-local rebuild, the authored
-hair route no longer fails the coordinate alignment gate.
+hair route no longer fails the raw coordinate alignment gate, but this is only
+a weak pass.
 
 The v8 hair union projection is valid enough for the current render-space gate:
 `hair_union_projection_valid=true` with
@@ -183,13 +188,22 @@ aligns to that projected hair union:
 `candidate_geometry_alignment_valid=true`, `hair_mask_iou=0.121116`, and
 `outside_hair_mask_ratio=0.05764`.
 
-This means the previous coordinate/scale/origin blocker is fixed. The route
-still remains a candidate only: `manual_visual_review=pending` and
-`replace_in_beauty_glb=false`.
+However, the raw v8 hair union target is dirty/overbroad:
+`hair_union_body_overlap_ratio=0.844485`,
+`hair_union_face_overlap_ratio=0.044609`, and
+`hair_union_weapon_overlap_ratio=0.043164`. Against the clean target, the same
+candidate fails: `clean_hair_mask_iou=0.014959`,
+`clean_outside_hair_mask_ratio=0.973581`, and
+`clean_candidate_is_hair_only=false`.
+
+This means the previous coordinate/scale/origin blocker is mostly fixed, but
+the hair candidate is not accepted. The route remains a candidate only:
+`manual_visual_review=failed`, `replace_in_beauty_glb=false`, and
+`ready_for_cloth_seam_surface=false`.
 
 The alpha leak and artifact-generation parts of the route are fixed, but the
-candidate is not integrated into v8 beauty. It requires manual visual review
-before any later actuator is unblocked.
+candidate is not integrated into v8 beauty. It requires target-mask cleanup and
+another hair quality pass before any later actuator is unblocked.
 
 The candidate has:
 
@@ -243,11 +257,19 @@ The hair candidate has:
   `hair_union_projection_valid=true`,
   `hair_union_projection_overlap_ratio=0.612788`,
   `candidate_geometry_alignment_valid=true`,
-  `coordinate_mapping_status=passed`,
+  `coordinate_alignment_gate=weak_pass`,
+  `coordinate_mapping_status=failed_clean_hair_mask_alignment`,
   `hair_mask_iou=0.121116`, `outside_hair_mask_ratio=0.05764`,
-  `candidate_is_hair_only=true`,
+  `raw_candidate_is_hair_only=true`,
+  `candidate_is_hair_only=false`,
+  `hair_target_quality=dirty_or_overbroad`,
+  `hair_union_target_is_clean=false`,
+  `hair_union_body_overlap_ratio=0.844485`,
+  `clean_hair_mask_iou=0.014959`,
+  `clean_outside_hair_mask_ratio=0.973581`,
+  `clean_candidate_is_hair_only=false`,
   `baseline_framing_valid=true`,
-  `overlay_alignment_valid=true`,
+  `overlay_alignment_valid=false`,
   `ready_for_cloth_seam_surface=false`
 - coordinate-space debug evidence:
   `CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_v8_hair_union_mask_projected_on_baseline.png`,
@@ -265,8 +287,9 @@ The hair candidate has:
 - Leg v0 is a quad-loop retopo proxy, not final production leg topology.
 - Knee and ankle markers are metadata only; no skinning or weight test has run yet.
 - Hair v0 derives deterministic guide ribbons from v8 mask bounds and texture alpha; it is not final hand-authored strand grooming.
-- Hair v0 is coordinate-aligned, but still awaits manual visual review before any integration decision.
-- The validator projection is usable, and the candidate geometry now passes the current render-space hair mask gate.
+- Hair v0 is weakly coordinate-aligned to the dirty hair union, but fails clean hair target validation.
+- The validator projection is usable, but the current v8 hair union target is too contaminated to support a `candidate_is_hair_only=true` claim.
+- The clean target artifacts are now the primary evidence for the next hair pass.
 - Hair side/back treatment remains a soft depth spread only, not locked multiview reconstruction.
 - The earlier hair front-render black occlusion is preserved as a negative fixture and now fails visual sanity if it recurs.
 - The candidate is not integrated into the v8 beauty GLB.
@@ -275,9 +298,9 @@ The hair candidate has:
 
 ## Next Step
 
-Next step: `manual_review_authored_hair_ribbons_v0_quality`.
+Next step: `review_and_refine_hair_target_masks_v0`.
 
-Reason: `cloth_seam_surface` is intentionally paused. Hair generated artifacts,
-fixed the black-alpha failure mode, and now passes the coordinate alignment
-gate. Do not start another actuator until a human accepts the candidate-only,
-baseline-only, overlay, yaw, and side screenshots as a usable hair candidate.
+Reason: `cloth_seam_surface` is intentionally paused. Hair generated artifacts
+and fixed the black-alpha failure mode, but the raw hair target is dirty and the
+candidate fails against the clean target. Do not start another actuator until
+the hair target is refined and a follow-up hair quality gate passes.

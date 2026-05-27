@@ -28,8 +28,18 @@ VISUAL_SANITY_THRESHOLDS = {
     "outside_hair_mask_ratio": 0.10,
     "hair_mask_iou": 0.12,
     "hair_union_projection_overlap_ratio": 0.35,
+    "clean_outside_hair_mask_ratio": 0.10,
+    "clean_hair_mask_iou": 0.12,
+    "hair_union_body_overlap_ratio": 0.20,
+    "hair_union_face_overlap_ratio": 0.08,
+    "hair_union_weapon_overlap_ratio": 0.05,
 }
 HAIR_PART_IDS = ("back_hair", "side_hair_left", "side_hair_right", "bangs")
+HAIR_CONTAMINANT_PARTS = {
+    "face": ("face",),
+    "body": ("torso_inner", "jacket_outer", "cape_left", "cape_right", "skirt_front", "legs", "boots"),
+    "weapon": ("weapon",),
+}
 FULL_SOURCE_HEIGHT = 2.2
 
 
@@ -257,37 +267,100 @@ def evaluate_render_framing(image_path: Path) -> dict[str, Any]:
     }
 
 
-def load_hair_union_mask(render_width: int, render_height: int) -> list[list[bool]]:
-    from PIL import Image, ImageChops, ImageFilter
+def load_source_mask(part_id: str) -> Any:
+    from PIL import Image
 
     mask_dir = CHARACTER_PACKAGE / "semantic_layer_v8" / "masks" / "front"
-    result: Image.Image | None = None
-    for part_id in HAIR_PART_IDS:
-        source = Image.open(mask_dir / f"{part_id}.png").convert("RGBA")
-        alpha = source.getchannel("A")
-        if alpha.getbbox() == (0, 0, source.width, source.height) and alpha.getextrema() == (255, 255):
-            current = source.convert("L").point(lambda value: 255 if value > 16 else 0)
-        else:
-            current = alpha.point(lambda value: 255 if value > 16 else 0)
+    source = Image.open(mask_dir / f"{part_id}.png").convert("RGBA")
+    alpha = source.getchannel("A")
+    if alpha.getbbox() == (0, 0, source.width, source.height) and alpha.getextrema() == (255, 255):
+        return source.convert("L").point(lambda value: 255 if value > 16 else 0)
+    return alpha.point(lambda value: 255 if value > 16 else 0)
+
+
+def union_source_masks(part_ids: tuple[str, ...]) -> Any:
+    from PIL import ImageChops
+
+    result: Any | None = None
+    for part_id in part_ids:
+        current = load_source_mask(part_id)
         result = current if result is None else ImageChops.lighter(result, current)
     if result is None:
-        raise ValueError("No hair masks available for validation")
-    result = result.filter(ImageFilter.MaxFilter(5))
-    source_width, source_height = result.size
+        raise ValueError("No masks available for validation")
+    return result
+
+
+def source_mask_to_render_bool(source_mask: Any, render_width: int, render_height: int) -> list[list[bool]]:
+    from PIL import Image
+
+    source_width, source_height = source_mask.size
     target_height = render_height
     target_width = round(source_width / source_height * target_height)
     if target_width > render_width:
         target_width = render_width
         target_height = round(source_height / source_width * target_width)
-    resized = result.resize((target_width, target_height), Image.Resampling.NEAREST)
+    resized = source_mask.resize((target_width, target_height), Image.Resampling.NEAREST)
     canvas = Image.new("L", (render_width, render_height), 0)
     canvas.paste(resized, ((render_width - target_width) // 2, (render_height - target_height) // 2))
     return [[canvas.getpixel((x, y)) > 0 for x in range(render_width)] for y in range(render_height)]
 
 
-def evaluate_hair_mask_alignment(candidate_front: Path) -> dict[str, Any]:
+def load_hair_union_source_mask() -> Any:
+    from PIL import ImageFilter
+
+    return union_source_masks(HAIR_PART_IDS).filter(ImageFilter.MaxFilter(5))
+
+
+def load_hair_union_mask(render_width: int, render_height: int) -> list[list[bool]]:
+    return source_mask_to_render_bool(load_hair_union_source_mask(), render_width, render_height)
+
+
+def clean_hair_target_source_mask() -> tuple[Any, dict[str, Any]]:
+    from PIL import ImageChops, ImageFilter
+
+    hair_union = load_hair_union_source_mask()
+    contaminants = {
+        name: union_source_masks(parts).filter(ImageFilter.MaxFilter(3))
+        for name, parts in HAIR_CONTAMINANT_PARTS.items()
+    }
+    contaminated_union = None
+    for mask in contaminants.values():
+        contaminated_union = mask if contaminated_union is None else ImageChops.lighter(contaminated_union, mask)
+    if contaminated_union is None:
+        clean = hair_union.copy()
+    else:
+        clean = ImageChops.subtract(hair_union, contaminated_union)
+
+    hair_pixels = max(1, sum(1 for value in hair_union.getdata() if value > 0))
+
+    def overlap_ratio(mask: Any) -> float:
+        overlap = ImageChops.multiply(hair_union, mask)
+        return sum(1 for value in overlap.getdata() if value > 0) / hair_pixels
+
+    body_overlap = overlap_ratio(contaminants["body"])
+    face_overlap = overlap_ratio(contaminants["face"])
+    weapon_overlap = overlap_ratio(contaminants["weapon"])
+    clean_pixels = sum(1 for value in clean.getdata() if value > 0)
+    target_is_clean = (
+        body_overlap < VISUAL_SANITY_THRESHOLDS["hair_union_body_overlap_ratio"]
+        and face_overlap < VISUAL_SANITY_THRESHOLDS["hair_union_face_overlap_ratio"]
+        and weapon_overlap < VISUAL_SANITY_THRESHOLDS["hair_union_weapon_overlap_ratio"]
+    )
+    report = {
+        "hair_union_pixel_count": hair_pixels,
+        "clean_hair_target_pixel_count": clean_pixels,
+        "clean_hair_target_kept_ratio": round(clean_pixels / hair_pixels, 6),
+        "hair_union_body_overlap_ratio": round(body_overlap, 6),
+        "hair_union_face_overlap_ratio": round(face_overlap, 6),
+        "hair_union_weapon_overlap_ratio": round(weapon_overlap, 6),
+        "hair_union_target_is_clean": target_is_clean,
+    }
+    return clean, report
+
+
+def evaluate_hair_mask_alignment(candidate_front: Path, target_mask: Any | None = None) -> dict[str, Any]:
     candidate_mask, width, height, candidate_pixels = foreground_mask_from_render(candidate_front)
-    hair_mask = load_hair_union_mask(width, height)
+    hair_mask = source_mask_to_render_bool(target_mask, width, height) if target_mask is not None else load_hair_union_mask(width, height)
     intersection = 0
     union = 0
     outside = 0
@@ -320,6 +393,61 @@ def evaluate_hair_mask_alignment(candidate_front: Path) -> dict[str, Any]:
         "candidate_bbox": list(foreground_bbox(candidate_mask, width, height)) if foreground_bbox(candidate_mask, width, height) else None,
         "hair_union_bbox": list(foreground_bbox(hair_mask, width, height)) if foreground_bbox(hair_mask, width, height) else None,
     }
+
+
+def write_hair_target_cleaning_debug(output_dir: Path, prefix: str, baseline_front: Path, candidate_front: Path) -> dict[str, Any]:
+    from PIL import Image, ImageChops
+
+    baseline_image = Image.open(baseline_front).convert("RGBA")
+    width, height = baseline_image.size
+    raw_target = load_hair_union_source_mask()
+    clean_target, cleaning_report = clean_hair_target_source_mask()
+    raw_alignment = evaluate_hair_mask_alignment(candidate_front, raw_target)
+    clean_alignment = evaluate_hair_mask_alignment(candidate_front, clean_target)
+
+    clean_path = output_dir / "hair_target_mask_clean.png"
+    dirty_overlay_path = output_dir / "hair_target_mask_dirty_overlay.png"
+    cleaning_report_path = output_dir / "hair_target_cleaning_report.json"
+
+    clean_target.save(clean_path)
+
+    raw_render = bool_matrix_to_image(source_mask_to_render_bool(raw_target, width, height), width, height)
+    clean_render = bool_matrix_to_image(source_mask_to_render_bool(clean_target, width, height), width, height)
+    removed_render = ImageChops.subtract(raw_render, clean_render)
+    overlay = baseline_image.copy()
+    red_overlay = Image.new("RGBA", (width, height), (255, 24, 24, 0))
+    red_overlay.putalpha(removed_render.point(lambda value: 128 if value else 0))
+    cyan_overlay = Image.new("RGBA", (width, height), (0, 220, 255, 0))
+    cyan_overlay.putalpha(clean_render.point(lambda value: 128 if value else 0))
+    overlay = Image.alpha_composite(overlay, red_overlay)
+    overlay = Image.alpha_composite(overlay, cyan_overlay)
+    overlay.save(dirty_overlay_path)
+
+    report = {
+        **cleaning_report,
+        "raw_hair_mask_iou": raw_alignment["hair_mask_iou"],
+        "raw_outside_hair_mask_ratio": raw_alignment["outside_hair_mask_ratio"],
+        "raw_candidate_is_hair_only": raw_alignment["candidate_is_hair_only"],
+        "clean_hair_mask_iou": clean_alignment["hair_mask_iou"],
+        "clean_outside_hair_mask_ratio": clean_alignment["outside_hair_mask_ratio"],
+        "clean_candidate_is_hair_only": clean_alignment["candidate_is_hair_only"],
+        "clean_candidate_bbox": clean_alignment["candidate_bbox"],
+        "clean_hair_union_bbox": clean_alignment["hair_union_bbox"],
+        "artifacts": {
+            "hair_target_mask_clean": file_record(clean_path),
+            "hair_target_mask_dirty_overlay": file_record(dirty_overlay_path),
+        },
+        "thresholds": {
+            "clean_hair_mask_iou": VISUAL_SANITY_THRESHOLDS["clean_hair_mask_iou"],
+            "clean_outside_hair_mask_ratio": VISUAL_SANITY_THRESHOLDS["clean_outside_hair_mask_ratio"],
+            "hair_union_body_overlap_ratio": VISUAL_SANITY_THRESHOLDS["hair_union_body_overlap_ratio"],
+            "hair_union_face_overlap_ratio": VISUAL_SANITY_THRESHOLDS["hair_union_face_overlap_ratio"],
+            "hair_union_weapon_overlap_ratio": VISUAL_SANITY_THRESHOLDS["hair_union_weapon_overlap_ratio"],
+        },
+    }
+    write_json(cleaning_report_path, report)
+    report["hair_target_cleaning_report"] = file_record(cleaning_report_path)
+    return report
 
 
 def write_hair_coordinate_debug(
@@ -427,17 +555,46 @@ def hair_visual_sanity_from_reports(
             "debug_images": {},
         }
     )
+    target_cleaning = (
+        write_hair_target_cleaning_debug(output_dir, prefix, baseline_front, candidate_front)
+        if output_dir is not None and baseline_front is not None and baseline_front.exists()
+        else {
+            "hair_union_target_is_clean": False,
+            "hair_union_body_overlap_ratio": 1.0,
+            "hair_union_face_overlap_ratio": 1.0,
+            "hair_union_weapon_overlap_ratio": 1.0,
+            "clean_hair_mask_iou": 0.0,
+            "clean_outside_hair_mask_ratio": 1.0,
+            "clean_candidate_is_hair_only": False,
+            "hair_target_cleaning_report": {"exists": False, "path": None, "bytes": 0},
+            "artifacts": {},
+        }
+    )
+    raw_candidate_is_hair_only = bool(hair_alignment["candidate_is_hair_only"])
+    clean_candidate_is_hair_only = bool(target_cleaning["clean_candidate_is_hair_only"])
+    target_is_clean = bool(target_cleaning["hair_union_target_is_clean"])
     metrics = {
         "alpha_material_valid": bool(validation.get("alpha_material_valid")),
         "face_occlusion_ratio": float(validation.get("face_occlusion_ratio", 1.0)),
         "non_hair_occlusion_ratio": float(validation.get("non_hair_occlusion_ratio", 1.0)),
         "hair_mask_iou": hair_alignment["hair_mask_iou"],
         "outside_hair_mask_ratio": hair_alignment["outside_hair_mask_ratio"],
-        "candidate_is_hair_only": hair_alignment["candidate_is_hair_only"],
+        "raw_candidate_is_hair_only": raw_candidate_is_hair_only,
+        "candidate_is_hair_only": target_is_clean and clean_candidate_is_hair_only,
         "candidate_visible_pixel_count": hair_alignment["candidate_visible_pixel_count"],
         "expected_hair_pixel_count": hair_alignment["expected_hair_pixel_count"],
         "candidate_bbox": hair_alignment["candidate_bbox"],
         "hair_union_bbox": hair_alignment["hair_union_bbox"],
+        "hair_union_body_overlap_ratio": target_cleaning["hair_union_body_overlap_ratio"],
+        "hair_union_face_overlap_ratio": target_cleaning["hair_union_face_overlap_ratio"],
+        "hair_union_weapon_overlap_ratio": target_cleaning["hair_union_weapon_overlap_ratio"],
+        "hair_union_target_is_clean": target_is_clean,
+        "hair_target_quality": "clean" if target_is_clean else "dirty_or_overbroad",
+        "clean_hair_mask_iou": target_cleaning["clean_hair_mask_iou"],
+        "clean_outside_hair_mask_ratio": target_cleaning["clean_outside_hair_mask_ratio"],
+        "clean_candidate_is_hair_only": clean_candidate_is_hair_only,
+        "hair_target_cleaning_report": target_cleaning["hair_target_cleaning_report"],
+        "hair_target_cleaning_artifacts": target_cleaning["artifacts"],
         "hair_union_projection_valid": bool(coordinate_debug["hair_union_projection_valid"]),
         "hair_union_projection_overlap_ratio": coordinate_debug["hair_union_projection_overlap_ratio"],
         "coordinate_mapping_debug": coordinate_debug["coordinate_mapping_debug"],
@@ -445,10 +602,14 @@ def hair_visual_sanity_from_reports(
         "baseline_framing_valid": bool(baseline_framing["framing_valid"]),
         "baseline_framing_reason": baseline_framing["reason"],
         "baseline_framing": baseline_framing,
-        "overlay_alignment_valid": bool(overlay_framing["framing_valid"]) and bool(hair_alignment["candidate_is_hair_only"]),
+        "overlay_alignment_valid": bool(overlay_framing["framing_valid"]) and target_is_clean and clean_candidate_is_hair_only,
         "overlay_alignment_reason": overlay_framing["reason"],
         "overlay_framing": overlay_framing,
-        "candidate_geometry_alignment_valid": bool(hair_alignment["candidate_is_hair_only"]),
+        "candidate_geometry_alignment_valid": raw_candidate_is_hair_only,
+        "clean_candidate_geometry_alignment_valid": target_is_clean and clean_candidate_is_hair_only,
+        "coordinate_alignment_gate": "weak_pass"
+        if raw_candidate_is_hair_only and hair_alignment["hair_mask_iou"] < 0.20
+        else ("passed" if raw_candidate_is_hair_only else "failed"),
         "coordinate_mapping_status": "unknown",
         "alignment_failure_reason": "",
         **evaluate_black_pixel_sanity(candidate_front),
@@ -475,11 +636,27 @@ def hair_visual_sanity_from_reports(
         status = "failed_hair_mask_projection"
         metrics["coordinate_mapping_status"] = "failed_hair_mask_projection"
         metrics["alignment_failure_reason"] = "validator mask-to-render projection is not trustworthy"
-    elif not metrics["candidate_is_hair_only"]:
+    elif not raw_candidate_is_hair_only:
         reasons.append("candidate front render is not constrained to the v8 hair mask union")
         status = "failed_candidate_geometry_alignment"
         metrics["coordinate_mapping_status"] = "failed_candidate_geometry_alignment"
         metrics["alignment_failure_reason"] = "hair union projection is valid but candidate geometry does not align"
+    elif not target_is_clean:
+        reasons.append("v8 hair union target overlaps non-hair masks and is too dirty for acceptance")
+        if not clean_candidate_is_hair_only:
+            reasons.append("candidate does not pass against the cleaned hair target")
+            status = "failed_clean_hair_mask_alignment"
+            metrics["coordinate_mapping_status"] = "failed_clean_hair_mask_alignment"
+            metrics["alignment_failure_reason"] = "raw coordinate gate passes, but clean target alignment fails"
+        else:
+            status = "manual_review_failed_clean_target"
+            metrics["coordinate_mapping_status"] = "target_mask_dirty"
+            metrics["alignment_failure_reason"] = "raw v8 hair target is dirty or overbroad"
+    elif not clean_candidate_is_hair_only:
+        reasons.append("candidate does not pass against the cleaned hair target")
+        status = "failed_clean_hair_mask_alignment"
+        metrics["coordinate_mapping_status"] = "failed_clean_hair_mask_alignment"
+        metrics["alignment_failure_reason"] = "candidate is not constrained to the clean hair target"
     elif not metrics["overlay_alignment_valid"]:
         reasons.append("overlay front render is not valid for alignment review")
         status = "failed_candidate_geometry_alignment"
@@ -608,6 +785,8 @@ def run_wrapper(args: argparse.Namespace) -> int:
             "failed_candidate_geometry_alignment",
             "failed_validation_framing",
             "failed_visual_sanity",
+            "failed_clean_hair_mask_alignment",
+            "manual_review_failed_clean_target",
         }:
             candidate_report["status"] = "generated_with_warnings"
         write_json(args.candidate_report, candidate_report)
@@ -620,6 +799,8 @@ def run_wrapper(args: argparse.Namespace) -> int:
         "failed_validation_framing",
         "failed_hair_mask_projection",
         "failed_candidate_geometry_alignment",
+        "failed_clean_hair_mask_alignment",
+        "manual_review_failed_clean_target",
     }:
         return 1
     return result.returncode

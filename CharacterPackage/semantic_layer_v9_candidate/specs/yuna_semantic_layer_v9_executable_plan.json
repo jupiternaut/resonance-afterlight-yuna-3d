@@ -23,7 +23,7 @@
       },
       "validation_report": "CharacterPackage/semantic_layer_v9_weapon/validation_report.json",
       "blender_validation_report": "CharacterPackage/semantic_layer_v9_weapon/validation_ci/validation_ci_report.json",
-      "blender_validation_status": "passed_with_warnings",
+      "blender_validation_status": "failed_clean_hair_mask_alignment",
       "known_limits": [
         "v0 uses an alpha-profile hard-surface proxy, not a final hand-modeled weapon.",
         "v8 beauty weapon remains active until screenshot/import validation passes.",
@@ -96,25 +96,37 @@
         "v8 beauty hair cards remain active until screenshot/import validation passes.",
         "hair candidate is an actuator proxy, not final DCC hair asset",
         "v8 beauty GLB remains the active baseline until replacement validation is accepted",
-        "Manual review is pending for authored_hair_ribbons_v0.",
-        "coordinate-space debug shows the v8 hair union projection is valid enough for validation.",
-        "candidate_front is aligned to the projected v8 hair mask union in full-frame validation.",
-        "Do not advance to cloth_seam_surface until manual_review_authored_hair_ribbons_v0_quality passes."
+        "Manual review failed against the cleaned hair target.",
+        "coordinate-space debug shows the v8 hair union projection is usable but weak.",
+        "candidate_front aligns to the overbroad projected v8 hair mask union, not to a clean hair-only target.",
+        "The v8 hair target mask is dirty/overbroad and overlaps body masks heavily.",
+        "Do not advance to cloth_seam_surface until review_and_refine_hair_target_masks_v0 and a follow-up hair quality pass succeed."
       ],
-      "manual_visual_review": "pending",
+      "manual_visual_review": "failed",
       "ready_for_cloth_seam_surface": false,
-      "visual_sanity_status": "passed",
+      "visual_sanity_status": "failed_clean_hair_mask_alignment",
       "hair_mask_alignment": {
         "hair_mask_iou": 0.121116,
         "outside_hair_mask_ratio": 0.05764,
-        "candidate_is_hair_only": true,
+        "raw_candidate_is_hair_only": true,
+        "candidate_is_hair_only": false,
+        "coordinate_alignment_gate": "weak_pass",
+        "hair_target_quality": "dirty_or_overbroad",
+        "hair_union_target_is_clean": false,
+        "hair_union_body_overlap_ratio": 0.844485,
+        "hair_union_face_overlap_ratio": 0.044609,
+        "hair_union_weapon_overlap_ratio": 0.043164,
+        "clean_hair_mask_iou": 0.014959,
+        "clean_outside_hair_mask_ratio": 0.973581,
+        "clean_candidate_is_hair_only": false,
         "hair_union_projection_valid": true,
         "hair_union_projection_overlap_ratio": 0.612788,
         "candidate_geometry_alignment_valid": true,
-        "coordinate_mapping_status": "passed",
-        "alignment_failure_reason": "",
+        "clean_candidate_geometry_alignment_valid": false,
+        "coordinate_mapping_status": "failed_clean_hair_mask_alignment",
+        "alignment_failure_reason": "raw coordinate gate passes, but clean target alignment fails",
         "baseline_framing_valid": true,
-        "overlay_alignment_valid": true
+        "overlay_alignment_valid": false
       }
     }
   ],
@@ -137,6 +149,6 @@
     "must_keep_debug_guides_out_of_beauty": true,
     "side_back_are_soft_constraints": true
   },
-  "next_recommended_actuator": "manual_review_authored_hair_ribbons_v0_quality",
-  "next_recommended_reason": "cloth_seam_surface remains paused because authored_hair_ribbons_v0 now passes coordinate alignment, but human visual review has not accepted the candidate."
+  "next_recommended_actuator": "review_and_refine_hair_target_masks_v0",
+  "next_recommended_reason": "cloth_seam_surface remains paused because the raw coordinate gate is only a weak pass and clean hair target validation fails."
 }

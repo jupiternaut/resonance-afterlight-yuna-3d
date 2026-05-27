@@ -175,6 +175,66 @@ class BlenderSemanticValidationTests(unittest.TestCase):
             self.assertTrue((tmp_path / "synthetic_validation_candidate_bbox_vs_hair_union_bbox.png").exists())
             self.assertTrue((tmp_path / "coordinate_mapping_debug.json").exists())
 
+    def test_hair_visual_sanity_rejects_dirty_clean_target_even_when_raw_alignment_passes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            candidate_path = tmp_path / "candidate.png"
+            baseline_path = tmp_path / "baseline.png"
+            image = Image.new("RGB", (20, 20), (184, 184, 184))
+            for x in range(2, 10):
+                for y in range(2, 10):
+                    image.putpixel((x, y), (220, 220, 220))
+            image.save(candidate_path)
+            baseline = Image.new("RGB", (20, 20), (184, 184, 184))
+            for x in range(1, 19):
+                for y in range(1, 19):
+                    baseline.putpixel((x, y), (220, 220, 220))
+            baseline.save(baseline_path)
+            hair_mask = [[1 <= x < 19 and 1 <= y < 19 for x in range(20)] for y in range(20)]
+
+            with mock.patch(
+                "run_blender_semantic_validation.evaluate_render_framing",
+                return_value={"framing_valid": True, "reason": "synthetic valid frame"},
+            ), mock.patch(
+                "run_blender_semantic_validation.load_hair_union_mask",
+                return_value=hair_mask,
+            ), mock.patch(
+                "run_blender_semantic_validation.write_hair_target_cleaning_debug",
+                return_value={
+                    "hair_union_target_is_clean": False,
+                    "hair_union_body_overlap_ratio": 0.80,
+                    "hair_union_face_overlap_ratio": 0.04,
+                    "hair_union_weapon_overlap_ratio": 0.02,
+                    "clean_hair_mask_iou": 0.0,
+                    "clean_outside_hair_mask_ratio": 1.0,
+                    "clean_candidate_is_hair_only": False,
+                    "hair_target_cleaning_report": {"exists": True, "path": "synthetic.json", "bytes": 1},
+                    "artifacts": {},
+                },
+            ):
+                sanity = hair_visual_sanity_from_reports(
+                    {},
+                    {
+                        "validation": {
+                            "alpha_material_valid": True,
+                            "face_occlusion_ratio": 0.0,
+                            "non_hair_occlusion_ratio": 0.0,
+                        }
+                    },
+                    candidate_path,
+                    baseline_path,
+                    baseline_path,
+                    tmp_path,
+                    "synthetic",
+                )
+
+            self.assertEqual(sanity["visual_sanity_status"], "failed_clean_hair_mask_alignment")
+            self.assertEqual(sanity["coordinate_alignment_gate"], "weak_pass")
+            self.assertTrue(sanity["raw_candidate_is_hair_only"])
+            self.assertFalse(sanity["candidate_is_hair_only"])
+            self.assertFalse(sanity["hair_union_target_is_clean"])
+            self.assertEqual(sanity["hair_target_quality"], "dirty_or_overbroad")
+
 
 if __name__ == "__main__":
     unittest.main()

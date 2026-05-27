@@ -6,9 +6,10 @@
 2. `leg_quad_loop_retopo_proxy`
 3. `authored_hair_ribbons`
 4. `fix_authored_hair_ribbons_v0_geometry_alignment`
-5. `manual_review_authored_hair_ribbons_v0_quality`
-6. `cloth_seam_surface`
-7. `weapon_hardsurface_ortho_v1`
+5. `review_and_refine_hair_target_masks_v0`
+6. `manual_review_authored_hair_ribbons_v0_quality`
+7. `cloth_seam_surface`
+8. `weapon_hardsurface_ortho_v1`
 
 ## 1. Boot Hard-Surface Ortho
 
@@ -58,7 +59,7 @@ Remaining for v1:
 
 ## 3. Authored Hair Ribbons
 
-Status: generated as `authored_hair_ribbons_v0`, but rejected as a hair candidate.
+Status: generated as `authored_hair_ribbons_v0`, but rejected as a clean hair candidate.
 
 Goal:
 
@@ -72,7 +73,8 @@ Acceptance:
 - Side/back remain soft constraints only.
 - Black alpha leakage and candidate black-pixel ratios stay below visual sanity thresholds.
 - Face/body over-occlusion stays below visual sanity thresholds.
-- Candidate-only front render is constrained to the v8 hair mask union.
+- Candidate-only front render is constrained to a clean hair target, not only
+  the overbroad v8 hair mask union.
 - Baseline-only front render is full-frame and not boot-only.
 - Overlay front render is a valid full baseline + aligned candidate review image.
 
@@ -82,37 +84,70 @@ Remaining for v1:
 - Replace alpha-derived guide lanes with hand-authored grooming curves.
 - Add deformation/secondary-motion tests for the spring-hook metadata.
 - Preserve the black-occlusion render as a negative fixture so similar failures become `failed_visual_sanity`.
-- Coordinate alignment is fixed; manual visual review is still required before starting the cloth actuator.
+- Coordinate alignment is a weak pass against the dirty v8 hair union; clean
+  target validation currently fails.
 
 ## 4. Fix Authored Hair Ribbons v0 Geometry Alignment
 
-Status: completed for the current render-space gate.
+Status: completed only for the dirty/overbroad render-space gate.
 
 Goal:
 
-- Turn `authored_hair_ribbons_v0` from a generated artifact into a valid hair-only candidate.
+- Separate raw coordinate alignment from clean hair-target acceptance.
 - The coordinate-space diagnostic pass already showed the projected v8 hair union is usable:
   `hair_union_projection_valid=true` and `hair_union_projection_overlap_ratio=0.612788`.
 - The component-local rebuild now passes candidate geometry alignment:
   `candidate_geometry_alignment_valid=true`, `hair_mask_iou=0.121116`,
   `outside_hair_mask_ratio=0.05764`.
+- That pass is weak: the raw v8 hair union target is dirty/overbroad and
+  overlaps body masks heavily.
+- Clean target validation fails:
+  `hair_union_target_is_clean=false`,
+  `hair_union_body_overlap_ratio=0.844485`,
+  `clean_hair_mask_iou=0.014959`,
+  `clean_outside_hair_mask_ratio=0.973581`,
+  `clean_candidate_is_hair_only=false`.
 
 Acceptance:
 
-- `validation_report.json` reports `visual_sanity_status = passed` or `passed_with_minor_warnings`.
+- `validation_report.json` must not report `visual_sanity_status = passed`
+  until the clean target gate passes.
 - `validation_ci_report.json` includes candidate-only, baseline-only, overlay, wire, and exploded screenshots.
 - `hair_union_projection_valid = true`.
 - `candidate_geometry_alignment_valid = true`.
-- `hair_mask_iou` and `outside_hair_mask_ratio` prove candidate render is aligned to the v8 hair mask union.
-- `candidate_is_hair_only = true`.
+- `hair_mask_iou` and `outside_hair_mask_ratio` can only prove candidate
+  alignment to the dirty v8 hair mask union.
+- `clean_hair_mask_iou`, `clean_outside_hair_mask_ratio`, and
+  `clean_candidate_is_hair_only` must pass before the candidate can be called
+  hair-only.
 - `baseline_framing_valid = true`.
-- `overlay_alignment_valid = true`.
+- `overlay_alignment_valid = true` only after clean target validation.
 - The candidate does not become a replacement for v8 beauty hair.
 - If human review rejects the visual result again, keep the route as a failed/needs-rework candidate and do not proceed to cloth.
 
-## 4b. Manual Review Authored Hair Ribbons v0 Quality
+## 4b. Review and Refine Hair Target Masks v0
 
-Status: required before `cloth_seam_surface`.
+Status: required before manual hair quality review.
+
+Goal:
+
+- Confirm and clean the current v8 hair union target before using it as a
+  quality gate for authored hair ribbons.
+
+Acceptance:
+
+- `hair_target_mask_clean.png` exists.
+- `hair_target_mask_dirty_overlay.png` exists.
+- `hair_target_cleaning_report.json` exists.
+- `hair_union_target_is_clean=true` or the report explicitly keeps hair v0 as
+  failed/needs-rework.
+- `clean_hair_mask_iou` and `clean_outside_hair_mask_ratio` are the acceptance
+  metrics for candidate hair-only status.
+- `ready_for_cloth_seam_surface=false` until this gate passes.
+
+## 4c. Manual Review Authored Hair Ribbons v0 Quality
+
+Status: blocked by clean hair target failure.
 
 Goal:
 
