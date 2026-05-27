@@ -21,6 +21,7 @@ from semantic_actuators.authored_hair_ribbons import (  # noqa: E402
     alpha_bbox,
     blender_export_glb,
     build_hair_ribbons,
+    build_schema_constrained_group_masks,
     load_hair_sources,
     mask_components,
     run_authored_hair_ribbons,
@@ -58,6 +59,22 @@ class AuthoredHairRibbonsActuatorTests(unittest.TestCase):
         self.assertTrue(all(source.texture_path.exists() for source in sources))
         self.assertTrue(all(source.bbox[2] > source.bbox[0] for source in sources))
         self.assertTrue(all(source.ribbon_count > 0 for source in sources))
+        self.assertFalse(any(source.schema_constrained for source in sources))
+
+    def test_schema_group_masks_constrain_hair_sources(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            schema_paths = build_schema_constrained_group_masks(CHARACTER_PACKAGE, Path(tmp) / "group_masks")
+            sources = load_hair_sources(CHARACTER_PACKAGE, schema_mask_paths=schema_paths)
+            original_sources = {source.part_id: source for source in load_hair_sources(CHARACTER_PACKAGE)}
+
+            self.assertEqual(set(schema_paths), set(HAIR_PART_IDS))
+            for source in sources:
+                self.assertTrue(source.schema_constrained)
+                self.assertTrue(source.mask_path.exists())
+                self.assertIn("schema_v1", source.mask_path.name)
+                original = original_sources[source.part_id]
+                self.assertLess(source.width, original.width)
+                self.assertLess(source.depth_spread, original.depth_spread)
 
     def test_hair_ribbons_have_groups_depths_uvs_and_faces(self) -> None:
         ribbons = build_hair_ribbons(CHARACTER_PACKAGE)

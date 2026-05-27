@@ -1,0 +1,7 @@
+{
+  "part_id": "side_hair_left",
+  "source": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1",
+  "method": "source_intersection_with_schema_v1_soft",
+  "pixel_count": 3769,
+  "estimated": true
+}

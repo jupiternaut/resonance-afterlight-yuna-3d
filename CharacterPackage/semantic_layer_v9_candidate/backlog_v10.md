@@ -187,7 +187,7 @@ Current result:
 
 ## 4d. Fix Hair Ribbons to Schema v1
 
-Status: required before manual hair quality review.
+Status: partially implemented, still blocked by target-schema failure.
 
 Goal:
 
@@ -203,6 +203,27 @@ Acceptance:
 - No black alpha leakage regression.
 - `replace_in_beauty_glb=false`.
 - `ready_for_cloth_seam_surface=false` until manual review accepts screenshots.
+
+Current result:
+
+- A schema-constrained rebuild now uses generated group masks under
+  `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/`.
+- Four hair groups and four depth groups are preserved.
+- `replace_in_beauty_glb=false`.
+- Black alpha leakage remains under threshold.
+- Metrics improved but do not pass:
+  - `forbidden_candidate_leak_ratio`: `0.975006 -> 0.299879`
+  - `candidate_core_coverage_ratio`: `0.041425 -> 0.196487`
+  - `candidate_soft_inside_ratio`: `0.021113 -> 0.557359`
+- `candidate_target_schema_status=failed_target_schema_alignment`.
+- `ready_for_cloth_seam_surface=false`.
+
+Remaining:
+
+- Reduce forbidden-zone leakage below `0.10`.
+- Increase soft-silhouette inside ratio above `0.70`.
+- If deterministic schema clipping continues to stall, move to
+  `build_art_directed_hair_ribbons_v1` with hand-authored strand lanes.
 
 ## 4e. Manual Review Authored Hair Ribbons v0 Quality
 

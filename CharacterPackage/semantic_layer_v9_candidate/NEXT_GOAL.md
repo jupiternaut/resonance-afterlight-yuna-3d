@@ -6,6 +6,19 @@ Rebuild or fix authored hair ribbons so the candidate is constrained to
 `hair_target_schema_v1`. This goal must not create a cloth actuator and must not
 replace v8 beauty.
 
+## Current Checkpoint
+
+A schema-constrained rebuild has been generated, but it still fails target
+schema gates:
+
+- `forbidden_candidate_leak_ratio=0.299879` (threshold `<=0.10`)
+- `candidate_core_coverage_ratio=0.196487` (threshold `>=0.10`)
+- `candidate_soft_inside_ratio=0.557359` (threshold `>=0.70`)
+
+The next pass should continue reducing forbidden-zone leakage and improving
+soft-silhouette containment, or move to `build_art_directed_hair_ribbons_v1`
+with explicit hand-authored strand lanes. Do not proceed to cloth.
+
 ## Inputs
 
 - `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/hair_target_schema_v1_report.json`

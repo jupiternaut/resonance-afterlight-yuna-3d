@@ -3,13 +3,13 @@
   "hair_union_projection_overlap_ratio": 0.612788,
   "projection_overlap_pixels": 215857,
   "hair_union_pixel_count": 352254,
-  "candidate_visible_pixel_count": 45611,
+  "candidate_visible_pixel_count": 9057,
   "baseline_visible_pixel_count": 512867,
   "candidate_bbox": [
-    305,
+    238,
     73,
-    1002,
-    1056
+    981,
+    516
   ],
   "hair_union_bbox": [
     199,
@@ -36,17 +36,17 @@
     "candidate_visible_mask": {
       "path": "CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_candidate_visible_mask.png",
       "exists": true,
-      "bytes": 13880
+      "bytes": 6073
     },
     "candidate_mask_vs_hair_union_overlay": {
       "path": "CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_candidate_mask_vs_hair_union_overlay.png",
       "exists": true,
-      "bytes": 55319
+      "bytes": 47126
     },
     "candidate_bbox_vs_hair_union_bbox": {
       "path": "CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_candidate_bbox_vs_hair_union_bbox.png",
       "exists": true,
-      "bytes": 1578131
+      "bytes": 1581489
     }
   }
 }

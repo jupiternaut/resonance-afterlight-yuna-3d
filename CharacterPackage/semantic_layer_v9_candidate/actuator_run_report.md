@@ -332,10 +332,54 @@ The hair candidate has:
 
 ## Next Step
 
-Next step: `fix_hair_ribbons_to_schema_v1`.
+Next step: `fix_hair_ribbons_to_schema_v1` follow-up or
+`build_art_directed_hair_ribbons_v1`.
 
 Reason: `cloth_seam_surface` is intentionally paused. Hair generated artifacts
-and fixed the black-alpha failure mode, but the raw hair target is dirty and the
-candidate fails against the schema v1 strict/soft/forbidden target. Do not start
-another actuator until the hair ribbons are rebuilt against schema v1 and a
-follow-up hair quality gate passes.
+and fixed the black-alpha failure mode, but the current candidate still fails
+against the schema v1 strict/soft/forbidden target. Do not start another
+actuator until the hair ribbons pass target-schema checks and a follow-up hair
+quality gate passes.
+
+## Fix Hair Ribbons to Schema v1 Update
+
+This pass rebuilt the authored hair ribbons using schema v1 group masks instead
+of the dirty raw/refined union target. The generated route remains an
+independent candidate and does not replace v8 beauty.
+
+Generated/updated artifacts:
+
+- `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/`
+- `CharacterPackage/semantic_layer_v9_hair/specs/yuna_semantic_layer_v9_hair.json`
+- `CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.obj`
+- `CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.mtl`
+- `CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.glb`
+- `CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.blend`
+- `CharacterPackage/semantic_layer_v9_hair/validation_report.json`
+- `CharacterPackage/semantic_layer_v9_hair/validation_ci/validation_ci_report.json`
+- `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/hair_target_schema_v1_report.json`
+- `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/candidate_vs_schema_overlay.png`
+- `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/schema_debug_contact_sheet.png`
+
+Preserved constraints:
+
+- v8 remains unchanged.
+- `replace_in_beauty_glb=false`.
+- side/back remain soft constraints.
+- four hair groups are preserved.
+- four depth groups are preserved.
+- `ready_for_cloth_seam_surface=false`.
+
+Metric movement:
+
+- `forbidden_candidate_leak_ratio`: `0.975006 -> 0.299879`
+- `candidate_core_coverage_ratio`: `0.041425 -> 0.196487`
+- `candidate_soft_inside_ratio`: `0.021113 -> 0.557359`
+- `candidate_visible_pixel_count`: `45611 -> 9057`
+
+Verdict:
+
+- `candidate_target_schema_status=failed_target_schema_alignment`.
+- This is a measurable improvement, not an accepted hair candidate.
+- Manual visual review remains blocked by target-schema failure.
+- `cloth_seam_surface` remains blocked.

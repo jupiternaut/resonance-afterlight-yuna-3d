@@ -22,6 +22,7 @@ PART_ID = "hair"
 SEGMENT_COUNT = 24
 V8_SOURCE_HEIGHT_WORLD = 6.4
 HAIR_PART_IDS = ("back_hair", "side_hair_left", "side_hair_right", "bangs")
+SCHEMA_MASK_MIN_AREA = 600
 VISUAL_SANITY_THRESHOLDS = {
     "black_alpha_leak_ratio": 0.02,
     "candidate_black_pixel_ratio": 0.05,
@@ -83,6 +84,7 @@ class HairGroupSource:
     curve_bias: float
     x_bias: float
     spring_hook: str
+    schema_constrained: bool = False
 
 
 @dataclass
@@ -285,7 +287,7 @@ def weighted_column_targets(alpha, bbox: tuple[int, int, int, int], count: int, 
     ]
 
 
-def load_hair_sources(character_package: Path) -> list[HairGroupSource]:
+def load_hair_sources(character_package: Path, schema_mask_paths: dict[str, Path] | None = None) -> list[HairGroupSource]:
     spec = load_json(character_package / "semantic_layer_v8" / "specs" / "yuna_semantic_layer_v8.json")
     parts = {part.get("id"): part for part in spec.get("parts", []) if isinstance(part, dict)}
     sources: list[HairGroupSource] = []
@@ -300,7 +302,8 @@ def load_hair_sources(character_package: Path) -> list[HairGroupSource]:
         texture_path = character_package / texture_rel
         if not texture_path.exists():
             raise ValueError(f"Missing hair texture: {texture_path}")
-        mask_path = character_package / "semantic_layer_v8" / "masks" / "front" / f"{part_id}.png"
+        schema_constrained = schema_mask_paths is not None and part_id in schema_mask_paths
+        mask_path = (schema_mask_paths or {}).get(part_id) or character_package / "semantic_layer_v8" / "masks" / "front" / f"{part_id}.png"
         if not mask_path.exists():
             raise ValueError(f"Missing hair mask: {mask_path}")
         with Image.open(mask_path) as mask_image, Image.open(texture_path) as texture_image:
@@ -317,11 +320,12 @@ def load_hair_sources(character_package: Path) -> list[HairGroupSource]:
                 bbox=alpha_bbox(mask_path),
                 depth=float(part.get("depth", 0.0)),
                 ribbon_count=int(config["ribbon_count"]),
-                width=float(config["width"]),
-                depth_spread=float(config["depth_spread"]),
-                curve_bias=float(config["curve_bias"]),
-                x_bias=float(config["x_bias"]),
+                width=float(config["width"]) * (0.42 if schema_constrained else 1.0),
+                depth_spread=float(config["depth_spread"]) * (0.45 if schema_constrained else 1.0),
+                curve_bias=float(config["curve_bias"]) * (0.50 if schema_constrained else 1.0),
+                x_bias=float(config["x_bias"]) * (0.50 if schema_constrained else 1.0),
                 spring_hook=str(config["spring_hook"]),
+                schema_constrained=schema_constrained,
             )
         )
     return sources
@@ -380,7 +384,8 @@ def build_ribbon_mesh(
         # mapping made the hair candidate tiny and rendered near the boots.
         center_z = (height_px - y) * scale
         center_depth = source.depth + ribbon_depth_offset + math.sin(t * math.pi) * source.curve_bias
-        local_half_width_px = min(half_width_px, max(1.0, (right - left + 1) * 0.20))
+        width_fraction = 0.10 if source.schema_constrained else 0.20
+        local_half_width_px = min(half_width_px, max(1.0, (right - left + 1) * width_fraction))
         left_px = max(float(left), center_px - local_half_width_px)
         right_px = min(float(right), center_px + local_half_width_px)
         local_half_width_world = max(scale, (right_px - left_px) * 0.5 * scale)
@@ -430,8 +435,8 @@ def build_ribbon_mesh(
     )
 
 
-def build_hair_ribbons(character_package: Path) -> list[HairRibbon]:
-    sources = load_hair_sources(character_package)
+def build_hair_ribbons(character_package: Path, schema_mask_paths: dict[str, Path] | None = None) -> list[HairRibbon]:
+    sources = load_hair_sources(character_package, schema_mask_paths=schema_mask_paths)
     first_image = Image.open(sources[0].mask_path).convert("RGBA")
     image_size = first_image.size
     scale = V8_SOURCE_HEIGHT_WORLD / image_size[1]
@@ -447,6 +452,7 @@ def build_hair_ribbons(character_package: Path) -> list[HairRibbon]:
                 component_bbox=component_bbox,
                 component_lane_index=lane_index,
                 component_lane_count=lane_count,
+                ribbon_thickness=0.0018 if source.schema_constrained else 0.0035,
             )
             ribbons.append(
                 HairRibbon(
@@ -485,6 +491,9 @@ def sanitize_hair_texture(source_texture: Path, mask_path: Path, output_path: Pa
         for x in range(source.width):
             if mask_pixels[x, y] > 0 and pixels[x, y][3] > 16:
                 sanitized_pixels[x, y] = pixels[x, y]
+                alpha_pixels += 1
+            elif mask_pixels[x, y] > 0:
+                sanitized_pixels[x, y] = (*fill_color, 255)
                 alpha_pixels += 1
             else:
                 sanitized_pixels[x, y] = (*fill_color, 0)
@@ -539,7 +548,9 @@ def combined_summary(ribbons: list[HairRibbon], texture_records: list[SanitizedT
         "uvs": sum(len(ribbon.mesh.uvs) for ribbon in ribbons),
         "faces": sum(len(ribbon.mesh.faces) for ribbon in ribbons),
         "section_count": SEGMENT_COUNT + 1,
-        "ribbon_thickness": 0.0035,
+        "ribbon_thickness": round(max((ribbon.mesh.thickness for ribbon in ribbons), default=0.0), 6),
+        "ribbon_thickness_min": round(min((ribbon.mesh.thickness for ribbon in ribbons), default=0.0), 6),
+        "schema_constrained": any(ribbon.mask_path.name.endswith("_schema_v1_mask.png") for ribbon in ribbons),
         "groups": list(groups.values()),
         "sanitized_textures": [
             {
@@ -560,6 +571,73 @@ def mask_luma(path: Path, threshold: int = 16) -> Image.Image:
     if alpha.getbbox() == (0, 0, image.width, image.height) and alpha.getextrema() == (255, 255):
         return image.convert("L").point(lambda pixel: 255 if pixel > threshold else 0)
     return alpha.point(lambda pixel: 255 if pixel > threshold else 0)
+
+
+def mask_pixel_count(mask: Image.Image) -> int:
+    return sum(1 for value in mask.getdata() if value > 0)
+
+
+def load_schema_target_mask(character_package: Path, name: str) -> Image.Image | None:
+    path = character_package / "semantic_layer_v9_hair" / "target_schema_v1" / f"{name}_mask.png"
+    if not path.exists():
+        return None
+    return Image.open(path).convert("L").point(lambda value: 255 if value > 0 else 0)
+
+
+def schema_region_prior(part_id: str, size: tuple[int, int]) -> Image.Image:
+    width, height = size
+    region = Image.new("L", size, 0)
+    draw = ImageDraw.Draw(region)
+    if part_id == "bangs":
+        draw.rectangle((round(width * 0.29), 0, round(width * 0.76), round(height * 0.24)), fill=255)
+    elif part_id == "side_hair_left":
+        draw.rectangle((0, round(height * 0.08), round(width * 0.51), round(height * 0.37)), fill=255)
+    elif part_id == "side_hair_right":
+        draw.rectangle((round(width * 0.51), round(height * 0.08), width, round(height * 0.37)), fill=255)
+    elif part_id == "back_hair":
+        draw.rectangle((0, round(height * 0.21), round(width * 0.42), round(height * 0.41)), fill=255)
+        draw.rectangle((round(width * 0.64), round(height * 0.21), width, round(height * 0.41)), fill=255)
+        draw.rectangle((0, round(height * 0.29), width, round(height * 0.41)), fill=255)
+    return region
+
+
+def build_schema_constrained_group_masks(character_package: Path, output_dir: Path) -> dict[str, Path]:
+    soft = load_schema_target_mask(character_package, "soft_hair_silhouette")
+    forbidden = load_schema_target_mask(character_package, "forbidden_nonhair_zone")
+    if soft is None or forbidden is None:
+        return {}
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    allowed_soft = ImageChops.subtract(soft, forbidden).point(lambda value: 255 if value > 0 else 0)
+    paths: dict[str, Path] = {}
+    for part_id in HAIR_PART_IDS:
+        source = mask_luma(character_package / "semantic_layer_v8" / "masks" / "front" / f"{part_id}.png")
+        source_intersection = ImageChops.multiply(source, allowed_soft).point(lambda value: 255 if value > 0 else 0)
+        if mask_pixel_count(source_intersection) >= SCHEMA_MASK_MIN_AREA:
+            group_mask = source_intersection
+            method = "source_intersection_with_schema_v1_soft"
+        else:
+            prior = schema_region_prior(part_id, allowed_soft.size)
+            group_mask = ImageChops.multiply(allowed_soft, prior).point(lambda value: 255 if value > 0 else 0)
+            method = "schema_v1_region_prior"
+        if mask_pixel_count(group_mask) < SCHEMA_MASK_MIN_AREA:
+            group_mask = allowed_soft.copy()
+            method = "schema_v1_soft_fallback"
+
+        path = output_dir / f"{part_id}_schema_v1_mask.png"
+        group_mask.save(path)
+        write_json(
+            output_dir / f"{part_id}_schema_v1_mask.json",
+            {
+                "part_id": part_id,
+                "source": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1",
+                "method": method,
+                "pixel_count": mask_pixel_count(group_mask),
+                "estimated": True,
+            },
+        )
+        paths[part_id] = path
+    return paths
 
 
 def union_masks(paths: list[Path], threshold: int = 16) -> Image.Image:
@@ -606,7 +684,12 @@ def ratio(mask: Image.Image, denominator: int | None = None) -> float:
 def source_visual_sanity_metrics(character_package: Path, ribbons: list[HairRibbon]) -> dict[str, Any]:
     coverage = ribbon_source_coverage(ribbons)
     coverage_pixels = max(1, int(ratio(coverage) * coverage.width * coverage.height))
-    hair_masks = union_masks([character_package / "semantic_layer_v8" / "masks" / "front" / f"{part_id}.png" for part_id in HAIR_PART_IDS]).filter(ImageFilter.MaxFilter(3))
+    schema_soft = load_schema_target_mask(character_package, "soft_hair_silhouette")
+    hair_masks = (
+        schema_soft.filter(ImageFilter.MaxFilter(3))
+        if schema_soft is not None
+        else union_masks([character_package / "semantic_layer_v8" / "masks" / "front" / f"{part_id}.png" for part_id in HAIR_PART_IDS]).filter(ImageFilter.MaxFilter(3))
+    )
     face_mask = mask_luma(character_package / "semantic_layer_v8" / "masks" / "front" / "face.png")
     body_masks = union_masks(
         [
@@ -716,7 +799,7 @@ def write_obj(path: Path, ribbons: list[HairRibbon]) -> Path:
             "Ka 0.630 0.720 0.740",
             "Kd 0.720 0.820 0.840",
             "Ks 0.030 0.040 0.045",
-            "d 1.000",
+            "d 0.000",
         ]
     )
     mtl_path.write_text("\n".join(material_lines) + "\n", encoding="utf-8")
@@ -760,9 +843,10 @@ HOOKS = json.loads({hooks_json!r})
 
 side_mat = bpy.data.materials.new('hair_ribbon_side_material')
 side_mat.use_nodes = True
-side_mat.blend_method = 'OPAQUE'
+side_mat.blend_method = 'BLEND'
 side_bsdf = side_mat.node_tree.nodes.get('Principled BSDF')
-side_bsdf.inputs['Base Color'].default_value = (0.72, 0.82, 0.84, 1.0)
+side_bsdf.inputs['Base Color'].default_value = (0.72, 0.82, 0.84, 0.0)
+side_bsdf.inputs['Alpha'].default_value = 0.0
 side_bsdf.inputs['Roughness'].default_value = 0.68
 
 front_mats = {{}}
@@ -870,6 +954,7 @@ def build_spec(paths: ActuatorPaths, ribbons: list[HairRibbon], source_decisions
             "side_back_are_soft_constraints": True,
             "source_parts": list(HAIR_PART_IDS),
             "spring_hooks": sorted({ribbon.spring_hook for ribbon in ribbons}),
+            "target_schema": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1",
         },
         "source_decisions": source_decisions,
         "mesh": combined_summary(ribbons, texture_records),
@@ -908,7 +993,8 @@ def run_authored_hair_ribbons(paths: ActuatorPaths) -> ActuatorResult:
         write_json(paths.report_path, {"created_at": datetime.now(timezone.utc).isoformat(), "route": "semantic_layer_v9_authored_hair_ribbons_v0", **result.to_dict()})
         return result
 
-    ribbons = build_hair_ribbons(paths.character_package)
+    schema_mask_paths = build_schema_constrained_group_masks(paths.character_package, paths.output_dir / "target_schema_v1" / "group_masks")
+    ribbons = build_hair_ribbons(paths.character_package, schema_mask_paths=schema_mask_paths or None)
     texture_records = prepare_sanitized_textures(paths, ribbons)
     paths.output_dir.mkdir(parents=True, exist_ok=True)
     paths.spec_path.parent.mkdir(parents=True, exist_ok=True)
@@ -926,6 +1012,8 @@ def run_authored_hair_ribbons(paths: ActuatorPaths) -> ActuatorResult:
         "blend": display_path(paths.glb_path.with_suffix(".blend"), paths.repo_root),
         "report": display_path(paths.report_path, paths.repo_root),
     }
+    if schema_mask_paths:
+        generated_files["schema_group_masks"] = display_path(paths.output_dir / "target_schema_v1" / "group_masks", paths.repo_root)
     summary = combined_summary(ribbons, texture_records)
     visual_metrics = source_visual_sanity_metrics(paths.character_package, ribbons)
     validation = {

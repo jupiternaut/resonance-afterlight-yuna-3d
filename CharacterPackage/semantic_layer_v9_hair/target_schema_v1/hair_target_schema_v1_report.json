@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-27T16:29:59.591753+00:00",
+  "created_at": "2026-05-27T17:26:37.997951+00:00",
   "route": "build_hair_target_schema_v1",
   "status": "failed_target_schema_alignment",
   "boundary": "Target-schema generation only. Does not modify semantic_layer_v8, generate GLB, or unblock cloth.",
@@ -44,7 +44,7 @@
     1200,
     1600
   ],
-  "candidate_visible_pixel_count": 45611,
+  "candidate_visible_pixel_count": 9057,
   "strict_core_render_pixel_count": 22088,
   "soft_silhouette_render_pixel_count": 32451,
   "forbidden_zone_render_pixel_count": 723309,
@@ -53,9 +53,9 @@
   "forbidden_zone_area": 666429,
   "core_body_overlap_ratio": 0.0,
   "soft_body_overlap_ratio": 0.0,
-  "forbidden_candidate_leak_ratio": 0.975006,
-  "candidate_core_coverage_ratio": 0.041425,
-  "candidate_soft_inside_ratio": 0.021113,
+  "forbidden_candidate_leak_ratio": 0.299879,
+  "candidate_core_coverage_ratio": 0.196487,
+  "candidate_soft_inside_ratio": 0.557359,
   "candidate_target_schema_status": "failed_target_schema_alignment",
   "schema_ready_for_ribbon_rebuild": true,
   "thresholds": {
@@ -86,17 +86,17 @@
     "candidate_vs_schema_overlay": {
       "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/candidate_vs_schema_overlay.png",
       "exists": true,
-      "bytes": 45025
+      "bytes": 38673
     },
     "schema_debug_contact_sheet": {
       "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/schema_debug_contact_sheet.png",
       "exists": true,
-      "bytes": 410578
+      "bytes": 374991
     },
     "report": {
       "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/hair_target_schema_v1_report.json",
       "exists": true,
-      "bytes": 3583
+      "bytes": 3584
     }
   }
 }

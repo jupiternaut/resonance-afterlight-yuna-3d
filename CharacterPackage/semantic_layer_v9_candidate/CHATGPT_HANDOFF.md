@@ -4,11 +4,11 @@
 
 分支：`feature/authored-hair-ribbons-v0`
 
-提交：`31b76e7`
+提交：待本轮提交后以 final response 为准；repo 内文件无法稳定自写入自身所在提交 hash。
 
-本轮目标：实现 `build_hair_target_schema_v1`，为未来 art-directed hair ribbons 建立三层目标 schema。
+本轮目标：实现 `fix_hair_ribbons_to_schema_v1`，让 v9 hair ribbon candidate 使用 `hair_target_schema_v1` 的 `strict_hair_core`、`soft_hair_silhouette`、`forbidden_nonhair_zone` 作为硬目标约束。
 
-本轮结论：完成。已生成 `strict_hair_core`、`soft_hair_silhouette`、`forbidden_nonhair_zone` 三层 mask 和 schema 报告。当前 hair v0 不通过 schema gate，不应推进下一 actuator。
+本轮结论：部分完成。hair candidate 已按 schema v1 group masks 重新生成，指标明显改善，但仍未达到 schema gate，不应推进 `cloth_seam_surface`，也不应接受为 hair-only candidate。
 
 核心状态：
 
@@ -17,62 +17,74 @@
 - formula stage: `theta_p_next = ProjectToConstraints_p((1-alpha)*theta_p + alpha*RobustFuse(...))`
 - current route status: `failed_target_schema_alignment`
 - visual_sanity_status: `failed_target_schema_alignment`
-- manual_review: blocked / not accepted
+- manual_review: blocked by target schema
 - ready_for_cloth_seam_surface: false
 
 关键指标：
 
-- `strict_core_area=20309`
-- `soft_silhouette_area=29823`
-- `forbidden_zone_area=666429`
-- `core_body_overlap_ratio=0.0`
-- `soft_body_overlap_ratio=0.0`
-- `forbidden_candidate_leak_ratio=0.975006`
-- `candidate_core_coverage_ratio=0.041425`
-- `candidate_soft_inside_ratio=0.021113`
+- `forbidden_candidate_leak_ratio`: `0.975006 -> 0.299879`
+- `candidate_core_coverage_ratio`: `0.041425 -> 0.196487`
+- `candidate_soft_inside_ratio`: `0.021113 -> 0.557359`
+- `candidate_visible_pixel_count`: `45611 -> 9057`
 - `schema_ready_for_ribbon_rebuild=true`
+- `candidate_target_schema_status=failed_target_schema_alignment`
 
 生成/更新文件：
 
-- `CharacterPackage/tools/build_hair_target_schema_v1.py`
-- `CharacterPackage/tools/tests/test_hair_target_schema_v1.py`
-- `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/strict_hair_core_mask.png`
-- `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/soft_hair_silhouette_mask.png`
-- `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/forbidden_nonhair_zone_mask.png`
+- `CharacterPackage/tools/semantic_actuators/authored_hair_ribbons.py`
+- `CharacterPackage/tools/tests/test_semantic_actuators_hair.py`
+- `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/`
+- `CharacterPackage/semantic_layer_v9_hair/specs/yuna_semantic_layer_v9_hair.json`
+- `CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.obj`
+- `CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.mtl`
+- `CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.glb`
+- `CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.blend`
+- `CharacterPackage/semantic_layer_v9_hair/textures/hair_back_sanitized.png`
+- `CharacterPackage/semantic_layer_v9_hair/textures/hair_side_left_sanitized.png`
+- `CharacterPackage/semantic_layer_v9_hair/textures/hair_side_right_sanitized.png`
+- `CharacterPackage/semantic_layer_v9_hair/textures/hair_bangs_sanitized.png`
+- `CharacterPackage/semantic_layer_v9_hair/validation_report.json`
+- `CharacterPackage/semantic_layer_v9_hair/validation_ci/validation_ci_report.json`
+- `CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_candidate_front.png`
+- `CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_overlay_front.png`
+- `CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_yaw15.png`
+- `CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_yaw30.png`
 - `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/hair_target_schema_v1_report.json`
 - `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/candidate_vs_schema_overlay.png`
 - `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/schema_debug_contact_sheet.png`
-- `CharacterPackage/semantic_layer_v9_hair/validation_report.json`
-- `CharacterPackage/semantic_layer_v9_hair/validation_ci/validation_ci_report.json`
 - `CharacterPackage/semantic_layer_v9_candidate/PROJECT_STATE.md`
-- `CharacterPackage/semantic_layer_v9_candidate/NEXT_GOAL.md`
 - `CharacterPackage/semantic_layer_v9_candidate/backlog_v10.md`
 - `CharacterPackage/semantic_layer_v9_candidate/actuator_run_report.md`
+- `CharacterPackage/semantic_layer_v9_candidate/CHATGPT_HANDOFF.md`
 
 验证命令：
 
-- `python3 -m unittest discover -s CharacterPackage/tools/tests -p 'test_*.py' -v`: 54 tests passed
+- `python3 -m unittest CharacterPackage.tools.tests.test_semantic_actuators_hair -v`: 13 tests passed
+- `python3 -m unittest discover -s CharacterPackage/tools/tests -p 'test_*.py' -v`: 55 tests passed
 - `python3 -m compileall CharacterPackage/tools`: passed
 - `git diff --name-only -- CharacterPackage/semantic_layer_v8`: empty
 
 视觉 / 人工复核判断：
 
-- 当前 schema 质量可用于下一轮 ribbon rebuild。
-- 当前 hair v0 candidate 大量漏入 forbidden zone，不能接受为 hair-only。
-- 不能进入 `cloth_seam_surface`。
+- 黑底 alpha 泄漏未回归。
+- schema-constrained rebuild 减少了 forbidden-zone leakage 并提高了 soft/core 指标。
+- 仍未达到 target-schema 阈值，不能接受为 hair-only candidate。
+- 不应推进下一 actuator。
 
 当前 blocker：
 
-- 现有 hair ribbons 没有按 schema v1 约束生成。
+- `forbidden_candidate_leak_ratio` 仍高于 `0.10`。
+- `candidate_soft_inside_ratio` 仍低于 `0.70`。
+- 需要继续 `fix_hair_ribbons_to_schema_v1`，或进入更明确的 `build_art_directed_hair_ribbons_v1` 手工发束通道。
 
 推荐下一条 Codex Goal：
 
 ```text
-/goal Implement `fix_hair_ribbons_to_schema_v1`.
+/goal Continue `fix_hair_ribbons_to_schema_v1` or implement `build_art_directed_hair_ribbons_v1`.
 
-Use `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/` as the hard target schema.
-Do not modify `CharacterPackage/semantic_layer_v8`.
-Do not replace v8 beauty GLB.
+Keep `semantic_layer_v8` immutable and keep `replace_in_beauty_glb=false`.
 Do not proceed to `cloth_seam_surface`.
-Candidate must reduce forbidden-zone leakage, increase soft-silhouette inside ratio, preserve four hair groups and depth groups, regenerate reports/screenshots, and write `COPY_TO_CHATGPT_HANDOFF`.
+Use `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/` as the hard target schema.
+The candidate must reduce `forbidden_candidate_leak_ratio` below 0.10, raise `candidate_soft_inside_ratio` above 0.70, preserve four hair groups and depth groups, regenerate reports/screenshots, and write `COPY_TO_CHATGPT_HANDOFF`.
+If metrics still fail, keep hair blocked and report failure honestly.
 ```

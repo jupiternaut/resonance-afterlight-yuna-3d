@@ -16,19 +16,24 @@
   - `ready_for_cloth_seam_surface=false`
 - `hair_target_schema_v1` now exists with `strict_hair_core`,
   `soft_hair_silhouette`, and `forbidden_nonhair_zone`.
-- The v1 schema is ready for a ribbon rebuild, but the current candidate fails
-  against it:
-  - `forbidden_candidate_leak_ratio=0.975006`
-  - `candidate_core_coverage_ratio=0.041425`
-  - `candidate_soft_inside_ratio=0.021113`
+- A schema-constrained ribbon rebuild has been generated, but the current
+  candidate still fails against v1 target-schema thresholds:
+  - baseline before rebuild:
+    - `forbidden_candidate_leak_ratio=0.975006`
+    - `candidate_core_coverage_ratio=0.041425`
+    - `candidate_soft_inside_ratio=0.021113`
+  - current rebuild:
+    - `forbidden_candidate_leak_ratio=0.299879`
+    - `candidate_core_coverage_ratio=0.196487`
+    - `candidate_soft_inside_ratio=0.557359`
 - `cloth_seam_surface` remains blocked.
 
 ## Current Blocker
 
-Fix or rebuild authored hair ribbons against `hair_target_schema_v1` before any
-new actuator work. The target schema now separates real hair evidence from body,
-face, weapon, cloth, leg, boot, and cape contamination; the existing candidate
-does not satisfy it.
+Continue fixing authored hair ribbons against `hair_target_schema_v1` before
+any new actuator work. The schema-constrained rebuild improved forbidden-zone
+leakage and soft-silhouette alignment, but it still does not satisfy the target
+schema and remains blocked from manual acceptance.
 
 ## Formula Binding
 
@@ -85,10 +90,11 @@ Current blocker:
 - strict clean target is too narrow;
 - refined component-prior target is still not final;
 - `hair_target_schema_v1` is available;
-- current candidate leaks into the forbidden nonhair zone;
+- current candidate still leaks into the forbidden nonhair zone;
+- schema-constrained rebuild improved the metrics but did not pass thresholds;
 - `cloth_seam_surface` remains blocked.
 
-Next valid task: `fix_hair_ribbons_to_schema_v1` or
+Next valid task: `fix_hair_ribbons_to_schema_v1` follow-up or
 `build_art_directed_hair_ribbons_v1`.
 
 Invalid next task: `cloth_seam_surface`.
