@@ -167,30 +167,29 @@ The leg retopo proxy candidate status is `generated_with_warnings`.
 
 The leg Blender validation status is `passed_with_warnings`.
 
-The authored hair ribbon candidate status is `failed_hair_mask_alignment`.
+The authored hair ribbon candidate status is `generated_with_warnings`.
 
-The hair Blender validation status is `failed_hair_mask_alignment`.
+The hair Blender validation status is `passed_with_warnings`.
 
-The hair visual sanity status is `failed_hair_mask_alignment`.
+The hair visual sanity status is `passed`.
 
-After the coordinate-space debug pass, the authored hair route is more
-specifically classified as `failed_candidate_geometry_alignment`.
+After the coordinate-space debug pass and component-local rebuild, the authored
+hair route no longer fails the coordinate alignment gate.
 
 The v8 hair union projection is valid enough for the current render-space gate:
 `hair_union_projection_valid=true` with
-`hair_union_projection_overlap_ratio=0.612788`. The candidate geometry itself
-does not align to that projected hair union:
-`candidate_geometry_alignment_valid=false`, `hair_mask_iou=0.0`, and
-`outside_hair_mask_ratio=1.0`.
+`hair_union_projection_overlap_ratio=0.612788`. The candidate geometry now
+aligns to that projected hair union:
+`candidate_geometry_alignment_valid=true`, `hair_mask_iou=0.121116`, and
+`outside_hair_mask_ratio=0.05764`.
 
-This means the immediate blocker is candidate placement/scale/origin/depth
-alignment, not the mask-to-render projection gate.
+This means the previous coordinate/scale/origin blocker is fixed. The route
+still remains a candidate only: `manual_visual_review=pending` and
+`replace_in_beauty_glb=false`.
 
 The alpha leak and artifact-generation parts of the route are fixed, but the
-candidate is not accepted as a hair candidate. Manual visual review rejected it
-because candidate-only/front/yaw views still read as fragmented non-hair
-geometry rather than authored hair ribbons. The route is retained as an
-experimental artifact / negative-plus case only.
+candidate is not integrated into v8 beauty. It requires manual visual review
+before any later actuator is unblocked.
 
 The candidate has:
 
@@ -237,18 +236,18 @@ The hair candidate has:
 - screenshot validation evidence
 - candidate-only, baseline-only, and overlay front screenshots
 - visual sanity metrics: `black_alpha_leak_fixed=true`,
-  `numeric_metrics_passed=true`, `black_alpha_leak_ratio=0.001292`,
-  `candidate_black_pixel_ratio=0.000065`,
-  `face_occlusion_ratio=0.0571`,
-  `non_hair_occlusion_ratio=0.083743`,
+  `numeric_metrics_passed=true`, `black_alpha_leak_ratio=0.000625`,
+  `candidate_black_pixel_ratio=0.000031`,
+  `face_occlusion_ratio=0.040282`,
+  `non_hair_occlusion_ratio=0.023251`,
   `hair_union_projection_valid=true`,
   `hair_union_projection_overlap_ratio=0.612788`,
-  `candidate_geometry_alignment_valid=false`,
-  `coordinate_mapping_status=failed_candidate_geometry_alignment`,
-  `hair_mask_iou=0.0`, `outside_hair_mask_ratio=1.0`,
-  `candidate_is_hair_only=false`,
+  `candidate_geometry_alignment_valid=true`,
+  `coordinate_mapping_status=passed`,
+  `hair_mask_iou=0.121116`, `outside_hair_mask_ratio=0.05764`,
+  `candidate_is_hair_only=true`,
   `baseline_framing_valid=true`,
-  `overlay_alignment_valid=false`,
+  `overlay_alignment_valid=true`,
   `ready_for_cloth_seam_surface=false`
 - coordinate-space debug evidence:
   `CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_v8_hair_union_mask_projected_on_baseline.png`,
@@ -266,8 +265,8 @@ The hair candidate has:
 - Leg v0 is a quad-loop retopo proxy, not final production leg topology.
 - Knee and ankle markers are metadata only; no skinning or weight test has run yet.
 - Hair v0 derives deterministic guide ribbons from v8 mask bounds and texture alpha; it is not final hand-authored strand grooming.
-- Hair v0 is not accepted as a hair-only candidate; current status is `failed_candidate_geometry_alignment`.
-- Coordinate-space debug indicates the validator projection is usable, while the candidate geometry is misplaced relative to the v8 hair union.
+- Hair v0 is coordinate-aligned, but still awaits manual visual review before any integration decision.
+- The validator projection is usable, and the candidate geometry now passes the current render-space hair mask gate.
 - Hair side/back treatment remains a soft depth spread only, not locked multiview reconstruction.
 - The earlier hair front-render black occlusion is preserved as a negative fixture and now fails visual sanity if it recurs.
 - The candidate is not integrated into the v8 beauty GLB.
@@ -276,11 +275,9 @@ The hair candidate has:
 
 ## Next Step
 
-Next step: `fix_authored_hair_ribbons_v0_geometry_alignment`.
+Next step: `manual_review_authored_hair_ribbons_v0_quality`.
 
-Reason: `cloth_seam_surface` is intentionally paused. Hair generated artifacts
-and fixed the black-alpha failure mode, and the coordinate-space debug now shows
-the v8 hair union projection is valid enough. Do not start another actuator
-until the hair candidate geometry is placed/scaled/oriented into that same
-render-space hair union and candidate-only, baseline-only, and overlay
-validation images prove a hair-only aligned result.
+Reason: `cloth_seam_surface` is intentionally paused. Hair generated artifacts,
+fixed the black-alpha failure mode, and now passes the coordinate alignment
+gate. Do not start another actuator until a human accepts the candidate-only,
+baseline-only, overlay, yaw, and side screenshots as a usable hair candidate.

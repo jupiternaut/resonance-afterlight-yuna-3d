@@ -1,6 +1,6 @@
 # Goal Progress: authored_hair_ribbons_v0
 
-Status: generated as an independent candidate actuator, but rejected by manual visual review.
+Status: generated as an independent candidate actuator. Coordinate alignment now passes; manual visual review is still pending.
 
 ## Implemented
 
@@ -33,26 +33,26 @@ Status: generated as an independent candidate actuator, but rejected by manual v
 
 ## Current Result
 
-- Hair candidate status: `failed_candidate_geometry_alignment`.
-- Blender validation status: `failed_candidate_geometry_alignment`.
-- Manual visual review: `failed`.
-- Visual sanity status: `failed_candidate_geometry_alignment`.
+- Hair candidate status: `generated_with_warnings`.
+- Blender validation status: `passed_with_warnings`.
+- Manual visual review: `pending`.
+- Visual sanity status: `passed`.
 - Black alpha leak fixed: `true`.
 - Numeric metrics passed: `true`.
-- Black alpha leak ratio: `0.001292`.
-- Candidate black pixel ratio: `0.000065`.
-- Face occlusion ratio: `0.0571`.
-- Non-hair occlusion ratio: `0.083743`.
-- Hair mask IoU: `0.0`.
-- Outside hair mask ratio: `1.0`.
-- Candidate is hair-only: `false`.
+- Black alpha leak ratio: `0.000625`.
+- Candidate black pixel ratio: `0.000031`.
+- Face occlusion ratio: `0.040282`.
+- Non-hair occlusion ratio: `0.023251`.
+- Hair mask IoU: `0.121116`.
+- Outside hair mask ratio: `0.05764`.
+- Candidate is hair-only: `true`.
 - Hair union projection valid: `true`.
 - Hair union projection overlap ratio: `0.612788`.
-- Candidate geometry alignment valid: `false`.
-- Coordinate mapping status: `failed_candidate_geometry_alignment`.
-- Alignment failure reason: `hair union projection is valid but candidate geometry does not align`.
+- Candidate geometry alignment valid: `true`.
+- Coordinate mapping status: `passed`.
+- Alignment failure reason: ``.
 - Baseline framing valid: `true`.
-- Overlay alignment valid: `false`.
+- Overlay alignment valid: `true`.
 - Ready for cloth seam surface: `false`.
 - Ribbon count: 41.
 - Group count: 4.
@@ -67,11 +67,11 @@ Status: generated as an independent candidate actuator, but rejected by manual v
 - No commercial image-to-3D API is used.
 - The candidate is still a proxy/DCC handoff asset, not final groomed production hair.
 - The previous black-occlusion render is preserved as a negative fixture; if that failure recurs, validation must report `failed_visual_sanity`.
-- This route remains an experimental artifact / negative-plus case, not an accepted hair candidate.
-- Coordinate-space debug indicates the validator projection is usable; the next repair should fix candidate geometry placement/scale/origin/depth rather than rewriting the mask projection gate first.
+- This route remains a candidate, not an accepted or integrated replacement.
+- Coordinate-space debug indicates the validator projection is usable and the current candidate geometry is aligned to it.
 
 ## Next
 
-Next step: `fix_authored_hair_ribbons_v0_geometry_alignment`.
+Next step: `manual_review_authored_hair_ribbons_v0_quality`.
 
 `cloth_seam_surface` remains paused. Do not replace v8 beauty hair in the meantime.

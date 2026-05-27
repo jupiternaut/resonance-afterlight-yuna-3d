@@ -130,10 +130,10 @@
         "mask": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/masks/front/back_hair.png",
         "texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_back_sanitized.png",
         "bbox": [
-          130,
-          480,
-          1009,
-          1035
+          210,
+          762,
+          300,
+          1033
         ],
         "spring_hook": "hair_back_spring_hook",
         "ribbon_count": 14
@@ -145,9 +145,9 @@
         "texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_side_left_sanitized.png",
         "bbox": [
           134,
-          192,
-          509,
-          822
+          216,
+          455,
+          558
         ],
         "spring_hook": "hair_side_left_spring_hook",
         "ribbon_count": 8
@@ -158,10 +158,10 @@
         "mask": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/masks/front/side_hair_right.png",
         "texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_side_right_sanitized.png",
         "bbox": [
-          542,
-          130,
-          986,
-          875
+          610,
+          412,
+          681,
+          510
         ],
         "spring_hook": "hair_side_right_spring_hook",
         "ribbon_count": 9
@@ -173,9 +173,9 @@
         "texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_bangs_sanitized.png",
         "bbox": [
           367,
-          49,
-          715,
-          438
+          261,
+          427,
+          356
         ],
         "spring_hook": "hair_bangs_spring_hook",
         "ribbon_count": 10

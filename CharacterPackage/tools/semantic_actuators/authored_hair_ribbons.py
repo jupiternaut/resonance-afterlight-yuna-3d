@@ -20,6 +20,7 @@ from .validation_contract import file_record, validate_hair_candidate_report
 ACTUATOR_NAME = "authored_hair_ribbons_v0"
 PART_ID = "hair"
 SEGMENT_COUNT = 24
+V8_SOURCE_HEIGHT_WORLD = 6.4
 HAIR_PART_IDS = ("back_hair", "side_hair_left", "side_hair_right", "bangs")
 VISUAL_SANITY_THRESHOLDS = {
     "black_alpha_leak_ratio": 0.02,
@@ -33,7 +34,7 @@ GROUP_CONFIG = {
         "group_id": "hair_back",
         "ribbon_count": 14,
         "spring_hook": "hair_back_spring_hook",
-        "width": 0.018,
+        "width": 0.068,
         "depth_spread": 0.16,
         "curve_bias": -0.030,
         "x_bias": 0.000,
@@ -42,7 +43,7 @@ GROUP_CONFIG = {
         "group_id": "hair_side_left",
         "ribbon_count": 8,
         "spring_hook": "hair_side_left_spring_hook",
-        "width": 0.016,
+        "width": 0.058,
         "depth_spread": 0.090,
         "curve_bias": 0.020,
         "x_bias": -0.035,
@@ -51,7 +52,7 @@ GROUP_CONFIG = {
         "group_id": "hair_side_right",
         "ribbon_count": 9,
         "spring_hook": "hair_side_right_spring_hook",
-        "width": 0.016,
+        "width": 0.058,
         "depth_spread": 0.095,
         "curve_bias": 0.025,
         "x_bias": 0.035,
@@ -60,7 +61,7 @@ GROUP_CONFIG = {
         "group_id": "hair_bangs",
         "ribbon_count": 10,
         "spring_hook": "hair_bangs_spring_hook",
-        "width": 0.014,
+        "width": 0.050,
         "depth_spread": 0.055,
         "curve_bias": 0.018,
         "x_bias": 0.000,
@@ -106,6 +107,12 @@ class SanitizedTextureRecord:
     fill_color: tuple[int, int, int]
 
 
+@dataclass(frozen=True)
+class MaskComponent:
+    bbox: tuple[int, int, int, int]
+    area: int
+
+
 def display_path(path: Path, repo_root: Path) -> str:
     try:
         return str(path.relative_to(repo_root))
@@ -145,6 +152,80 @@ def alpha_bbox(path: Path, threshold: int = 16) -> tuple[int, int, int, int]:
     if bbox is None:
         raise ValueError(f"Image has no visible pixels: {path}")
     return bbox
+
+
+def mask_components(path: Path, threshold: int = 16, min_area: int = 120) -> list[MaskComponent]:
+    mask = mask_luma(path, threshold=threshold)
+    pixels = mask.load()
+    width, height = mask.size
+    seen: set[tuple[int, int]] = set()
+    components: list[MaskComponent] = []
+    for y in range(height):
+        for x in range(width):
+            if pixels[x, y] <= 0 or (x, y) in seen:
+                continue
+            queue = [(x, y)]
+            seen.add((x, y))
+            xs: list[int] = []
+            ys: list[int] = []
+            for current_x, current_y in queue:
+                xs.append(current_x)
+                ys.append(current_y)
+                for next_x, next_y in (
+                    (current_x + 1, current_y),
+                    (current_x - 1, current_y),
+                    (current_x, current_y + 1),
+                    (current_x, current_y - 1),
+                ):
+                    if not (0 <= next_x < width and 0 <= next_y < height):
+                        continue
+                    if pixels[next_x, next_y] <= 0 or (next_x, next_y) in seen:
+                        continue
+                    seen.add((next_x, next_y))
+                    queue.append((next_x, next_y))
+            if len(xs) >= min_area:
+                components.append(
+                    MaskComponent(
+                        bbox=(min(xs), min(ys), max(xs) + 1, max(ys) + 1),
+                        area=len(xs),
+                    )
+                )
+    components.sort(key=lambda item: item.area, reverse=True)
+    return components
+
+
+def component_lane_plan(source: HairGroupSource) -> list[tuple[tuple[int, int, int, int], int, int]]:
+    components = mask_components(source.mask_path)
+    if not components:
+        return [(source.bbox, index, source.ribbon_count) for index in range(source.ribbon_count)]
+
+    selected = components[: min(source.ribbon_count, max(4, source.ribbon_count // 2))]
+    total_area = sum(component.area for component in selected)
+    quotas: list[int] = []
+    fractional: list[tuple[float, int]] = []
+    for index, component in enumerate(selected):
+        raw = source.ribbon_count * component.area / max(total_area, 1)
+        quota = max(1, math.floor(raw))
+        quotas.append(quota)
+        fractional.append((raw - quota, index))
+
+    while sum(quotas) > source.ribbon_count:
+        index = min((idx for idx, quota in enumerate(quotas) if quota > 1), key=lambda idx: (selected[idx].area, idx))
+        quotas[index] -= 1
+    for _, index in sorted(fractional, reverse=True):
+        if sum(quotas) >= source.ribbon_count:
+            break
+        quotas[index] += 1
+
+    planned_components = sorted(
+        zip(selected, quotas, strict=True),
+        key=lambda item: ((item[0].bbox[0] + item[0].bbox[2]) * 0.5, item[0].bbox[1]),
+    )
+    plan: list[tuple[tuple[int, int, int, int], int, int]] = []
+    for component, quota in planned_components:
+        for lane_index in range(quota):
+            plan.append((component.bbox, lane_index, quota))
+    return plan[: source.ribbon_count]
 
 
 def row_alpha_span(alpha, bbox: tuple[int, int, int, int], y: int, threshold: int = 16) -> tuple[int, int]:
@@ -252,6 +333,9 @@ def build_ribbon_mesh(
     ribbon_index: int,
     image_size: tuple[int, int],
     scale: float,
+    component_bbox: tuple[int, int, int, int] | None = None,
+    component_lane_index: int | None = None,
+    component_lane_count: int | None = None,
     ribbon_thickness: float = 0.0035,
 ) -> MeshData:
     width_px, height_px = image_size
@@ -259,9 +343,12 @@ def build_ribbon_mesh(
     alpha = image.getchannel("A")
     if alpha.getbbox() == (0, 0, image.width, image.height) and alpha.getextrema() == (255, 255):
         alpha = image.convert("L").point(lambda pixel: 255 if pixel > 16 else 0)
-    x0, y0, x1, y1 = source.bbox
-    column_targets = weighted_column_targets(alpha, source.bbox, source.ribbon_count)
-    target_px = column_targets[ribbon_index]
+    bbox = component_bbox or source.bbox
+    x0, y0, x1, y1 = bbox
+    lane_count = component_lane_count or source.ribbon_count
+    lane_index = component_lane_index if component_lane_index is not None else ribbon_index
+    column_targets = weighted_column_targets(alpha, bbox, lane_count)
+    target_px = column_targets[min(lane_index, len(column_targets) - 1)]
     ribbon_depth_offset = (ribbon_index - (source.ribbon_count - 1) * 0.5) * source.depth_spread / max(source.ribbon_count - 1, 1)
 
     vertices: list[tuple[float, float, float]] = []
@@ -273,9 +360,9 @@ def build_ribbon_mesh(
     for segment in range(SEGMENT_COUNT + 1):
         t = segment / SEGMENT_COUNT
         y = round(y0 + (y1 - y0 - 1) * t)
-        spans = row_alpha_spans(alpha, source.bbox, y)
+        spans = row_alpha_spans(alpha, bbox, y)
         if not spans:
-            spans = nearest_alpha_spans(alpha, source.bbox, y)
+            spans = nearest_alpha_spans(alpha, bbox, y)
         # Keep the authored candidate deterministic but not perfectly flat:
         # the alpha component provides the strand lane, while sinusoidal
         # offsets add a readable ribbon curve for turntable review.
@@ -288,13 +375,17 @@ def build_ribbon_mesh(
         previous_center_px = center_px
 
         center_x = (center_px - width_px * 0.5) * scale
-        center_z = (height_px * 0.5 - y) * scale
+        # Match the v8 semantic-layer coordinate system: source image Y maps
+        # into positive world Z from feet upward. The earlier centered 2.2m
+        # mapping made the hair candidate tiny and rendered near the boots.
+        center_z = (height_px - y) * scale
         center_depth = source.depth + ribbon_depth_offset + math.sin(t * math.pi) * source.curve_bias
         local_half_width_px = min(half_width_px, max(1.0, (right - left + 1) * 0.20))
         left_px = max(float(left), center_px - local_half_width_px)
         right_px = min(float(right), center_px + local_half_width_px)
-        left_x = center_x - half_width_world
-        right_x = center_x + half_width_world
+        local_half_width_world = max(scale, (right_px - left_px) * 0.5 * scale)
+        left_x = center_x - local_half_width_world
+        right_x = center_x + local_half_width_world
         front_depth = center_depth + ribbon_thickness * 0.5
         back_depth = center_depth - ribbon_thickness * 0.5
 
@@ -343,11 +434,20 @@ def build_hair_ribbons(character_package: Path) -> list[HairRibbon]:
     sources = load_hair_sources(character_package)
     first_image = Image.open(sources[0].mask_path).convert("RGBA")
     image_size = first_image.size
-    scale = 2.2 / image_size[1]
+    scale = V8_SOURCE_HEIGHT_WORLD / image_size[1]
     ribbons: list[HairRibbon] = []
     for source in sources:
-        for index in range(source.ribbon_count):
-            mesh = build_ribbon_mesh(source, ribbon_index=index, image_size=image_size, scale=scale)
+        lane_plan = component_lane_plan(source)
+        for index, (component_bbox, lane_index, lane_count) in enumerate(lane_plan):
+            mesh = build_ribbon_mesh(
+                source,
+                ribbon_index=index,
+                image_size=image_size,
+                scale=scale,
+                component_bbox=component_bbox,
+                component_lane_index=lane_index,
+                component_lane_count=lane_count,
+            )
             ribbons.append(
                 HairRibbon(
                     id=f"{source.group_id}_ribbon_{index + 1:02d}",
@@ -357,7 +457,7 @@ def build_hair_ribbons(character_package: Path) -> list[HairRibbon]:
                     texture_path=source.texture_path,
                     depth_group=source.group_id,
                     spring_hook=source.spring_hook,
-                    bbox=source.bbox,
+                    bbox=component_bbox,
                     mesh=mesh,
                 )
             )
@@ -637,8 +737,8 @@ def blender_export_glb(glb_path: Path, ribbons: list[HairRibbon], repo_root: Pat
 import bpy
 import json
 
-bpy.ops.object.select_all(action='SELECT')
-bpy.ops.object.delete()
+for obj in list(bpy.data.objects):
+    bpy.data.objects.remove(obj, do_unlink=True)
 try:
     bpy.context.preferences.filepaths.save_version = 0
 except Exception:

@@ -6,8 +6,9 @@
 2. `leg_quad_loop_retopo_proxy`
 3. `authored_hair_ribbons`
 4. `fix_authored_hair_ribbons_v0_geometry_alignment`
-5. `cloth_seam_surface`
-6. `weapon_hardsurface_ortho_v1`
+5. `manual_review_authored_hair_ribbons_v0_quality`
+6. `cloth_seam_surface`
+7. `weapon_hardsurface_ortho_v1`
 
 ## 1. Boot Hard-Surface Ortho
 
@@ -81,20 +82,20 @@ Remaining for v1:
 - Replace alpha-derived guide lanes with hand-authored grooming curves.
 - Add deformation/secondary-motion tests for the spring-hook metadata.
 - Preserve the black-occlusion render as a negative fixture so similar failures become `failed_visual_sanity`.
-- Fix current `failed_candidate_geometry_alignment` result before starting the cloth actuator.
+- Coordinate alignment is fixed; manual visual review is still required before starting the cloth actuator.
 
 ## 4. Fix Authored Hair Ribbons v0 Geometry Alignment
 
-Status: required before `cloth_seam_surface`.
+Status: completed for the current render-space gate.
 
 Goal:
 
 - Turn `authored_hair_ribbons_v0` from a generated artifact into a valid hair-only candidate.
 - The coordinate-space diagnostic pass already showed the projected v8 hair union is usable:
   `hair_union_projection_valid=true` and `hair_union_projection_overlap_ratio=0.612788`.
-- The current failure is candidate geometry placement/scale/origin/depth:
-  `candidate_geometry_alignment_valid=false`, `hair_mask_iou=0.0`,
-  `outside_hair_mask_ratio=1.0`.
+- The component-local rebuild now passes candidate geometry alignment:
+  `candidate_geometry_alignment_valid=true`, `hair_mask_iou=0.121116`,
+  `outside_hair_mask_ratio=0.05764`.
 
 Acceptance:
 
@@ -108,6 +109,21 @@ Acceptance:
 - `overlay_alignment_valid = true`.
 - The candidate does not become a replacement for v8 beauty hair.
 - If human review rejects the visual result again, keep the route as a failed/needs-rework candidate and do not proceed to cloth.
+
+## 4b. Manual Review Authored Hair Ribbons v0 Quality
+
+Status: required before `cloth_seam_surface`.
+
+Goal:
+
+- Decide whether the coordinate-aligned hair candidate is visually acceptable as a hair-only DCC candidate.
+
+Acceptance:
+
+- Human review accepts candidate-only, baseline-only, overlay, yaw15, yaw30, side, wire, and exploded screenshots.
+- `manual_visual_review` is updated from `pending` to `accepted`.
+- `replace_in_beauty_glb` remains `false` until a separate integration pass is explicitly approved.
+- If review rejects the visual result, keep this route as needs-rework and do not proceed to cloth.
 
 ## 5. Cloth Seam Surface
 

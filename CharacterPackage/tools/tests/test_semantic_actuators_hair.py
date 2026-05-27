@@ -22,6 +22,7 @@ from semantic_actuators.authored_hair_ribbons import (  # noqa: E402
     blender_export_glb,
     build_hair_ribbons,
     load_hair_sources,
+    mask_components,
     run_authored_hair_ribbons,
     write_obj,
 )
@@ -67,6 +68,22 @@ class AuthoredHairRibbonsActuatorTests(unittest.TestCase):
         self.assertTrue(all(len(ribbon.mesh.vertices) == len(ribbon.mesh.uvs) for ribbon in ribbons))
         self.assertTrue(all(len(ribbon.mesh.faces) > 0 for ribbon in ribbons))
         self.assertTrue(all(ribbon.mesh.thickness > 0 for ribbon in ribbons))
+
+    def test_hair_ribbons_use_v8_world_vertical_scale(self) -> None:
+        ribbons = build_hair_ribbons(CHARACTER_PACKAGE)
+        z_values = [vertex[2] for ribbon in ribbons for vertex in ribbon.mesh.vertices]
+
+        self.assertGreater(max(z_values), 5.5)
+        self.assertGreater(min(z_values), 1.8)
+
+    def test_hair_ribbons_are_built_from_local_mask_components(self) -> None:
+        ribbons = build_hair_ribbons(CHARACTER_PACKAGE)
+        back_components = mask_components(CHARACTER_PACKAGE / "semantic_layer_v8" / "masks" / "front" / "back_hair.png")
+        back_component_bboxes = {component.bbox for component in back_components}
+        back_ribbon_bboxes = {ribbon.bbox for ribbon in ribbons if ribbon.source_part_id == "back_hair"}
+
+        self.assertTrue(back_ribbon_bboxes)
+        self.assertTrue(back_ribbon_bboxes.issubset(back_component_bboxes))
 
     def test_obj_writer_creates_named_ribbon_objects_and_materials(self) -> None:
         ribbons = build_hair_ribbons(CHARACTER_PACKAGE)

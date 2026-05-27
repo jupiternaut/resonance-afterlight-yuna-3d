@@ -602,6 +602,14 @@ def run_wrapper(args: argparse.Namespace) -> int:
         candidate_report.setdefault("validation", {}).update(visual_sanity)
         if visual_sanity["visual_sanity_status"] != "passed":
             candidate_report["status"] = visual_sanity["visual_sanity_status"]
+        elif candidate_report.get("status") in {
+            "failed_hair_mask_alignment",
+            "failed_hair_mask_projection",
+            "failed_candidate_geometry_alignment",
+            "failed_validation_framing",
+            "failed_visual_sanity",
+        }:
+            candidate_report["status"] = "generated_with_warnings"
         write_json(args.candidate_report, candidate_report)
     if result.returncode != 0:
         report["status"] = "failed"
