@@ -187,7 +187,7 @@ Current result:
 
 ## 4d. Fix Hair Ribbons to Schema v1
 
-Status: schema gate passed; manual visual review required.
+Status: leak/alignment gate passed, but non-degenerate coverage failed.
 
 Goal:
 
@@ -218,7 +218,7 @@ Previous result:
 - `candidate_target_schema_status=failed_target_schema_alignment`.
 - `ready_for_cloth_seam_surface=false`.
 
-Current result:
+Previous result:
 
 - A tightened schema-constrained rebuild keeps the four hair groups and four
   depth groups while applying forbidden-zone guard and render-space correction.
@@ -229,16 +229,27 @@ Current result:
 - `replace_in_beauty_glb=false`.
 - `ready_for_cloth_seam_surface=false`.
 
+Current result:
+
+- `candidate_target_schema_status=schema_gate_passed_manual_review_failed_underfilled`.
+- The candidate passes leak/soft-inside/core metrics but is too sparse and fragmented:
+  - `candidate_visible_area_ratio=0.003227` below threshold `0.005`.
+  - `soft_silhouette_coverage_ratio=0.174971` below threshold `0.25`.
+  - `bangs_presence_ratio=0.066363` below threshold `0.15`.
+  - `side_hair_left_presence_ratio=0.259981` below threshold `0.30`.
+  - `component_count=39` above maximum `32`.
+  - `scalp_anchor_continuity=0.066363` below threshold `0.15`.
+- `non_degenerate_hair_coverage_passed=false`.
+- `hair_design_schema_v1.json` now defines the next art-directed hair rebuild contract.
+
 Remaining:
 
-- Run manual visual review on candidate-only, baseline-only, overlay, yaw15,
-  yaw30, side, wire, and exploded screenshots.
-- If review rejects the result, keep the route as needs-rework and move to
-  `build_art_directed_hair_ribbons_v1` with hand-authored strand lanes.
+- Build `build_art_directed_hair_ribbons_v1` from the design schema rather than
+  continuing to shrink alpha-derived ribbons.
 
 ## 4e. Manual Review Authored Hair Ribbons v0 Quality
 
-Status: unblocked by schema v1 numeric gate; pending human visual review.
+Status: blocked by underfilled/non-degenerate coverage failure.
 
 Goal:
 
@@ -251,9 +262,28 @@ Acceptance:
 - `replace_in_beauty_glb` remains `false` until a separate integration pass is explicitly approved.
 - If review rejects the visual result, keep this route as needs-rework and do not proceed to cloth.
 
+## 4f. Hair Design Schema v1
+
+Status: added.
+
+Goal:
+
+- Define an art-directed rebuild contract for non-degenerate hair coverage:
+  bangs primary, side hair left/right, back hair mass, secondary strands,
+  flyaways, scalp anchors, depth groups, face occlusion zones, and allowed
+  silhouette expansion.
+
+Artifact:
+
+- `CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json`
+
+Next:
+
+- Implement `build_art_directed_hair_ribbons_v1` against this design schema.
+
 ## 5. Cloth Seam Surface
 
-Status: paused until schema v1 hair rebuild and manual hair review complete.
+Status: paused until underfilled hair route is rebuilt and manual review accepts it.
 
 Goal:
 

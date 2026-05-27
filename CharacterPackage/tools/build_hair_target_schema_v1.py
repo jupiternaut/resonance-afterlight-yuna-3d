@@ -41,6 +41,23 @@ SCHEMA_THRESHOLDS = {
     "forbidden_candidate_leak_ratio": 0.10,
     "candidate_core_coverage_ratio": 0.10,
     "candidate_soft_inside_ratio": 0.70,
+    "candidate_visible_area_ratio": 0.005,
+    "soft_silhouette_coverage_ratio": 0.25,
+    "bangs_presence_ratio": 0.15,
+    "side_hair_left_presence_ratio": 0.30,
+    "side_hair_right_presence_ratio": 0.30,
+    "back_hair_mass_presence_ratio": 0.35,
+    "component_count_max": 32,
+    "scalp_anchor_continuity": 0.15,
+}
+
+
+GROUP_MASK_DIR = OUT_DIR / "group_masks"
+PRESENCE_PARTS = {
+    "bangs": "bangs_presence_ratio",
+    "side_hair_left": "side_hair_left_presence_ratio",
+    "side_hair_right": "side_hair_right_presence_ratio",
+    "back_hair": "back_hair_mass_presence_ratio",
 }
 
 
@@ -159,6 +176,43 @@ def render_mask(mask: Image.Image, width: int, height: int) -> list[list[bool]]:
     return source_mask_to_render_bool(mask, width, height)
 
 
+def connected_component_count(mask: list[list[bool]], width: int, height: int, *, min_area: int = 1) -> int:
+    seen: set[tuple[int, int]] = set()
+    components = 0
+    for y in range(height):
+        for x in range(width):
+            if not mask[y][x] or (x, y) in seen:
+                continue
+            queue = [(x, y)]
+            seen.add((x, y))
+            area = 0
+            for current_x, current_y in queue:
+                area += 1
+                for next_x, next_y in (
+                    (current_x + 1, current_y),
+                    (current_x - 1, current_y),
+                    (current_x, current_y + 1),
+                    (current_x, current_y - 1),
+                ):
+                    if not (0 <= next_x < width and 0 <= next_y < height):
+                        continue
+                    if mask[next_y][next_x] and (next_x, next_y) not in seen:
+                        seen.add((next_x, next_y))
+                        queue.append((next_x, next_y))
+            if area >= min_area:
+                components += 1
+    return components
+
+
+def load_group_schema_masks() -> dict[str, Image.Image]:
+    masks: dict[str, Image.Image] = {}
+    for part_id in HAIR_PART_IDS:
+        path = GROUP_MASK_DIR / f"{part_id}_schema_v1_mask.png"
+        if path.exists():
+            masks[part_id] = Image.open(path).convert("L").point(lambda value: 255 if value > 0 else 0)
+    return masks
+
+
 def schema_candidate_metrics(masks: dict[str, Image.Image]) -> dict[str, Any]:
     candidate_mask, width, height, candidate_pixels = foreground_mask_from_render(CANDIDATE_FRONT)
     strict_render = render_mask(masks["strict_hair_core"], width, height)
@@ -174,9 +228,36 @@ def schema_candidate_metrics(masks: dict[str, Image.Image]) -> dict[str, Any]:
 
     core_body_overlap_ratio = overlap_ratio(masks["strict_hair_core"], masks["body"])
     soft_body_overlap_ratio = overlap_ratio(masks["soft_hair_silhouette"], masks["body"])
+    candidate_visible_area_ratio = candidate_pixels / max(width * height, 1)
     forbidden_candidate_leak_ratio = candidate_forbidden / max(candidate_pixels, 1)
     candidate_core_coverage_ratio = candidate_strict / max(strict_pixels, 1)
     candidate_soft_inside_ratio = candidate_soft / max(candidate_pixels, 1)
+    soft_silhouette_coverage_ratio = candidate_soft / max(soft_pixels, 1)
+    component_count = connected_component_count(candidate_mask, width, height)
+
+    per_group_visible_pixel_count: dict[str, int] = {}
+    per_group_soft_inside_ratio: dict[str, float] = {}
+    presence_ratios: dict[str, float] = {}
+    group_masks = load_group_schema_masks()
+    for part_id, metric_name in PRESENCE_PARTS.items():
+        group_mask = group_masks.get(part_id)
+        if group_mask is None:
+            visible_pixels = 0
+            group_pixels = 0
+        else:
+            group_render = render_mask(group_mask, width, height)
+            visible_pixels = count_intersection(candidate_mask, group_render, width, height)
+            group_pixels = count_mask_pixels(group_render, width, height)
+        per_group_visible_pixel_count[part_id] = visible_pixels
+        per_group_soft_inside_ratio[part_id] = round(visible_pixels / max(candidate_pixels, 1), 6)
+        presence_ratios[metric_name] = visible_pixels / max(group_pixels, 1)
+
+    scalp_anchor_continuity = min(
+        presence_ratios.get("bangs_presence_ratio", 0.0),
+        presence_ratios.get("side_hair_left_presence_ratio", 0.0),
+        presence_ratios.get("side_hair_right_presence_ratio", 0.0),
+        presence_ratios.get("back_hair_mass_presence_ratio", 0.0),
+    )
 
     schema_ready = (
         mask_pixel_count(masks["strict_hair_core"]) > 1000
@@ -191,9 +272,21 @@ def schema_candidate_metrics(masks: dict[str, Image.Image]) -> dict[str, Any]:
         and candidate_core_coverage_ratio >= SCHEMA_THRESHOLDS["candidate_core_coverage_ratio"]
         and candidate_soft_inside_ratio >= SCHEMA_THRESHOLDS["candidate_soft_inside_ratio"]
     )
+    non_degenerate_passes = (
+        candidate_visible_area_ratio >= SCHEMA_THRESHOLDS["candidate_visible_area_ratio"]
+        and soft_silhouette_coverage_ratio >= SCHEMA_THRESHOLDS["soft_silhouette_coverage_ratio"]
+        and presence_ratios.get("bangs_presence_ratio", 0.0) >= SCHEMA_THRESHOLDS["bangs_presence_ratio"]
+        and presence_ratios.get("side_hair_left_presence_ratio", 0.0) >= SCHEMA_THRESHOLDS["side_hair_left_presence_ratio"]
+        and presence_ratios.get("side_hair_right_presence_ratio", 0.0) >= SCHEMA_THRESHOLDS["side_hair_right_presence_ratio"]
+        and presence_ratios.get("back_hair_mass_presence_ratio", 0.0) >= SCHEMA_THRESHOLDS["back_hair_mass_presence_ratio"]
+        and component_count <= SCHEMA_THRESHOLDS["component_count_max"]
+        and scalp_anchor_continuity >= SCHEMA_THRESHOLDS["scalp_anchor_continuity"]
+    )
 
-    if candidate_passes:
+    if candidate_passes and non_degenerate_passes:
         candidate_status = "schema_gate_passed_manual_review_required"
+    elif candidate_passes:
+        candidate_status = "schema_gate_passed_manual_review_failed_underfilled"
     elif schema_ready:
         candidate_status = "failed_target_schema_alignment"
     else:
@@ -210,9 +303,25 @@ def schema_candidate_metrics(masks: dict[str, Image.Image]) -> dict[str, Any]:
         "forbidden_zone_area": mask_pixel_count(masks["forbidden_nonhair_zone"]),
         "core_body_overlap_ratio": round(core_body_overlap_ratio, 6),
         "soft_body_overlap_ratio": round(soft_body_overlap_ratio, 6),
+        "candidate_visible_area_ratio": round(candidate_visible_area_ratio, 6),
         "forbidden_candidate_leak_ratio": round(forbidden_candidate_leak_ratio, 6),
         "candidate_core_coverage_ratio": round(candidate_core_coverage_ratio, 6),
         "candidate_soft_inside_ratio": round(candidate_soft_inside_ratio, 6),
+        "soft_silhouette_coverage_ratio": round(soft_silhouette_coverage_ratio, 6),
+        "per_group_visible_pixel_count": per_group_visible_pixel_count,
+        "per_group_soft_inside_ratio": per_group_soft_inside_ratio,
+        "bangs_presence_ratio": round(presence_ratios.get("bangs_presence_ratio", 0.0), 6),
+        "side_hair_left_presence_ratio": round(presence_ratios.get("side_hair_left_presence_ratio", 0.0), 6),
+        "side_hair_right_presence_ratio": round(presence_ratios.get("side_hair_right_presence_ratio", 0.0), 6),
+        "back_hair_mass_presence_ratio": round(presence_ratios.get("back_hair_mass_presence_ratio", 0.0), 6),
+        "component_count": component_count,
+        "scalp_anchor_continuity": round(scalp_anchor_continuity, 6),
+        "non_degenerate_hair_coverage_passed": non_degenerate_passes,
+        "non_degenerate_hair_coverage_reason": (
+            "candidate has enough visible mass, group presence, and continuity"
+            if non_degenerate_passes
+            else "candidate passes leak/alignment metrics by becoming too sparse or fragmented"
+        ),
         "candidate_target_schema_status": candidate_status,
         "schema_ready_for_ribbon_rebuild": schema_ready,
         "thresholds": SCHEMA_THRESHOLDS,
@@ -297,11 +406,12 @@ def make_contact_sheet(masks: dict[str, Image.Image], candidate_overlay: Path, o
 
 
 def update_json_reports(report: dict[str, Any]) -> None:
-    manual_visual_review = (
-        "required"
-        if report["candidate_target_schema_status"] == "schema_gate_passed_manual_review_required"
-        else "blocked_by_target_schema"
-    )
+    if report["candidate_target_schema_status"] == "schema_gate_passed_manual_review_required":
+        manual_visual_review = "required"
+    elif report["candidate_target_schema_status"] == "schema_gate_passed_manual_review_failed_underfilled":
+        manual_visual_review = "failed_underfilled"
+    else:
+        manual_visual_review = "blocked_by_target_schema"
     summary = {
         "route": report["route"],
         "status": report["candidate_target_schema_status"],
@@ -313,6 +423,18 @@ def update_json_reports(report: dict[str, Any]) -> None:
         "forbidden_candidate_leak_ratio": report["forbidden_candidate_leak_ratio"],
         "candidate_core_coverage_ratio": report["candidate_core_coverage_ratio"],
         "candidate_soft_inside_ratio": report["candidate_soft_inside_ratio"],
+        "candidate_visible_area_ratio": report["candidate_visible_area_ratio"],
+        "soft_silhouette_coverage_ratio": report["soft_silhouette_coverage_ratio"],
+        "per_group_visible_pixel_count": report["per_group_visible_pixel_count"],
+        "per_group_soft_inside_ratio": report["per_group_soft_inside_ratio"],
+        "bangs_presence_ratio": report["bangs_presence_ratio"],
+        "side_hair_left_presence_ratio": report["side_hair_left_presence_ratio"],
+        "side_hair_right_presence_ratio": report["side_hair_right_presence_ratio"],
+        "back_hair_mass_presence_ratio": report["back_hair_mass_presence_ratio"],
+        "component_count": report["component_count"],
+        "scalp_anchor_continuity": report["scalp_anchor_continuity"],
+        "non_degenerate_hair_coverage_passed": report["non_degenerate_hair_coverage_passed"],
+        "non_degenerate_hair_coverage_reason": report["non_degenerate_hair_coverage_reason"],
         "candidate_target_schema_status": report["candidate_target_schema_status"],
         "schema_ready_for_ribbon_rebuild": report["schema_ready_for_ribbon_rebuild"],
         "ready_for_cloth_seam_surface": False,
@@ -364,6 +486,8 @@ def build_report(output_dir: Path, *, update_reports: bool = True) -> dict[str, 
     metrics = schema_candidate_metrics(masks)
     if metrics["candidate_target_schema_status"] == "schema_gate_passed_manual_review_required":
         recommended_next = "manual_review_authored_hair_ribbons_v0_quality"
+    elif metrics["candidate_target_schema_status"] == "schema_gate_passed_manual_review_failed_underfilled":
+        recommended_next = "build_art_directed_hair_ribbons_v1"
     elif metrics["schema_ready_for_ribbon_rebuild"]:
         recommended_next = "fix_hair_ribbons_to_schema_v1"
     else:

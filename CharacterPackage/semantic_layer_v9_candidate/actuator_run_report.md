@@ -177,14 +177,14 @@ The leg retopo proxy candidate status is `generated_with_warnings`.
 The leg Blender validation status is `passed_with_warnings`.
 
 The authored hair ribbon candidate status is
-`schema_gate_passed_manual_review_required`.
+`schema_gate_passed_manual_review_failed_underfilled`.
 
 The hair Blender validation route produced screenshots and then the target
 schema pass updated the route status to
-`schema_gate_passed_manual_review_required`.
+`schema_gate_passed_manual_review_failed_underfilled`.
 
 The hair visual sanity status is
-`schema_gate_passed_manual_review_required`.
+`schema_gate_passed_manual_review_failed_underfilled`.
 
 After the coordinate-space debug pass and component-local rebuild, the authored
 hair route no longer fails the raw coordinate alignment gate, but this is only
@@ -214,12 +214,21 @@ gate:
 `candidate_core_coverage_ratio=0.187749`, and
 `candidate_soft_inside_ratio=0.916398`.
 
+The non-degenerate coverage gate rejects the candidate because it passed the
+leak metrics by becoming too small and fragmented:
+`candidate_visible_area_ratio=0.003227`,
+`soft_silhouette_coverage_ratio=0.174971`,
+`bangs_presence_ratio=0.066363`,
+`side_hair_left_presence_ratio=0.259981`,
+`component_count=39`, and
+`scalp_anchor_continuity=0.066363`.
+
 The hair candidate is still not accepted. The route remains a candidate only:
-`manual_visual_review=required`, `replace_in_beauty_glb=false`, and
+`manual_visual_review=failed_underfilled`, `replace_in_beauty_glb=false`, and
 `ready_for_cloth_seam_surface=false`.
 
 The alpha leak and artifact-generation parts of the route are fixed, but the
-candidate is not integrated into v8 beauty. It requires manual visual review
+candidate is not integrated into v8 beauty. It requires an art-directed rebuild
 before any later actuator is unblocked.
 
 The candidate has:
@@ -346,13 +355,13 @@ The hair candidate has:
 
 ## Next Step
 
-Next step: `manual_review_authored_hair_ribbons_v0_quality`.
+Next step: `build_art_directed_hair_ribbons_v1`.
 
 Reason: `cloth_seam_surface` is intentionally paused. Hair generated artifacts,
-fixed the black-alpha failure mode, and now passes the schema v1 numeric gate.
-This is still not an accepted hair candidate. Do not start another actuator
-until manual review accepts the candidate-only, baseline-only, overlay, yaw15,
-yaw30, side, wire, and exploded screenshots.
+fixed the black-alpha failure mode, and now passes leak/soft-inside/core
+metrics. The candidate is underfilled and fragmented, so it is not an accepted
+hair candidate. Do not start another actuator until a non-degenerate
+art-directed hair candidate exists and manual review accepts it.
 
 ## Fix Hair Ribbons to Schema v1 Update
 
@@ -422,7 +431,40 @@ Metric movement:
 
 Verdict:
 
-- `candidate_target_schema_status=schema_gate_passed_manual_review_required`.
-- This is a target-schema numeric pass, not an accepted hair candidate.
-- Manual visual review is required before any integration or cloth work.
+- `candidate_target_schema_status=schema_gate_passed_manual_review_failed_underfilled`.
+- This is a target-schema leak pass but a non-degenerate hair coverage failure.
+- Manual visual review failed due to underfilled/sparse hair mass.
 - `cloth_seam_surface` remains blocked.
+
+## Non-Degenerate Hair Coverage Gate Update
+
+This pass added a guard against a false success mode where the candidate passes
+leak/alignment metrics by shrinking into a sparse fragment set.
+
+Added metrics:
+
+- `candidate_visible_area_ratio`
+- `soft_silhouette_coverage_ratio`
+- `per_group_visible_pixel_count`
+- `per_group_soft_inside_ratio`
+- `bangs_presence_ratio`
+- `side_hair_left_presence_ratio`
+- `side_hair_right_presence_ratio`
+- `back_hair_mass_presence_ratio`
+- `component_count`
+- `scalp_anchor_continuity`
+
+Current result:
+
+- `candidate_visible_area_ratio=0.003227` below threshold `0.005`.
+- `soft_silhouette_coverage_ratio=0.174971` below threshold `0.25`.
+- `bangs_presence_ratio=0.066363` below threshold `0.15`.
+- `side_hair_left_presence_ratio=0.259981` below threshold `0.30`.
+- `side_hair_right_presence_ratio=0.637028`.
+- `back_hair_mass_presence_ratio=0.517410`.
+- `component_count=39` above maximum `32`.
+- `scalp_anchor_continuity=0.066363` below threshold `0.15`.
+- `non_degenerate_hair_coverage_passed=false`.
+
+The route now has `hair_design_schema_v1.json` as the design contract for the
+next art-directed rebuild. No new GLB was generated in this pass.

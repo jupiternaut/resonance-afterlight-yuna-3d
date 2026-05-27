@@ -16,6 +16,7 @@ import build_hair_target_schema_v1 as schema  # noqa: E402
 
 
 CHARACTER_PACKAGE = REPO_ROOT / "CharacterPackage"
+HAIR_DESIGN_SCHEMA_PATH = CHARACTER_PACKAGE / "semantic_layer_v9_hair" / "hair_design_schema_v1.json"
 
 
 class HairTargetSchemaV1Tests(unittest.TestCase):
@@ -42,6 +43,7 @@ class HairTargetSchemaV1Tests(unittest.TestCase):
                 report["candidate_target_schema_status"],
                 {
                     "schema_gate_passed_manual_review_required",
+                    "schema_gate_passed_manual_review_failed_underfilled",
                     "failed_target_schema_alignment",
                     "schema_not_ready_for_rebuild",
                 },
@@ -55,9 +57,45 @@ class HairTargetSchemaV1Tests(unittest.TestCase):
                 self.assertGreaterEqual(report["candidate_soft_inside_ratio"], schema.SCHEMA_THRESHOLDS["candidate_soft_inside_ratio"])
                 self.assertGreaterEqual(report["candidate_core_coverage_ratio"], schema.SCHEMA_THRESHOLDS["candidate_core_coverage_ratio"])
                 self.assertEqual(saved["recommended_next"], "manual_review_authored_hair_ribbons_v0_quality")
+            elif report["candidate_target_schema_status"] == "schema_gate_passed_manual_review_failed_underfilled":
+                self.assertLess(report["forbidden_candidate_leak_ratio"], schema.SCHEMA_THRESHOLDS["forbidden_candidate_leak_ratio"])
+                self.assertGreaterEqual(report["candidate_soft_inside_ratio"], schema.SCHEMA_THRESHOLDS["candidate_soft_inside_ratio"])
+                self.assertGreaterEqual(report["candidate_core_coverage_ratio"], schema.SCHEMA_THRESHOLDS["candidate_core_coverage_ratio"])
+                self.assertFalse(report["non_degenerate_hair_coverage_passed"])
+                self.assertEqual(saved["recommended_next"], "build_art_directed_hair_ribbons_v1")
             else:
                 self.assertGreater(report["forbidden_candidate_leak_ratio"], schema.SCHEMA_THRESHOLDS["forbidden_candidate_leak_ratio"])
                 self.assertEqual(saved["recommended_next"], "fix_hair_ribbons_to_schema_v1")
+
+    def test_current_candidate_fails_non_degenerate_underfilled_gate(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            report = schema.build_report(Path(tmp), update_reports=False)
+
+            self.assertEqual(report["candidate_target_schema_status"], "schema_gate_passed_manual_review_failed_underfilled")
+            self.assertFalse(report["non_degenerate_hair_coverage_passed"])
+            self.assertLess(report["candidate_visible_area_ratio"], schema.SCHEMA_THRESHOLDS["candidate_visible_area_ratio"])
+            self.assertLess(report["soft_silhouette_coverage_ratio"], schema.SCHEMA_THRESHOLDS["soft_silhouette_coverage_ratio"])
+            self.assertLess(report["bangs_presence_ratio"], schema.SCHEMA_THRESHOLDS["bangs_presence_ratio"])
+            self.assertGreater(report["component_count"], schema.SCHEMA_THRESHOLDS["component_count_max"])
+            self.assertIn("per_group_visible_pixel_count", report)
+            self.assertIn("per_group_soft_inside_ratio", report)
+            self.assertIn("candidate passes leak/alignment metrics by becoming too sparse", report["non_degenerate_hair_coverage_reason"])
+
+    def test_hair_design_schema_v1_defines_required_design_contract(self) -> None:
+        design = json.loads(HAIR_DESIGN_SCHEMA_PATH.read_text(encoding="utf-8"))
+
+        self.assertEqual(design["schema"], "hair_design_schema_v1")
+        self.assertIn("bangs_primary", design["required_primary_groups"])
+        self.assertIn("side_hair_left_primary", design["required_primary_groups"])
+        self.assertIn("side_hair_right_primary", design["required_primary_groups"])
+        self.assertIn("back_hair_mass", design["required_primary_groups"])
+        self.assertIn("secondary_strands", design)
+        self.assertIn("flyaway_strands", design)
+        self.assertGreaterEqual(len(design["scalp_anchor_points"]), 4)
+        self.assertGreaterEqual(len(design["depth_groups"]), 3)
+        self.assertTrue(design["forbidden_face_occlusion_zones"])
+        self.assertIn("allowed_silhouette_expansion", design)
+        self.assertEqual(design["blocked_route"], "cloth_seam_surface")
 
     def test_schema_report_records_estimated_sources_and_confidence(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

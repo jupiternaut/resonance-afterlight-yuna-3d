@@ -8,17 +8,18 @@
 - Weapon, boot, and leg routes are additive candidates/proxies; they do not
   replace v8 beauty.
 - `authored_hair_ribbons_v0` generated assets, fixed the black-alpha leak, and
-  now passes the v1 target-schema numeric gate.
+  passes the leak/soft-inside/core numeric gate, but fails the non-degenerate
+  hair coverage gate.
 - Hair coordinate alignment is only a weak pass against the dirty v8 hair union,
   so the route still requires manual visual review before any integration.
 - Clean/refined hair target status:
-  - current status: `schema_gate_passed_manual_review_required`
-  - current candidate is not accepted as hair-only until manual review passes
+  - current status: `schema_gate_passed_manual_review_failed_underfilled`
+  - current candidate is not accepted as hair-only
   - `ready_for_cloth_seam_surface=false`
 - `hair_target_schema_v1` now exists with `strict_hair_core`,
   `soft_hair_silhouette`, and `forbidden_nonhair_zone`.
-- A tighter schema-constrained ribbon rebuild has been generated and now passes
-  the v1 target-schema numeric thresholds:
+- A tighter schema-constrained ribbon rebuild has been generated. It passes
+  leak/soft-inside/core thresholds but fails non-degenerate coverage:
   - baseline before rebuild:
     - `forbidden_candidate_leak_ratio=0.975006`
     - `candidate_core_coverage_ratio=0.041425`
@@ -31,15 +32,18 @@
     - `forbidden_candidate_leak_ratio=0.010006`
     - `candidate_core_coverage_ratio=0.187749`
     - `candidate_soft_inside_ratio=0.916398`
+    - `candidate_visible_area_ratio=0.003227`
+    - `soft_silhouette_coverage_ratio=0.174971`
+    - `bangs_presence_ratio=0.066363`
+    - `side_hair_left_presence_ratio=0.259981`
+    - `component_count=39`
 - `cloth_seam_surface` remains blocked.
 
 ## Current Blocker
 
-Run manual review on the schema-gated authored hair candidate before any new
-actuator work. The target-schema numeric gate now passes, but the route is not
-accepted, not integrated, and not ready for cloth until visual/manual review
-accepts candidate-only, baseline, overlay, yaw, side, wire, and exploded
-screenshots.
+Build an art-directed hair ribbon design before any new actuator work. The
+leak/soft-inside/core metrics pass only because the candidate is too sparse and
+fragmented. It is not accepted, not integrated, and not ready for cloth.
 
 ## Formula Binding
 
@@ -96,11 +100,12 @@ Current blocker:
 - strict clean target is too narrow;
 - refined component-prior target is still not final;
 - `hair_target_schema_v1` is available;
-- current candidate passes the schema v1 numeric gate;
-- manual visual review is still required before the candidate can be accepted;
+- current candidate passes leak/soft-inside/core metrics but fails the
+  non-degenerate coverage gate;
+- `hair_design_schema_v1.json` is available to drive an art-directed rebuild;
 - `cloth_seam_surface` remains blocked.
 
-Next valid task: `manual_review_authored_hair_ribbons_v0_quality`.
+Next valid task: `build_art_directed_hair_ribbons_v1`.
 
 Invalid next task: `cloth_seam_surface`.
 
@@ -116,6 +121,7 @@ Invalid next task: `cloth_seam_surface`.
 - `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/forbidden_nonhair_zone_mask.png`
 - `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/candidate_vs_schema_overlay.png`
 - `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/schema_debug_contact_sheet.png`
+- `CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json`
 - `CharacterPackage/semantic_layer_v9_candidate/backlog_v10.md`
 - `CharacterPackage/semantic_layer_v9_candidate/actuator_run_report.md`
 
@@ -124,7 +130,8 @@ Invalid next task: `cloth_seam_surface`.
 - Do not proceed to `cloth_seam_surface`.
 - Do not accept raw/refined union IoU as final proof of hair quality.
 - Do not replace v8 beauty.
-- Do not call hair v0 accepted until target-schema checks and manual review pass.
+- Do not call hair v0 accepted until non-degenerate coverage and manual review
+  pass.
 
 ## Required Verification
 

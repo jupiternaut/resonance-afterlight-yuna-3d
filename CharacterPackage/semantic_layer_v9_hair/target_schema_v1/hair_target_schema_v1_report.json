@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-05-27T18:08:50.617076+00:00",
+  "created_at": "2026-05-27T18:32:49.973852+00:00",
   "route": "build_hair_target_schema_v1",
-  "status": "schema_gate_passed_manual_review_required",
+  "status": "schema_gate_passed_manual_review_failed_underfilled",
   "boundary": "Target-schema generation only. Does not modify semantic_layer_v8, generate GLB, or unblock cloth.",
   "formula_binding": {
     "state": "theta_hair target masks and validation fields, not raw mesh vertices",
@@ -53,20 +53,50 @@
   "forbidden_zone_area": 666429,
   "core_body_overlap_ratio": 0.0,
   "soft_body_overlap_ratio": 0.0,
+  "candidate_visible_area_ratio": 0.003227,
   "forbidden_candidate_leak_ratio": 0.010006,
   "candidate_core_coverage_ratio": 0.187749,
   "candidate_soft_inside_ratio": 0.916398,
-  "candidate_target_schema_status": "schema_gate_passed_manual_review_required",
+  "soft_silhouette_coverage_ratio": 0.174971,
+  "per_group_visible_pixel_count": {
+    "bangs": 131,
+    "side_hair_left": 280,
+    "side_hair_right": 3224,
+    "back_hair": 4755
+  },
+  "per_group_soft_inside_ratio": {
+    "bangs": 0.021143,
+    "side_hair_left": 0.04519,
+    "side_hair_right": 0.520336,
+    "back_hair": 0.767431
+  },
+  "bangs_presence_ratio": 0.066363,
+  "side_hair_left_presence_ratio": 0.259981,
+  "side_hair_right_presence_ratio": 0.637028,
+  "back_hair_mass_presence_ratio": 0.51741,
+  "component_count": 39,
+  "scalp_anchor_continuity": 0.066363,
+  "non_degenerate_hair_coverage_passed": false,
+  "non_degenerate_hair_coverage_reason": "candidate passes leak/alignment metrics by becoming too sparse or fragmented",
+  "candidate_target_schema_status": "schema_gate_passed_manual_review_failed_underfilled",
   "schema_ready_for_ribbon_rebuild": true,
   "thresholds": {
     "core_body_overlap_ratio": 0.02,
     "soft_body_overlap_ratio": 0.2,
     "forbidden_candidate_leak_ratio": 0.1,
     "candidate_core_coverage_ratio": 0.1,
-    "candidate_soft_inside_ratio": 0.7
+    "candidate_soft_inside_ratio": 0.7,
+    "candidate_visible_area_ratio": 0.005,
+    "soft_silhouette_coverage_ratio": 0.25,
+    "bangs_presence_ratio": 0.15,
+    "side_hair_left_presence_ratio": 0.3,
+    "side_hair_right_presence_ratio": 0.3,
+    "back_hair_mass_presence_ratio": 0.35,
+    "component_count_max": 32,
+    "scalp_anchor_continuity": 0.15
   },
   "ready_for_cloth_seam_surface": false,
-  "recommended_next": "manual_review_authored_hair_ribbons_v0_quality",
+  "recommended_next": "build_art_directed_hair_ribbons_v1",
   "artifacts": {
     "strict_hair_core_mask": {
       "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/strict_hair_core_mask.png",
@@ -96,7 +126,7 @@
     "report": {
       "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/hair_target_schema_v1_report.json",
       "exists": true,
-      "bytes": 3623
+      "bytes": 4733
     }
   }
 }

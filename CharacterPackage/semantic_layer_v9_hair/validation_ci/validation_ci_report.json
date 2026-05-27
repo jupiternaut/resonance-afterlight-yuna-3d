@@ -1,7 +1,7 @@
 {
   "created_at": "2026-05-27T18:08:28.433177+00:00",
   "route": "blender_semantic_validation_v0",
-  "status": "schema_gate_passed_manual_review_required",
+  "status": "schema_gate_passed_manual_review_failed_underfilled",
   "boundary": "Candidate validation only. It does not replace v8 beauty GLB.",
   "inputs": {
     "baseline_glb": {
@@ -140,9 +140,9 @@
     "has_hair_spring_hooks": true,
     "has_hair_depth_groups": true,
     "replace_in_beauty_glb": false,
-    "visual_sanity_status": "schema_gate_passed_manual_review_required",
-    "target_schema_v1_status": "schema_gate_passed_manual_review_required",
-    "manual_visual_review": "required"
+    "visual_sanity_status": "schema_gate_passed_manual_review_failed_underfilled",
+    "target_schema_v1_status": "schema_gate_passed_manual_review_failed_underfilled",
+    "manual_visual_review": "failed_underfilled"
   },
   "quality": {
     "missing_screenshots": [],
@@ -288,7 +288,7 @@
     },
     "target_schema_v1": {
       "route": "build_hair_target_schema_v1",
-      "status": "schema_gate_passed_manual_review_required",
+      "status": "schema_gate_passed_manual_review_failed_underfilled",
       "strict_core_area": 20309,
       "soft_silhouette_area": 29823,
       "forbidden_zone_area": 666429,
@@ -297,10 +297,32 @@
       "forbidden_candidate_leak_ratio": 0.010006,
       "candidate_core_coverage_ratio": 0.187749,
       "candidate_soft_inside_ratio": 0.916398,
-      "candidate_target_schema_status": "schema_gate_passed_manual_review_required",
+      "candidate_visible_area_ratio": 0.003227,
+      "soft_silhouette_coverage_ratio": 0.174971,
+      "per_group_visible_pixel_count": {
+        "bangs": 131,
+        "side_hair_left": 280,
+        "side_hair_right": 3224,
+        "back_hair": 4755
+      },
+      "per_group_soft_inside_ratio": {
+        "bangs": 0.021143,
+        "side_hair_left": 0.04519,
+        "side_hair_right": 0.520336,
+        "back_hair": 0.767431
+      },
+      "bangs_presence_ratio": 0.066363,
+      "side_hair_left_presence_ratio": 0.259981,
+      "side_hair_right_presence_ratio": 0.637028,
+      "back_hair_mass_presence_ratio": 0.51741,
+      "component_count": 39,
+      "scalp_anchor_continuity": 0.066363,
+      "non_degenerate_hair_coverage_passed": false,
+      "non_degenerate_hair_coverage_reason": "candidate passes leak/alignment metrics by becoming too sparse or fragmented",
+      "candidate_target_schema_status": "schema_gate_passed_manual_review_failed_underfilled",
       "schema_ready_for_ribbon_rebuild": true,
       "ready_for_cloth_seam_surface": false,
-      "recommended_next": "manual_review_authored_hair_ribbons_v0_quality",
+      "recommended_next": "build_art_directed_hair_ribbons_v1",
       "artifacts": {
         "strict_hair_core_mask": {
           "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/strict_hair_core_mask.png",
@@ -330,7 +352,7 @@
         "report": {
           "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/hair_target_schema_v1_report.json",
           "exists": true,
-          "bytes": 3623
+          "bytes": 4733
         }
       }
     }
