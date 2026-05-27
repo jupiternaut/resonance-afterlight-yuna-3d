@@ -50,7 +50,7 @@ checkpoint test runner for this pass was `unittest`.
 ## Tests
 
 - `python3 -m unittest discover -s CharacterPackage/tools/tests -p 'test_*.py' -v`
-- Result: 39 tests passed.
+- Result: 43 tests passed.
 
 Coverage added in this run:
 
@@ -167,13 +167,17 @@ The leg retopo proxy candidate status is `generated_with_warnings`.
 
 The leg Blender validation status is `passed_with_warnings`.
 
-The authored hair ribbon candidate status is `generated_with_warnings`.
+The authored hair ribbon candidate status is `failed_hair_mask_alignment`.
 
-The hair Blender validation status is `passed_with_warnings`.
+The hair Blender validation status is `failed_hair_mask_alignment`.
 
-The hair visual sanity status is `passed` after fixing the previous black
-front-render false positive with sanitized alpha textures and tighter
-mask-constrained ribbon lanes.
+The hair visual sanity status is `failed_hair_mask_alignment`.
+
+The alpha leak and artifact-generation parts of the route are fixed, but the
+candidate is not accepted as a hair candidate. Manual visual review rejected it
+because candidate-only/front/yaw views still read as fragmented non-hair
+geometry rather than authored hair ribbons. The route is retained as an
+experimental artifact / negative-plus case only.
 
 The candidate has:
 
@@ -219,9 +223,16 @@ The hair candidate has:
 - OBJ and GLB exports
 - screenshot validation evidence
 - candidate-only, baseline-only, and overlay front screenshots
-- visual sanity metrics: `black_alpha_leak_ratio=0.0`,
-  `candidate_black_pixel_ratio=0.0`, `face_occlusion_ratio=0.0571`,
-  `non_hair_occlusion_ratio=0.083743`
+- visual sanity metrics: `black_alpha_leak_fixed=true`,
+  `numeric_metrics_passed=true`, `black_alpha_leak_ratio=0.001292`,
+  `candidate_black_pixel_ratio=0.000065`,
+  `face_occlusion_ratio=0.0571`,
+  `non_hair_occlusion_ratio=0.083743`,
+  `hair_mask_iou=0.0`, `outside_hair_mask_ratio=1.0`,
+  `candidate_is_hair_only=false`,
+  `baseline_framing_valid=true`,
+  `overlay_alignment_valid=false`,
+  `ready_for_cloth_seam_surface=false`
 
 ## Known Limits
 
@@ -232,6 +243,7 @@ The hair candidate has:
 - Leg v0 is a quad-loop retopo proxy, not final production leg topology.
 - Knee and ankle markers are metadata only; no skinning or weight test has run yet.
 - Hair v0 derives deterministic guide ribbons from v8 mask bounds and texture alpha; it is not final hand-authored strand grooming.
+- Hair v0 is not accepted as a hair-only candidate; current status is `failed_hair_mask_alignment`.
 - Hair side/back treatment remains a soft depth spread only, not locked multiview reconstruction.
 - The earlier hair front-render black occlusion is preserved as a negative fixture and now fails visual sanity if it recurs.
 - The candidate is not integrated into the v8 beauty GLB.
@@ -240,8 +252,9 @@ The hair candidate has:
 
 ## Next Step
 
-Next step: `manual_review_authored_hair_ribbons_v0`.
+Next step: `fix_authored_hair_ribbons_v0_alignment`.
 
-Reason: `cloth_seam_surface` is intentionally paused. Hair now passes numeric
-visual sanity gates, but the repaired candidate should be visually reviewed
-before another actuator starts.
+Reason: `cloth_seam_surface` is intentionally paused. Hair generated artifacts
+and fixed the black-alpha failure mode, but it failed hair-mask alignment and
+manual visual review. Do not start another actuator until candidate-only,
+baseline-only, and overlay validation images prove a hair-only aligned result.

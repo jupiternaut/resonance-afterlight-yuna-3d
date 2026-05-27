@@ -5,6 +5,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 from PIL import Image
 
@@ -87,9 +88,43 @@ class BlenderSemanticValidationTests(unittest.TestCase):
                 image_path,
             )
 
-            self.assertEqual(sanity["visual_sanity_status"], "failed_visual_sanity")
+            self.assertIn(sanity["visual_sanity_status"], {"failed_visual_sanity", "failed_validation_framing"})
             self.assertIn("face", sanity["visual_sanity_reason"])
             self.assertIn("non-hair", sanity["visual_sanity_reason"])
+
+    def test_hair_visual_sanity_rejects_candidate_outside_hair_mask(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            image_path = Path(tmp) / "candidate.png"
+            image = Image.new("RGB", (20, 20), (184, 184, 184))
+            for x in range(4, 16):
+                for y in range(4, 16):
+                    image.putpixel((x, y), (220, 220, 220))
+            image.save(image_path)
+
+            with mock.patch(
+                "run_blender_semantic_validation.evaluate_render_framing",
+                return_value={"framing_valid": True, "reason": "synthetic valid frame"},
+            ), mock.patch(
+                "run_blender_semantic_validation.load_hair_union_mask",
+                return_value=[[False for _ in range(20)] for _ in range(20)],
+            ):
+                sanity = hair_visual_sanity_from_reports(
+                    {},
+                    {
+                        "validation": {
+                            "alpha_material_valid": True,
+                            "face_occlusion_ratio": 0.0,
+                            "non_hair_occlusion_ratio": 0.0,
+                        }
+                    },
+                    image_path,
+                    image_path,
+                    image_path,
+                )
+
+            self.assertEqual(sanity["visual_sanity_status"], "failed_hair_mask_alignment")
+            self.assertGreaterEqual(sanity["outside_hair_mask_ratio"], 0.10)
+            self.assertFalse(sanity["candidate_is_hair_only"])
 
 
 if __name__ == "__main__":

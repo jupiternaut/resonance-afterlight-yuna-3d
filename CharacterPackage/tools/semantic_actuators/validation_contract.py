@@ -103,8 +103,8 @@ def validate_hair_candidate_report(report: dict[str, Any]) -> list[str]:
         errors.append("part_id must be hair")
     if report.get("actuator") != "authored_hair_ribbons_v0":
         errors.append("unexpected actuator")
-    if report.get("status") not in {"generated_with_warnings", "failed"}:
-        errors.append("status must be generated_with_warnings or failed")
+    if report.get("status") not in {"generated_with_warnings", "failed", "failed_visual_sanity", "failed_hair_mask_alignment", "failed_validation_framing", "manual_review_failed"}:
+        errors.append("status must be generated_with_warnings, failed, or a hair visual failure status")
     mesh = report.get("mesh_summary", {})
     if mesh.get("vertices", 0) <= 0:
         errors.append("mesh has no vertices")
@@ -135,6 +135,11 @@ def validate_hair_candidate_report(report: dict[str, Any]) -> list[str]:
         "candidate_black_pixel_ratio",
         "face_occlusion_ratio",
         "non_hair_occlusion_ratio",
+        "hair_mask_iou",
+        "outside_hair_mask_ratio",
+        "candidate_is_hair_only",
+        "baseline_framing_valid",
+        "overlay_alignment_valid",
         "visual_sanity_status",
         "visual_sanity_reason",
     )
@@ -151,6 +156,14 @@ def validate_hair_candidate_report(report: dict[str, Any]) -> list[str]:
         errors.append("hair candidate face occlusion ratio is too high")
     if validation.get("non_hair_occlusion_ratio", 1.0) >= 0.10:
         errors.append("hair candidate non-hair occlusion ratio is too high")
-    if validation.get("visual_sanity_status") not in {"passed", "passed_with_minor_warnings", "failed_visual_sanity"}:
+    visual_status = validation.get("visual_sanity_status")
+    if visual_status not in {"passed", "passed_with_minor_warnings", "failed_visual_sanity", "failed_hair_mask_alignment", "failed_validation_framing", "manual_review_failed"}:
         errors.append("hair candidate visual_sanity_status is invalid")
+    if visual_status in {"passed", "passed_with_minor_warnings"}:
+        if validation.get("candidate_is_hair_only") is not True:
+            errors.append("passing hair candidate must be constrained to the v8 hair mask union")
+        if validation.get("baseline_framing_valid") is not True:
+            errors.append("passing hair candidate requires valid baseline front framing")
+        if validation.get("overlay_alignment_valid") is not True:
+            errors.append("passing hair candidate requires valid overlay alignment")
     return errors

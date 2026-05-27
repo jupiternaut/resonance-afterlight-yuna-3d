@@ -78,7 +78,7 @@
     {
       "part_id": "hair",
       "actuator": "authored_hair_ribbons_v0",
-      "status": "generated_with_warnings",
+      "status": "failed_hair_mask_alignment",
       "candidate_exports": {
         "spec": "CharacterPackage/semantic_layer_v9_hair/specs/yuna_semantic_layer_v9_hair.json",
         "obj": "CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.obj",
@@ -89,14 +89,27 @@
       },
       "validation_report": "CharacterPackage/semantic_layer_v9_hair/validation_report.json",
       "blender_validation_report": "CharacterPackage/semantic_layer_v9_hair/validation_ci/validation_ci_report.json",
-      "blender_validation_status": "passed_with_warnings",
+      "blender_validation_status": "failed_hair_mask_alignment",
       "known_limits": [
         "v0 derives deterministic ribbon guides from v8 mask bounds and texture alpha; these are authored-ribbon candidates, not final hand-authored production curves.",
         "side/back references remain soft constraints and are not treated as locked geometry truth.",
         "v8 beauty hair cards remain active until screenshot/import validation passes.",
         "hair candidate is an actuator proxy, not final DCC hair asset",
-        "v8 beauty GLB remains the active baseline until replacement validation is accepted"
-      ]
+        "v8 beauty GLB remains the active baseline until replacement validation is accepted",
+        "Manual review rejected authored_hair_ribbons_v0 as a hair candidate.",
+        "candidate_front is not constrained to the v8 hair mask union in full-frame validation.",
+        "Do not advance to cloth_seam_surface until fix_authored_hair_ribbons_v0_alignment passes."
+      ],
+      "manual_visual_review": "failed",
+      "ready_for_cloth_seam_surface": false,
+      "visual_sanity_status": "failed_hair_mask_alignment",
+      "hair_mask_alignment": {
+        "hair_mask_iou": 0.0,
+        "outside_hair_mask_ratio": 1.0,
+        "candidate_is_hair_only": false,
+        "baseline_framing_valid": true,
+        "overlay_alignment_valid": false
+      }
     }
   ],
   "kept_from_v8_parts": [
@@ -118,6 +131,6 @@
     "must_keep_debug_guides_out_of_beauty": true,
     "side_back_are_soft_constraints": true
   },
-  "next_recommended_actuator": "manual_review_authored_hair_ribbons_v0",
-  "next_recommended_reason": "Cloth seam work is paused. Hair visual sanity now passes numeric gates after sanitized textures and tighter mask-constrained ribbons, but the candidate should be visually reviewed before starting another actuator."
+  "next_recommended_actuator": "fix_authored_hair_ribbons_v0_alignment",
+  "next_recommended_reason": "cloth_seam_surface remains paused because authored_hair_ribbons_v0 generated artifacts but failed manual visual review and hair-mask alignment validation."
 }

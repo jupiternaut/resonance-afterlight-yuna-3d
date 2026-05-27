@@ -5,7 +5,7 @@
 1. `boot_hardsurface_ortho`
 2. `leg_quad_loop_retopo_proxy`
 3. `authored_hair_ribbons`
-4. `manual_review_authored_hair_ribbons_v0`
+4. `fix_authored_hair_ribbons_v0_alignment`
 5. `cloth_seam_surface`
 6. `weapon_hardsurface_ortho_v1`
 
@@ -57,7 +57,7 @@ Remaining for v1:
 
 ## 3. Authored Hair Ribbons
 
-Status: completed as `authored_hair_ribbons_v0`.
+Status: generated as `authored_hair_ribbons_v0`, but rejected as a hair candidate.
 
 Goal:
 
@@ -71,6 +71,9 @@ Acceptance:
 - Side/back remain soft constraints only.
 - Black alpha leakage and candidate black-pixel ratios stay below visual sanity thresholds.
 - Face/body over-occlusion stays below visual sanity thresholds.
+- Candidate-only front render is constrained to the v8 hair mask union.
+- Baseline-only front render is full-frame and not boot-only.
+- Overlay front render is a valid full baseline + aligned candidate review image.
 
 Remaining for v1:
 
@@ -78,22 +81,26 @@ Remaining for v1:
 - Replace alpha-derived guide lanes with hand-authored grooming curves.
 - Add deformation/secondary-motion tests for the spring-hook metadata.
 - Preserve the black-occlusion render as a negative fixture so similar failures become `failed_visual_sanity`.
-- Manually review the regenerated candidate-only, baseline-only, and overlay screenshots before starting the cloth actuator.
+- Fix current `failed_hair_mask_alignment` result before starting the cloth actuator.
 
-## 4. Manual Review Authored Hair Ribbons v0
+## 4. Fix Authored Hair Ribbons v0 Alignment
 
 Status: required before `cloth_seam_surface`.
 
 Goal:
 
-- Confirm the regenerated hair candidate is visually acceptable enough to remain as a DCC handoff candidate.
+- Turn `authored_hair_ribbons_v0` from a generated artifact into a valid hair-only candidate.
 
 Acceptance:
 
-- `validation_report.json` reports `visual_sanity_status = passed`.
+- `validation_report.json` reports `visual_sanity_status = passed` or `passed_with_minor_warnings`.
 - `validation_ci_report.json` includes candidate-only, baseline-only, overlay, wire, and exploded screenshots.
+- `hair_mask_iou` and `outside_hair_mask_ratio` prove candidate render is aligned to the v8 hair mask union.
+- `candidate_is_hair_only = true`.
+- `baseline_framing_valid = true`.
+- `overlay_alignment_valid = true`.
 - The candidate does not become a replacement for v8 beauty hair.
-- If human review rejects the visual result, keep the route as a failed/needs-rework candidate and do not proceed to cloth.
+- If human review rejects the visual result again, keep the route as a failed/needs-rework candidate and do not proceed to cloth.
 
 ## 5. Cloth Seam Surface
 

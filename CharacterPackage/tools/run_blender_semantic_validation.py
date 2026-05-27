@@ -25,7 +25,11 @@ VISUAL_SANITY_THRESHOLDS = {
     "candidate_black_pixel_ratio": 0.05,
     "face_occlusion_ratio": 0.15,
     "non_hair_occlusion_ratio": 0.10,
+    "outside_hair_mask_ratio": 0.10,
+    "hair_mask_iou": 0.12,
 }
+HAIR_PART_IDS = ("back_hair", "side_hair_left", "side_hair_right", "bangs")
+FULL_SOURCE_HEIGHT = 2.2
 
 
 def display_path(path: Path) -> str:
@@ -125,21 +129,186 @@ def evaluate_black_pixel_sanity(image_path: Path) -> dict[str, float]:
                 if is_dark:
                     dark_foreground_pixels += 1
     total = max(width * height, 1)
+    foreground_denominator = max(foreground_pixels, round(total * 0.05), 1)
     return {
         "candidate_black_pixel_ratio": round(dark_foreground_pixels / total, 6),
-        "black_alpha_leak_ratio": round(dark_foreground_pixels / max(foreground_pixels, 1), 6),
+        "black_alpha_leak_ratio": round(dark_foreground_pixels / foreground_denominator, 6),
     }
 
 
-def hair_visual_sanity_from_reports(report: dict[str, Any], candidate_report: dict[str, Any], candidate_front: Path) -> dict[str, Any]:
+def foreground_mask_from_render(image_path: Path) -> tuple[list[list[bool]], int, int, int]:
+    from PIL import Image
+
+    image = Image.open(image_path).convert("RGB")
+    width, height = image.size
+    pixels = image.load()
+    corner_samples = [
+        pixels[0, 0],
+        pixels[width - 1, 0],
+        pixels[0, height - 1],
+        pixels[width - 1, height - 1],
+    ]
+    background = tuple(sum(sample[index] for sample in corner_samples) / len(corner_samples) for index in range(3))
+    mask: list[list[bool]] = []
+    count = 0
+    for y in range(height):
+        row: list[bool] = []
+        for x in range(width):
+            rgb = pixels[x, y]
+            visible = sum(abs(rgb[index] - background[index]) for index in range(3)) > 28
+            row.append(visible)
+            if visible:
+                count += 1
+        mask.append(row)
+    return mask, width, height, count
+
+
+def foreground_bbox(mask: list[list[bool]], width: int, height: int) -> tuple[int, int, int, int] | None:
+    xs: list[int] = []
+    ys: list[int] = []
+    for y in range(height):
+        for x in range(width):
+            if mask[y][x]:
+                xs.append(x)
+                ys.append(y)
+    if not xs:
+        return None
+    return min(xs), min(ys), max(xs) + 1, max(ys) + 1
+
+
+def evaluate_render_framing(image_path: Path) -> dict[str, Any]:
+    mask, width, height, count = foreground_mask_from_render(image_path)
+    bbox = foreground_bbox(mask, width, height)
+    if bbox is None:
+        return {
+            "framing_valid": False,
+            "foreground_ratio": 0.0,
+            "bbox": None,
+            "bbox_height_ratio": 0.0,
+            "bbox_width_ratio": 0.0,
+            "reason": "render has no visible foreground",
+        }
+    x0, y0, x1, y1 = bbox
+    bbox_height_ratio = (y1 - y0) / max(height, 1)
+    bbox_width_ratio = (x1 - x0) / max(width, 1)
+    foreground_ratio = count / max(width * height, 1)
+    top_band_visible = y0 < height * 0.30
+    bottom_band_visible = y1 > height * 0.70
+    framing_valid = bbox_height_ratio >= 0.55 and bbox_width_ratio >= 0.20 and foreground_ratio >= 0.02 and top_band_visible and bottom_band_visible
+    reasons: list[str] = []
+    if bbox_height_ratio < 0.55:
+        reasons.append("foreground height is too small for full-frame baseline validation")
+    if bbox_width_ratio < 0.20:
+        reasons.append("foreground width is too small for full-frame baseline validation")
+    if foreground_ratio < 0.02:
+        reasons.append("foreground coverage is too small")
+    if not top_band_visible:
+        reasons.append("top of character is not visible")
+    if not bottom_band_visible:
+        reasons.append("bottom of character is not visible")
+    return {
+        "framing_valid": framing_valid,
+        "foreground_ratio": round(foreground_ratio, 6),
+        "bbox": [x0, y0, x1, y1],
+        "bbox_height_ratio": round(bbox_height_ratio, 6),
+        "bbox_width_ratio": round(bbox_width_ratio, 6),
+        "reason": "; ".join(reasons) if reasons else "foreground spans a valid full-frame character range",
+    }
+
+
+def load_hair_union_mask(render_width: int, render_height: int) -> list[list[bool]]:
+    from PIL import Image, ImageChops, ImageFilter
+
+    mask_dir = CHARACTER_PACKAGE / "semantic_layer_v8" / "masks" / "front"
+    result: Image.Image | None = None
+    for part_id in HAIR_PART_IDS:
+        source = Image.open(mask_dir / f"{part_id}.png").convert("RGBA")
+        alpha = source.getchannel("A")
+        if alpha.getbbox() == (0, 0, source.width, source.height) and alpha.getextrema() == (255, 255):
+            current = source.convert("L").point(lambda value: 255 if value > 16 else 0)
+        else:
+            current = alpha.point(lambda value: 255 if value > 16 else 0)
+        result = current if result is None else ImageChops.lighter(result, current)
+    if result is None:
+        raise ValueError("No hair masks available for validation")
+    result = result.filter(ImageFilter.MaxFilter(5))
+    source_width, source_height = result.size
+    target_height = render_height
+    target_width = round(source_width / source_height * target_height)
+    if target_width > render_width:
+        target_width = render_width
+        target_height = round(source_height / source_width * target_width)
+    resized = result.resize((target_width, target_height), Image.Resampling.NEAREST)
+    canvas = Image.new("L", (render_width, render_height), 0)
+    canvas.paste(resized, ((render_width - target_width) // 2, (render_height - target_height) // 2))
+    return [[canvas.getpixel((x, y)) > 0 for x in range(render_width)] for y in range(render_height)]
+
+
+def evaluate_hair_mask_alignment(candidate_front: Path) -> dict[str, Any]:
+    candidate_mask, width, height, candidate_pixels = foreground_mask_from_render(candidate_front)
+    hair_mask = load_hair_union_mask(width, height)
+    intersection = 0
+    union = 0
+    outside = 0
+    hair_pixels = 0
+    for y in range(height):
+        for x in range(width):
+            candidate = candidate_mask[y][x]
+            hair = hair_mask[y][x]
+            if hair:
+                hair_pixels += 1
+            if candidate and hair:
+                intersection += 1
+            if candidate or hair:
+                union += 1
+            if candidate and not hair:
+                outside += 1
+    hair_mask_iou = intersection / max(union, 1)
+    outside_hair_mask_ratio = outside / max(candidate_pixels, 1)
+    candidate_is_hair_only = (
+        candidate_pixels > 0
+        and outside_hair_mask_ratio < VISUAL_SANITY_THRESHOLDS["outside_hair_mask_ratio"]
+        and hair_mask_iou >= VISUAL_SANITY_THRESHOLDS["hair_mask_iou"]
+    )
+    return {
+        "hair_mask_iou": round(hair_mask_iou, 6),
+        "outside_hair_mask_ratio": round(outside_hair_mask_ratio, 6),
+        "candidate_visible_pixel_count": candidate_pixels,
+        "expected_hair_pixel_count": hair_pixels,
+        "candidate_is_hair_only": candidate_is_hair_only,
+    }
+
+
+def hair_visual_sanity_from_reports(
+    report: dict[str, Any],
+    candidate_report: dict[str, Any],
+    candidate_front: Path,
+    baseline_front: Path | None = None,
+    overlay_front: Path | None = None,
+) -> dict[str, Any]:
     validation = candidate_report.get("validation", {})
+    baseline_framing = evaluate_render_framing(baseline_front) if baseline_front and baseline_front.exists() else {"framing_valid": False, "reason": "baseline_front missing"}
+    overlay_framing = evaluate_render_framing(overlay_front) if overlay_front and overlay_front.exists() else {"framing_valid": False, "reason": "overlay_front missing"}
+    hair_alignment = evaluate_hair_mask_alignment(candidate_front)
     metrics = {
         "alpha_material_valid": bool(validation.get("alpha_material_valid")),
         "face_occlusion_ratio": float(validation.get("face_occlusion_ratio", 1.0)),
         "non_hair_occlusion_ratio": float(validation.get("non_hair_occlusion_ratio", 1.0)),
+        "hair_mask_iou": hair_alignment["hair_mask_iou"],
+        "outside_hair_mask_ratio": hair_alignment["outside_hair_mask_ratio"],
+        "candidate_is_hair_only": hair_alignment["candidate_is_hair_only"],
+        "candidate_visible_pixel_count": hair_alignment["candidate_visible_pixel_count"],
+        "expected_hair_pixel_count": hair_alignment["expected_hair_pixel_count"],
+        "baseline_framing_valid": bool(baseline_framing["framing_valid"]),
+        "baseline_framing_reason": baseline_framing["reason"],
+        "baseline_framing": baseline_framing,
+        "overlay_alignment_valid": bool(overlay_framing["framing_valid"]) and bool(hair_alignment["candidate_is_hair_only"]),
+        "overlay_alignment_reason": overlay_framing["reason"],
+        "overlay_framing": overlay_framing,
         **evaluate_black_pixel_sanity(candidate_front),
     }
     reasons: list[str] = []
+    status = "passed"
     if not metrics["alpha_material_valid"]:
         reasons.append("alpha material validation is missing or false")
     if metrics["black_alpha_leak_ratio"] >= VISUAL_SANITY_THRESHOLDS["black_alpha_leak_ratio"]:
@@ -150,11 +319,33 @@ def hair_visual_sanity_from_reports(report: dict[str, Any], candidate_report: di
         reasons.append("candidate source coverage occludes too much face area")
     if metrics["non_hair_occlusion_ratio"] >= VISUAL_SANITY_THRESHOLDS["non_hair_occlusion_ratio"]:
         reasons.append("candidate source coverage exceeds non-hair threshold")
-    status = "passed" if not reasons else "failed_visual_sanity"
+    if not metrics["baseline_framing_valid"]:
+        reasons.append("baseline front render is not a valid full-frame baseline")
+        status = "failed_validation_framing"
+    elif not metrics["candidate_is_hair_only"]:
+        reasons.append("candidate front render is not constrained to the v8 hair mask union")
+        status = "failed_hair_mask_alignment"
+    elif not metrics["overlay_alignment_valid"]:
+        reasons.append("overlay front render is not valid for alignment review")
+        status = "failed_hair_mask_alignment"
+    elif reasons:
+        status = "failed_visual_sanity"
     return {
         **metrics,
         "visual_sanity_status": status,
-        "visual_sanity_reason": "; ".join(reasons) if reasons else "candidate front render and source coverage pass hair visual sanity thresholds",
+        "visual_sanity_reason": "; ".join(reasons) if reasons else "candidate front render, mask alignment, and source coverage pass hair visual sanity thresholds",
+        "manual_visual_review": "failed" if status != "passed" else "pending",
+        "ready_for_cloth_seam_surface": False,
+        "artifact_generated": True,
+        "black_alpha_leak_fixed": metrics["black_alpha_leak_ratio"] < VISUAL_SANITY_THRESHOLDS["black_alpha_leak_ratio"],
+        "numeric_metrics_passed": not any(
+            [
+                metrics["black_alpha_leak_ratio"] >= VISUAL_SANITY_THRESHOLDS["black_alpha_leak_ratio"],
+                metrics["candidate_black_pixel_ratio"] >= VISUAL_SANITY_THRESHOLDS["candidate_black_pixel_ratio"],
+                metrics["face_occlusion_ratio"] >= VISUAL_SANITY_THRESHOLDS["face_occlusion_ratio"],
+                metrics["non_hair_occlusion_ratio"] >= VISUAL_SANITY_THRESHOLDS["non_hair_occlusion_ratio"],
+            ]
+        ),
         "thresholds": VISUAL_SANITY_THRESHOLDS,
         "negative_fixture": "CharacterPackage/semantic_layer_v9_hair/negative_fixtures/yuna_semantic_layer_v9_hair_validation_front_failed_visual_fixture.png",
     }
@@ -231,18 +422,21 @@ def run_wrapper(args: argparse.Namespace) -> int:
     candidate_report = load_json(args.candidate_report)
     if candidate_report.get("part_id") == "hair" and report.get("screenshots", {}).get("candidate_front", {}).get("exists"):
         candidate_front = args.output_dir / f"{args.candidate_glb.stem}_validation_candidate_front.png"
-        visual_sanity = hair_visual_sanity_from_reports(report, candidate_report, candidate_front)
+        baseline_front = args.output_dir / f"{args.candidate_glb.stem}_validation_baseline_front.png"
+        overlay_front = args.output_dir / f"{args.candidate_glb.stem}_validation_overlay_front.png"
+        visual_sanity = hair_visual_sanity_from_reports(report, candidate_report, candidate_front, baseline_front, overlay_front)
         report.setdefault("quality", {})["visual_sanity"] = visual_sanity
         report.setdefault("candidate_contract", {})["visual_sanity_status"] = visual_sanity["visual_sanity_status"]
-        report["status"] = "failed_visual_sanity" if visual_sanity["visual_sanity_status"] == "failed_visual_sanity" else report.get("status")
+        if visual_sanity["visual_sanity_status"] != "passed":
+            report["status"] = visual_sanity["visual_sanity_status"]
         candidate_report.setdefault("validation", {}).update(visual_sanity)
-        if visual_sanity["visual_sanity_status"] == "failed_visual_sanity":
-            candidate_report["status"] = "failed_visual_sanity"
+        if visual_sanity["visual_sanity_status"] != "passed":
+            candidate_report["status"] = visual_sanity["visual_sanity_status"]
         write_json(args.candidate_report, candidate_report)
     if result.returncode != 0:
         report["status"] = "failed"
     write_json(args.report, report)
-    if report.get("status") == "failed_visual_sanity":
+    if report.get("status") in {"failed_visual_sanity", "failed_hair_mask_alignment", "failed_validation_framing"}:
         return 1
     return result.returncode
 
@@ -274,6 +468,7 @@ def worker_main(args: argparse.Namespace) -> int:
     baseline_objects = [obj for obj in bpy.context.scene.objects]
     for obj in baseline_objects:
         obj["validation_source"] = "baseline_v8"
+    baseline_meshes = [obj for obj in baseline_objects if obj.type == "MESH"]
 
     before = {obj.name for obj in bpy.context.scene.objects}
     bpy.ops.import_scene.gltf(filepath=str(args.cage_glb))
@@ -290,6 +485,7 @@ def worker_main(args: argparse.Namespace) -> int:
     candidate_meshes = [obj for obj in candidate_objects if obj.type == "MESH"]
     candidate_empties = [obj for obj in candidate_objects if obj.type == "EMPTY"]
     candidate_report = load_json(args.candidate_report)
+    candidate_part = candidate_report.get("part_id", "unknown")
 
     def set_group_visibility(group: str) -> None:
         for obj in baseline_objects:
@@ -321,14 +517,27 @@ def worker_main(args: argparse.Namespace) -> int:
                 max_corner.z = max(max_corner.z, world.z)
         return min_corner, max_corner
 
-    min_corner, max_corner = bounds(candidate_meshes)
-    center = (min_corner + max_corner) * 0.5
-    width = max(max_corner.x - min_corner.x, 0.1)
-    height = max(max_corner.z - min_corner.z, 0.1)
-    depth = max(max_corner.y - min_corner.y, 0.1)
-    distance = max(width, height, depth) * 2.8 + 1.5
-    aspect = args.resolution_x / args.resolution_y
-    ortho_scale = max(height * 1.20, width / aspect * 1.20, 0.6)
+    if candidate_part == "hair":
+        # Hair candidate review must use the full v8 baseline frame. A
+        # candidate-bounds camera can make baseline/overlay screenshots look
+        # valid while only showing boots or another local body region.
+        min_corner, max_corner = bounds(baseline_meshes)
+        center = (min_corner + max_corner) * 0.5
+        width = max(max_corner.x - min_corner.x, 0.1)
+        height = max(max_corner.z - min_corner.z, 0.1)
+        depth = max(max_corner.y - min_corner.y, 0.1)
+        distance = max(width, height, depth) * 2.8 + 1.5
+        aspect = args.resolution_x / args.resolution_y
+        ortho_scale = max(height * 1.10, width / aspect * 1.10, FULL_SOURCE_HEIGHT)
+    else:
+        min_corner, max_corner = bounds(candidate_meshes)
+        center = (min_corner + max_corner) * 0.5
+        width = max(max_corner.x - min_corner.x, 0.1)
+        height = max(max_corner.z - min_corner.z, 0.1)
+        depth = max(max_corner.y - min_corner.y, 0.1)
+        distance = max(width, height, depth) * 2.8 + 1.5
+        aspect = args.resolution_x / args.resolution_y
+        ortho_scale = max(height * 1.20, width / aspect * 1.20, 0.6)
 
     bpy.ops.object.light_add(type="AREA", location=(center.x, center.y - distance * 0.6, center.z + height))
     light = bpy.context.object
@@ -404,7 +613,6 @@ def worker_main(args: argparse.Namespace) -> int:
         for key, path in screenshot_paths.items()
     }
     missing_screenshots = [key for key, value in screenshot_records.items() if not value["exists"] or value["bytes"] <= 0]
-    candidate_part = candidate_report.get("part_id", "unknown")
     has_weapon_socket = any(obj.name.startswith("hand_R_socket") for obj in candidate_empties)
     has_foot_socket = any(obj.name.startswith("foot_L_socket") for obj in candidate_empties) and any(
         obj.name.startswith("foot_R_socket") for obj in candidate_empties

@@ -192,7 +192,9 @@ class AuthoredHairRibbonsActuatorTests(unittest.TestCase):
             self.assertEqual(report["actuator"], ACTUATOR_NAME)
             self.assertFalse(report["validation"]["replace_in_beauty_glb"])
             self.assertTrue(report["validation"]["side_back_are_soft_constraints"])
-            self.assertEqual(report["validation"]["visual_sanity_status"], "passed")
+            self.assertEqual(report["validation"]["visual_sanity_status"], "failed_hair_mask_alignment")
+            self.assertEqual(report["validation"]["manual_visual_review"], "failed")
+            self.assertFalse(report["validation"]["ready_for_cloth_seam_surface"])
             self.assertLess(report["validation"]["non_hair_occlusion_ratio"], 0.10)
             self.assertFalse(spec["part"]["replace_in_beauty_glb"])
 

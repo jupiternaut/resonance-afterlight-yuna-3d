@@ -528,7 +528,11 @@ def source_visual_sanity_metrics(character_package: Path, ribbons: list[HairRibb
         visual_sanity_reason.append("source ribbon coverage exceeds hair masks")
     if face_occlusion_ratio >= VISUAL_SANITY_THRESHOLDS["face_occlusion_ratio"]:
         visual_sanity_reason.append("source ribbon coverage occludes too much face area")
-    status = "passed" if not visual_sanity_reason else "failed_visual_sanity"
+    # Source-space checks are necessary but not sufficient. Render-space
+    # hair-mask alignment and full-frame baseline/overlay framing are evaluated
+    # by run_blender_semantic_validation.py before this candidate can advance.
+    visual_sanity_reason.append("render-space hair mask alignment and baseline framing are not accepted yet")
+    status = "failed_hair_mask_alignment"
     return {
         "alpha_material_valid": True,
         "black_alpha_leak_ratio": 0.0,
@@ -536,8 +540,19 @@ def source_visual_sanity_metrics(character_package: Path, ribbons: list[HairRibb
         "face_occlusion_ratio": round(face_occlusion_ratio, 6),
         "body_occlusion_ratio": round(body_occlusion_ratio, 6),
         "non_hair_occlusion_ratio": round(non_hair_occlusion_ratio, 6),
+        "hair_mask_iou": 0.0,
+        "outside_hair_mask_ratio": round(non_hair_occlusion_ratio, 6),
+        "candidate_is_hair_only": False,
+        "baseline_framing_valid": False,
+        "overlay_alignment_valid": False,
         "visual_sanity_status": status,
-        "visual_sanity_reason": "; ".join(visual_sanity_reason) if visual_sanity_reason else "source ribbon coverage stays within hair visual sanity thresholds",
+        "visual_sanity_reason": "; ".join(visual_sanity_reason),
+        "manual_visual_review": "failed",
+        "artifact_generated": True,
+        "black_alpha_leak_fixed": True,
+        "numeric_metrics_passed": non_hair_occlusion_ratio < VISUAL_SANITY_THRESHOLDS["non_hair_occlusion_ratio"]
+        and face_occlusion_ratio < VISUAL_SANITY_THRESHOLDS["face_occlusion_ratio"],
+        "ready_for_cloth_seam_surface": False,
     }
 
 
@@ -816,7 +831,7 @@ def run_authored_hair_ribbons(paths: ActuatorPaths) -> ActuatorResult:
     }
     result = ActuatorResult(
         actuator=ACTUATOR_NAME,
-        status="generated_with_warnings" if visual_metrics["visual_sanity_status"] != "failed_visual_sanity" else "failed_visual_sanity",
+        status="generated_with_warnings" if visual_metrics["visual_sanity_status"] in {"passed", "passed_with_minor_warnings"} else visual_metrics["visual_sanity_status"],
         part_id=PART_ID,
         decision_source=display_path(paths.character_package / "semantic_layer_v9_candidate" / "filter_report.json", paths.repo_root),
         generated_files=generated_files,
@@ -832,7 +847,7 @@ def run_authored_hair_ribbons(paths: ActuatorPaths) -> ActuatorResult:
     )
     contract_errors = validate_hair_candidate_report({"part_id": PART_ID, **result.to_dict()})
     if contract_errors:
-        if result.status != "failed_visual_sanity":
+        if result.status not in {"failed_visual_sanity", "failed_hair_mask_alignment", "failed_validation_framing", "manual_review_failed"}:
             result.status = "failed"
         result.errors.extend(contract_errors)
 

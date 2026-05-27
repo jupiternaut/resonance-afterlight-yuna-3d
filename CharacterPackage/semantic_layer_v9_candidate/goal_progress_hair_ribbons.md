@@ -1,6 +1,6 @@
 # Goal Progress: authored_hair_ribbons_v0
 
-Status: completed as an independent candidate actuator.
+Status: generated as an independent candidate actuator, but rejected by manual visual review.
 
 ## Implemented
 
@@ -9,7 +9,7 @@ Status: completed as an independent candidate actuator.
 - Generates independent ribbon meshes preserving four hair groups and four depth groups.
 - Constrains ribbon lanes to hair-mask evidence instead of broad bounding-box panels.
 - Writes sanitized per-group alpha textures so transparent pixels do not render as black.
-- Adds visual sanity gates for black alpha leakage and face/body over-occlusion.
+- Adds visual sanity gates for black alpha leakage, face/body over-occlusion, hair-mask alignment, and baseline/overlay framing validity.
 - Writes UVs for every vertex, OBJ/MTL exports, candidate spec, and JSON validation report.
 - Exports GLB/BLEND when Blender is available.
 - Adds spring-hook metadata only; no physics, armature, or skin weights are generated.
@@ -33,13 +33,22 @@ Status: completed as an independent candidate actuator.
 
 ## Current Result
 
-- Hair candidate status: `generated_with_warnings`.
-- Blender validation status: `passed_with_warnings`.
-- Visual sanity status: `passed`.
-- Black alpha leak ratio: `0.0`.
-- Candidate black pixel ratio: `0.0`.
+- Hair candidate status: `failed_hair_mask_alignment`.
+- Blender validation status: `failed_hair_mask_alignment`.
+- Manual visual review: `failed`.
+- Visual sanity status: `failed_hair_mask_alignment`.
+- Black alpha leak fixed: `true`.
+- Numeric metrics passed: `true`.
+- Black alpha leak ratio: `0.001292`.
+- Candidate black pixel ratio: `0.000065`.
 - Face occlusion ratio: `0.0571`.
 - Non-hair occlusion ratio: `0.083743`.
+- Hair mask IoU: `0.0`.
+- Outside hair mask ratio: `1.0`.
+- Candidate is hair-only: `false`.
+- Baseline framing valid: `true`.
+- Overlay alignment valid: `false`.
+- Ready for cloth seam surface: `false`.
 - Ribbon count: 41.
 - Group count: 4.
 - Depth group count: 4.
@@ -53,9 +62,10 @@ Status: completed as an independent candidate actuator.
 - No commercial image-to-3D API is used.
 - The candidate is still a proxy/DCC handoff asset, not final groomed production hair.
 - The previous black-occlusion render is preserved as a negative fixture; if that failure recurs, validation must report `failed_visual_sanity`.
+- This route remains an experimental artifact / negative-plus case, not an accepted hair candidate.
 
 ## Next
 
-Next step: `manual_review_authored_hair_ribbons_v0`.
+Next step: `fix_authored_hair_ribbons_v0_alignment`.
 
-`cloth_seam_surface` remains paused until the regenerated hair ribbon candidate is visually reviewed. Do not replace v8 beauty hair in the meantime.
+`cloth_seam_surface` remains paused. Do not replace v8 beauty hair in the meantime.

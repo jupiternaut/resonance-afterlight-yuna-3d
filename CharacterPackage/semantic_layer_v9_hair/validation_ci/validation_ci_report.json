@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-05-26T17:59:41.134546+00:00",
+  "created_at": "2026-05-27T05:20:01.503357+00:00",
   "route": "blender_semantic_validation_v0",
-  "status": "passed_with_warnings",
+  "status": "failed_hair_mask_alignment",
   "boundary": "Candidate validation only. It does not replace v8 beauty GLB.",
   "inputs": {
     "baseline_glb": {
@@ -22,54 +22,54 @@
     "candidate_report": {
       "path": "CharacterPackage/semantic_layer_v9_hair/validation_report.json",
       "exists": true,
-      "bytes": 12188
+      "bytes": 13914
     }
   },
   "screenshots": {
     "front": {
       "path": "CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_front.png",
       "exists": true,
-      "bytes": 1328052
+      "bytes": 1094877
     },
     "candidate_front": {
       "path": "CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_candidate_front.png",
       "exists": true,
-      "bytes": 1328052
+      "bytes": 1094877
     },
     "baseline_front": {
       "path": "CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_baseline_front.png",
       "exists": true,
-      "bytes": 1482211
+      "bytes": 1988922
     },
     "overlay_front": {
       "path": "CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_overlay_front.png",
       "exists": true,
-      "bytes": 1663684
+      "bytes": 2007730
     },
     "yaw15": {
       "path": "CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_yaw15.png",
       "exists": true,
-      "bytes": 1493447
+      "bytes": 1104344
     },
     "yaw30": {
       "path": "CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_yaw30.png",
       "exists": true,
-      "bytes": 1575750
+      "bytes": 1113512
     },
     "side": {
       "path": "CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_side.png",
       "exists": true,
-      "bytes": 1189987
+      "bytes": 1068959
     },
     "wire": {
       "path": "CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_wire.png",
       "exists": true,
-      "bytes": 1575749
+      "bytes": 1113511
     },
     "exploded": {
       "path": "CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_exploded.png",
       "exists": true,
-      "bytes": 1318779
+      "bytes": 1119164
     }
   },
   "inventory": {
@@ -140,7 +140,7 @@
     "has_hair_spring_hooks": true,
     "has_hair_depth_groups": true,
     "replace_in_beauty_glb": false,
-    "visual_sanity_status": "passed"
+    "visual_sanity_status": "failed_hair_mask_alignment"
   },
   "quality": {
     "missing_screenshots": [],
@@ -152,15 +152,57 @@
       "alpha_material_valid": true,
       "face_occlusion_ratio": 0.0571,
       "non_hair_occlusion_ratio": 0.083743,
-      "candidate_black_pixel_ratio": 0.0,
-      "black_alpha_leak_ratio": 0.0,
-      "visual_sanity_status": "passed",
-      "visual_sanity_reason": "candidate front render and source coverage pass hair visual sanity thresholds",
+      "hair_mask_iou": 0.0,
+      "outside_hair_mask_ratio": 1.0,
+      "candidate_is_hair_only": false,
+      "candidate_visible_pixel_count": 4019,
+      "expected_hair_pixel_count": 352254,
+      "baseline_framing_valid": true,
+      "baseline_framing_reason": "foreground spans a valid full-frame character range",
+      "baseline_framing": {
+        "framing_valid": true,
+        "foreground_ratio": 0.267118,
+        "bbox": [
+          93,
+          73,
+          1101,
+          1527
+        ],
+        "bbox_height_ratio": 0.90875,
+        "bbox_width_ratio": 0.84,
+        "reason": "foreground spans a valid full-frame character range"
+      },
+      "overlay_alignment_valid": false,
+      "overlay_alignment_reason": "foreground spans a valid full-frame character range",
+      "overlay_framing": {
+        "framing_valid": true,
+        "foreground_ratio": 0.267989,
+        "bbox": [
+          93,
+          73,
+          1101,
+          1600
+        ],
+        "bbox_height_ratio": 0.954375,
+        "bbox_width_ratio": 0.84,
+        "reason": "foreground spans a valid full-frame character range"
+      },
+      "candidate_black_pixel_ratio": 6.5e-05,
+      "black_alpha_leak_ratio": 0.001292,
+      "visual_sanity_status": "failed_hair_mask_alignment",
+      "visual_sanity_reason": "candidate front render is not constrained to the v8 hair mask union",
+      "manual_visual_review": "failed",
+      "ready_for_cloth_seam_surface": false,
+      "artifact_generated": true,
+      "black_alpha_leak_fixed": true,
+      "numeric_metrics_passed": true,
       "thresholds": {
         "black_alpha_leak_ratio": 0.02,
         "candidate_black_pixel_ratio": 0.05,
         "face_occlusion_ratio": 0.15,
-        "non_hair_occlusion_ratio": 0.1
+        "non_hair_occlusion_ratio": 0.1,
+        "outside_hair_mask_ratio": 0.1,
+        "hair_mask_iou": 0.12
       },
       "negative_fixture": "CharacterPackage/semantic_layer_v9_hair/negative_fixtures/yuna_semantic_layer_v9_hair_validation_front_failed_visual_fixture.png"
     }
@@ -170,85 +212,85 @@
     "exit_code": 0,
     "log": "CharacterPackage/semantic_layer_v9_hair/validation_ci/blender_semantic_validation.log",
     "log_tail": [
-      "01:59:24 | INFO: Blender create Mesh node back_hair_mesh",
-      "01:59:24 | INFO: Blender create Mesh node side_hair_left_mesh",
-      "01:59:24 | INFO: Blender create Mesh node side_hair_right_mesh",
-      "01:59:24 | INFO: Blender create Mesh node torso_inner_mesh",
-      "01:59:24 | INFO: Blender create Mesh node jacket_outer_mesh",
-      "01:59:24 | INFO: Blender create Mesh node cape_left_mesh",
-      "01:59:24 | INFO: Blender create Mesh node cape_right_mesh",
-      "01:59:24 | INFO: Blender create Mesh node skirt_front_mesh",
-      "01:59:24 | INFO: Blender create Mesh node boots_mesh",
-      "01:59:24 | INFO: Blender create Mesh node face_mesh",
-      "01:59:24 | INFO: Blender create Mesh node bangs_mesh",
-      "01:59:24 | INFO: Blender create Mesh node weapon_mesh",
-      "01:59:24 | INFO: Blender create Mesh node leg_L_visual_panel_mesh",
-      "01:59:24 | INFO: Blender create Mesh node leg_R_visual_panel_mesh",
-      "01:59:24 | INFO: Blender create Mesh node leg_L_retopo_proxy_mesh",
-      "01:59:24 | INFO: Blender create Mesh node leg_R_retopo_proxy_mesh",
-      "01:59:24 | INFO: Blender create Mesh node boot_L_hardsurface_proxy_mesh",
-      "01:59:24 | INFO: Blender create Mesh node boot_R_hardsurface_proxy_mesh",
-      "01:59:24 | INFO: Blender create Mesh node Torus",
-      "01:59:24 | INFO: Blender create Mesh node Torus.001",
-      "01:59:24 | INFO: Blender create Mesh node Torus.002",
-      "01:59:24 | INFO: Blender create Mesh node Torus.003",
-      "01:59:24 | INFO: Blender create Mesh node Sphere",
-      "01:59:24 | INFO: Blender create Mesh node Sphere.001",
-      "01:59:24 | INFO: Blender create Mesh node Cylinder",
-      "01:59:24 | INFO: Blender create Mesh node Cylinder.001",
-      "01:59:24 | INFO: glTF import finished in 0.05s",
-      "01:59:24 | INFO: Data are loaded, start creating Blender stuff",
-      "01:59:24 | INFO: Blender create Mesh node hair_back_ribbon_01_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_back_ribbon_02_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_back_ribbon_03_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_back_ribbon_04_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_back_ribbon_05_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_back_ribbon_06_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_back_ribbon_07_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_back_ribbon_08_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_back_ribbon_09_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_back_ribbon_10_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_back_ribbon_11_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_back_ribbon_12_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_back_ribbon_13_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_back_ribbon_14_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_side_left_ribbon_01_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_side_left_ribbon_02_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_side_left_ribbon_03_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_side_left_ribbon_04_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_side_left_ribbon_05_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_side_left_ribbon_06_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_side_left_ribbon_07_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_side_left_ribbon_08_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_side_right_ribbon_01_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_side_right_ribbon_02_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_side_right_ribbon_03_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_side_right_ribbon_04_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_side_right_ribbon_05_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_side_right_ribbon_06_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_side_right_ribbon_07_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_side_right_ribbon_08_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_side_right_ribbon_09_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_bangs_ribbon_01_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_bangs_ribbon_02_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_bangs_ribbon_03_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_bangs_ribbon_04_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_bangs_ribbon_05_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_bangs_ribbon_06_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_bangs_ribbon_07_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_bangs_ribbon_08_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_bangs_ribbon_09_mesh",
-      "01:59:24 | INFO: Blender create Mesh node hair_bangs_ribbon_10_mesh",
-      "01:59:24 | INFO: glTF import finished in 0.06s",
-      "00:02.967  render           | Saved: 'CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_front.png'",
-      "00:04.635  render           | Saved: 'CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_candidate_front.png'",
-      "00:06.272  render           | Saved: 'CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_baseline_front.png'",
-      "00:08.706  render           | Saved: 'CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_overlay_front.png'",
-      "00:10.506  render           | Saved: 'CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_yaw15.png'",
-      "00:12.310  render           | Saved: 'CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_yaw30.png'",
-      "00:13.641  render           | Saved: 'CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_side.png'",
-      "00:15.436  render           | Saved: 'CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_wire.png'",
-      "00:16.882  render           | Saved: 'CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_exploded.png'",
+      "13:19:40 | INFO: Blender create Mesh node back_hair_mesh",
+      "13:19:40 | INFO: Blender create Mesh node side_hair_left_mesh",
+      "13:19:40 | INFO: Blender create Mesh node side_hair_right_mesh",
+      "13:19:40 | INFO: Blender create Mesh node torso_inner_mesh",
+      "13:19:40 | INFO: Blender create Mesh node jacket_outer_mesh",
+      "13:19:40 | INFO: Blender create Mesh node cape_left_mesh",
+      "13:19:40 | INFO: Blender create Mesh node cape_right_mesh",
+      "13:19:40 | INFO: Blender create Mesh node skirt_front_mesh",
+      "13:19:40 | INFO: Blender create Mesh node boots_mesh",
+      "13:19:40 | INFO: Blender create Mesh node face_mesh",
+      "13:19:40 | INFO: Blender create Mesh node bangs_mesh",
+      "13:19:40 | INFO: Blender create Mesh node weapon_mesh",
+      "13:19:40 | INFO: Blender create Mesh node leg_L_visual_panel_mesh",
+      "13:19:40 | INFO: Blender create Mesh node leg_R_visual_panel_mesh",
+      "13:19:40 | INFO: Blender create Mesh node leg_L_retopo_proxy_mesh",
+      "13:19:40 | INFO: Blender create Mesh node leg_R_retopo_proxy_mesh",
+      "13:19:40 | INFO: Blender create Mesh node boot_L_hardsurface_proxy_mesh",
+      "13:19:40 | INFO: Blender create Mesh node boot_R_hardsurface_proxy_mesh",
+      "13:19:40 | INFO: Blender create Mesh node Torus",
+      "13:19:40 | INFO: Blender create Mesh node Torus.001",
+      "13:19:40 | INFO: Blender create Mesh node Torus.002",
+      "13:19:40 | INFO: Blender create Mesh node Torus.003",
+      "13:19:40 | INFO: Blender create Mesh node Sphere",
+      "13:19:40 | INFO: Blender create Mesh node Sphere.001",
+      "13:19:40 | INFO: Blender create Mesh node Cylinder",
+      "13:19:40 | INFO: Blender create Mesh node Cylinder.001",
+      "13:19:40 | INFO: glTF import finished in 0.03s",
+      "13:19:40 | INFO: Data are loaded, start creating Blender stuff",
+      "13:19:40 | INFO: Blender create Mesh node hair_back_ribbon_01_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_back_ribbon_02_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_back_ribbon_03_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_back_ribbon_04_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_back_ribbon_05_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_back_ribbon_06_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_back_ribbon_07_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_back_ribbon_08_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_back_ribbon_09_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_back_ribbon_10_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_back_ribbon_11_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_back_ribbon_12_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_back_ribbon_13_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_back_ribbon_14_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_side_left_ribbon_01_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_side_left_ribbon_02_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_side_left_ribbon_03_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_side_left_ribbon_04_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_side_left_ribbon_05_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_side_left_ribbon_06_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_side_left_ribbon_07_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_side_left_ribbon_08_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_side_right_ribbon_01_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_side_right_ribbon_02_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_side_right_ribbon_03_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_side_right_ribbon_04_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_side_right_ribbon_05_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_side_right_ribbon_06_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_side_right_ribbon_07_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_side_right_ribbon_08_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_side_right_ribbon_09_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_bangs_ribbon_01_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_bangs_ribbon_02_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_bangs_ribbon_03_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_bangs_ribbon_04_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_bangs_ribbon_05_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_bangs_ribbon_06_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_bangs_ribbon_07_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_bangs_ribbon_08_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_bangs_ribbon_09_mesh",
+      "13:19:40 | INFO: Blender create Mesh node hair_bangs_ribbon_10_mesh",
+      "13:19:40 | INFO: glTF import finished in 0.04s",
+      "00:02.850  render           | Saved: 'CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_front.png'",
+      "00:04.831  render           | Saved: 'CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_candidate_front.png'",
+      "00:07.893  render           | Saved: 'CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_baseline_front.png'",
+      "00:11.913  render           | Saved: 'CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_overlay_front.png'",
+      "00:13.744  render           | Saved: 'CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_yaw15.png'",
+      "00:15.563  render           | Saved: 'CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_yaw30.png'",
+      "00:17.505  render           | Saved: 'CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_side.png'",
+      "00:19.352  render           | Saved: 'CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_wire.png'",
+      "00:21.328  render           | Saved: 'CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_exploded.png'",
       "Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)"
     ]
   }
