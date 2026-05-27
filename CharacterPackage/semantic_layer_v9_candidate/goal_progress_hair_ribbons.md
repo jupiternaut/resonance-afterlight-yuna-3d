@@ -33,10 +33,10 @@ Status: generated as an independent candidate actuator, but rejected by manual v
 
 ## Current Result
 
-- Hair candidate status: `failed_hair_mask_alignment`.
-- Blender validation status: `failed_hair_mask_alignment`.
+- Hair candidate status: `failed_candidate_geometry_alignment`.
+- Blender validation status: `failed_candidate_geometry_alignment`.
 - Manual visual review: `failed`.
-- Visual sanity status: `failed_hair_mask_alignment`.
+- Visual sanity status: `failed_candidate_geometry_alignment`.
 - Black alpha leak fixed: `true`.
 - Numeric metrics passed: `true`.
 - Black alpha leak ratio: `0.001292`.
@@ -46,6 +46,11 @@ Status: generated as an independent candidate actuator, but rejected by manual v
 - Hair mask IoU: `0.0`.
 - Outside hair mask ratio: `1.0`.
 - Candidate is hair-only: `false`.
+- Hair union projection valid: `true`.
+- Hair union projection overlap ratio: `0.612788`.
+- Candidate geometry alignment valid: `false`.
+- Coordinate mapping status: `failed_candidate_geometry_alignment`.
+- Alignment failure reason: `hair union projection is valid but candidate geometry does not align`.
 - Baseline framing valid: `true`.
 - Overlay alignment valid: `false`.
 - Ready for cloth seam surface: `false`.
@@ -63,9 +68,10 @@ Status: generated as an independent candidate actuator, but rejected by manual v
 - The candidate is still a proxy/DCC handoff asset, not final groomed production hair.
 - The previous black-occlusion render is preserved as a negative fixture; if that failure recurs, validation must report `failed_visual_sanity`.
 - This route remains an experimental artifact / negative-plus case, not an accepted hair candidate.
+- Coordinate-space debug indicates the validator projection is usable; the next repair should fix candidate geometry placement/scale/origin/depth rather than rewriting the mask projection gate first.
 
 ## Next
 
-Next step: `fix_authored_hair_ribbons_v0_alignment`.
+Next step: `fix_authored_hair_ribbons_v0_geometry_alignment`.
 
 `cloth_seam_surface` remains paused. Do not replace v8 beauty hair in the meantime.

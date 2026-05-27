@@ -122,9 +122,58 @@ class BlenderSemanticValidationTests(unittest.TestCase):
                     image_path,
                 )
 
-            self.assertEqual(sanity["visual_sanity_status"], "failed_hair_mask_alignment")
+            self.assertEqual(sanity["visual_sanity_status"], "failed_hair_mask_projection")
             self.assertGreaterEqual(sanity["outside_hair_mask_ratio"], 0.10)
             self.assertFalse(sanity["candidate_is_hair_only"])
+
+    def test_hair_visual_sanity_separates_projection_from_candidate_geometry_failure(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            candidate_path = tmp_path / "candidate.png"
+            baseline_path = tmp_path / "baseline.png"
+            candidate = Image.new("RGB", (20, 20), (184, 184, 184))
+            baseline = Image.new("RGB", (20, 20), (184, 184, 184))
+            for x in range(14, 19):
+                for y in range(14, 19):
+                    candidate.putpixel((x, y), (220, 220, 220))
+            for x in range(1, 8):
+                for y in range(1, 8):
+                    baseline.putpixel((x, y), (220, 220, 220))
+            candidate.save(candidate_path)
+            baseline.save(baseline_path)
+            hair_mask = [[1 <= x < 8 and 1 <= y < 8 for x in range(20)] for y in range(20)]
+
+            with mock.patch(
+                "run_blender_semantic_validation.evaluate_render_framing",
+                return_value={"framing_valid": True, "reason": "synthetic valid frame"},
+            ), mock.patch(
+                "run_blender_semantic_validation.load_hair_union_mask",
+                return_value=hair_mask,
+            ):
+                sanity = hair_visual_sanity_from_reports(
+                    {},
+                    {
+                        "validation": {
+                            "alpha_material_valid": True,
+                            "face_occlusion_ratio": 0.0,
+                            "non_hair_occlusion_ratio": 0.0,
+                        }
+                    },
+                    candidate_path,
+                    baseline_path,
+                    baseline_path,
+                    tmp_path,
+                    "synthetic",
+                )
+
+            self.assertEqual(sanity["visual_sanity_status"], "failed_candidate_geometry_alignment")
+            self.assertTrue(sanity["hair_union_projection_valid"])
+            self.assertFalse(sanity["candidate_geometry_alignment_valid"])
+            self.assertTrue((tmp_path / "synthetic_validation_v8_hair_union_mask_projected_on_baseline.png").exists())
+            self.assertTrue((tmp_path / "synthetic_validation_candidate_visible_mask.png").exists())
+            self.assertTrue((tmp_path / "synthetic_validation_candidate_mask_vs_hair_union_overlay.png").exists())
+            self.assertTrue((tmp_path / "synthetic_validation_candidate_bbox_vs_hair_union_bbox.png").exists())
+            self.assertTrue((tmp_path / "coordinate_mapping_debug.json").exists())
 
 
 if __name__ == "__main__":

@@ -173,6 +173,19 @@ The hair Blender validation status is `failed_hair_mask_alignment`.
 
 The hair visual sanity status is `failed_hair_mask_alignment`.
 
+After the coordinate-space debug pass, the authored hair route is more
+specifically classified as `failed_candidate_geometry_alignment`.
+
+The v8 hair union projection is valid enough for the current render-space gate:
+`hair_union_projection_valid=true` with
+`hair_union_projection_overlap_ratio=0.612788`. The candidate geometry itself
+does not align to that projected hair union:
+`candidate_geometry_alignment_valid=false`, `hair_mask_iou=0.0`, and
+`outside_hair_mask_ratio=1.0`.
+
+This means the immediate blocker is candidate placement/scale/origin/depth
+alignment, not the mask-to-render projection gate.
+
 The alpha leak and artifact-generation parts of the route are fixed, but the
 candidate is not accepted as a hair candidate. Manual visual review rejected it
 because candidate-only/front/yaw views still read as fragmented non-hair
@@ -228,11 +241,21 @@ The hair candidate has:
   `candidate_black_pixel_ratio=0.000065`,
   `face_occlusion_ratio=0.0571`,
   `non_hair_occlusion_ratio=0.083743`,
+  `hair_union_projection_valid=true`,
+  `hair_union_projection_overlap_ratio=0.612788`,
+  `candidate_geometry_alignment_valid=false`,
+  `coordinate_mapping_status=failed_candidate_geometry_alignment`,
   `hair_mask_iou=0.0`, `outside_hair_mask_ratio=1.0`,
   `candidate_is_hair_only=false`,
   `baseline_framing_valid=true`,
   `overlay_alignment_valid=false`,
   `ready_for_cloth_seam_surface=false`
+- coordinate-space debug evidence:
+  `CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_v8_hair_union_mask_projected_on_baseline.png`,
+  `CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_candidate_visible_mask.png`,
+  `CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_candidate_mask_vs_hair_union_overlay.png`,
+  `CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_candidate_bbox_vs_hair_union_bbox.png`,
+  and `CharacterPackage/semantic_layer_v9_hair/validation_ci/coordinate_mapping_debug.json`
 
 ## Known Limits
 
@@ -243,7 +266,8 @@ The hair candidate has:
 - Leg v0 is a quad-loop retopo proxy, not final production leg topology.
 - Knee and ankle markers are metadata only; no skinning or weight test has run yet.
 - Hair v0 derives deterministic guide ribbons from v8 mask bounds and texture alpha; it is not final hand-authored strand grooming.
-- Hair v0 is not accepted as a hair-only candidate; current status is `failed_hair_mask_alignment`.
+- Hair v0 is not accepted as a hair-only candidate; current status is `failed_candidate_geometry_alignment`.
+- Coordinate-space debug indicates the validator projection is usable, while the candidate geometry is misplaced relative to the v8 hair union.
 - Hair side/back treatment remains a soft depth spread only, not locked multiview reconstruction.
 - The earlier hair front-render black occlusion is preserved as a negative fixture and now fails visual sanity if it recurs.
 - The candidate is not integrated into the v8 beauty GLB.
@@ -252,9 +276,11 @@ The hair candidate has:
 
 ## Next Step
 
-Next step: `fix_authored_hair_ribbons_v0_alignment`.
+Next step: `fix_authored_hair_ribbons_v0_geometry_alignment`.
 
 Reason: `cloth_seam_surface` is intentionally paused. Hair generated artifacts
-and fixed the black-alpha failure mode, but it failed hair-mask alignment and
-manual visual review. Do not start another actuator until candidate-only,
-baseline-only, and overlay validation images prove a hair-only aligned result.
+and fixed the black-alpha failure mode, and the coordinate-space debug now shows
+the v8 hair union projection is valid enough. Do not start another actuator
+until the hair candidate geometry is placed/scaled/oriented into that same
+render-space hair union and candidate-only, baseline-only, and overlay
+validation images prove a hair-only aligned result.

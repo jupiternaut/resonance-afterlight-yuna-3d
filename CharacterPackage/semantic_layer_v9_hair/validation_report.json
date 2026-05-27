@@ -2,7 +2,7 @@
   "created_at": "2026-05-27T05:16:10.866746+00:00",
   "route": "semantic_layer_v9_authored_hair_ribbons_v0",
   "actuator": "authored_hair_ribbons_v0",
-  "status": "failed_hair_mask_alignment",
+  "status": "failed_candidate_geometry_alignment",
   "part_id": "hair",
   "decision_source": "CharacterPackage/semantic_layer_v9_candidate/filter_report.json",
   "generated_files": {
@@ -149,7 +149,7 @@
     "candidate_is_hair_only": false,
     "baseline_framing_valid": true,
     "overlay_alignment_valid": false,
-    "visual_sanity_status": "failed_hair_mask_alignment",
+    "visual_sanity_status": "failed_candidate_geometry_alignment",
     "visual_sanity_reason": "candidate front render is not constrained to the v8 hair mask union",
     "manual_visual_review": "failed",
     "artifact_generated": true,
@@ -293,9 +293,54 @@
       "face_occlusion_ratio": 0.15,
       "non_hair_occlusion_ratio": 0.1,
       "outside_hair_mask_ratio": 0.1,
-      "hair_mask_iou": 0.12
+      "hair_mask_iou": 0.12,
+      "hair_union_projection_overlap_ratio": 0.35
     },
-    "negative_fixture": "CharacterPackage/semantic_layer_v9_hair/negative_fixtures/yuna_semantic_layer_v9_hair_validation_front_failed_visual_fixture.png"
+    "negative_fixture": "CharacterPackage/semantic_layer_v9_hair/negative_fixtures/yuna_semantic_layer_v9_hair_validation_front_failed_visual_fixture.png",
+    "candidate_bbox": [
+      491,
+      1313,
+      758,
+      1600
+    ],
+    "hair_union_bbox": [
+      199,
+      49,
+      1119,
+      1080
+    ],
+    "hair_union_projection_valid": true,
+    "hair_union_projection_overlap_ratio": 0.612788,
+    "coordinate_mapping_debug": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/validation_ci/coordinate_mapping_debug.json",
+      "exists": true,
+      "bytes": 1472
+    },
+    "coordinate_debug_images": {
+      "v8_hair_union_mask_projected_on_baseline": {
+        "path": "CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_v8_hair_union_mask_projected_on_baseline.png",
+        "exists": true,
+        "bytes": 1545317
+      },
+      "candidate_visible_mask": {
+        "path": "CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_candidate_visible_mask.png",
+        "exists": true,
+        "bytes": 4883
+      },
+      "candidate_mask_vs_hair_union_overlay": {
+        "path": "CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_candidate_mask_vs_hair_union_overlay.png",
+        "exists": true,
+        "bytes": 45194
+      },
+      "candidate_bbox_vs_hair_union_bbox": {
+        "path": "CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_candidate_bbox_vs_hair_union_bbox.png",
+        "exists": true,
+        "bytes": 1585665
+      }
+    },
+    "candidate_geometry_alignment_valid": false,
+    "coordinate_mapping_status": "failed_candidate_geometry_alignment",
+    "alignment_failure_reason": "hair union projection is valid but candidate geometry does not align"
   },
   "warnings": [
     "v0 derives deterministic ribbon guides from v8 mask bounds and texture alpha; these are authored-ribbon candidates, not final hand-authored production curves.",

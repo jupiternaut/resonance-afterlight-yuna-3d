@@ -103,7 +103,16 @@ def validate_hair_candidate_report(report: dict[str, Any]) -> list[str]:
         errors.append("part_id must be hair")
     if report.get("actuator") != "authored_hair_ribbons_v0":
         errors.append("unexpected actuator")
-    if report.get("status") not in {"generated_with_warnings", "failed", "failed_visual_sanity", "failed_hair_mask_alignment", "failed_validation_framing", "manual_review_failed"}:
+    if report.get("status") not in {
+        "generated_with_warnings",
+        "failed",
+        "failed_visual_sanity",
+        "failed_hair_mask_alignment",
+        "failed_validation_framing",
+        "failed_hair_mask_projection",
+        "failed_candidate_geometry_alignment",
+        "manual_review_failed",
+    }:
         errors.append("status must be generated_with_warnings, failed, or a hair visual failure status")
     mesh = report.get("mesh_summary", {})
     if mesh.get("vertices", 0) <= 0:
@@ -138,6 +147,10 @@ def validate_hair_candidate_report(report: dict[str, Any]) -> list[str]:
         "hair_mask_iou",
         "outside_hair_mask_ratio",
         "candidate_is_hair_only",
+        "hair_union_projection_valid",
+        "candidate_geometry_alignment_valid",
+        "coordinate_mapping_status",
+        "alignment_failure_reason",
         "baseline_framing_valid",
         "overlay_alignment_valid",
         "visual_sanity_status",
@@ -157,7 +170,16 @@ def validate_hair_candidate_report(report: dict[str, Any]) -> list[str]:
     if validation.get("non_hair_occlusion_ratio", 1.0) >= 0.10:
         errors.append("hair candidate non-hair occlusion ratio is too high")
     visual_status = validation.get("visual_sanity_status")
-    if visual_status not in {"passed", "passed_with_minor_warnings", "failed_visual_sanity", "failed_hair_mask_alignment", "failed_validation_framing", "manual_review_failed"}:
+    if visual_status not in {
+        "passed",
+        "passed_with_minor_warnings",
+        "failed_visual_sanity",
+        "failed_hair_mask_alignment",
+        "failed_validation_framing",
+        "failed_hair_mask_projection",
+        "failed_candidate_geometry_alignment",
+        "manual_review_failed",
+    }:
         errors.append("hair candidate visual_sanity_status is invalid")
     if visual_status in {"passed", "passed_with_minor_warnings"}:
         if validation.get("candidate_is_hair_only") is not True:

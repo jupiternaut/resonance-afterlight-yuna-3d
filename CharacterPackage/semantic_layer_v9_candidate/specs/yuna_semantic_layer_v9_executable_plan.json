@@ -78,7 +78,7 @@
     {
       "part_id": "hair",
       "actuator": "authored_hair_ribbons_v0",
-      "status": "failed_hair_mask_alignment",
+      "status": "failed_candidate_geometry_alignment",
       "candidate_exports": {
         "spec": "CharacterPackage/semantic_layer_v9_hair/specs/yuna_semantic_layer_v9_hair.json",
         "obj": "CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.obj",
@@ -89,7 +89,7 @@
       },
       "validation_report": "CharacterPackage/semantic_layer_v9_hair/validation_report.json",
       "blender_validation_report": "CharacterPackage/semantic_layer_v9_hair/validation_ci/validation_ci_report.json",
-      "blender_validation_status": "failed_hair_mask_alignment",
+      "blender_validation_status": "failed_candidate_geometry_alignment",
       "known_limits": [
         "v0 derives deterministic ribbon guides from v8 mask bounds and texture alpha; these are authored-ribbon candidates, not final hand-authored production curves.",
         "side/back references remain soft constraints and are not treated as locked geometry truth.",
@@ -97,16 +97,22 @@
         "hair candidate is an actuator proxy, not final DCC hair asset",
         "v8 beauty GLB remains the active baseline until replacement validation is accepted",
         "Manual review rejected authored_hair_ribbons_v0 as a hair candidate.",
-        "candidate_front is not constrained to the v8 hair mask union in full-frame validation.",
-        "Do not advance to cloth_seam_surface until fix_authored_hair_ribbons_v0_alignment passes."
+        "coordinate-space debug shows the v8 hair union projection is valid enough for validation.",
+        "candidate_front is not aligned to the projected v8 hair mask union in full-frame validation.",
+        "Do not advance to cloth_seam_surface until fix_authored_hair_ribbons_v0_geometry_alignment passes."
       ],
       "manual_visual_review": "failed",
       "ready_for_cloth_seam_surface": false,
-      "visual_sanity_status": "failed_hair_mask_alignment",
+      "visual_sanity_status": "failed_candidate_geometry_alignment",
       "hair_mask_alignment": {
         "hair_mask_iou": 0.0,
         "outside_hair_mask_ratio": 1.0,
         "candidate_is_hair_only": false,
+        "hair_union_projection_valid": true,
+        "hair_union_projection_overlap_ratio": 0.612788,
+        "candidate_geometry_alignment_valid": false,
+        "coordinate_mapping_status": "failed_candidate_geometry_alignment",
+        "alignment_failure_reason": "hair union projection is valid but candidate geometry does not align",
         "baseline_framing_valid": true,
         "overlay_alignment_valid": false
       }
@@ -131,6 +137,6 @@
     "must_keep_debug_guides_out_of_beauty": true,
     "side_back_are_soft_constraints": true
   },
-  "next_recommended_actuator": "fix_authored_hair_ribbons_v0_alignment",
-  "next_recommended_reason": "cloth_seam_surface remains paused because authored_hair_ribbons_v0 generated artifacts but failed manual visual review and hair-mask alignment validation."
+  "next_recommended_actuator": "fix_authored_hair_ribbons_v0_geometry_alignment",
+  "next_recommended_reason": "cloth_seam_surface remains paused because authored_hair_ribbons_v0 generated artifacts and the coordinate-space debug shows the validator projection is usable, but the candidate geometry is misplaced relative to the v8 hair union."
 }

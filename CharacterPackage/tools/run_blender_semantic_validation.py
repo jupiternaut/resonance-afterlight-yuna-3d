@@ -27,6 +27,7 @@ VISUAL_SANITY_THRESHOLDS = {
     "non_hair_occlusion_ratio": 0.10,
     "outside_hair_mask_ratio": 0.10,
     "hair_mask_iou": 0.12,
+    "hair_union_projection_overlap_ratio": 0.35,
 }
 HAIR_PART_IDS = ("back_hair", "side_hair_left", "side_hair_right", "bangs")
 FULL_SOURCE_HEIGHT = 2.2
@@ -176,6 +177,46 @@ def foreground_bbox(mask: list[list[bool]], width: int, height: int) -> tuple[in
     return min(xs), min(ys), max(xs) + 1, max(ys) + 1
 
 
+def bool_matrix_to_image(mask: list[list[bool]], width: int, height: int) -> Any:
+    from PIL import Image
+
+    image = Image.new("L", (width, height), 0)
+    image.putdata([255 if mask[y][x] else 0 for y in range(height) for x in range(width)])
+    return image
+
+
+def count_intersection(mask_a: list[list[bool]], mask_b: list[list[bool]], width: int, height: int) -> int:
+    count = 0
+    for y in range(height):
+        for x in range(width):
+            if mask_a[y][x] and mask_b[y][x]:
+                count += 1
+    return count
+
+
+def count_mask_pixels(mask: list[list[bool]], width: int, height: int) -> int:
+    count = 0
+    for y in range(height):
+        for x in range(width):
+            if mask[y][x]:
+                count += 1
+    return count
+
+
+def draw_bbox(draw: Any, bbox: tuple[int, int, int, int] | None, color: tuple[int, int, int, int], width: int = 5) -> None:
+    if bbox is None:
+        return
+    x0, y0, x1, y1 = bbox
+    for offset in range(width):
+        left = x0 + offset
+        top = y0 + offset
+        right = x1 - 1 - offset
+        bottom = y1 - 1 - offset
+        if right < left or bottom < top:
+            break
+        draw.rectangle((left, top, right, bottom), outline=color)
+
+
 def evaluate_render_framing(image_path: Path) -> dict[str, Any]:
     mask, width, height, count = foreground_mask_from_render(image_path)
     bbox = foreground_bbox(mask, width, height)
@@ -276,7 +317,91 @@ def evaluate_hair_mask_alignment(candidate_front: Path) -> dict[str, Any]:
         "candidate_visible_pixel_count": candidate_pixels,
         "expected_hair_pixel_count": hair_pixels,
         "candidate_is_hair_only": candidate_is_hair_only,
+        "candidate_bbox": list(foreground_bbox(candidate_mask, width, height)) if foreground_bbox(candidate_mask, width, height) else None,
+        "hair_union_bbox": list(foreground_bbox(hair_mask, width, height)) if foreground_bbox(hair_mask, width, height) else None,
     }
+
+
+def write_hair_coordinate_debug(
+    output_dir: Path,
+    prefix: str,
+    baseline_front: Path,
+    candidate_front: Path,
+) -> dict[str, Any]:
+    from PIL import Image, ImageDraw
+
+    baseline_image = Image.open(baseline_front).convert("RGBA")
+    candidate_mask, width, height, candidate_pixels = foreground_mask_from_render(candidate_front)
+    baseline_mask, _, _, baseline_pixels = foreground_mask_from_render(baseline_front)
+    hair_mask = load_hair_union_mask(width, height)
+
+    candidate_bbox = foreground_bbox(candidate_mask, width, height)
+    hair_bbox = foreground_bbox(hair_mask, width, height)
+    baseline_bbox = foreground_bbox(baseline_mask, width, height)
+
+    hair_pixels = count_mask_pixels(hair_mask, width, height)
+    projection_overlap_pixels = count_intersection(hair_mask, baseline_mask, width, height)
+    hair_union_projection_overlap_ratio = projection_overlap_pixels / max(hair_pixels, 1)
+    hair_union_projection_valid = hair_union_projection_overlap_ratio >= VISUAL_SANITY_THRESHOLDS["hair_union_projection_overlap_ratio"]
+
+    projected_path = output_dir / f"{prefix}_validation_v8_hair_union_mask_projected_on_baseline.png"
+    candidate_mask_path = output_dir / f"{prefix}_validation_candidate_visible_mask.png"
+    overlay_path = output_dir / f"{prefix}_validation_candidate_mask_vs_hair_union_overlay.png"
+    bbox_path = output_dir / f"{prefix}_validation_candidate_bbox_vs_hair_union_bbox.png"
+    debug_json_path = output_dir / "coordinate_mapping_debug.json"
+
+    hair_image = bool_matrix_to_image(hair_mask, width, height)
+    candidate_image = bool_matrix_to_image(candidate_mask, width, height)
+    candidate_image.save(candidate_mask_path)
+
+    projected = baseline_image.copy()
+    red_overlay = Image.new("RGBA", (width, height), (255, 32, 32, 0))
+    red_overlay.putalpha(hair_image.point(lambda value: 118 if value else 0))
+    projected = Image.alpha_composite(projected, red_overlay)
+    projected.save(projected_path)
+
+    overlay = Image.new("RGBA", (width, height), (48, 48, 48, 255))
+    overlay_pixels = overlay.load()
+    for y in range(height):
+        for x in range(width):
+            hair = hair_mask[y][x]
+            candidate = candidate_mask[y][x]
+            if hair and candidate:
+                overlay_pixels[x, y] = (255, 255, 255, 255)
+            elif hair:
+                overlay_pixels[x, y] = (0, 220, 255, 220)
+            elif candidate:
+                overlay_pixels[x, y] = (255, 0, 180, 220)
+    overlay.save(overlay_path)
+
+    bbox_image = baseline_image.copy()
+    draw = ImageDraw.Draw(bbox_image)
+    draw_bbox(draw, baseline_bbox, (0, 255, 0, 255), width=4)
+    draw_bbox(draw, hair_bbox, (0, 220, 255, 255), width=5)
+    draw_bbox(draw, candidate_bbox, (255, 0, 180, 255), width=5)
+    bbox_image.save(bbox_path)
+
+    debug = {
+        "hair_union_projection_valid": hair_union_projection_valid,
+        "hair_union_projection_overlap_ratio": round(hair_union_projection_overlap_ratio, 6),
+        "projection_overlap_pixels": projection_overlap_pixels,
+        "hair_union_pixel_count": hair_pixels,
+        "candidate_visible_pixel_count": candidate_pixels,
+        "baseline_visible_pixel_count": baseline_pixels,
+        "candidate_bbox": list(candidate_bbox) if candidate_bbox else None,
+        "hair_union_bbox": list(hair_bbox) if hair_bbox else None,
+        "baseline_bbox": list(baseline_bbox) if baseline_bbox else None,
+        "render_size": [width, height],
+        "debug_images": {
+            "v8_hair_union_mask_projected_on_baseline": file_record(projected_path),
+            "candidate_visible_mask": file_record(candidate_mask_path),
+            "candidate_mask_vs_hair_union_overlay": file_record(overlay_path),
+            "candidate_bbox_vs_hair_union_bbox": file_record(bbox_path),
+        },
+    }
+    write_json(debug_json_path, debug)
+    debug["coordinate_mapping_debug"] = file_record(debug_json_path)
+    return debug
 
 
 def hair_visual_sanity_from_reports(
@@ -285,11 +410,23 @@ def hair_visual_sanity_from_reports(
     candidate_front: Path,
     baseline_front: Path | None = None,
     overlay_front: Path | None = None,
+    output_dir: Path | None = None,
+    prefix: str = "candidate",
 ) -> dict[str, Any]:
     validation = candidate_report.get("validation", {})
     baseline_framing = evaluate_render_framing(baseline_front) if baseline_front and baseline_front.exists() else {"framing_valid": False, "reason": "baseline_front missing"}
     overlay_framing = evaluate_render_framing(overlay_front) if overlay_front and overlay_front.exists() else {"framing_valid": False, "reason": "overlay_front missing"}
     hair_alignment = evaluate_hair_mask_alignment(candidate_front)
+    coordinate_debug = (
+        write_hair_coordinate_debug(output_dir, prefix, baseline_front, candidate_front)
+        if output_dir is not None and baseline_front is not None and baseline_front.exists()
+        else {
+            "hair_union_projection_valid": False,
+            "hair_union_projection_overlap_ratio": 0.0,
+            "coordinate_mapping_debug": {"exists": False, "path": None, "bytes": 0},
+            "debug_images": {},
+        }
+    )
     metrics = {
         "alpha_material_valid": bool(validation.get("alpha_material_valid")),
         "face_occlusion_ratio": float(validation.get("face_occlusion_ratio", 1.0)),
@@ -299,12 +436,21 @@ def hair_visual_sanity_from_reports(
         "candidate_is_hair_only": hair_alignment["candidate_is_hair_only"],
         "candidate_visible_pixel_count": hair_alignment["candidate_visible_pixel_count"],
         "expected_hair_pixel_count": hair_alignment["expected_hair_pixel_count"],
+        "candidate_bbox": hair_alignment["candidate_bbox"],
+        "hair_union_bbox": hair_alignment["hair_union_bbox"],
+        "hair_union_projection_valid": bool(coordinate_debug["hair_union_projection_valid"]),
+        "hair_union_projection_overlap_ratio": coordinate_debug["hair_union_projection_overlap_ratio"],
+        "coordinate_mapping_debug": coordinate_debug["coordinate_mapping_debug"],
+        "coordinate_debug_images": coordinate_debug["debug_images"],
         "baseline_framing_valid": bool(baseline_framing["framing_valid"]),
         "baseline_framing_reason": baseline_framing["reason"],
         "baseline_framing": baseline_framing,
         "overlay_alignment_valid": bool(overlay_framing["framing_valid"]) and bool(hair_alignment["candidate_is_hair_only"]),
         "overlay_alignment_reason": overlay_framing["reason"],
         "overlay_framing": overlay_framing,
+        "candidate_geometry_alignment_valid": bool(hair_alignment["candidate_is_hair_only"]),
+        "coordinate_mapping_status": "unknown",
+        "alignment_failure_reason": "",
         **evaluate_black_pixel_sanity(candidate_front),
     }
     reasons: list[str] = []
@@ -322,14 +468,30 @@ def hair_visual_sanity_from_reports(
     if not metrics["baseline_framing_valid"]:
         reasons.append("baseline front render is not a valid full-frame baseline")
         status = "failed_validation_framing"
+        metrics["coordinate_mapping_status"] = "failed_validation_framing"
+        metrics["alignment_failure_reason"] = "baseline front framing is invalid"
+    elif not metrics["hair_union_projection_valid"]:
+        reasons.append("v8 hair union mask does not project onto baseline hair/character region")
+        status = "failed_hair_mask_projection"
+        metrics["coordinate_mapping_status"] = "failed_hair_mask_projection"
+        metrics["alignment_failure_reason"] = "validator mask-to-render projection is not trustworthy"
     elif not metrics["candidate_is_hair_only"]:
         reasons.append("candidate front render is not constrained to the v8 hair mask union")
-        status = "failed_hair_mask_alignment"
+        status = "failed_candidate_geometry_alignment"
+        metrics["coordinate_mapping_status"] = "failed_candidate_geometry_alignment"
+        metrics["alignment_failure_reason"] = "hair union projection is valid but candidate geometry does not align"
     elif not metrics["overlay_alignment_valid"]:
         reasons.append("overlay front render is not valid for alignment review")
-        status = "failed_hair_mask_alignment"
+        status = "failed_candidate_geometry_alignment"
+        metrics["coordinate_mapping_status"] = "failed_candidate_geometry_alignment"
+        metrics["alignment_failure_reason"] = "candidate and overlay alignment are invalid"
     elif reasons:
         status = "failed_visual_sanity"
+        metrics["coordinate_mapping_status"] = "failed_visual_sanity"
+        metrics["alignment_failure_reason"] = "; ".join(reasons)
+    else:
+        metrics["coordinate_mapping_status"] = "passed"
+        metrics["alignment_failure_reason"] = ""
     return {
         **metrics,
         "visual_sanity_status": status,
@@ -424,7 +586,15 @@ def run_wrapper(args: argparse.Namespace) -> int:
         candidate_front = args.output_dir / f"{args.candidate_glb.stem}_validation_candidate_front.png"
         baseline_front = args.output_dir / f"{args.candidate_glb.stem}_validation_baseline_front.png"
         overlay_front = args.output_dir / f"{args.candidate_glb.stem}_validation_overlay_front.png"
-        visual_sanity = hair_visual_sanity_from_reports(report, candidate_report, candidate_front, baseline_front, overlay_front)
+        visual_sanity = hair_visual_sanity_from_reports(
+            report,
+            candidate_report,
+            candidate_front,
+            baseline_front,
+            overlay_front,
+            args.output_dir,
+            args.candidate_glb.stem,
+        )
         report.setdefault("quality", {})["visual_sanity"] = visual_sanity
         report.setdefault("candidate_contract", {})["visual_sanity_status"] = visual_sanity["visual_sanity_status"]
         if visual_sanity["visual_sanity_status"] != "passed":
@@ -436,7 +606,13 @@ def run_wrapper(args: argparse.Namespace) -> int:
     if result.returncode != 0:
         report["status"] = "failed"
     write_json(args.report, report)
-    if report.get("status") in {"failed_visual_sanity", "failed_hair_mask_alignment", "failed_validation_framing"}:
+    if report.get("status") in {
+        "failed_visual_sanity",
+        "failed_hair_mask_alignment",
+        "failed_validation_framing",
+        "failed_hair_mask_projection",
+        "failed_candidate_geometry_alignment",
+    }:
         return 1
     return result.returncode
 
