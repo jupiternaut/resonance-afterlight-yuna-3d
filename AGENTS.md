@@ -2,82 +2,114 @@
 
 ## Project
 
-This repository contains the Resonance Afterlight YUNA 2.5D-to-3D research and
-DCC handoff package. The current immutable baseline is
-`CharacterPackage/semantic_layer_v8`.
+This repository is a deterministic 2.5D-to-3D DCC handoff research project for
+YUNA. It produces auditable candidate assets, validation screenshots, and JSON
+reports. It is not a commercial image-to-3D wrapper and candidate assets are not
+final production topology.
+
+## Current Baseline
+
+`CharacterPackage/semantic_layer_v8` is the immutable visual-review / DCC
+baseline. Do not modify, delete, overwrite, or replace v8 outputs unless the
+user explicitly asks for that operation.
+
+## Current Rule
+
+Candidate routes are experimental. They must not replace the v8 beauty GLB until
+manual visual review explicitly accepts the replacement. Keep
+`replace_in_beauty_glb=false` by default.
 
 ## Layout
 
-- `CharacterPackage/semantic_layer_v8/`: current visual-review/DCC baseline.
-- `CharacterPackage/semantic_layer_v9_candidate/`: read-only v9 planning output.
+- `CharacterPackage/semantic_layer_v8/`: immutable visual-review/DCC baseline.
+- `CharacterPackage/semantic_layer_v9_candidate/`: v9 plans, reports, backlog,
+  and project-state cards.
+- `CharacterPackage/semantic_layer_v9_hair/`: current failed/pending authored
+  hair ribbon candidate route.
 - `CharacterPackage/tools/semantic_filter/`: semantic state filter v0.
 - `CharacterPackage/tools/semantic_actuators/`: v9 actuator implementations.
-- `CharacterPackage/tools/tests/`: Python tests for contracts and actuators.
+- `CharacterPackage/tools/tests/`: contract and actuator tests.
 
 ## Commands
 
-Run the read-only v9 candidate filter:
-
-```bash
-python3 CharacterPackage/tools/semantic_state_filter_v0.py
-```
-
-Run tests without extra dependencies:
+Run tests:
 
 ```bash
 python3 -m unittest discover -s CharacterPackage/tools/tests -p 'test_*.py' -v
 ```
 
-If `pytest` is installed, this should also work:
+Compile tool scripts:
 
 ```bash
-python3 -m pytest CharacterPackage/tools/tests -q
+python3 -m compileall CharacterPackage/tools
 ```
 
-Run v8 screenshot validation:
+Confirm v8 is unchanged:
 
 ```bash
-python3 CharacterPackage/tools/run_semantic_layer_validation_ci.py
+git diff --name-only -- CharacterPackage/semantic_layer_v8
 ```
 
-Run the first v9 actuator:
+Run the read-only v9 state filter:
 
 ```bash
-python3 CharacterPackage/tools/build_yuna_semantic_layer_v9_weapon.py
+python3 CharacterPackage/tools/semantic_state_filter_v0.py
 ```
 
-Run v9 candidate validation:
+Run hair target review:
 
 ```bash
-python3 CharacterPackage/tools/run_blender_semantic_validation.py
+python3 CharacterPackage/tools/review_hair_target_masks_v0.py
 ```
 
 ## Hard Invariants
 
-1. Do not modify or delete `semantic_layer_v8` outputs.
-2. Do not reintroduce debug/cage guide volumes into the beauty GLB.
-3. Do not call commercial image-to-3D APIs.
-4. Do not treat side/back references as locked geometry truth.
-5. Preserve front-view identity as the highest-priority constraint.
-6. Every generated route must write a JSON report.
-7. Every visual claim must have screenshot or import/roundtrip evidence.
-8. If Blender is unavailable, write an explicit skipped/failed report with a reason.
-9. Existing v8 beauty meshes remain until a candidate replacement passes validation.
-10. Do not attempt full production retopology in this repo pass.
+- Do not use commercial image-to-3D APIs.
+- Do not treat side/back references as locked geometry truth; they are soft
+  constraints.
+- Preserve front-view identity above numeric metrics.
+- Every generated route must write a JSON report.
+- Every visual claim requires screenshots, roundtrip/import evidence, or an
+  explicit `skipped_with_reason` report.
+- `replace_in_beauty_glb` must remain `false` unless manual review explicitly
+  accepts replacement.
+- Do not advance to the next actuator when the current actuator has failed or
+  pending visual sanity.
+- Do not call candidate/proxy assets final production topology.
+- Do not reintroduce debug/cage guide volumes into the beauty GLB.
+
+## Hair Gate
+
+- Numeric metrics alone are insufficient for hair acceptance.
+- A hair candidate must look hair-like, not like shredded body/cloth/weapon
+  texture.
+- Raw v8 union hair masks may be dirty and cannot be treated as final hair
+  truth.
+- Hair target work should separate:
+  - `strict_hair_core`
+  - `soft_hair_silhouette`
+  - `forbidden_nonhair_zone`
+- If target masks are dirty, fix the target schema before regenerating ribbons
+  or proceeding to cloth.
 
 ## Anti-Patterns
 
-- Mutating v8 while testing a v9 candidate.
-- Replacing the beauty GLB without a validation report.
-- Treating GLB export success as production topology readiness.
+- Mutating v8 while testing any v9/v10 candidate.
+- Treating GLB export success as visual or production-topology success.
+- Marking `visual_sanity_status=passed` when manual review or target-schema
+  checks are still failed/pending.
 - Letting debug-only guides leak into a beauty/candidate beauty export.
 - Collapsing face, hair, cape, body, boots, and weapon into one fused mesh.
-- Using side/back AI references as hard geometric truth.
+- Proceeding to `cloth_seam_surface` while the hair route is failed/pending.
 
-## Done Criteria
+## Definition of Done
 
-- Tests pass with the narrowest relevant command.
-- Generated assets have JSON reports.
-- Validation screenshots or explicit skipped reports exist.
-- v8 remains reproducible and unmodified.
-- Diffs remain scoped to the current phase.
+A candidate route is done only when:
+
+- tests pass;
+- compile passes;
+- v8 diff is clean;
+- JSON report exists;
+- screenshots or skipped report exist;
+- visual sanity status is honest;
+- backlog is updated with the correct next blocker.
