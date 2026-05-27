@@ -28,6 +28,66 @@ The target schema must separate real hair evidence from body, face, weapon,
 cloth, leg, boot, and cape contamination before authored ribbons are rebuilt or
 accepted.
 
+## Formula Binding
+
+The v9/v10 candidate loop is governed by the Bounded Semantic Geometry Filter:
+
+```text
+theta_p_next =
+ProjectToConstraints_p(
+  (1 - alpha) * theta_p
+  + alpha * RobustFuse(
+      front_obs_p,
+      side_obs_p,
+      back_obs_p,
+      validation_obs_p,
+      prior_p
+    )
+)
+```
+
+In this project, `theta_p` means part-generator parameters, target masks,
+metadata, route status, and validation fields before it means raw vertices.
+`ProjectToConstraints_p` must keep v8 immutable, preserve front identity, keep
+side/back soft, preserve beauty/cage separation, keep
+`replace_in_beauty_glb=false` by default, and reject candidates that fail visual
+sanity or target-schema gates.
+
+## Current Hair Formula Binding
+
+For the hair route, do not treat one mask IoU as success. The current update
+target is not:
+
+```text
+candidate ~= raw_hair_union
+```
+
+The current update target is:
+
+```text
+candidate_hair_next =
+ProjectToConstraints_hair(
+  RobustFuse(
+    strict_hair_core,
+    soft_hair_silhouette,
+    forbidden_nonhair_zone,
+    front_identity,
+    manual_visual_review
+  )
+)
+```
+
+Current blocker:
+
+- raw hair union is dirty;
+- strict clean target is too narrow;
+- refined component-prior target is still not final;
+- `cloth_seam_surface` remains blocked.
+
+Next valid task: `build_hair_target_schema_v1`.
+
+Invalid next task: `cloth_seam_surface`.
+
 ## Current Evidence
 
 - `CharacterPackage/semantic_layer_v9_hair/validation_report.json`

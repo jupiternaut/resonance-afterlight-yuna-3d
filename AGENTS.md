@@ -19,6 +19,41 @@ Candidate routes are experimental. They must not replace the v8 beauty GLB until
 manual visual review explicitly accepts the replacement. Keep
 `replace_in_beauty_glb=false` by default.
 
+## Core Research Formula
+
+Candidate evolution should follow the Bounded Semantic Geometry Filter:
+
+```text
+theta_p_next =
+ProjectToConstraints_p(
+  (1 - alpha) * theta_p
+  + alpha * RobustFuse(
+      front_obs_p,
+      side_obs_p,
+      back_obs_p,
+      validation_obs_p,
+      prior_p
+    )
+)
+```
+
+Where:
+
+- `theta_p` is the current parameter state of part `p`, not raw mesh vertices.
+- `RobustFuse` combines front/side/back/validation evidence with part priors.
+- `ProjectToConstraints_p` enforces hard project constraints:
+  - v8 immutable baseline;
+  - front identity priority;
+  - side/back are soft constraints;
+  - beauty/cage separation;
+  - `replace_in_beauty_glb=false` by default;
+  - visual sanity gates;
+  - target-schema gates;
+  - DCC handoff honesty.
+
+Do not optimize raw vertices first. Update part parameters, target schemas,
+reports, and candidate routes before changing geometry.
+
 ## Layout
 
 - `CharacterPackage/semantic_layer_v8/`: immutable visual-review/DCC baseline.

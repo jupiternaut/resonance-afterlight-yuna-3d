@@ -20,6 +20,29 @@ Hair target work must distinguish:
 - `forbidden_nonhair_zone`: face, torso, weapon, legs, boots, and cloth regions
   where hair candidate coverage must be rejected or explicitly justified.
 
+## Current Hair Formula Binding
+
+For the hair route, one mask IoU is not enough to mark success. Do not optimize
+against the raw or refined union target alone.
+
+```text
+candidate_hair_next =
+ProjectToConstraints_hair(
+  RobustFuse(
+    strict_hair_core,
+    soft_hair_silhouette,
+    forbidden_nonhair_zone,
+    front_identity,
+    manual_visual_review
+  )
+)
+```
+
+`ProjectToConstraints_hair` must keep v8 untouched, keep
+`replace_in_beauty_glb=false`, reject overbroad body/cloth/weapon texture
+coverage, reject dirty target masks, and block `cloth_seam_surface` until the
+hair target schema and manual visual review pass.
+
 ## Current Evidence
 
 The generated `authored_hair_ribbons_v0` route fixed black alpha leakage and
