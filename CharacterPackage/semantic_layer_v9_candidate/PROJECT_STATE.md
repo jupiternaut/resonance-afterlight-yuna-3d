@@ -63,14 +63,27 @@
   - `depth_group_count=6`
   - `art_directed_primitive_intent_count=27`
   - `flow_continuity_passed=true`
+- An overnight manual review pack now exists at
+  `CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/` with
+  three additive candidates:
+  - `balanced`: leak `0.071096`, soft-inside `0.831454`, core `0.608249`,
+    front mass `true`, yaw30 `true`, side `true`.
+  - `fuller`: leak `0.072702`, soft-inside `0.833756`, core `0.634326`,
+    front mass `true`, yaw30 `true`, side `true`; recommended first human
+    review target.
+  - `silhouette`: leak `0.045859`, soft-inside `0.854204`, core `0.579953`,
+    front mass `false`, yaw30 `true`, side `true`; useful as a low-leak
+    comparison, but it fails the visible-mass readability gate.
+  - All variants keep `replace_in_beauty_glb=false` and
+    `ready_for_cloth_seam_surface=false`.
 - `cloth_seam_surface` remains blocked.
 
 ## Current Blocker
 
-Manual-review the art-directed v1 visible-mass pass before any new actuator
-work. The target-schema metrics now pass after the render-space correction, but
-candidate-only/yaw views still need human review for hair-likeness. It is not
-accepted, not integrated, and not ready for cloth.
+Manual-review the art-directed v1 variant pack before any new actuator work.
+The numeric gates pass for `balanced` and `fuller`, but candidate-only/yaw views
+still need human review for hair-likeness. No variant is accepted, integrated,
+or ready for cloth.
 
 ## Formula Binding
 
@@ -130,11 +143,12 @@ Current blocker:
 - v0 candidate passed leak/soft-inside/core metrics but failed the
   non-degenerate coverage gate;
 - `hair_design_schema_v1.json` is available to drive an art-directed rebuild;
-- `art_directed_hair_ribbons_v1` has been refined for visible mass and now
-  requires manual visual review;
+- `art_directed_hair_ribbons_v1` has been refined for visible mass, and the
+  overnight `balanced` / `fuller` / `silhouette` review pack now requires
+  manual visual review;
 - `cloth_seam_surface` remains blocked.
 
-Next valid task: `manual_review_art_directed_hair_ribbons_v1_quality`.
+Next valid task: `manual_review_hair_v1_variants`.
 
 Invalid next task: `cloth_seam_surface`.
 

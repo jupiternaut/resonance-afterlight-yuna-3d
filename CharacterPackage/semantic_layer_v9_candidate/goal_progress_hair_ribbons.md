@@ -260,3 +260,33 @@ Interpretation:
 Next step: `manual_review_art_directed_hair_ribbons_v1_quality`.
 
 `cloth_seam_surface` remains paused.
+
+## Latest: build_art_directed_hair_ribbons_v1_variants
+
+Status: `manual_review_pack_generated`.
+
+Generated an overnight manual review pack with three additive variants:
+`balanced`, `fuller`, and `silhouette`.
+
+Key metrics:
+
+| Variant | Leak | Soft inside | Core | Visible area | Front mass | Yaw30 | Side |
+|---|---:|---:|---:|---:|---|---|---|
+| `balanced` | `0.071096` | `0.831454` | `0.608249` | `0.010395` | true | true | true |
+| `fuller` | `0.072702` | `0.833756` | `0.634326` | `0.010896` | true | true | true |
+| `silhouette` | `0.045859` | `0.854204` | `0.579953` | `0.009824` | false | true | true |
+
+Artifacts:
+
+- `CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/hair_variants_comparison_report.json`
+- `CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/hair_variants_contact_sheet.png`
+- `CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/manual_review_hair_v1.md`
+
+Interpretation:
+
+- `fuller` is the recommended first human review target.
+- This is not an acceptance decision.
+- No variant replaces v8 beauty hair.
+- `cloth_seam_surface` remains paused.
+
+Next step: `manual_review_hair_v1_variants`.

@@ -383,9 +383,37 @@ Next:
 
 - Implement `build_art_directed_hair_ribbons_v1` against this design schema.
 
+## 4g. Hair V1 Overnight Variant Review Pack
+
+Status: generated, pending manual review.
+
+Goal:
+
+- Compare `balanced`, `fuller`, and `silhouette` variants without replacing v8
+  beauty hair or unblocking cloth.
+
+Artifacts:
+
+- `CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/hair_variants_comparison_report.json`
+- `CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/hair_variants_contact_sheet.png`
+- `CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/manual_review_hair_v1.md`
+
+Current recommendation:
+
+- Review `fuller` first. It has the strongest numeric balance, but it is not
+  accepted automatically.
+
+Acceptance:
+
+- Human review selects a variant or rejects all variants with a reason.
+- `replace_in_beauty_glb=false` remains unchanged until a separate integration
+  pass is explicitly approved.
+- `cloth_seam_surface` remains blocked.
+
 ## 5. Cloth Seam Surface
 
-Status: paused until underfilled hair route is rebuilt and manual review accepts it.
+Status: paused until the hair v1 variant pack is manually reviewed and an
+explicit hair direction is accepted.
 
 Goal:
 

@@ -104,6 +104,73 @@ class ArtMaskRecord:
     depth: float
 
 
+@dataclass(frozen=True)
+class HairVariantConfig:
+    name: str
+    review_intent: str
+    component_area_min: int = COMPONENT_AREA_MIN
+    secondary_strand_count: int = SECONDARY_STRAND_COUNT
+    flyaway_strand_count: int = FLYAWAY_STRAND_COUNT
+    visible_mass_dilate_radius: int = VISIBLE_MASS_DILATE_RADIUS
+    visible_mass_close_radius: int = VISIBLE_MASS_CLOSE_RADIUS
+    visible_mass_forbidden_guard_radius: int = VISIBLE_MASS_FORBIDDEN_GUARD_RADIUS
+    primary_width_fraction: float = 1.0
+    secondary_width_fraction: float = 0.34
+    flyaway_width_fraction: float = 0.18
+    primary_thickness: float = 0.0450
+    secondary_thickness: float = 0.0300
+    flyaway_thickness: float = 0.0200
+    primary_curve_scale: float = 1.0
+    secondary_curve_px: float = 10.0
+    flyaway_curve_px: float = 16.0
+
+
+HAIR_REVIEW_VARIANTS = {
+    "balanced": HairVariantConfig(
+        name="balanced",
+        review_intent="current balanced visible-mass/leak tradeoff for manual review",
+    ),
+    "fuller": HairVariantConfig(
+        name="fuller",
+        review_intent="more primary mass and secondary strands while staying schema-constrained",
+        component_area_min=420,
+        secondary_strand_count=12,
+        flyaway_strand_count=4,
+        visible_mass_dilate_radius=5,
+        visible_mass_close_radius=2,
+        visible_mass_forbidden_guard_radius=2,
+        primary_width_fraction=1.06,
+        secondary_width_fraction=0.40,
+        flyaway_width_fraction=0.18,
+        primary_thickness=0.0470,
+        secondary_thickness=0.0320,
+        flyaway_thickness=0.0200,
+        primary_curve_scale=1.04,
+        secondary_curve_px=11.0,
+        flyaway_curve_px=15.0,
+    ),
+    "silhouette": HairVariantConfig(
+        name="silhouette",
+        review_intent="stronger outer silhouette and side/back mass with restrained flyaways",
+        component_area_min=360,
+        secondary_strand_count=9,
+        flyaway_strand_count=3,
+        visible_mass_dilate_radius=6,
+        visible_mass_close_radius=3,
+        visible_mass_forbidden_guard_radius=3,
+        primary_width_fraction=1.12,
+        secondary_width_fraction=0.32,
+        flyaway_width_fraction=0.14,
+        primary_thickness=0.0440,
+        secondary_thickness=0.0280,
+        flyaway_thickness=0.0180,
+        primary_curve_scale=1.18,
+        secondary_curve_px=12.0,
+        flyaway_curve_px=18.0,
+    ),
+}
+
+
 def load_design_schema(character_package: Path) -> dict[str, Any]:
     path = character_package / "semantic_layer_v9_hair" / "hair_design_schema_v1.json"
     data = json.loads(path.read_text(encoding="utf-8"))
@@ -169,7 +236,12 @@ def _binary(mask: Image.Image) -> Image.Image:
     return mask.convert("L").point(lambda value: 255 if value > 0 else 0)
 
 
-def _visible_mass_mask(part_id: str, base_mask: Image.Image, character_package: Path) -> Image.Image:
+def _visible_mass_mask(
+    part_id: str,
+    base_mask: Image.Image,
+    character_package: Path,
+    variant: HairVariantConfig = HAIR_REVIEW_VARIANTS["balanced"],
+) -> Image.Image:
     """Build a fuller but schema-bounded hair target for readable candidate-only renders."""
 
     soft = load_schema_target_mask(character_package, "soft_hair_silhouette")
@@ -180,15 +252,15 @@ def _visible_mass_mask(part_id: str, base_mask: Image.Image, character_package: 
     base = _binary(base_mask)
     soft = _binary(soft)
     if forbidden is not None:
-        guard_size = VISIBLE_MASS_FORBIDDEN_GUARD_RADIUS * 2 + 1
+        guard_size = variant.visible_mass_forbidden_guard_radius * 2 + 1
         forbidden_guard = _binary(forbidden).filter(ImageFilter.MaxFilter(guard_size))
         soft = ImageChops.subtract(soft, forbidden_guard).point(lambda value: 255 if value > 0 else 0)
     region = schema_region_prior(part_id, soft.size)
     region_soft = ImageChops.multiply(soft, region).point(lambda value: 255 if value > 0 else 0)
     seed = ImageChops.lighter(base, region_soft)
 
-    dilate_size = VISIBLE_MASS_DILATE_RADIUS * 2 + 1
-    close_size = VISIBLE_MASS_CLOSE_RADIUS * 2 + 1
+    dilate_size = variant.visible_mass_dilate_radius * 2 + 1
+    close_size = variant.visible_mass_close_radius * 2 + 1
     grown = seed.filter(ImageFilter.MaxFilter(dilate_size)).filter(ImageFilter.MinFilter(close_size))
     mass = ImageChops.lighter(seed, grown).point(lambda value: 255 if value > 0 else 0)
     return ImageChops.multiply(mass, soft).point(lambda value: 255 if value > 0 else 0)
@@ -255,7 +327,11 @@ def write_art_texture(
     texture.save(output_path)
 
 
-def build_art_mask_records(character_package: Path, output_dir: Path) -> list[ArtMaskRecord]:
+def build_art_mask_records(
+    character_package: Path,
+    output_dir: Path,
+    variant: HairVariantConfig = HAIR_REVIEW_VARIANTS["balanced"],
+) -> list[ArtMaskRecord]:
     schema_mask_paths = build_schema_constrained_group_masks(
         character_package,
         output_dir / "target_schema_v1" / "group_masks",
@@ -268,8 +344,8 @@ def build_art_mask_records(character_package: Path, output_dir: Path) -> list[Ar
         source = sources[part_id]
         config = PRIMARY_GROUP_BY_PART[part_id]
         mask = Image.open(source.mask_path).convert("L").point(lambda value: 255 if value > 0 else 0)
-        mass_mask = _visible_mass_mask(part_id, mask, character_package)
-        art_mask, components = _component_mask(mass_mask)
+        mass_mask = _visible_mass_mask(part_id, mask, character_package, variant)
+        art_mask, components = _component_mask(mass_mask, min_area=variant.component_area_min)
         if not components:
             raise ValueError(f"No usable v1 hair components for {part_id}")
         mask_path = mask_dir / f"{config['group_id']}_art_directed_v1_mask.png"
@@ -597,9 +673,13 @@ def build_side_profile_mesh(
     )
 
 
-def build_art_directed_hair_ribbons(character_package: Path, output_dir: Path) -> tuple[list[HairRibbon], list[ArtMaskRecord], dict[str, Any]]:
+def build_art_directed_hair_ribbons(
+    character_package: Path,
+    output_dir: Path,
+    variant: HairVariantConfig = HAIR_REVIEW_VARIANTS["balanced"],
+) -> tuple[list[HairRibbon], list[ArtMaskRecord], dict[str, Any]]:
     design_schema = load_design_schema(character_package)
-    records = build_art_mask_records(character_package, output_dir)
+    records = build_art_mask_records(character_package, output_dir, variant)
     with Image.open(records[0].mask_path) as image:
         image_size = image.size
     scale = V8_SOURCE_HEIGHT_WORLD / image_size[1]
@@ -613,15 +693,15 @@ def build_art_directed_hair_ribbons(character_package: Path, output_dir: Path) -
         for index, component in enumerate(record.components):
             ribbon_id = f"{record.group_id}_{index + 1:02d}"
             depth_offset = (index - (len(record.components) - 1) * 0.5) * 0.010
-            width_fraction = 1.0
-            curve_px = 6.0 if record.part_id != "bangs" else 3.5
+            width_fraction = variant.primary_width_fraction
+            curve_px = (6.0 if record.part_id != "bangs" else 3.5) * variant.primary_curve_scale
             mesh = build_panel_mesh(
                 component.bbox,
                 image_size=image_size,
                 scale=scale,
                 depth=record.depth,
                 depth_offset=depth_offset,
-                thickness=0.0450,
+                thickness=variant.primary_thickness,
                 width_fraction=width_fraction,
                 curve_px=curve_px,
                 constraint_mask=constraint_masks[record.group_id],
@@ -662,18 +742,18 @@ def build_art_directed_hair_ribbons(character_package: Path, output_dir: Path) -
         if component.area >= 300
     ]
     large_components.sort(key=lambda item: item[1].area, reverse=True)
-    for index, (record, component) in enumerate(large_components[:SECONDARY_STRAND_COUNT]):
+    for index, (record, component) in enumerate(large_components[: variant.secondary_strand_count]):
         ribbon_id = f"secondary_strands_{index + 1:02d}"
         depth_offset = 0.036 + index * 0.002
-        width_fraction = 0.34
-        curve_px = 10.0
+        width_fraction = variant.secondary_width_fraction
+        curve_px = variant.secondary_curve_px
         mesh = build_panel_mesh(
             component.bbox,
             image_size=image_size,
             scale=scale,
             depth=record.depth,
             depth_offset=depth_offset,
-            thickness=0.0300,
+            thickness=variant.secondary_thickness,
             width_fraction=width_fraction,
             curve_px=curve_px,
             constraint_mask=constraint_masks[record.group_id],
@@ -707,19 +787,19 @@ def build_art_directed_hair_ribbons(character_package: Path, output_dir: Path) -
             )
         )
 
-    flyaway_sources = large_components[:FLYAWAY_STRAND_COUNT]
+    flyaway_sources = large_components[: variant.flyaway_strand_count]
     for index, (record, component) in enumerate(flyaway_sources):
         ribbon_id = f"flyaway_strands_{index + 1:02d}"
         depth_offset = 0.058 + index * 0.002
-        width_fraction = 0.18
-        curve_px = 16.0
+        width_fraction = variant.flyaway_width_fraction
+        curve_px = variant.flyaway_curve_px
         mesh = build_panel_mesh(
             component.bbox,
             image_size=image_size,
             scale=scale,
             depth=record.depth,
             depth_offset=depth_offset,
-            thickness=0.0200,
+            thickness=variant.flyaway_thickness,
             width_fraction=width_fraction,
             curve_px=curve_px,
             constraint_mask=constraint_masks[record.group_id],
@@ -796,18 +876,31 @@ def build_art_directed_hair_ribbons(character_package: Path, output_dir: Path) -
 
     design_summary = {
         "design_schema": report_path(character_package / "semantic_layer_v9_hair" / "hair_design_schema_v1.json"),
+        "variant": {
+            "name": variant.name,
+            "review_intent": variant.review_intent,
+            "component_area_min": variant.component_area_min,
+            "secondary_strand_count": variant.secondary_strand_count,
+            "flyaway_strand_count": variant.flyaway_strand_count,
+            "visible_mass_dilate_radius": variant.visible_mass_dilate_radius,
+            "visible_mass_close_radius": variant.visible_mass_close_radius,
+            "visible_mass_forbidden_guard_radius": variant.visible_mass_forbidden_guard_radius,
+            "primary_width_fraction": variant.primary_width_fraction,
+            "secondary_width_fraction": variant.secondary_width_fraction,
+            "flyaway_width_fraction": variant.flyaway_width_fraction,
+        },
         "required_primary_groups": sorted(design_schema["required_primary_groups"].keys()),
         "primary_component_count_by_role": primary_count_by_role,
-        "secondary_strand_count": SECONDARY_STRAND_COUNT,
-        "flyaway_strand_count": FLYAWAY_STRAND_COUNT,
+        "secondary_strand_count": variant.secondary_strand_count,
+        "flyaway_strand_count": variant.flyaway_strand_count,
         "side_profile_volume_count": SIDE_PROFILE_VOLUME_COUNT,
         "visible_mass_refinement": {
             "status": "enabled",
             "source": "soft_hair_silhouette_intersected_with_part_region_prior",
-            "component_area_min": COMPONENT_AREA_MIN,
-            "dilate_radius_px": VISIBLE_MASS_DILATE_RADIUS,
-            "close_radius_px": VISIBLE_MASS_CLOSE_RADIUS,
-            "forbidden_guard_radius_px": VISIBLE_MASS_FORBIDDEN_GUARD_RADIUS,
+            "component_area_min": variant.component_area_min,
+            "dilate_radius_px": variant.visible_mass_dilate_radius,
+            "close_radius_px": variant.visible_mass_close_radius,
+            "forbidden_guard_radius_px": variant.visible_mass_forbidden_guard_radius,
         },
         "scalp_anchor_points": [item["id"] for item in design_schema.get("scalp_anchor_points", [])],
         "depth_groups": sorted({ribbon.depth_group for ribbon in ribbons}),
@@ -911,7 +1004,7 @@ def mesh_summary(ribbons: list[HairRibbon], records: list[ArtMaskRecord], design
         "section_count": SEGMENT_COUNT + 1,
         "ribbon_thickness": round(max((ribbon.mesh.thickness for ribbon in ribbons), default=0.0), 6),
         "ribbon_thickness_min": round(min((ribbon.mesh.thickness for ribbon in ribbons), default=0.0), 6),
-        "component_area_min": COMPONENT_AREA_MIN,
+        "component_area_min": design_summary.get("variant", {}).get("component_area_min", COMPONENT_AREA_MIN),
         "source_mask_component_count": sum(len(record.components) for record in records),
         "role_counts": role_counts,
         "schema_constrained": True,
@@ -948,7 +1041,12 @@ def mesh_summary(ribbons: list[HairRibbon], records: list[ArtMaskRecord], design
     }
 
 
-def build_spec(paths: ActuatorPaths, ribbons: list[HairRibbon], records: list[ArtMaskRecord], design_summary: dict[str, Any]) -> dict[str, Any]:
+def build_spec(
+    paths: ActuatorPaths,
+    ribbons: list[HairRibbon],
+    records: list[ArtMaskRecord],
+    design_summary: dict[str, Any],
+) -> dict[str, Any]:
     return {
         "route": ROUTE,
         "source_route": "authored_hair_ribbons_v0_failed_underfilled",
@@ -962,6 +1060,7 @@ def build_spec(paths: ActuatorPaths, ribbons: list[HairRibbon], records: list[Ar
             "id": "hair",
             "category": "hair",
             "generator": ACTUATOR_NAME,
+            "variant": design_summary.get("variant", {}).get("name", "balanced"),
             "replace_in_beauty_glb": False,
             "independent_objects": True,
             "candidate_only": True,
@@ -982,13 +1081,17 @@ def build_spec(paths: ActuatorPaths, ribbons: list[HairRibbon], records: list[Ar
 @register("build_art_directed_hair_ribbons_v1")
 @register("art_directed_hair_ribbons_v1")
 def run_art_directed_hair_ribbons_v1(paths: ActuatorPaths) -> ActuatorResult:
+    return run_art_directed_hair_ribbons_variant(paths, HAIR_REVIEW_VARIANTS["balanced"])
+
+
+def run_art_directed_hair_ribbons_variant(paths: ActuatorPaths, variant: HairVariantConfig) -> ActuatorResult:
     warnings: list[str] = []
     errors: list[str] = []
     paths.output_dir.mkdir(parents=True, exist_ok=True)
     paths.spec_path.parent.mkdir(parents=True, exist_ok=True)
     paths.obj_path.parent.mkdir(parents=True, exist_ok=True)
 
-    ribbons, records, design_summary = build_art_directed_hair_ribbons(paths.character_package, paths.output_dir)
+    ribbons, records, design_summary = build_art_directed_hair_ribbons(paths.character_package, paths.output_dir, variant)
     write_obj(paths.obj_path, ribbons)
     glb_report = blender_export_glb(
         paths.glb_path,
@@ -1036,6 +1139,7 @@ def run_art_directed_hair_ribbons_v1(paths: ActuatorPaths) -> ActuatorResult:
     report = {
         "created_at": datetime.now(timezone.utc).isoformat(),
         "route": ROUTE,
+        "variant": variant.name,
         **result.to_dict(),
     }
     write_json(paths.report_path, report)

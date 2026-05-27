@@ -16,8 +16,10 @@ sys.path.insert(0, str(TOOLS_DIR))
 from semantic_actuators.art_directed_hair_ribbons_v1 import (  # noqa: E402
     ACTUATOR_NAME,
     ART_DIRECTED_STATUS,
+    HAIR_REVIEW_VARIANTS,
     build_art_directed_hair_ribbons,
     mesh_summary,
+    run_art_directed_hair_ribbons_variant,
     run_art_directed_hair_ribbons_v1,
 )
 from semantic_actuators.state import ActuatorPaths  # noqa: E402
@@ -27,6 +29,12 @@ CHARACTER_PACKAGE = REPO_ROOT / "CharacterPackage"
 
 
 class ArtDirectedHairRibbonsV1Tests(unittest.TestCase):
+    def test_review_variants_define_three_manual_review_modes(self) -> None:
+        self.assertEqual({"balanced", "fuller", "silhouette"}, set(HAIR_REVIEW_VARIANTS))
+        self.assertEqual(HAIR_REVIEW_VARIANTS["balanced"].secondary_strand_count, 10)
+        self.assertGreater(HAIR_REVIEW_VARIANTS["fuller"].secondary_strand_count, HAIR_REVIEW_VARIANTS["balanced"].secondary_strand_count)
+        self.assertLess(HAIR_REVIEW_VARIANTS["silhouette"].flyaway_strand_count, HAIR_REVIEW_VARIANTS["balanced"].flyaway_strand_count)
+
     def test_v1_builds_design_groups_secondary_flyaways_and_depths(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             ribbons, records, design_summary = build_art_directed_hair_ribbons(CHARACTER_PACKAGE, Path(tmp))
@@ -44,6 +52,31 @@ class ArtDirectedHairRibbonsV1Tests(unittest.TestCase):
         self.assertEqual(sum(1 for ribbon in ribbons if ribbon.group_id == "flyaway_strands"), 4)
         self.assertGreaterEqual(len(design_summary["scalp_anchor_points"]), 4)
         self.assertEqual(len(records), 4)
+
+    def test_fuller_variant_temp_run_writes_report_and_keeps_replacement_disabled(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp, mock.patch(
+            "semantic_actuators.art_directed_hair_ribbons_v1.blender_export_glb",
+            return_value={"status": "skipped_with_reason", "reason": "test_blender_skip", "glb_exists": False},
+        ):
+            out = Path(tmp) / "art_directed_v1_fuller"
+            paths = ActuatorPaths(
+                repo_root=REPO_ROOT,
+                character_package=CHARACTER_PACKAGE,
+                output_dir=out,
+                spec_path=out / "specs" / "hair_v1_fuller.json",
+                obj_path=out / "exports" / "hair_v1_fuller.obj",
+                glb_path=out / "exports" / "hair_v1_fuller.glb",
+                report_path=out / "validation_report.json",
+            )
+            result = run_art_directed_hair_ribbons_variant(paths, HAIR_REVIEW_VARIANTS["fuller"])
+
+            self.assertEqual(result.status, ART_DIRECTED_STATUS)
+            report = json.loads(paths.report_path.read_text(encoding="utf-8"))
+            self.assertEqual(report["variant"], "fuller")
+            self.assertFalse(report["validation"]["replace_in_beauty_glb"])
+            self.assertFalse(report["validation"]["ready_for_cloth_seam_surface"])
+            self.assertEqual(report["mesh_summary"]["design_summary"]["variant"]["name"], "fuller")
+            self.assertTrue(paths.obj_path.exists())
 
     def test_v1_records_primitive_intents_for_art_directed_strands(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

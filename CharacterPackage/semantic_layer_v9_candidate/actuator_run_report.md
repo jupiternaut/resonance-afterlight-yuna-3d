@@ -581,3 +581,44 @@ Verdict:
 - Candidate-only front remains sparse at full-body framing.
 - `cloth_seam_surface` remains blocked until manual review accepts this or a
   later hair candidate.
+
+## Hair V1 Overnight Variant Review Pack
+
+This pass generated three additive manual-review variants for
+`art_directed_hair_ribbons_v1` under
+`CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/`.
+
+Generated variants:
+
+- `balanced`
+- `fuller`
+- `silhouette`
+
+Preserved constraints:
+
+- v8 remains unchanged.
+- `replace_in_beauty_glb=false` for every variant.
+- `ready_for_cloth_seam_surface=false`.
+- No variant is accepted or production-ready.
+- The pack is for human visual review only.
+
+Key metrics:
+
+| Variant | Leak | Soft inside | Core | Visible area | Front mass | Yaw30 | Side | Manual gate |
+|---|---:|---:|---:|---:|---|---|---|---|
+| `balanced` | `0.071096` | `0.831454` | `0.608249` | `0.010395` | true | true | true | pending review |
+| `fuller` | `0.072702` | `0.833756` | `0.634326` | `0.010896` | true | true | true | pending review |
+| `silhouette` | `0.045859` | `0.854204` | `0.579953` | `0.009824` | false | true | true | failed visible-mass gate |
+
+Artifacts:
+
+- `CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/hair_variants_comparison_report.json`
+- `CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/hair_variants_contact_sheet.png`
+- `CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/manual_review_hair_v1.md`
+
+Verdict:
+
+- Recommended first human review target: `fuller`.
+- This recommendation is not an acceptance decision.
+- Candidate-only renders still require manual visual review for hair-likeness.
+- `cloth_seam_surface` remains blocked.

@@ -1,0 +1,52 @@
+{
+  "hair_union_projection_valid": true,
+  "hair_union_projection_overlap_ratio": 0.612788,
+  "projection_overlap_pixels": 215857,
+  "hair_union_pixel_count": 352254,
+  "candidate_visible_pixel_count": 18862,
+  "baseline_visible_pixel_count": 512867,
+  "candidate_bbox": [
+    242,
+    61,
+    972,
+    507
+  ],
+  "hair_union_bbox": [
+    199,
+    49,
+    1119,
+    1080
+  ],
+  "baseline_bbox": [
+    93,
+    73,
+    1101,
+    1527
+  ],
+  "render_size": [
+    1200,
+    1600
+  ],
+  "debug_images": {
+    "v8_hair_union_mask_projected_on_baseline": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/validation_ci/yuna_semantic_layer_v9_hair_art_directed_v1_silhouette_validation_v8_hair_union_mask_projected_on_baseline.png",
+      "exists": true,
+      "bytes": 1545317
+    },
+    "candidate_visible_mask": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/validation_ci/yuna_semantic_layer_v9_hair_art_directed_v1_silhouette_validation_candidate_visible_mask.png",
+      "exists": true,
+      "bytes": 5066
+    },
+    "candidate_mask_vs_hair_union_overlay": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/validation_ci/yuna_semantic_layer_v9_hair_art_directed_v1_silhouette_validation_candidate_mask_vs_hair_union_overlay.png",
+      "exists": true,
+      "bytes": 45311
+    },
+    "candidate_bbox_vs_hair_union_bbox": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/validation_ci/yuna_semantic_layer_v9_hair_art_directed_v1_silhouette_validation_candidate_bbox_vs_hair_union_bbox.png",
+      "exists": true,
+      "bytes": 1580548
+    }
+  }
+}
