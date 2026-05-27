@@ -101,7 +101,7 @@ def validate_hair_candidate_report(report: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     if report.get("part_id") != "hair":
         errors.append("part_id must be hair")
-    if report.get("actuator") != "authored_hair_ribbons_v0":
+    if report.get("actuator") not in {"authored_hair_ribbons_v0", "art_directed_hair_ribbons_v1"}:
         errors.append("unexpected actuator")
     if report.get("status") not in {
         "generated_with_warnings",
@@ -116,6 +116,7 @@ def validate_hair_candidate_report(report: dict[str, Any]) -> list[str]:
         "manual_review_failed",
         "schema_gate_passed_manual_review_failed_underfilled",
         "schema_gate_passed_manual_review_required",
+        "art_directed_candidate_manual_review_required",
     }:
         errors.append("status must be generated_with_warnings, failed, or a hair visual failure status")
     mesh = report.get("mesh_summary", {})
@@ -198,6 +199,7 @@ def validate_hair_candidate_report(report: dict[str, Any]) -> list[str]:
         "manual_review_failed",
         "schema_gate_passed_manual_review_failed_underfilled",
         "schema_gate_passed_manual_review_required",
+        "art_directed_candidate_manual_review_required",
     }:
         errors.append("hair candidate visual_sanity_status is invalid")
     if visual_status in {"passed", "passed_with_minor_warnings"}:

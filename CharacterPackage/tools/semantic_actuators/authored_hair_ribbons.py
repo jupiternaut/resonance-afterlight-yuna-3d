@@ -102,6 +102,7 @@ class HairRibbon:
     spring_hook: str
     bbox: tuple[int, int, int, int]
     mesh: MeshData
+    primitive_intent: dict[str, Any] | None = None
 
 
 @dataclass
@@ -841,7 +842,14 @@ def write_obj(path: Path, ribbons: list[HairRibbon]) -> Path:
     return mtl_path
 
 
-def blender_export_glb(glb_path: Path, ribbons: list[HairRibbon], repo_root: Path) -> dict[str, Any]:
+def blender_export_glb(
+    glb_path: Path,
+    ribbons: list[HairRibbon],
+    repo_root: Path,
+    *,
+    actuator_name: str = ACTUATOR_NAME,
+    side_alpha: float = 0.0,
+) -> dict[str, Any]:
     blender = find_blender()
     if blender is None:
         return {"status": "skipped_with_reason", "reason": "blender_not_found", "glb_exists": False}
@@ -856,6 +864,7 @@ def blender_export_glb(glb_path: Path, ribbons: list[HairRibbon], repo_root: Pat
             "uvs": ribbon.mesh.uvs,
             "face_materials": ribbon.mesh.face_materials,
             "spring_hook": ribbon.spring_hook,
+            "primitive_intent": ribbon.primitive_intent or {},
         }
         for ribbon in ribbons
     ]
@@ -880,8 +889,8 @@ side_mat = bpy.data.materials.new('hair_ribbon_side_material')
 side_mat.use_nodes = True
 side_mat.blend_method = 'BLEND'
 side_bsdf = side_mat.node_tree.nodes.get('Principled BSDF')
-side_bsdf.inputs['Base Color'].default_value = (0.72, 0.82, 0.84, 0.0)
-side_bsdf.inputs['Alpha'].default_value = 0.0
+side_bsdf.inputs['Base Color'].default_value = (0.72, 0.82, 0.84, {side_alpha!r})
+side_bsdf.inputs['Alpha'].default_value = {side_alpha!r}
 side_bsdf.inputs['Roughness'].default_value = 0.68
 
 front_mats = {{}}
@@ -925,10 +934,11 @@ for item in RIBBONS:
     obj['semantic_part'] = 'hair'
     obj['source_part_id'] = item['source_part_id']
     obj['hair_group'] = item['group_id']
-    obj['actuator'] = 'authored_hair_ribbons_v0'
+    obj['actuator'] = {actuator_name!r}
     obj['candidate_only'] = True
     obj['replace_in_beauty_glb'] = False
     obj['spring_hook'] = item['spring_hook']
+    obj['primitive_intent'] = json.dumps(item.get('primitive_intent') or {{}})
     for idx, poly in enumerate(obj.data.polygons):
         poly.material_index = item['face_materials'][idx]
 
@@ -938,7 +948,7 @@ for index, name in enumerate(HOOKS):
     hook.name = name
     hook.empty_display_size = 0.08
     hook['semantic_part'] = 'hair'
-    hook['actuator'] = 'authored_hair_ribbons_v0'
+    hook['actuator'] = {actuator_name!r}
     hook['secondary_motion_hook'] = True
 
 bpy.ops.wm.save_as_mainfile(filepath=r'{glb_path.with_suffix('.blend')}')

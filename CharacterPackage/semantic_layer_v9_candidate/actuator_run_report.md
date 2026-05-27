@@ -468,3 +468,58 @@ Current result:
 
 The route now has `hair_design_schema_v1.json` as the design contract for the
 next art-directed rebuild. No new GLB was generated in this pass.
+
+## Art-Directed Hair Ribbons v1 Update
+
+This pass implemented `build_art_directed_hair_ribbons_v1` as an additive hair
+candidate driven by `hair_design_schema_v1.json` and `target_schema_v1`.
+It writes explicit primitive intent metadata for every strand/ribbon:
+anchor point, curve path, width profile, taper, depth group, and material.
+
+Generated/updated artifacts:
+
+- `CharacterPackage/semantic_layer_v9_hair/art_directed_v1/specs/yuna_semantic_layer_v9_hair_art_directed_v1.json`
+- `CharacterPackage/semantic_layer_v9_hair/art_directed_v1/exports/yuna_semantic_layer_v9_hair_art_directed_v1.obj`
+- `CharacterPackage/semantic_layer_v9_hair/art_directed_v1/exports/yuna_semantic_layer_v9_hair_art_directed_v1.mtl`
+- `CharacterPackage/semantic_layer_v9_hair/art_directed_v1/exports/yuna_semantic_layer_v9_hair_art_directed_v1.glb`
+- `CharacterPackage/semantic_layer_v9_hair/art_directed_v1/exports/yuna_semantic_layer_v9_hair_art_directed_v1.blend`
+- `CharacterPackage/semantic_layer_v9_hair/art_directed_v1/validation_report.json`
+- `CharacterPackage/semantic_layer_v9_hair/art_directed_v1/validation_ci/validation_ci_report.json`
+- `CharacterPackage/semantic_layer_v9_hair/art_directed_v1/target_schema_v1_eval/hair_target_schema_v1_report.json`
+- `CharacterPackage/semantic_layer_v9_hair/art_directed_v1/manual_review.md`
+
+Preserved constraints:
+
+- v8 remains unchanged.
+- `replace_in_beauty_glb=false`.
+- side/back remain soft constraints.
+- `ready_for_cloth_seam_surface=false`.
+- The candidate is not an accepted replacement for v8 beauty hair.
+
+Current metrics:
+
+- `status=art_directed_candidate_manual_review_required`
+- `non_degenerate_hair_coverage_passed=true`
+- `forbidden_candidate_leak_ratio=0.020550`
+- `candidate_soft_inside_ratio=0.822168`
+- `candidate_core_coverage_ratio=0.341135`
+- `candidate_visible_area_ratio=0.007020`
+- `soft_silhouette_coverage_ratio=0.341499`
+- `bangs_presence_ratio=0.214286`
+- `side_hair_left_presence_ratio=0.493036`
+- `side_hair_right_presence_ratio=0.911678`
+- `back_hair_mass_presence_ratio=0.794342`
+- `component_count=6`
+- `scalp_anchor_continuity=0.214286`
+- `ribbon_count=25`
+- `depth_group_count=6`
+- `art_directed_primitive_intent_count=25`
+- `flow_continuity_passed=true`
+
+Verdict:
+
+- The candidate passes the target-schema/non-degenerate numeric gate.
+- It remains `manual_review_required`, not accepted production hair.
+- Candidate-only front remains sparse at full-body framing.
+- `cloth_seam_surface` remains blocked until manual review accepts this or a
+  later hair candidate.

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import argparse
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -213,8 +214,8 @@ def load_group_schema_masks() -> dict[str, Image.Image]:
     return masks
 
 
-def schema_candidate_metrics(masks: dict[str, Image.Image]) -> dict[str, Any]:
-    candidate_mask, width, height, candidate_pixels = foreground_mask_from_render(CANDIDATE_FRONT)
+def schema_candidate_metrics(masks: dict[str, Image.Image], candidate_front: Path = CANDIDATE_FRONT) -> dict[str, Any]:
+    candidate_mask, width, height, candidate_pixels = foreground_mask_from_render(candidate_front)
     strict_render = render_mask(masks["strict_hair_core"], width, height)
     soft_render = render_mask(masks["soft_hair_silhouette"], width, height)
     forbidden_render = render_mask(masks["forbidden_nonhair_zone"], width, height)
@@ -328,8 +329,12 @@ def schema_candidate_metrics(masks: dict[str, Image.Image]) -> dict[str, Any]:
     }
 
 
-def save_candidate_schema_overlay(masks: dict[str, Image.Image], output_path: Path) -> None:
-    candidate_mask, width, height, _ = foreground_mask_from_render(CANDIDATE_FRONT)
+def save_candidate_schema_overlay(
+    masks: dict[str, Image.Image],
+    output_path: Path,
+    candidate_front: Path = CANDIDATE_FRONT,
+) -> None:
+    candidate_mask, width, height, _ = foreground_mask_from_render(candidate_front)
     strict_render = render_mask(masks["strict_hair_core"], width, height)
     soft_render = render_mask(masks["soft_hair_silhouette"], width, height)
     forbidden_render = render_mask(masks["forbidden_nonhair_zone"], width, height)
@@ -384,7 +389,12 @@ def baseline_schema_overlay(masks: dict[str, Image.Image], size: tuple[int, int]
     return result
 
 
-def make_contact_sheet(masks: dict[str, Image.Image], candidate_overlay: Path, output_path: Path) -> None:
+def make_contact_sheet(
+    masks: dict[str, Image.Image],
+    candidate_overlay: Path,
+    output_path: Path,
+    candidate_front: Path = CANDIDATE_FRONT,
+) -> None:
     tile = (420, 560)
     labels = [
         ("strict_hair_core", source_mask_preview(masks["strict_hair_core"], (60, 255, 128, 220), tile)),
@@ -392,7 +402,7 @@ def make_contact_sheet(masks: dict[str, Image.Image], candidate_overlay: Path, o
         ("forbidden_nonhair_zone", source_mask_preview(masks["forbidden_nonhair_zone"], (255, 24, 24, 190), tile)),
         ("baseline_schema_overlay", baseline_schema_overlay(masks, tile)),
         ("candidate_vs_schema_overlay", Image.open(candidate_overlay).convert("RGBA").resize(tile, Image.Resampling.LANCZOS)),
-        ("candidate_front", Image.open(CANDIDATE_FRONT).convert("RGBA").resize(tile, Image.Resampling.LANCZOS)),
+        ("candidate_front", Image.open(candidate_front).convert("RGBA").resize(tile, Image.Resampling.LANCZOS)),
     ]
     sheet = Image.new("RGBA", (tile[0] * 3, tile[1] * 2), (24, 24, 24, 255))
     draw = ImageDraw.Draw(sheet)
@@ -405,7 +415,13 @@ def make_contact_sheet(masks: dict[str, Image.Image], candidate_overlay: Path, o
     sheet.save(output_path)
 
 
-def update_json_reports(report: dict[str, Any]) -> None:
+def update_json_reports(
+    report: dict[str, Any],
+    *,
+    validation_report_path: Path = VALIDATION_REPORT,
+    validation_ci_report_path: Path = VALIDATION_CI_REPORT,
+) -> None:
+    route_status = report.get("candidate_route_status", report["candidate_target_schema_status"])
     if report["candidate_target_schema_status"] == "schema_gate_passed_manual_review_required":
         manual_visual_review = "required"
     elif report["candidate_target_schema_status"] == "schema_gate_passed_manual_review_failed_underfilled":
@@ -442,31 +458,41 @@ def update_json_reports(report: dict[str, Any]) -> None:
         "artifacts": report["artifacts"],
     }
 
-    if VALIDATION_REPORT.exists():
-        validation_report = load_json(VALIDATION_REPORT)
-        validation_report["status"] = report["candidate_target_schema_status"]
+    if validation_report_path.exists():
+        validation_report = load_json(validation_report_path)
+        validation_report["status"] = route_status
         validation = validation_report.setdefault("validation", {})
         validation["target_schema_v1"] = summary
         validation["candidate_target_schema_status"] = report["candidate_target_schema_status"]
+        validation["candidate_route_status"] = route_status
         validation["schema_ready_for_ribbon_rebuild"] = report["schema_ready_for_ribbon_rebuild"]
         validation["ready_for_cloth_seam_surface"] = False
         validation["recommended_next"] = report["recommended_next"]
-        validation["visual_sanity_status"] = report["candidate_target_schema_status"]
+        validation["visual_sanity_status"] = route_status
         validation["manual_visual_review"] = manual_visual_review
-        write_json(VALIDATION_REPORT, validation_report)
+        write_json(validation_report_path, validation_report)
 
-    if VALIDATION_CI_REPORT.exists():
-        ci_report = load_json(VALIDATION_CI_REPORT)
-        ci_report["status"] = report["candidate_target_schema_status"]
+    if validation_ci_report_path.exists():
+        ci_report = load_json(validation_ci_report_path)
+        ci_report["status"] = route_status
         ci_report.setdefault("quality", {})["target_schema_v1"] = summary
         ci_report.setdefault("candidate_contract", {})["target_schema_v1_status"] = report["candidate_target_schema_status"]
-        ci_report.setdefault("candidate_contract", {})["visual_sanity_status"] = report["candidate_target_schema_status"]
+        ci_report.setdefault("candidate_contract", {})["candidate_route_status"] = route_status
+        ci_report.setdefault("candidate_contract", {})["visual_sanity_status"] = route_status
         ci_report.setdefault("candidate_contract", {})["manual_visual_review"] = manual_visual_review
         ci_report["ready_for_cloth_seam_surface"] = False
-        write_json(VALIDATION_CI_REPORT, ci_report)
+        write_json(validation_ci_report_path, ci_report)
 
 
-def build_report(output_dir: Path, *, update_reports: bool = True) -> dict[str, Any]:
+def build_report(
+    output_dir: Path,
+    *,
+    update_reports: bool = True,
+    candidate_front: Path = CANDIDATE_FRONT,
+    candidate_route_label: str = "authored_hair_ribbons_v0",
+    validation_report_path: Path = VALIDATION_REPORT,
+    validation_ci_report_path: Path = VALIDATION_CI_REPORT,
+) -> dict[str, Any]:
     output_dir.mkdir(parents=True, exist_ok=True)
     masks, provenance = build_schema_masks()
 
@@ -480,23 +506,32 @@ def build_report(output_dir: Path, *, update_reports: bool = True) -> dict[str, 
     masks["strict_hair_core"].save(strict_path)
     masks["soft_hair_silhouette"].save(soft_path)
     masks["forbidden_nonhair_zone"].save(forbidden_path)
-    save_candidate_schema_overlay(masks, overlay_path)
-    make_contact_sheet(masks, overlay_path, contact_sheet_path)
+    save_candidate_schema_overlay(masks, overlay_path, candidate_front=candidate_front)
+    make_contact_sheet(masks, overlay_path, contact_sheet_path, candidate_front=candidate_front)
 
-    metrics = schema_candidate_metrics(masks)
+    metrics = schema_candidate_metrics(masks, candidate_front=candidate_front)
     if metrics["candidate_target_schema_status"] == "schema_gate_passed_manual_review_required":
-        recommended_next = "manual_review_authored_hair_ribbons_v0_quality"
+        recommended_next = f"manual_review_{candidate_route_label}_quality"
     elif metrics["candidate_target_schema_status"] == "schema_gate_passed_manual_review_failed_underfilled":
         recommended_next = "build_art_directed_hair_ribbons_v1"
     elif metrics["schema_ready_for_ribbon_rebuild"]:
         recommended_next = "fix_hair_ribbons_to_schema_v1"
     else:
         recommended_next = "build_hair_target_schema_v1"
+    candidate_route_status = (
+        "art_directed_candidate_manual_review_required"
+        if candidate_route_label == "art_directed_hair_ribbons_v1"
+        and metrics["candidate_target_schema_status"] == "schema_gate_passed_manual_review_required"
+        else metrics["candidate_target_schema_status"]
+    )
     report = {
         "created_at": datetime.now(timezone.utc).isoformat(),
         "route": "build_hair_target_schema_v1",
-        "status": metrics["candidate_target_schema_status"],
+        "status": candidate_route_status,
         "boundary": "Target-schema generation only. Does not modify semantic_layer_v8, generate GLB, or unblock cloth.",
+        "candidate_route_label": candidate_route_label,
+        "candidate_route_status": candidate_route_status,
+        "candidate_front": display_path(candidate_front),
         "formula_binding": {
             "state": "theta_hair target masks and validation fields, not raw mesh vertices",
             "update": "ProjectToConstraints_hair(RobustFuse(strict_hair_core, soft_hair_silhouette, forbidden_nonhair_zone, front_identity, manual_visual_review))",
@@ -522,12 +557,35 @@ def build_report(output_dir: Path, *, update_reports: bool = True) -> dict[str, 
     report["artifacts"]["report"] = file_record(report_path)
     write_json(report_path, report)
     if update_reports:
-        update_json_reports(report)
+        update_json_reports(
+            report,
+            validation_report_path=validation_report_path,
+            validation_ci_report_path=validation_ci_report_path,
+        )
     return report
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Build/evaluate hair target schema v1.")
+    parser.add_argument("--output-dir", type=Path, default=OUT_DIR)
+    parser.add_argument("--candidate-front", type=Path, default=CANDIDATE_FRONT)
+    parser.add_argument("--candidate-route-label", default="authored_hair_ribbons_v0")
+    parser.add_argument("--validation-report", type=Path, default=VALIDATION_REPORT)
+    parser.add_argument("--validation-ci-report", type=Path, default=VALIDATION_CI_REPORT)
+    parser.add_argument("--no-update-reports", action="store_true")
+    return parser.parse_args()
+
+
 def main() -> int:
-    report = build_report(OUT_DIR, update_reports=True)
+    args = parse_args()
+    report = build_report(
+        args.output_dir,
+        update_reports=not args.no_update_reports,
+        candidate_front=args.candidate_front,
+        candidate_route_label=args.candidate_route_label,
+        validation_report_path=args.validation_report,
+        validation_ci_report_path=args.validation_ci_report,
+    )
     print(json.dumps(report, ensure_ascii=False, indent=2))
     return 0
 

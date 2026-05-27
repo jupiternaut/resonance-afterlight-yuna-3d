@@ -109,7 +109,10 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
 
 def tail_lines(text: str, count: int = 80) -> list[str]:
-    return text.splitlines()[-count:]
+    return [
+        line.replace(str(REPO_ROOT), ".")
+        for line in text.splitlines()[-count:]
+    ]
 
 
 def evaluate_black_pixel_sanity(image_path: Path) -> dict[str, float]:
