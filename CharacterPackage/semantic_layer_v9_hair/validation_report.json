@@ -1,0 +1,264 @@
+{
+  "created_at": "2026-05-26T17:59:06.422137+00:00",
+  "route": "semantic_layer_v9_authored_hair_ribbons_v0",
+  "actuator": "authored_hair_ribbons_v0",
+  "status": "generated_with_warnings",
+  "part_id": "hair",
+  "decision_source": "CharacterPackage/semantic_layer_v9_candidate/filter_report.json",
+  "generated_files": {
+    "spec": "CharacterPackage/semantic_layer_v9_hair/specs/yuna_semantic_layer_v9_hair.json",
+    "obj": "CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.obj",
+    "mtl": "CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.mtl",
+    "glb": "CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.glb",
+    "blend": "CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.blend",
+    "report": "CharacterPackage/semantic_layer_v9_hair/validation_report.json"
+  },
+  "mesh_summary": {
+    "group_count": 4,
+    "depth_group_count": 4,
+    "ribbon_count": 41,
+    "vertices": 4100,
+    "uvs": 4100,
+    "faces": 4018,
+    "section_count": 25,
+    "ribbon_thickness": 0.0035,
+    "groups": [
+      {
+        "group_id": "hair_back",
+        "source_part_id": "back_hair",
+        "mask": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/masks/front/back_hair.png",
+        "texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_back_sanitized.png",
+        "bbox": [
+          130,
+          480,
+          1009,
+          1035
+        ],
+        "spring_hook": "hair_back_spring_hook",
+        "ribbon_count": 14
+      },
+      {
+        "group_id": "hair_side_left",
+        "source_part_id": "side_hair_left",
+        "mask": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/masks/front/side_hair_left.png",
+        "texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_side_left_sanitized.png",
+        "bbox": [
+          134,
+          192,
+          509,
+          822
+        ],
+        "spring_hook": "hair_side_left_spring_hook",
+        "ribbon_count": 8
+      },
+      {
+        "group_id": "hair_side_right",
+        "source_part_id": "side_hair_right",
+        "mask": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/masks/front/side_hair_right.png",
+        "texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_side_right_sanitized.png",
+        "bbox": [
+          542,
+          130,
+          986,
+          875
+        ],
+        "spring_hook": "hair_side_right_spring_hook",
+        "ribbon_count": 9
+      },
+      {
+        "group_id": "hair_bangs",
+        "source_part_id": "bangs",
+        "mask": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/masks/front/bangs.png",
+        "texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_bangs_sanitized.png",
+        "bbox": [
+          367,
+          49,
+          715,
+          438
+        ],
+        "spring_hook": "hair_bangs_spring_hook",
+        "ribbon_count": 10
+      }
+    ],
+    "sanitized_textures": [
+      {
+        "group_id": "hair_back",
+        "source_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/textures/back_hair.png",
+        "sanitized_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_back_sanitized.png",
+        "alpha_pixels": 121159,
+        "fill_color": [
+          185,
+          192,
+          200
+        ]
+      },
+      {
+        "group_id": "hair_side_left",
+        "source_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/textures/side_hair_left.png",
+        "sanitized_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_side_left_sanitized.png",
+        "alpha_pixels": 60950,
+        "fill_color": [
+          176,
+          193,
+          200
+        ]
+      },
+      {
+        "group_id": "hair_side_right",
+        "source_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/textures/side_hair_right.png",
+        "sanitized_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_side_right_sanitized.png",
+        "alpha_pixels": 71480,
+        "fill_color": [
+          172,
+          196,
+          202
+        ]
+      },
+      {
+        "group_id": "hair_bangs",
+        "source_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/textures/bangs.png",
+        "sanitized_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_bangs_sanitized.png",
+        "alpha_pixels": 18212,
+        "fill_color": [
+          193,
+          195,
+          202
+        ]
+      }
+    ]
+  },
+  "validation": {
+    "independent_objects": true,
+    "has_ribbon_meshes": true,
+    "has_depth_groups": true,
+    "has_uvs": true,
+    "has_front_texture_material": true,
+    "uses_sanitized_alpha_textures": true,
+    "has_side_material": true,
+    "has_spring_hook_metadata": true,
+    "replace_in_beauty_glb": false,
+    "side_back_are_soft_constraints": true,
+    "alpha_material_valid": true,
+    "black_alpha_leak_ratio": 0.0,
+    "candidate_black_pixel_ratio": 0.0,
+    "face_occlusion_ratio": 0.0571,
+    "body_occlusion_ratio": 0.082788,
+    "non_hair_occlusion_ratio": 0.083743,
+    "visual_sanity_status": "passed",
+    "visual_sanity_reason": "candidate front render and source coverage pass hair visual sanity thresholds",
+    "obj": {
+      "path": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.obj",
+      "exists": true,
+      "bytes": 435220
+    },
+    "glb": {
+      "path": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.glb",
+      "exists": true,
+      "bytes": 1449252
+    },
+    "blender_glb_export": {
+      "status": "ok",
+      "blender": "/opt/homebrew/bin/blender",
+      "exit_code": 0,
+      "glb_exists": true,
+      "glb_bytes": 1449252,
+      "blend_exists": true,
+      "blend_path": "CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.blend",
+      "log_tail": [
+        "01:59:05 | INFO: Extracting primitive: hair_back_ribbon_06_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_back_ribbon_07_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_back_ribbon_08_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_back_ribbon_09_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_back_ribbon_10_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_back_ribbon_11_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_back_ribbon_12_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_back_ribbon_13_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_back_ribbon_14_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_side_left_ribbon_01_mesh",
+        "01:59:05 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_side_left_ribbon_02_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_side_left_ribbon_03_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_side_left_ribbon_04_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_side_left_ribbon_05_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_side_left_ribbon_06_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_side_left_ribbon_07_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_side_left_ribbon_08_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_side_right_ribbon_01_mesh",
+        "01:59:05 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_side_right_ribbon_02_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_side_right_ribbon_03_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_side_right_ribbon_04_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_side_right_ribbon_05_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_side_right_ribbon_06_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_side_right_ribbon_07_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_side_right_ribbon_08_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_side_right_ribbon_09_mesh",
+        "01:59:05 | INFO: Primitives created: 2",
+        "01:59:05 | INFO: Extracting primitive: hair_bangs_ribbon_01_mesh",
+        "01:59:06 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+        "01:59:06 | INFO: Primitives created: 2",
+        "01:59:06 | INFO: Extracting primitive: hair_bangs_ribbon_02_mesh",
+        "01:59:06 | INFO: Primitives created: 2",
+        "01:59:06 | INFO: Extracting primitive: hair_bangs_ribbon_03_mesh",
+        "01:59:06 | INFO: Primitives created: 2",
+        "01:59:06 | INFO: Extracting primitive: hair_bangs_ribbon_04_mesh",
+        "01:59:06 | INFO: Primitives created: 2",
+        "01:59:06 | INFO: Extracting primitive: hair_bangs_ribbon_05_mesh",
+        "01:59:06 | INFO: Primitives created: 2",
+        "01:59:06 | INFO: Extracting primitive: hair_bangs_ribbon_06_mesh",
+        "01:59:06 | INFO: Primitives created: 2",
+        "01:59:06 | INFO: Extracting primitive: hair_bangs_ribbon_07_mesh",
+        "01:59:06 | INFO: Primitives created: 2",
+        "01:59:06 | INFO: Extracting primitive: hair_bangs_ribbon_08_mesh",
+        "01:59:06 | INFO: Primitives created: 2",
+        "01:59:06 | INFO: Extracting primitive: hair_bangs_ribbon_09_mesh",
+        "01:59:06 | INFO: Primitives created: 2",
+        "01:59:06 | INFO: Extracting primitive: hair_bangs_ribbon_10_mesh",
+        "01:59:06 | INFO: Primitives created: 2",
+        "01:59:06 | INFO: Finished glTF 2.0 export in 0.10418987274169922 s",
+        "",
+        "Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)",
+        "",
+        "Blender quit"
+      ]
+    },
+    "thresholds": {
+      "black_alpha_leak_ratio": 0.02,
+      "candidate_black_pixel_ratio": 0.05,
+      "face_occlusion_ratio": 0.15,
+      "non_hair_occlusion_ratio": 0.1
+    },
+    "negative_fixture": "CharacterPackage/semantic_layer_v9_hair/negative_fixtures/yuna_semantic_layer_v9_hair_validation_front_failed_visual_fixture.png"
+  },
+  "warnings": [
+    "v0 derives deterministic ribbon guides from v8 mask bounds and texture alpha; these are authored-ribbon candidates, not final hand-authored production curves.",
+    "side/back references remain soft constraints and are not treated as locked geometry truth.",
+    "v8 beauty hair cards remain active until screenshot/import validation passes."
+  ],
+  "errors": []
+}

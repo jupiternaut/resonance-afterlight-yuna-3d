@@ -74,6 +74,29 @@
         "legs candidate is an actuator proxy, not final DCC asset",
         "v8 beauty GLB remains the active baseline until replacement validation is accepted"
       ]
+    },
+    {
+      "part_id": "hair",
+      "actuator": "authored_hair_ribbons_v0",
+      "status": "generated_with_warnings",
+      "candidate_exports": {
+        "spec": "CharacterPackage/semantic_layer_v9_hair/specs/yuna_semantic_layer_v9_hair.json",
+        "obj": "CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.obj",
+        "mtl": "CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.mtl",
+        "glb": "CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.glb",
+        "blend": "CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.blend",
+        "report": "CharacterPackage/semantic_layer_v9_hair/validation_report.json"
+      },
+      "validation_report": "CharacterPackage/semantic_layer_v9_hair/validation_report.json",
+      "blender_validation_report": "CharacterPackage/semantic_layer_v9_hair/validation_ci/validation_ci_report.json",
+      "blender_validation_status": "passed_with_warnings",
+      "known_limits": [
+        "v0 derives deterministic ribbon guides from v8 mask bounds and texture alpha; these are authored-ribbon candidates, not final hand-authored production curves.",
+        "side/back references remain soft constraints and are not treated as locked geometry truth.",
+        "v8 beauty hair cards remain active until screenshot/import validation passes.",
+        "hair candidate is an actuator proxy, not final DCC hair asset",
+        "v8 beauty GLB remains the active baseline until replacement validation is accepted"
+      ]
     }
   ],
   "kept_from_v8_parts": [
@@ -90,11 +113,11 @@
   ],
   "replacement_policy": {
     "replace_in_beauty_glb": false,
-    "reason": "v9 weapon, boot, and leg outputs are candidate actuator outputs. v8 beauty meshes remain active until user accepts validation and integration pass.",
+    "reason": "v9 weapon, boot, leg, and hair outputs are candidate actuator outputs. v8 beauty meshes remain active until user accepts validation and integration pass.",
     "must_preserve_front_identity": true,
     "must_keep_debug_guides_out_of_beauty": true,
     "side_back_are_soft_constraints": true
   },
-  "next_recommended_actuator": "authored_hair_ribbons",
-  "next_recommended_reason": "Weapon, boots, and leg retopo proxy candidates now have executable actuator outputs. The next blocker is replacing alpha-split hair cards with authored strand/ribbon curves while preserving front identity."
+  "next_recommended_actuator": "manual_review_authored_hair_ribbons_v0",
+  "next_recommended_reason": "Cloth seam work is paused. Hair visual sanity now passes numeric gates after sanitized textures and tighter mask-constrained ribbons, but the candidate should be visually reviewed before starting another actuator."
 }

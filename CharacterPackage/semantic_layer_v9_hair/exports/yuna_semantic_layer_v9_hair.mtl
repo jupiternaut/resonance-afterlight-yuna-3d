@@ -1,0 +1,33 @@
+newmtl hair_back_front_texture
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.040 0.040 0.045
+d 1.000
+map_Kd hair_back_sanitized.png
+
+newmtl hair_side_left_front_texture
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.040 0.040 0.045
+d 1.000
+map_Kd hair_side_left_sanitized.png
+
+newmtl hair_side_right_front_texture
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.040 0.040 0.045
+d 1.000
+map_Kd hair_side_right_sanitized.png
+
+newmtl hair_bangs_front_texture
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.040 0.040 0.045
+d 1.000
+map_Kd hair_bangs_sanitized.png
+
+newmtl hair_ribbon_side_material
+Ka 0.630 0.720 0.740
+Kd 0.720 0.820 0.840
+Ks 0.030 0.040 0.045
+d 1.000

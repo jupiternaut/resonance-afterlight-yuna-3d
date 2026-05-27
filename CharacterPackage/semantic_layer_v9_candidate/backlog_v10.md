@@ -5,8 +5,9 @@
 1. `boot_hardsurface_ortho`
 2. `leg_quad_loop_retopo_proxy`
 3. `authored_hair_ribbons`
-4. `cloth_seam_surface`
-5. `weapon_hardsurface_ortho_v1`
+4. `manual_review_authored_hair_ribbons_v0`
+5. `cloth_seam_surface`
+6. `weapon_hardsurface_ortho_v1`
 
 ## 1. Boot Hard-Surface Ortho
 
@@ -56,17 +57,47 @@ Remaining for v1:
 
 ## 3. Authored Hair Ribbons
 
+Status: completed as `authored_hair_ribbons_v0`.
+
 Goal:
 
 - Convert current hair cards into authored strand/ribbon candidate curves.
+- Keep this as an independent candidate; do not replace v8 beauty hair.
 
 Acceptance:
 
 - At least three depth groups remain.
 - Front identity and silhouette are preserved.
 - Side/back remain soft constraints only.
+- Black alpha leakage and candidate black-pixel ratios stay below visual sanity thresholds.
+- Face/body over-occlusion stays below visual sanity thresholds.
 
-## 4. Cloth Seam Surface
+Remaining for v1:
+
+- Keep `replace_in_beauty_glb=false` until a reviewed integration pass accepts replacement.
+- Replace alpha-derived guide lanes with hand-authored grooming curves.
+- Add deformation/secondary-motion tests for the spring-hook metadata.
+- Preserve the black-occlusion render as a negative fixture so similar failures become `failed_visual_sanity`.
+- Manually review the regenerated candidate-only, baseline-only, and overlay screenshots before starting the cloth actuator.
+
+## 4. Manual Review Authored Hair Ribbons v0
+
+Status: required before `cloth_seam_surface`.
+
+Goal:
+
+- Confirm the regenerated hair candidate is visually acceptable enough to remain as a DCC handoff candidate.
+
+Acceptance:
+
+- `validation_report.json` reports `visual_sanity_status = passed`.
+- `validation_ci_report.json` includes candidate-only, baseline-only, overlay, wire, and exploded screenshots.
+- The candidate does not become a replacement for v8 beauty hair.
+- If human review rejects the visual result, keep the route as a failed/needs-rework candidate and do not proceed to cloth.
+
+## 5. Cloth Seam Surface
+
+Status: paused until manual hair review completes.
 
 Goal:
 
@@ -78,7 +109,7 @@ Acceptance:
 - Cloth has visible front/yaw validation.
 - Swing/attachment hooks are preserved.
 
-## 5. Weapon Hard-Surface Ortho v1
+## 6. Weapon Hard-Surface Ortho v1
 
 Goal:
 

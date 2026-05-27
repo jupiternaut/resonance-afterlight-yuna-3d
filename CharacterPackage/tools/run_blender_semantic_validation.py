@@ -20,6 +20,12 @@ DEFAULT_CAGE_GLB = CHARACTER_PACKAGE / "semantic_layer_v8" / "exports" / "yuna_s
 DEFAULT_CANDIDATE_GLB = CHARACTER_PACKAGE / "semantic_layer_v9_weapon" / "exports" / "yuna_semantic_layer_v9_weapon.glb"
 DEFAULT_OUTPUT_DIR = CHARACTER_PACKAGE / "semantic_layer_v9_weapon" / "validation_ci"
 DEFAULT_REPORT = DEFAULT_OUTPUT_DIR / "validation_ci_report.json"
+VISUAL_SANITY_THRESHOLDS = {
+    "black_alpha_leak_ratio": 0.02,
+    "candidate_black_pixel_ratio": 0.05,
+    "face_occlusion_ratio": 0.15,
+    "non_hair_occlusion_ratio": 0.10,
+}
 
 
 def display_path(path: Path) -> str:
@@ -91,6 +97,69 @@ def tail_lines(text: str, count: int = 80) -> list[str]:
     return text.splitlines()[-count:]
 
 
+def evaluate_black_pixel_sanity(image_path: Path) -> dict[str, float]:
+    from PIL import Image
+
+    image = Image.open(image_path).convert("RGB")
+    width, height = image.size
+    pixels = image.load()
+    corner_samples = [
+        pixels[0, 0],
+        pixels[width - 1, 0],
+        pixels[0, height - 1],
+        pixels[width - 1, height - 1],
+    ]
+    background = tuple(sum(sample[index] for sample in corner_samples) / len(corner_samples) for index in range(3))
+    dark_pixels = 0
+    foreground_pixels = 0
+    dark_foreground_pixels = 0
+    for y in range(height):
+        for x in range(width):
+            rgb = pixels[x, y]
+            is_dark = max(rgb) < 64
+            is_foreground = sum(abs(rgb[index] - background[index]) for index in range(3)) > 28
+            if is_dark:
+                dark_pixels += 1
+            if is_foreground:
+                foreground_pixels += 1
+                if is_dark:
+                    dark_foreground_pixels += 1
+    total = max(width * height, 1)
+    return {
+        "candidate_black_pixel_ratio": round(dark_foreground_pixels / total, 6),
+        "black_alpha_leak_ratio": round(dark_foreground_pixels / max(foreground_pixels, 1), 6),
+    }
+
+
+def hair_visual_sanity_from_reports(report: dict[str, Any], candidate_report: dict[str, Any], candidate_front: Path) -> dict[str, Any]:
+    validation = candidate_report.get("validation", {})
+    metrics = {
+        "alpha_material_valid": bool(validation.get("alpha_material_valid")),
+        "face_occlusion_ratio": float(validation.get("face_occlusion_ratio", 1.0)),
+        "non_hair_occlusion_ratio": float(validation.get("non_hair_occlusion_ratio", 1.0)),
+        **evaluate_black_pixel_sanity(candidate_front),
+    }
+    reasons: list[str] = []
+    if not metrics["alpha_material_valid"]:
+        reasons.append("alpha material validation is missing or false")
+    if metrics["black_alpha_leak_ratio"] >= VISUAL_SANITY_THRESHOLDS["black_alpha_leak_ratio"]:
+        reasons.append("candidate front render has black alpha/background leakage")
+    if metrics["candidate_black_pixel_ratio"] >= VISUAL_SANITY_THRESHOLDS["candidate_black_pixel_ratio"]:
+        reasons.append("candidate front render has too many black pixels")
+    if metrics["face_occlusion_ratio"] >= VISUAL_SANITY_THRESHOLDS["face_occlusion_ratio"]:
+        reasons.append("candidate source coverage occludes too much face area")
+    if metrics["non_hair_occlusion_ratio"] >= VISUAL_SANITY_THRESHOLDS["non_hair_occlusion_ratio"]:
+        reasons.append("candidate source coverage exceeds non-hair threshold")
+    status = "passed" if not reasons else "failed_visual_sanity"
+    return {
+        **metrics,
+        "visual_sanity_status": status,
+        "visual_sanity_reason": "; ".join(reasons) if reasons else "candidate front render and source coverage pass hair visual sanity thresholds",
+        "thresholds": VISUAL_SANITY_THRESHOLDS,
+        "negative_fixture": "CharacterPackage/semantic_layer_v9_hair/negative_fixtures/yuna_semantic_layer_v9_hair_validation_front_failed_visual_fixture.png",
+    }
+
+
 def run_wrapper(args: argparse.Namespace) -> int:
     blender = find_blender(args.blender)
     if blender is None:
@@ -159,9 +228,22 @@ def run_wrapper(args: argparse.Namespace) -> int:
         "log": display_path(log_path),
         "log_tail": tail_lines(result.stdout),
     }
+    candidate_report = load_json(args.candidate_report)
+    if candidate_report.get("part_id") == "hair" and report.get("screenshots", {}).get("candidate_front", {}).get("exists"):
+        candidate_front = args.output_dir / f"{args.candidate_glb.stem}_validation_candidate_front.png"
+        visual_sanity = hair_visual_sanity_from_reports(report, candidate_report, candidate_front)
+        report.setdefault("quality", {})["visual_sanity"] = visual_sanity
+        report.setdefault("candidate_contract", {})["visual_sanity_status"] = visual_sanity["visual_sanity_status"]
+        report["status"] = "failed_visual_sanity" if visual_sanity["visual_sanity_status"] == "failed_visual_sanity" else report.get("status")
+        candidate_report.setdefault("validation", {}).update(visual_sanity)
+        if visual_sanity["visual_sanity_status"] == "failed_visual_sanity":
+            candidate_report["status"] = "failed_visual_sanity"
+        write_json(args.candidate_report, candidate_report)
     if result.returncode != 0:
         report["status"] = "failed"
     write_json(args.report, report)
+    if report.get("status") == "failed_visual_sanity":
+        return 1
     return result.returncode
 
 
@@ -211,7 +293,7 @@ def worker_main(args: argparse.Namespace) -> int:
 
     def set_group_visibility(group: str) -> None:
         for obj in baseline_objects:
-            visible = group == "baseline"
+            visible = group in {"baseline", "overlay"}
             obj.hide_viewport = not visible
             obj.hide_render = not visible
         for obj in cage_objects:
@@ -219,7 +301,7 @@ def worker_main(args: argparse.Namespace) -> int:
             obj.hide_viewport = not visible
             obj.hide_render = not visible
         for obj in candidate_objects:
-            visible = group in {"candidate", "candidate_wire", "candidate_exploded"}
+            visible = group in {"candidate", "candidate_wire", "candidate_exploded", "overlay"}
             obj.hide_viewport = not visible
             obj.hide_render = not visible
 
@@ -281,20 +363,23 @@ def worker_main(args: argparse.Namespace) -> int:
         bpy.context.scene.render.engine = "BLENDER_EEVEE"
     bpy.context.scene.render.resolution_x = args.resolution_x
     bpy.context.scene.render.resolution_y = args.resolution_y
-    bpy.context.scene.world.color = (0.03, 0.03, 0.03)
+    bpy.context.scene.world.color = (0.72, 0.72, 0.72)
 
     screenshot_prefix = args.candidate_glb.stem
 
-    def render(key: str, group: str) -> Path:
+    def render(key: str, group: str, camera_key: str | None = None) -> Path:
         set_group_visibility(group)
         path = args.output_dir / f"{screenshot_prefix}_validation_{key}.png"
-        bpy.context.scene.camera = cameras[key]
+        bpy.context.scene.camera = cameras[camera_key or key]
         bpy.context.scene.render.filepath = str(path)
         bpy.ops.render.render(write_still=True)
         return path
 
     screenshot_paths = {
         "front": render("front", "candidate"),
+        "candidate_front": render("candidate_front", "candidate", "front"),
+        "baseline_front": render("baseline_front", "baseline", "front"),
+        "overlay_front": render("overlay_front", "overlay", "front"),
         "yaw15": render("yaw15", "candidate"),
         "yaw30": render("yaw30", "candidate"),
         "side": render("side", "candidate"),
@@ -328,6 +413,11 @@ def worker_main(args: argparse.Namespace) -> int:
         any(obj.name.startswith(name) for obj in candidate_empties)
         for name in ("leg_L_knee_loop", "leg_L_ankle_loop", "leg_R_knee_loop", "leg_R_ankle_loop")
     )
+    has_hair_spring_hooks = all(
+        any(obj.name.startswith(name) for obj in candidate_empties)
+        for name in ("hair_back_spring_hook", "hair_bangs_spring_hook", "hair_side_left_spring_hook", "hair_side_right_spring_hook")
+    )
+    has_hair_depth_groups = bool(candidate_report.get("validation", {}).get("has_depth_groups"))
     candidate_names = [obj.name for obj in candidate_meshes]
     if candidate_part == "weapon":
         contract_passed = any("weapon_hardsurface_ortho_v0" in name for name in candidate_names) and has_weapon_socket
@@ -335,6 +425,8 @@ def worker_main(args: argparse.Namespace) -> int:
         contract_passed = bool(candidate_meshes) and has_foot_socket
     elif candidate_part == "legs":
         contract_passed = bool(candidate_meshes) and has_leg_loop_markers
+    elif candidate_part == "hair":
+        contract_passed = bool(candidate_meshes) and has_hair_spring_hooks and has_hair_depth_groups
     else:
         contract_passed = bool(candidate_meshes)
     status = "passed_with_warnings" if not missing_screenshots and contract_passed else "failed"
@@ -365,9 +457,12 @@ def worker_main(args: argparse.Namespace) -> int:
             "has_independent_weapon_mesh": any("weapon_hardsurface_ortho_v0" in name for name in candidate_names),
             "has_boot_candidate_meshes": bool(candidate_meshes) if candidate_part == "boots" else None,
             "has_leg_candidate_meshes": bool(candidate_meshes) if candidate_part == "legs" else None,
+            "has_hair_candidate_meshes": bool(candidate_meshes) if candidate_part == "hair" else None,
             "has_hand_R_socket": has_weapon_socket,
             "has_foot_sockets": has_foot_socket,
             "has_leg_loop_markers": has_leg_loop_markers,
+            "has_hair_spring_hooks": has_hair_spring_hooks,
+            "has_hair_depth_groups": has_hair_depth_groups,
             "replace_in_beauty_glb": candidate_report.get("validation", {}).get("replace_in_beauty_glb"),
         },
         "quality": {

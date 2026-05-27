@@ -1,0 +1,236 @@
+{
+  "route": "semantic_layer_v9_authored_hair_ribbons_v0",
+  "source_route": "semantic_layer_v9_candidate_spec_only",
+  "baseline": "semantic_layer_v8_beauty_main_debug_cage_split",
+  "boundary": "Independent hair ribbon candidate only. It does not replace v8 beauty hair cards until screenshot/import validation passes.",
+  "part": {
+    "id": "hair",
+    "category": "hair",
+    "generator": "authored_hair_ribbons_v0",
+    "replace_in_beauty_glb": false,
+    "independent_objects": true,
+    "candidate_only": true,
+    "side_back_are_soft_constraints": true,
+    "source_parts": [
+      "back_hair",
+      "side_hair_left",
+      "side_hair_right",
+      "bangs"
+    ],
+    "spring_hooks": [
+      "hair_back_spring_hook",
+      "hair_bangs_spring_hook",
+      "hair_side_left_spring_hook",
+      "hair_side_right_spring_hook"
+    ]
+  },
+  "source_decisions": [
+    {
+      "part_id": "back_hair",
+      "decision": "keep_for_visual_review_but_flag_strand_authoring",
+      "confidence": 0.82,
+      "old_generator": "hair_cards",
+      "proposed_generator": "authored_hair_ribbons",
+      "old_depth": -0.58,
+      "proposed_depth": -0.58,
+      "visible_in_beauty": true,
+      "visible_in_cage": true,
+      "debug_only": false,
+      "constraints_applied": [
+        "semantic_part_independence",
+        "front_hair_identity_preserved",
+        "beauty_and_cage_exports_remain_separate",
+        "side_back_are_soft_constraints",
+        "existing_beauty_mesh_kept_until_replacement_validated",
+        "front_identity_preserved"
+      ],
+      "reason": "Hair cards work for visual review, but production needs authored strand/ribbon curves.",
+      "next_action": "Keep current beauty hair until authored hair ribbons pass front/yaw validation."
+    },
+    {
+      "part_id": "side_hair_left",
+      "decision": "keep_for_visual_review_but_flag_strand_authoring",
+      "confidence": 0.82,
+      "old_generator": "hair_cards",
+      "proposed_generator": "authored_hair_ribbons",
+      "old_depth": 0.16,
+      "proposed_depth": 0.16,
+      "visible_in_beauty": true,
+      "visible_in_cage": true,
+      "debug_only": false,
+      "constraints_applied": [
+        "semantic_part_independence",
+        "front_hair_identity_preserved",
+        "beauty_and_cage_exports_remain_separate",
+        "side_back_are_soft_constraints",
+        "existing_beauty_mesh_kept_until_replacement_validated",
+        "front_identity_preserved"
+      ],
+      "reason": "Hair cards work for visual review, but production needs authored strand/ribbon curves.",
+      "next_action": "Keep current beauty hair until authored hair ribbons pass front/yaw validation."
+    },
+    {
+      "part_id": "side_hair_right",
+      "decision": "keep_for_visual_review_but_flag_strand_authoring",
+      "confidence": 0.82,
+      "old_generator": "hair_cards",
+      "proposed_generator": "authored_hair_ribbons",
+      "old_depth": 0.22,
+      "proposed_depth": 0.22,
+      "visible_in_beauty": true,
+      "visible_in_cage": true,
+      "debug_only": false,
+      "constraints_applied": [
+        "semantic_part_independence",
+        "front_hair_identity_preserved",
+        "beauty_and_cage_exports_remain_separate",
+        "side_back_are_soft_constraints",
+        "existing_beauty_mesh_kept_until_replacement_validated",
+        "front_identity_preserved"
+      ],
+      "reason": "Hair cards work for visual review, but production needs authored strand/ribbon curves.",
+      "next_action": "Keep current beauty hair until authored hair ribbons pass front/yaw validation."
+    },
+    {
+      "part_id": "bangs",
+      "decision": "keep_for_visual_review_but_flag_strand_authoring",
+      "confidence": 0.82,
+      "old_generator": "hair_cards",
+      "proposed_generator": "authored_hair_ribbons",
+      "old_depth": 0.76,
+      "proposed_depth": 0.76,
+      "visible_in_beauty": true,
+      "visible_in_cage": true,
+      "debug_only": false,
+      "constraints_applied": [
+        "semantic_part_independence",
+        "front_hair_identity_preserved",
+        "beauty_and_cage_exports_remain_separate",
+        "side_back_are_soft_constraints",
+        "existing_beauty_mesh_kept_until_replacement_validated",
+        "front_identity_preserved"
+      ],
+      "reason": "Hair cards work for visual review, but production needs authored strand/ribbon curves.",
+      "next_action": "Keep current beauty hair until authored hair ribbons pass front/yaw validation."
+    }
+  ],
+  "mesh": {
+    "group_count": 4,
+    "depth_group_count": 4,
+    "ribbon_count": 41,
+    "vertices": 4100,
+    "uvs": 4100,
+    "faces": 4018,
+    "section_count": 25,
+    "ribbon_thickness": 0.0035,
+    "groups": [
+      {
+        "group_id": "hair_back",
+        "source_part_id": "back_hair",
+        "mask": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/masks/front/back_hair.png",
+        "texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_back_sanitized.png",
+        "bbox": [
+          130,
+          480,
+          1009,
+          1035
+        ],
+        "spring_hook": "hair_back_spring_hook",
+        "ribbon_count": 14
+      },
+      {
+        "group_id": "hair_side_left",
+        "source_part_id": "side_hair_left",
+        "mask": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/masks/front/side_hair_left.png",
+        "texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_side_left_sanitized.png",
+        "bbox": [
+          134,
+          192,
+          509,
+          822
+        ],
+        "spring_hook": "hair_side_left_spring_hook",
+        "ribbon_count": 8
+      },
+      {
+        "group_id": "hair_side_right",
+        "source_part_id": "side_hair_right",
+        "mask": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/masks/front/side_hair_right.png",
+        "texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_side_right_sanitized.png",
+        "bbox": [
+          542,
+          130,
+          986,
+          875
+        ],
+        "spring_hook": "hair_side_right_spring_hook",
+        "ribbon_count": 9
+      },
+      {
+        "group_id": "hair_bangs",
+        "source_part_id": "bangs",
+        "mask": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/masks/front/bangs.png",
+        "texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_bangs_sanitized.png",
+        "bbox": [
+          367,
+          49,
+          715,
+          438
+        ],
+        "spring_hook": "hair_bangs_spring_hook",
+        "ribbon_count": 10
+      }
+    ],
+    "sanitized_textures": [
+      {
+        "group_id": "hair_back",
+        "source_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/textures/back_hair.png",
+        "sanitized_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_back_sanitized.png",
+        "alpha_pixels": 121159,
+        "fill_color": [
+          185,
+          192,
+          200
+        ]
+      },
+      {
+        "group_id": "hair_side_left",
+        "source_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/textures/side_hair_left.png",
+        "sanitized_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_side_left_sanitized.png",
+        "alpha_pixels": 60950,
+        "fill_color": [
+          176,
+          193,
+          200
+        ]
+      },
+      {
+        "group_id": "hair_side_right",
+        "source_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/textures/side_hair_right.png",
+        "sanitized_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_side_right_sanitized.png",
+        "alpha_pixels": 71480,
+        "fill_color": [
+          172,
+          196,
+          202
+        ]
+      },
+      {
+        "group_id": "hair_bangs",
+        "source_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/textures/bangs.png",
+        "sanitized_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_bangs_sanitized.png",
+        "alpha_pixels": 18212,
+        "fill_color": [
+          193,
+          195,
+          202
+        ]
+      }
+    ]
+  },
+  "exports": {
+    "obj": "CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.obj",
+    "glb": "CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.glb",
+    "report": "CharacterPackage/semantic_layer_v9_hair/validation_report.json"
+  }
+}
