@@ -290,6 +290,21 @@ The hair candidate has:
   `refined_component_priors.candidate_alignment.iou=0.120324`,
   `refined_component_priors.candidate_alignment.outside_ratio=0.474535`,
   `refined_component_priors.candidate_alignment.candidate_is_inside_target=false`
+- target schema v1 evidence:
+  `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/hair_target_schema_v1_report.json`,
+  `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/strict_hair_core_mask.png`,
+  `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/soft_hair_silhouette_mask.png`,
+  `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/forbidden_nonhair_zone_mask.png`,
+  `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/candidate_vs_schema_overlay.png`,
+  and `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/schema_debug_contact_sheet.png`
+- target schema v1 metrics:
+  `candidate_target_schema_status=failed_target_schema_alignment`,
+  `schema_ready_for_ribbon_rebuild=true`,
+  `core_body_overlap_ratio=0.0`,
+  `soft_body_overlap_ratio=0.0`,
+  `forbidden_candidate_leak_ratio=0.975006`,
+  `candidate_core_coverage_ratio=0.041425`,
+  `candidate_soft_inside_ratio=0.021113`
 
 ## Known Limits
 
@@ -305,6 +320,10 @@ The hair candidate has:
 - The clean target artifacts are now the primary evidence for the next hair pass.
 - Target review v0 generated a refined component-prior target, but the current
   candidate still fails against it.
+- Target schema v1 now provides strict hair core, soft hair silhouette, and
+  forbidden nonhair zone masks. The schema is ready for a ribbon rebuild, but
+  the current candidate fails it because most visible candidate pixels leak into
+  the forbidden zone.
 - Hair side/back treatment remains a soft depth spread only, not locked multiview reconstruction.
 - The earlier hair front-render black occlusion is preserved as a negative fixture and now fails visual sanity if it recurs.
 - The candidate is not integrated into the v8 beauty GLB.
@@ -313,10 +332,10 @@ The hair candidate has:
 
 ## Next Step
 
-Next step: `fix_authored_hair_ribbons_v0_to_refined_target`.
+Next step: `fix_hair_ribbons_to_schema_v1`.
 
 Reason: `cloth_seam_surface` is intentionally paused. Hair generated artifacts
 and fixed the black-alpha failure mode, but the raw hair target is dirty and the
-candidate fails against the clean/refined targets. Do not start another actuator
-until the hair ribbons are rebuilt against the refined target and a follow-up
-hair quality gate passes.
+candidate fails against the schema v1 strict/soft/forbidden target. Do not start
+another actuator until the hair ribbons are rebuilt against schema v1 and a
+follow-up hair quality gate passes.

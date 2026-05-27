@@ -1,0 +1,102 @@
+{
+  "created_at": "2026-05-27T16:29:59.591753+00:00",
+  "route": "build_hair_target_schema_v1",
+  "status": "failed_target_schema_alignment",
+  "boundary": "Target-schema generation only. Does not modify semantic_layer_v8, generate GLB, or unblock cloth.",
+  "formula_binding": {
+    "state": "theta_hair target masks and validation fields, not raw mesh vertices",
+    "update": "ProjectToConstraints_hair(RobustFuse(strict_hair_core, soft_hair_silhouette, forbidden_nonhair_zone, front_identity, manual_visual_review))"
+  },
+  "layers": {
+    "strict_hair_core": {
+      "source": [
+        "v8 front hair masks",
+        "CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_mask_refined_component_priors.png",
+        "face/body/weapon contaminant subtraction"
+      ],
+      "confidence": "medium",
+      "confidence_score": 0.8,
+      "estimated": true
+    },
+    "soft_hair_silhouette": {
+      "source": [
+        "v8 front hair masks",
+        "CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_mask_refined_component_priors.png",
+        "dilated flyaway allowance",
+        "forbidden nonhair subtraction"
+      ],
+      "confidence": "medium_low",
+      "confidence_score": 0.72,
+      "estimated": true
+    },
+    "forbidden_nonhair_zone": {
+      "source": [
+        "v8 face mask",
+        "v8 body/cloth/legs/boots masks",
+        "v8 weapon mask"
+      ],
+      "confidence": "high",
+      "confidence_score": 0.86,
+      "estimated": true
+    }
+  },
+  "render_size": [
+    1200,
+    1600
+  ],
+  "candidate_visible_pixel_count": 45611,
+  "strict_core_render_pixel_count": 22088,
+  "soft_silhouette_render_pixel_count": 32451,
+  "forbidden_zone_render_pixel_count": 723309,
+  "strict_core_area": 20309,
+  "soft_silhouette_area": 29823,
+  "forbidden_zone_area": 666429,
+  "core_body_overlap_ratio": 0.0,
+  "soft_body_overlap_ratio": 0.0,
+  "forbidden_candidate_leak_ratio": 0.975006,
+  "candidate_core_coverage_ratio": 0.041425,
+  "candidate_soft_inside_ratio": 0.021113,
+  "candidate_target_schema_status": "failed_target_schema_alignment",
+  "schema_ready_for_ribbon_rebuild": true,
+  "thresholds": {
+    "core_body_overlap_ratio": 0.02,
+    "soft_body_overlap_ratio": 0.2,
+    "forbidden_candidate_leak_ratio": 0.1,
+    "candidate_core_coverage_ratio": 0.1,
+    "candidate_soft_inside_ratio": 0.7
+  },
+  "ready_for_cloth_seam_surface": false,
+  "recommended_next": "fix_hair_ribbons_to_schema_v1",
+  "artifacts": {
+    "strict_hair_core_mask": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/strict_hair_core_mask.png",
+      "exists": true,
+      "bytes": 6555
+    },
+    "soft_hair_silhouette_mask": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/soft_hair_silhouette_mask.png",
+      "exists": true,
+      "bytes": 6789
+    },
+    "forbidden_nonhair_zone_mask": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/forbidden_nonhair_zone_mask.png",
+      "exists": true,
+      "bytes": 16345
+    },
+    "candidate_vs_schema_overlay": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/candidate_vs_schema_overlay.png",
+      "exists": true,
+      "bytes": 45025
+    },
+    "schema_debug_contact_sheet": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/schema_debug_contact_sheet.png",
+      "exists": true,
+      "bytes": 410578
+    },
+    "report": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/hair_target_schema_v1_report.json",
+      "exists": true,
+      "bytes": 3583
+    }
+  }
+}

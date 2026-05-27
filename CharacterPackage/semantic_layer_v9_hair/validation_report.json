@@ -2,7 +2,7 @@
   "created_at": "2026-05-27T11:22:24.438335+00:00",
   "route": "semantic_layer_v9_authored_hair_ribbons_v0",
   "actuator": "authored_hair_ribbons_v0",
-  "status": "failed_clean_hair_mask_alignment",
+  "status": "failed_target_schema_alignment",
   "part_id": "hair",
   "decision_source": "CharacterPackage/semantic_layer_v9_candidate/filter_report.json",
   "generated_files": {
@@ -153,9 +153,9 @@
     "alignment_failure_reason": "raw coordinate gate passes, but clean target alignment fails",
     "baseline_framing_valid": true,
     "overlay_alignment_valid": false,
-    "visual_sanity_status": "failed_clean_hair_mask_alignment",
+    "visual_sanity_status": "failed_target_schema_alignment",
     "visual_sanity_reason": "v8 hair union target overlaps non-hair masks and is too dirty for acceptance; candidate does not pass against the cleaned hair target",
-    "manual_visual_review": "failed",
+    "manual_visual_review": "blocked_by_target_schema",
     "artifact_generated": true,
     "black_alpha_leak_fixed": true,
     "numeric_metrics_passed": true,
@@ -501,7 +501,57 @@
         "reason": "The refined target is cleaner than the raw union, but the current candidate must be explicitly rebuilt/evaluated against it before any cloth actuator starts."
       }
     },
-    "recommended_next": "fix_authored_hair_ribbons_v0_to_refined_target"
+    "recommended_next": "fix_hair_ribbons_to_schema_v1",
+    "target_schema_v1": {
+      "route": "build_hair_target_schema_v1",
+      "status": "failed_target_schema_alignment",
+      "strict_core_area": 20309,
+      "soft_silhouette_area": 29823,
+      "forbidden_zone_area": 666429,
+      "core_body_overlap_ratio": 0.0,
+      "soft_body_overlap_ratio": 0.0,
+      "forbidden_candidate_leak_ratio": 0.975006,
+      "candidate_core_coverage_ratio": 0.041425,
+      "candidate_soft_inside_ratio": 0.021113,
+      "candidate_target_schema_status": "failed_target_schema_alignment",
+      "schema_ready_for_ribbon_rebuild": true,
+      "ready_for_cloth_seam_surface": false,
+      "recommended_next": "fix_hair_ribbons_to_schema_v1",
+      "artifacts": {
+        "strict_hair_core_mask": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/strict_hair_core_mask.png",
+          "exists": true,
+          "bytes": 6555
+        },
+        "soft_hair_silhouette_mask": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/soft_hair_silhouette_mask.png",
+          "exists": true,
+          "bytes": 6789
+        },
+        "forbidden_nonhair_zone_mask": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/forbidden_nonhair_zone_mask.png",
+          "exists": true,
+          "bytes": 16345
+        },
+        "candidate_vs_schema_overlay": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/candidate_vs_schema_overlay.png",
+          "exists": true,
+          "bytes": 45025
+        },
+        "schema_debug_contact_sheet": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/schema_debug_contact_sheet.png",
+          "exists": true,
+          "bytes": 410578
+        },
+        "report": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/hair_target_schema_v1_report.json",
+          "exists": true,
+          "bytes": 3583
+        }
+      }
+    },
+    "candidate_target_schema_status": "failed_target_schema_alignment",
+    "schema_ready_for_ribbon_rebuild": true
   },
   "warnings": [
     "v0 derives deterministic ribbon guides from v8 mask bounds and texture alpha; these are authored-ribbon candidates, not final hand-authored production curves.",

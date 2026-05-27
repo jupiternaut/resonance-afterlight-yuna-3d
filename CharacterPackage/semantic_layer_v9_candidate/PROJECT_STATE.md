@@ -11,22 +11,24 @@
   but it is rejected as a clean hair candidate.
 - Hair coordinate alignment is only a weak pass against the dirty v8 hair union.
 - Clean/refined hair target checks still fail:
-  - current status: `failed_clean_hair_mask_alignment`
+  - current status: `failed_target_schema_alignment`
   - current candidate is not accepted as hair-only
   - `ready_for_cloth_seam_surface=false`
+- `hair_target_schema_v1` now exists with `strict_hair_core`,
+  `soft_hair_silhouette`, and `forbidden_nonhair_zone`.
+- The v1 schema is ready for a ribbon rebuild, but the current candidate fails
+  against it:
+  - `forbidden_candidate_leak_ratio=0.975006`
+  - `candidate_core_coverage_ratio=0.041425`
+  - `candidate_soft_inside_ratio=0.021113`
 - `cloth_seam_surface` remains blocked.
 
 ## Current Blocker
 
-Build `hair_target_schema_v1` before any new actuator work:
-
-- `strict_hair_core`
-- `soft_hair_silhouette`
-- `forbidden_nonhair_zone`
-
-The target schema must separate real hair evidence from body, face, weapon,
-cloth, leg, boot, and cape contamination before authored ribbons are rebuilt or
-accepted.
+Fix or rebuild authored hair ribbons against `hair_target_schema_v1` before any
+new actuator work. The target schema now separates real hair evidence from body,
+face, weapon, cloth, leg, boot, and cape contamination; the existing candidate
+does not satisfy it.
 
 ## Formula Binding
 
@@ -82,9 +84,12 @@ Current blocker:
 - raw hair union is dirty;
 - strict clean target is too narrow;
 - refined component-prior target is still not final;
+- `hair_target_schema_v1` is available;
+- current candidate leaks into the forbidden nonhair zone;
 - `cloth_seam_surface` remains blocked.
 
-Next valid task: `build_hair_target_schema_v1`.
+Next valid task: `fix_hair_ribbons_to_schema_v1` or
+`build_art_directed_hair_ribbons_v1`.
 
 Invalid next task: `cloth_seam_surface`.
 
@@ -94,6 +99,12 @@ Invalid next task: `cloth_seam_surface`.
 - `CharacterPackage/semantic_layer_v9_hair/validation_ci/validation_ci_report.json`
 - `CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_review_report.json`
 - `CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_mask_refined_component_priors.png`
+- `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/hair_target_schema_v1_report.json`
+- `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/strict_hair_core_mask.png`
+- `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/soft_hair_silhouette_mask.png`
+- `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/forbidden_nonhair_zone_mask.png`
+- `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/candidate_vs_schema_overlay.png`
+- `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/schema_debug_contact_sheet.png`
 - `CharacterPackage/semantic_layer_v9_candidate/backlog_v10.md`
 - `CharacterPackage/semantic_layer_v9_candidate/actuator_run_report.md`
 

@@ -1,7 +1,7 @@
 {
   "created_at": "2026-05-27T12:22:02.780199+00:00",
   "route": "blender_semantic_validation_v0",
-  "status": "failed_clean_hair_mask_alignment",
+  "status": "failed_target_schema_alignment",
   "boundary": "Candidate validation only. It does not replace v8 beauty GLB.",
   "inputs": {
     "baseline_glb": {
@@ -140,7 +140,8 @@
     "has_hair_spring_hooks": true,
     "has_hair_depth_groups": true,
     "replace_in_beauty_glb": false,
-    "visual_sanity_status": "failed_clean_hair_mask_alignment"
+    "visual_sanity_status": "failed_target_schema_alignment",
+    "target_schema_v1_status": "failed_target_schema_alignment"
   },
   "quality": {
     "missing_screenshots": [],
@@ -411,6 +412,54 @@
         }
       },
       "recommended_next": "fix_authored_hair_ribbons_v0_to_refined_target"
+    },
+    "target_schema_v1": {
+      "route": "build_hair_target_schema_v1",
+      "status": "failed_target_schema_alignment",
+      "strict_core_area": 20309,
+      "soft_silhouette_area": 29823,
+      "forbidden_zone_area": 666429,
+      "core_body_overlap_ratio": 0.0,
+      "soft_body_overlap_ratio": 0.0,
+      "forbidden_candidate_leak_ratio": 0.975006,
+      "candidate_core_coverage_ratio": 0.041425,
+      "candidate_soft_inside_ratio": 0.021113,
+      "candidate_target_schema_status": "failed_target_schema_alignment",
+      "schema_ready_for_ribbon_rebuild": true,
+      "ready_for_cloth_seam_surface": false,
+      "recommended_next": "fix_hair_ribbons_to_schema_v1",
+      "artifacts": {
+        "strict_hair_core_mask": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/strict_hair_core_mask.png",
+          "exists": true,
+          "bytes": 6555
+        },
+        "soft_hair_silhouette_mask": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/soft_hair_silhouette_mask.png",
+          "exists": true,
+          "bytes": 6789
+        },
+        "forbidden_nonhair_zone_mask": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/forbidden_nonhair_zone_mask.png",
+          "exists": true,
+          "bytes": 16345
+        },
+        "candidate_vs_schema_overlay": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/candidate_vs_schema_overlay.png",
+          "exists": true,
+          "bytes": 45025
+        },
+        "schema_debug_contact_sheet": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/schema_debug_contact_sheet.png",
+          "exists": true,
+          "bytes": 410578
+        },
+        "report": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/hair_target_schema_v1_report.json",
+          "exists": true,
+          "bytes": 3583
+        }
+      }
     }
   },
   "wrapper": {
@@ -499,5 +548,6 @@
       "00:16.592  render           | Saved: 'CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_exploded.png'",
       "Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)"
     ]
-  }
+  },
+  "ready_for_cloth_seam_surface": false
 }

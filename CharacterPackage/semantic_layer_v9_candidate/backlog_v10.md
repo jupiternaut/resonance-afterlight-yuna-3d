@@ -7,10 +7,11 @@
 3. `authored_hair_ribbons`
 4. `fix_authored_hair_ribbons_v0_geometry_alignment`
 5. `review_and_refine_hair_target_masks_v0`
-6. `fix_authored_hair_ribbons_v0_to_refined_target`
-7. `manual_review_authored_hair_ribbons_v0_quality`
-8. `cloth_seam_surface`
-9. `weapon_hardsurface_ortho_v1`
+6. `build_hair_target_schema_v1`
+7. `fix_hair_ribbons_to_schema_v1`
+8. `manual_review_authored_hair_ribbons_v0_quality`
+9. `cloth_seam_surface`
+10. `weapon_hardsurface_ortho_v1`
 
 ## 1. Boot Hard-Surface Ortho
 
@@ -154,26 +155,58 @@ Current evidence:
 - Current candidate is not inside the refined target.
 - Recommended next: `fix_authored_hair_ribbons_v0_to_refined_target`.
 
-## 4c. Fix Authored Hair Ribbons v0 to Refined Target
+## 4c. Build Hair Target Schema v1
+
+Status: completed.
+
+Goal:
+
+- Build a three-layer target schema for future art-directed hair ribbons:
+  `strict_hair_core`, `soft_hair_silhouette`, and
+  `forbidden_nonhair_zone`.
+
+Artifacts:
+
+- `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/strict_hair_core_mask.png`
+- `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/soft_hair_silhouette_mask.png`
+- `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/forbidden_nonhair_zone_mask.png`
+- `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/candidate_vs_schema_overlay.png`
+- `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/schema_debug_contact_sheet.png`
+- `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/hair_target_schema_v1_report.json`
+
+Current result:
+
+- `schema_ready_for_ribbon_rebuild=true`.
+- `candidate_target_schema_status=failed_target_schema_alignment`.
+- `core_body_overlap_ratio=0.0`.
+- `soft_body_overlap_ratio=0.0`.
+- `forbidden_candidate_leak_ratio=0.975006`.
+- `candidate_core_coverage_ratio=0.041425`.
+- `candidate_soft_inside_ratio=0.021113`.
+- `ready_for_cloth_seam_surface=false`.
+
+## 4d. Fix Hair Ribbons to Schema v1
 
 Status: required before manual hair quality review.
 
 Goal:
 
-- Rebuild authored hair ribbons so candidate-visible render is constrained to
-  `hair_target_mask_refined_component_priors.png`.
+- Rebuild authored hair ribbons so candidate-visible render is constrained by
+  `hair_target_schema_v1`, not raw/refined union alone.
 
 Acceptance:
 
-- `refined_component_priors.candidate_alignment.candidate_is_inside_target=true`.
+- `forbidden_candidate_leak_ratio` is below schema threshold.
+- `candidate_soft_inside_ratio` is above schema threshold.
+- `candidate_core_coverage_ratio` is high enough for manual review.
 - Candidate still has four hair groups and at least three depth groups.
 - No black alpha leakage regression.
 - `replace_in_beauty_glb=false`.
 - `ready_for_cloth_seam_surface=false` until manual review accepts screenshots.
 
-## 4d. Manual Review Authored Hair Ribbons v0 Quality
+## 4e. Manual Review Authored Hair Ribbons v0 Quality
 
-Status: blocked by refined target candidate failure.
+Status: blocked by schema v1 candidate failure.
 
 Goal:
 
@@ -188,7 +221,7 @@ Acceptance:
 
 ## 5. Cloth Seam Surface
 
-Status: paused until manual hair review completes.
+Status: paused until schema v1 hair rebuild and manual hair review complete.
 
 Goal:
 
