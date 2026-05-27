@@ -6,17 +6,17 @@
   "hair_union_face_overlap_ratio": 0.044609,
   "hair_union_weapon_overlap_ratio": 0.043164,
   "hair_union_target_is_clean": false,
-  "raw_hair_mask_iou": 0.02919,
-  "raw_outside_hair_mask_ratio": 0.230433,
+  "raw_hair_mask_iou": 0.044808,
+  "raw_outside_hair_mask_ratio": 0.20021,
   "raw_candidate_is_hair_only": false,
-  "clean_hair_mask_iou": 0.261611,
-  "clean_outside_hair_mask_ratio": 0.236516,
+  "clean_hair_mask_iou": 0.357101,
+  "clean_outside_hair_mask_ratio": 0.260284,
   "clean_candidate_is_hair_only": false,
   "clean_candidate_bbox": [
-    258,
-    65,
-    996,
-    496
+    253,
+    61,
+    973,
+    508
   ],
   "clean_hair_union_bbox": [
     199,

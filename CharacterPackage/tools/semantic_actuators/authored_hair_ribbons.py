@@ -887,7 +887,8 @@ HOOKS = json.loads({hooks_json!r})
 
 side_mat = bpy.data.materials.new('hair_ribbon_side_material')
 side_mat.use_nodes = True
-side_mat.blend_method = 'BLEND'
+side_mat.blend_method = 'CLIP'
+side_mat.alpha_threshold = 0.5
 side_bsdf = side_mat.node_tree.nodes.get('Principled BSDF')
 side_bsdf.inputs['Base Color'].default_value = (0.72, 0.82, 0.84, {side_alpha!r})
 side_bsdf.inputs['Alpha'].default_value = {side_alpha!r}
@@ -899,11 +900,11 @@ for item in RIBBONS:
     if group not in front_mats:
         mat = bpy.data.materials.new(group + '_front_texture')
         mat.use_nodes = True
-        mat.blend_method = 'BLEND'
-        mat.alpha_threshold = 0.02
+        mat.blend_method = 'CLIP'
+        mat.alpha_threshold = 0.12
         mat.show_transparent_back = True
         try:
-            mat.surface_render_method = 'BLENDED'
+            mat.surface_render_method = 'DITHERED'
         except Exception:
             pass
         nodes = mat.node_tree.nodes
@@ -914,6 +915,10 @@ for item in RIBBONS:
         tex.extension = 'CLIP'
         mat.node_tree.links.new(tex.outputs['Color'], bsdf.inputs['Base Color'])
         mat.node_tree.links.new(tex.outputs['Alpha'], bsdf.inputs['Alpha'])
+        if 'Emission Color' in bsdf.inputs:
+            mat.node_tree.links.new(tex.outputs['Color'], bsdf.inputs['Emission Color'])
+        if 'Emission Strength' in bsdf.inputs:
+            bsdf.inputs['Emission Strength'].default_value = 0.35
         bsdf.inputs['Alpha'].default_value = 1.0
         bsdf.inputs['Roughness'].default_value = 0.62
         front_mats[group] = mat

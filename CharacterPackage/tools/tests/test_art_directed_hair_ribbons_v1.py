@@ -40,7 +40,7 @@ class ArtDirectedHairRibbonsV1Tests(unittest.TestCase):
             ),
             True,
         )
-        self.assertEqual(sum(1 for ribbon in ribbons if ribbon.group_id == "secondary_strands"), 8)
+        self.assertEqual(sum(1 for ribbon in ribbons if ribbon.group_id == "secondary_strands"), 10)
         self.assertEqual(sum(1 for ribbon in ribbons if ribbon.group_id == "flyaway_strands"), 4)
         self.assertGreaterEqual(len(design_summary["scalp_anchor_points"]), 4)
         self.assertEqual(len(records), 4)

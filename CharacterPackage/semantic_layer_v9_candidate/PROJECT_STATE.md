@@ -12,9 +12,10 @@
 - `art_directed_hair_ribbons_v1` now exists as an additive candidate under
   `CharacterPackage/semantic_layer_v9_hair/art_directed_v1/`.
 - Current v1 hair status:
-  - current status: `art_directed_candidate_manual_review_required`
+  - current status: `failed_target_schema_alignment`
   - `non_degenerate_hair_coverage_passed=true`
-  - current candidate is not accepted as replacement hair until manual review
+  - `candidate_front_visible_hair_mass=true`
+  - current candidate is not accepted as replacement hair
   - `ready_for_cloth_seam_surface=false`
 - `hair_target_schema_v1` now exists with `strict_hair_core`,
   `soft_hair_silhouette`, and `forbidden_nonhair_zone`.
@@ -37,33 +38,38 @@
     - `bangs_presence_ratio=0.066363`
     - `side_hair_left_presence_ratio=0.259981`
     - `component_count=39`
-- The art-directed v1 rebuild improves the non-degenerate metrics while
-  keeping side-profile volume blocks out of the candidate beauty route:
-  - `forbidden_candidate_leak_ratio=0.020550`
-  - `candidate_core_coverage_ratio=0.341135`
-  - `candidate_soft_inside_ratio=0.822168`
-  - `candidate_visible_area_ratio=0.007020`
-  - `soft_silhouette_coverage_ratio=0.341499`
-  - `bangs_presence_ratio=0.214286`
-  - `side_hair_left_presence_ratio=0.493036`
-  - `side_hair_right_presence_ratio=0.911678`
-  - `back_hair_mass_presence_ratio=0.794342`
-  - `component_count=6`
-  - `scalp_anchor_continuity=0.214286`
-  - `ribbon_count=25`
+- The visible-mass refinement improves candidate-only front mass and primary
+  group presence, but it exposes a leak/mass tradeoff under the current target
+  schema:
+  - `forbidden_candidate_leak_ratio=0.194649`
+  - `candidate_core_coverage_ratio=0.521867`
+  - `candidate_soft_inside_ratio=0.754547`
+  - `candidate_visible_area_ratio=0.010395`
+  - `candidate_front_visible_hair_mass=true`
+  - `soft_silhouette_coverage_ratio=0.464084`
+  - `bangs_presence_ratio=0.371327`
+  - `side_hair_left_presence_ratio=0.443825`
+  - `side_hair_right_presence_ratio=0.792136`
+  - `back_hair_mass_presence_ratio=0.591295`
+  - `component_count=15`
+  - `scalp_anchor_continuity=0.371327`
+  - `primary_group_presence_passed=true`
+  - `yaw30_hair_readability=true`
+  - `side_hair_readability=true`
+  - `manual_visual_review_status=blocked_by_target_schema_alignment`
+  - `ribbon_count=27`
   - `depth_group_count=6`
-  - `art_directed_primitive_intent_count=25`
+  - `art_directed_primitive_intent_count=27`
   - `flow_continuity_passed=true`
 - `cloth_seam_surface` remains blocked.
 
 ## Current Blocker
 
-Manual-review the art-directed v1 hair candidate before any new actuator work.
-The v1 metrics now pass the schema/non-degenerate gate, but the visual result is
-still a DCC handoff candidate: yaw views have cleaner layered hair-card mass and
-the previous blocky side-profile volumes no longer pollute the overlay, but
-candidate-only front remains sparse at full-body framing. It is not accepted,
-not integrated, and not ready for cloth.
+Fix the art-directed v1 visible-mass/leak balance before any new actuator work.
+The candidate now has more visible mass and primary group presence, but it
+fails `forbidden_candidate_leak_ratio` and still reads as fragmented plates in
+candidate-only/yaw views. It is not accepted, not integrated, and not ready for
+cloth.
 
 ## Formula Binding
 
@@ -123,11 +129,11 @@ Current blocker:
 - v0 candidate passed leak/soft-inside/core metrics but failed the
   non-degenerate coverage gate;
 - `hair_design_schema_v1.json` is available to drive an art-directed rebuild;
-- `art_directed_hair_ribbons_v1` has been generated and now requires manual
-  visual review;
+- `art_directed_hair_ribbons_v1` has been refined for visible mass, but current
+  status is `failed_target_schema_alignment`;
 - `cloth_seam_surface` remains blocked.
 
-Next valid task: `manual_review_art_directed_hair_ribbons_v1_quality`.
+Next valid task: `fix_hair_ribbons_to_schema_v1_visible_mass_leak_balance`.
 
 Invalid next task: `cloth_seam_surface`.
 

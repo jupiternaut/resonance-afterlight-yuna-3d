@@ -109,6 +109,26 @@ class HairTargetSchemaV1Tests(unittest.TestCase):
             self.assertIn("v8 front hair masks", layers["strict_hair_core"]["source"])
             self.assertIn("v8 face mask", layers["forbidden_nonhair_zone"]["source"])
 
+    def test_schema_report_records_visible_mass_and_manual_review_gates(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            report = schema.build_report(Path(tmp), update_reports=False)
+
+            for field in (
+                "candidate_front_visible_hair_mass",
+                "primary_group_presence_passed",
+                "yaw30_hair_readability",
+                "side_hair_readability",
+                "manual_visual_review_status",
+            ):
+                self.assertIn(field, report)
+            if report["candidate_target_schema_status"] == "failed_target_schema_alignment":
+                self.assertEqual(report["manual_visual_review_status"], "blocked_by_target_schema_alignment")
+            elif report["candidate_front_visible_hair_mass"]:
+                self.assertIn(
+                    report["manual_visual_review_status"],
+                    {"pending_user_review_visible_mass_refined", "failed_visible_mass_readability_gate"},
+                )
+
     def test_temp_run_does_not_change_v8_inputs(self) -> None:
         watched = [
             CHARACTER_PACKAGE / "semantic_layer_v8" / "specs" / "yuna_semantic_layer_v8.json",

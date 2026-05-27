@@ -188,3 +188,39 @@ candidate is not accepted.
 Next step: `fix_authored_hair_ribbons_v0_to_refined_target`.
 
 `cloth_seam_surface` remains paused. Do not replace v8 beauty hair in the meantime.
+
+## Latest: refine_art_directed_hair_ribbons_v1_visible_mass
+
+Status: `failed_target_schema_alignment`.
+
+The latest v1 pass increased visible candidate-only hair mass and retained all
+required primary groups, but it did not produce an accepted hair candidate.
+
+Key metrics:
+
+- `candidate_front_visible_hair_mass=true`
+- `candidate_visible_area_ratio=0.010395`
+- `soft_silhouette_coverage_ratio=0.464084`
+- `candidate_core_coverage_ratio=0.521867`
+- `candidate_soft_inside_ratio=0.754547`
+- `forbidden_candidate_leak_ratio=0.194649`
+- `primary_group_presence_passed=true`
+- `yaw30_hair_readability=true`
+- `side_hair_readability=true`
+- `manual_visual_review_status=blocked_by_target_schema_alignment`
+- `ribbon_count=27`
+- `depth_group_count=6`
+- `replace_in_beauty_glb=false`
+- `ready_for_cloth_seam_surface=false`
+
+Interpretation:
+
+- The prior sparse visible-mass failure is improved.
+- The forbidden-zone leak is now the blocker.
+- Candidate-only/yaw views still read as separated plates rather than accepted
+  scalp-anchored hair.
+- Keep the route as an experimental DCC handoff candidate.
+
+Next step: `fix_hair_ribbons_to_schema_v1_visible_mass_leak_balance`.
+
+`cloth_seam_surface` remains paused.

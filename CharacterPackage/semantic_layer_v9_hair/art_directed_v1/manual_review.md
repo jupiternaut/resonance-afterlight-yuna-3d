@@ -1,6 +1,6 @@
 # Manual Review: art_directed_hair_ribbons_v1
 
-Status: `manual_review_required`
+Status: `failed_target_schema_alignment`
 
 Route: `build_art_directed_hair_ribbons_v1`
 
@@ -8,8 +8,9 @@ Actuator: `art_directed_hair_ribbons_v1`
 
 ## Decision
 
-The candidate passes the schema/non-degenerate numeric gate, but it is not an
-accepted replacement for v8 hair. Keep it as an additive DCC handoff candidate.
+The visible-mass refinement increases candidate-only front readability, but it
+does not pass the schema boundary because the forbidden non-hair leak rose above
+threshold. Keep it as an additive failed/needs-rework candidate.
 
 ## Evidence
 
@@ -31,31 +32,33 @@ accepted replacement for v8 hair. Keep it as an additive DCC handoff candidate.
 ## Numeric Gate
 
 - `non_degenerate_hair_coverage_passed=true`
-- `candidate_visible_area_ratio=0.007020`
-- `soft_silhouette_coverage_ratio=0.341499`
-- `candidate_core_coverage_ratio=0.341135`
-- `candidate_soft_inside_ratio=0.822168`
-- `forbidden_candidate_leak_ratio=0.020550`
-- `bangs_presence_ratio=0.214286`
-- `side_hair_left_presence_ratio=0.493036`
-- `side_hair_right_presence_ratio=0.911678`
-- `back_hair_mass_presence_ratio=0.794342`
-- `component_count=6`
-- `scalp_anchor_continuity=0.214286`
-- `ribbon_count=25`
+- `candidate_front_visible_hair_mass=true`
+- `candidate_visible_area_ratio=0.010395`
+- `soft_silhouette_coverage_ratio=0.464084`
+- `candidate_core_coverage_ratio=0.521867`
+- `candidate_soft_inside_ratio=0.754547`
+- `forbidden_candidate_leak_ratio=0.194649`
+- `bangs_presence_ratio=0.371327`
+- `side_hair_left_presence_ratio=0.443825`
+- `side_hair_right_presence_ratio=0.792136`
+- `back_hair_mass_presence_ratio=0.591295`
+- `component_count=15`
+- `scalp_anchor_continuity=0.371327`
+- `ribbon_count=27`
 - `depth_group_count=6`
-- `art_directed_primitive_intent_count=25`
+- `art_directed_primitive_intent_count=27`
 - `flow_continuity_passed=true`
+- `manual_visual_review_status=blocked_by_target_schema_alignment`
 
 ## Visual Notes
 
-- The v1 candidate is no longer the v0 underfilled/barcode-strip result.
-- Yaw15 and yaw30 show a cleaner layered hair-card mass than v0.
-- The previous side-profile volume blocks were removed from the beauty
-  candidate, so the overlay no longer has large side-volume rectangles on the
-  face/body.
-- Candidate-only front remains sparse at full-body framing and should still be
-  treated as an additive DCC handoff candidate, not accepted production hair.
+- Candidate-only front now has more readable visible mass than the prior sparse
+  pass, but it is still fragmented and not a complete accepted hairstyle.
+- Yaw30 remains readable as a candidate artifact, but it still breaks into
+  separated plates rather than continuous scalp-anchored hair ribbons.
+- The route now exposes the tradeoff clearly: more visible hair mass increases
+  forbidden-zone leakage under the current target schema.
+- This is a useful negative-plus checkpoint, not an accepted hair candidate.
 
 ## Boundaries
 
@@ -67,7 +70,7 @@ accepted replacement for v8 hair. Keep it as an additive DCC handoff candidate.
 
 ## Recommended Next
 
-`manual_review_art_directed_hair_ribbons_v1_quality`
+`fix_hair_ribbons_to_schema_v1_visible_mass_leak_balance`
 
-If rejected, refine side-profile shape and front scalp integration without
-regressing to sparse/barcode strips.
+Next work must preserve the new visible-mass/readability fields while reducing
+`forbidden_candidate_leak_ratio` below threshold. Do not proceed to cloth.

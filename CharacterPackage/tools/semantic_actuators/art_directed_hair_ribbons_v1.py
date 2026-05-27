@@ -22,9 +22,11 @@ from .authored_hair_ribbons import (
     build_schema_constrained_group_masks,
     display_path,
     load_hair_sources,
+    load_schema_target_mask,
     mask_pixel_count,
     report_file_record,
     report_path,
+    schema_region_prior,
     write_json,
     write_obj,
 )
@@ -37,10 +39,13 @@ ACTUATOR_NAME = "art_directed_hair_ribbons_v1"
 ROUTE = "build_art_directed_hair_ribbons_v1"
 PART_ID = "hair"
 ART_DIRECTED_STATUS = "art_directed_candidate_manual_review_required"
-COMPONENT_AREA_MIN = 80
-SECONDARY_STRAND_COUNT = 8
+COMPONENT_AREA_MIN = 500
+SECONDARY_STRAND_COUNT = 10
 FLYAWAY_STRAND_COUNT = 4
 SIDE_PROFILE_VOLUME_COUNT = 0
+VISIBLE_MASS_DILATE_RADIUS = 4
+VISIBLE_MASS_CLOSE_RADIUS = 2
+VISIBLE_MASS_FORBIDDEN_GUARD_RADIUS = 2
 
 PRIMARY_GROUP_BY_PART = {
     "bangs": {
@@ -48,7 +53,7 @@ PRIMARY_GROUP_BY_PART = {
         "depth_group": "front_bangs",
         "role": "bangs_primary",
         "spring_hook": "hair_bangs_spring_hook",
-        "color": (228, 232, 238),
+        "color": (252, 254, 255),
         "depth_bias": 0.018,
     },
     "side_hair_left": {
@@ -56,7 +61,7 @@ PRIMARY_GROUP_BY_PART = {
         "depth_group": "side_left_mid",
         "role": "side_hair_left_primary",
         "spring_hook": "hair_side_left_spring_hook",
-        "color": (196, 231, 235),
+        "color": (156, 244, 255),
         "depth_bias": 0.006,
     },
     "side_hair_right": {
@@ -64,7 +69,7 @@ PRIMARY_GROUP_BY_PART = {
         "depth_group": "side_right_mid",
         "role": "side_hair_right_primary",
         "spring_hook": "hair_side_right_spring_hook",
-        "color": (204, 220, 229),
+        "color": (226, 246, 255),
         "depth_bias": 0.000,
     },
     "back_hair": {
@@ -72,7 +77,7 @@ PRIMARY_GROUP_BY_PART = {
         "depth_group": "back_mass",
         "role": "back_hair_mass",
         "spring_hook": "hair_back_spring_hook",
-        "color": (218, 229, 232),
+        "color": (240, 250, 255),
         "depth_bias": -0.022,
     },
 }
@@ -160,6 +165,64 @@ def _component_mask(mask: Image.Image, min_area: int = COMPONENT_AREA_MIN) -> tu
     return result, components
 
 
+def _binary(mask: Image.Image) -> Image.Image:
+    return mask.convert("L").point(lambda value: 255 if value > 0 else 0)
+
+
+def _visible_mass_mask(part_id: str, base_mask: Image.Image, character_package: Path) -> Image.Image:
+    """Build a fuller but schema-bounded hair target for readable candidate-only renders."""
+
+    soft = load_schema_target_mask(character_package, "soft_hair_silhouette")
+    forbidden = load_schema_target_mask(character_package, "forbidden_nonhair_zone")
+    if soft is None:
+        return _binary(base_mask)
+
+    base = _binary(base_mask)
+    soft = _binary(soft)
+    if forbidden is not None:
+        guard_size = VISIBLE_MASS_FORBIDDEN_GUARD_RADIUS * 2 + 1
+        forbidden_guard = _binary(forbidden).filter(ImageFilter.MaxFilter(guard_size))
+        soft = ImageChops.subtract(soft, forbidden_guard).point(lambda value: 255 if value > 0 else 0)
+    region = schema_region_prior(part_id, soft.size)
+    region_soft = ImageChops.multiply(soft, region).point(lambda value: 255 if value > 0 else 0)
+    seed = ImageChops.lighter(base, region_soft)
+
+    dilate_size = VISIBLE_MASS_DILATE_RADIUS * 2 + 1
+    close_size = VISIBLE_MASS_CLOSE_RADIUS * 2 + 1
+    grown = seed.filter(ImageFilter.MaxFilter(dilate_size)).filter(ImageFilter.MinFilter(close_size))
+    mass = ImageChops.lighter(seed, grown).point(lambda value: 255 if value > 0 else 0)
+    return ImageChops.multiply(mass, soft).point(lambda value: 255 if value > 0 else 0)
+
+
+def _row_mask_spans(mask: Image.Image, bbox: tuple[int, int, int, int], y: int) -> list[tuple[int, int]]:
+    x0, _, x1, _ = bbox
+    pixels = mask.load()
+    spans: list[tuple[int, int]] = []
+    start: int | None = None
+    for x in range(x0, x1):
+        visible = pixels[x, y] > 0
+        if visible and start is None:
+            start = x
+        elif not visible and start is not None:
+            spans.append((start, x - 1))
+            start = None
+    if start is not None:
+        spans.append((start, x1 - 1))
+    return spans
+
+
+def _nearest_row_mask_spans(mask: Image.Image, bbox: tuple[int, int, int, int], y: int) -> list[tuple[int, int]]:
+    y0, y1 = bbox[1], bbox[3]
+    for offset in range(max(y - y0, y1 - y) + 1):
+        for row in (y - offset, y + offset):
+            if row < y0 or row >= y1:
+                continue
+            spans = _row_mask_spans(mask, bbox, row)
+            if spans:
+                return spans
+    return [(bbox[0], bbox[2] - 1)]
+
+
 def write_art_texture(
     mask: Image.Image,
     output_path: Path,
@@ -205,7 +268,8 @@ def build_art_mask_records(character_package: Path, output_dir: Path) -> list[Ar
         source = sources[part_id]
         config = PRIMARY_GROUP_BY_PART[part_id]
         mask = Image.open(source.mask_path).convert("L").point(lambda value: 255 if value > 0 else 0)
-        art_mask, components = _component_mask(mask)
+        mass_mask = _visible_mass_mask(part_id, mask, character_package)
+        art_mask, components = _component_mask(mass_mask)
         if not components:
             raise ValueError(f"No usable v1 hair components for {part_id}")
         mask_path = mask_dir / f"{config['group_id']}_art_directed_v1_mask.png"
@@ -397,6 +461,7 @@ def build_panel_mesh(
     thickness: float,
     width_fraction: float = 1.0,
     curve_px: float = 0.0,
+    constraint_mask: Image.Image | None = None,
 ) -> MeshData:
     x0, y0, x1, y1 = bbox
     pad = 4.0
@@ -411,6 +476,22 @@ def build_panel_mesh(
         taper = 1.0 - 0.18 * abs(t - 0.5) * 2.0
         left_px = center_x + sway - half_width * taper
         right_px = center_x + sway + half_width * taper
+        if constraint_mask is not None:
+            spans = _nearest_row_mask_spans(constraint_mask, bbox, round(y))
+            reference_x = center_x + sway
+            span_left, span_right = min(
+                spans,
+                key=lambda span: 0
+                if span[0] <= reference_x <= span[1]
+                else min(abs(reference_x - span[0]), abs(reference_x - span[1])),
+            )
+            left_px = max(left_px, float(span_left))
+            right_px = min(right_px, float(span_right))
+            if right_px - left_px < 2.0:
+                span_center = (span_left + span_right) * 0.5
+                span_half = max(1.0, (span_right - span_left + 1) * 0.5)
+                left_px = span_center - span_half
+                right_px = span_center + span_half
         z_depth = depth + depth_offset + math.sin(t * math.pi) * 0.010
         for x_px, local_depth in (
             (left_px, z_depth + thickness * 0.5),
@@ -524,6 +605,10 @@ def build_art_directed_hair_ribbons(character_package: Path, output_dir: Path) -
     scale = V8_SOURCE_HEIGHT_WORLD / image_size[1]
     ribbons: list[HairRibbon] = []
     primary_count_by_role: dict[str, int] = {}
+    constraint_masks = {
+        record.group_id: Image.open(record.mask_path).convert("L").point(lambda value: 255 if value > 0 else 0)
+        for record in records
+    }
     for record in records:
         for index, component in enumerate(record.components):
             ribbon_id = f"{record.group_id}_{index + 1:02d}"
@@ -539,6 +624,7 @@ def build_art_directed_hair_ribbons(character_package: Path, output_dir: Path) -
                 thickness=0.0450,
                 width_fraction=width_fraction,
                 curve_px=curve_px,
+                constraint_mask=constraint_masks[record.group_id],
             )
             primary_count_by_role[record.role] = primary_count_by_role.get(record.role, 0) + 1
             ribbons.append(
@@ -590,6 +676,7 @@ def build_art_directed_hair_ribbons(character_package: Path, output_dir: Path) -
             thickness=0.0300,
             width_fraction=width_fraction,
             curve_px=curve_px,
+            constraint_mask=constraint_masks[record.group_id],
         )
         ribbons.append(
             HairRibbon(
@@ -635,6 +722,7 @@ def build_art_directed_hair_ribbons(character_package: Path, output_dir: Path) -
             thickness=0.0200,
             width_fraction=width_fraction,
             curve_px=curve_px,
+            constraint_mask=constraint_masks[record.group_id],
         )
         ribbons.append(
             HairRibbon(
@@ -713,6 +801,14 @@ def build_art_directed_hair_ribbons(character_package: Path, output_dir: Path) -
         "secondary_strand_count": SECONDARY_STRAND_COUNT,
         "flyaway_strand_count": FLYAWAY_STRAND_COUNT,
         "side_profile_volume_count": SIDE_PROFILE_VOLUME_COUNT,
+        "visible_mass_refinement": {
+            "status": "enabled",
+            "source": "soft_hair_silhouette_intersected_with_part_region_prior",
+            "component_area_min": COMPONENT_AREA_MIN,
+            "dilate_radius_px": VISIBLE_MASS_DILATE_RADIUS,
+            "close_radius_px": VISIBLE_MASS_CLOSE_RADIUS,
+            "forbidden_guard_radius_px": VISIBLE_MASS_FORBIDDEN_GUARD_RADIUS,
+        },
         "scalp_anchor_points": [item["id"] for item in design_schema.get("scalp_anchor_points", [])],
         "depth_groups": sorted({ribbon.depth_group for ribbon in ribbons}),
         "primitive_intent_count": sum(1 for ribbon in ribbons if ribbon.primitive_intent),
@@ -899,7 +995,7 @@ def run_art_directed_hair_ribbons_v1(paths: ActuatorPaths) -> ActuatorResult:
         ribbons,
         paths.repo_root,
         actuator_name=ACTUATOR_NAME,
-        side_alpha=0.12,
+        side_alpha=0.0,
     )
     if glb_report.get("status") != "ok":
         warnings.append("GLB export did not complete; see validation.blender_glb_export")
