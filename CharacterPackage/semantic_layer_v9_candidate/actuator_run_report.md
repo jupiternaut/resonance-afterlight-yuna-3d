@@ -147,6 +147,9 @@ Hair Blender validation:
 - `CharacterPackage/semantic_layer_v9_hair/validation_ci/hair_target_mask_clean.png`
 - `CharacterPackage/semantic_layer_v9_hair/validation_ci/hair_target_mask_dirty_overlay.png`
 - `CharacterPackage/semantic_layer_v9_hair/validation_ci/hair_target_cleaning_report.json`
+- `CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_review_report.json`
+- `CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_mask_refined_component_priors.png`
+- `CharacterPackage/semantic_layer_v9_hair/target_review/candidate_vs_refined_hair_target_overlay.png`
 
 Executable plan:
 
@@ -277,6 +280,16 @@ The hair candidate has:
   `CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_candidate_mask_vs_hair_union_overlay.png`,
   `CharacterPackage/semantic_layer_v9_hair/validation_ci/yuna_semantic_layer_v9_hair_validation_candidate_bbox_vs_hair_union_bbox.png`,
   and `CharacterPackage/semantic_layer_v9_hair/validation_ci/coordinate_mapping_debug.json`
+- target review evidence:
+  `CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_review_report.json`,
+  `CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_mask_raw_union.png`,
+  `CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_mask_strict_clean.png`,
+  `CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_mask_refined_component_priors.png`,
+  and `CharacterPackage/semantic_layer_v9_hair/target_review/candidate_vs_refined_hair_target_overlay.png`
+- refined target metrics:
+  `refined_component_priors.candidate_alignment.iou=0.120324`,
+  `refined_component_priors.candidate_alignment.outside_ratio=0.474535`,
+  `refined_component_priors.candidate_alignment.candidate_is_inside_target=false`
 
 ## Known Limits
 
@@ -290,6 +303,8 @@ The hair candidate has:
 - Hair v0 is weakly coordinate-aligned to the dirty hair union, but fails clean hair target validation.
 - The validator projection is usable, but the current v8 hair union target is too contaminated to support a `candidate_is_hair_only=true` claim.
 - The clean target artifacts are now the primary evidence for the next hair pass.
+- Target review v0 generated a refined component-prior target, but the current
+  candidate still fails against it.
 - Hair side/back treatment remains a soft depth spread only, not locked multiview reconstruction.
 - The earlier hair front-render black occlusion is preserved as a negative fixture and now fails visual sanity if it recurs.
 - The candidate is not integrated into the v8 beauty GLB.
@@ -298,9 +313,10 @@ The hair candidate has:
 
 ## Next Step
 
-Next step: `review_and_refine_hair_target_masks_v0`.
+Next step: `fix_authored_hair_ribbons_v0_to_refined_target`.
 
 Reason: `cloth_seam_surface` is intentionally paused. Hair generated artifacts
 and fixed the black-alpha failure mode, but the raw hair target is dirty and the
-candidate fails against the clean target. Do not start another actuator until
-the hair target is refined and a follow-up hair quality gate passes.
+candidate fails against the clean/refined targets. Do not start another actuator
+until the hair ribbons are rebuilt against the refined target and a follow-up
+hair quality gate passes.

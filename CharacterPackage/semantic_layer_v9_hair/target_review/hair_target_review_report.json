@@ -1,0 +1,1210 @@
+{
+  "created_at": "2026-05-27T13:04:22.844610+00:00",
+  "route": "review_and_refine_hair_target_masks_v0",
+  "status": "target_review_generated",
+  "boundary": "Target review only. Does not modify semantic_layer_v8, does not generate new GLB, and does not unblock cloth.",
+  "hair_parts": [
+    "back_hair",
+    "side_hair_left",
+    "side_hair_right",
+    "bangs"
+  ],
+  "raw_union": {
+    "pixel_count": 214563,
+    "face_overlap_ratio": 0.039667,
+    "body_overlap_ratio": 0.82634,
+    "weapon_overlap_ratio": 0.024189,
+    "candidate_alignment": {
+      "iou": 0.165715,
+      "outside_ratio": 0.132534,
+      "candidate_visible_pixel_count": 45611,
+      "target_pixel_count": 232714,
+      "candidate_bbox": [
+        305,
+        73,
+        1002,
+        1056
+      ],
+      "target_bbox": [
+        201,
+        51,
+        1117,
+        1078
+      ],
+      "candidate_is_inside_target": false
+    }
+  },
+  "strict_clean": {
+    "pixel_count": 27014,
+    "face_overlap_ratio": 0.0,
+    "body_overlap_ratio": 0.0,
+    "weapon_overlap_ratio": 0.0,
+    "candidate_alignment": {
+      "iou": 0.017816,
+      "outside_ratio": 0.971235,
+      "candidate_visible_pixel_count": 45611,
+      "target_pixel_count": 29344,
+      "candidate_bbox": [
+        305,
+        73,
+        1002,
+        1056
+      ],
+      "target_bbox": [
+        213,
+        51,
+        998,
+        648
+      ],
+      "candidate_is_inside_target": false
+    }
+  },
+  "refined_component_priors": {
+    "pixel_count": 163799,
+    "face_overlap_ratio": 0.04577,
+    "body_overlap_ratio": 0.787105,
+    "weapon_overlap_ratio": 0.022192,
+    "candidate_alignment": {
+      "iou": 0.120324,
+      "outside_ratio": 0.474535,
+      "candidate_visible_pixel_count": 45611,
+      "target_pixel_count": 177544,
+      "candidate_bbox": [
+        305,
+        73,
+        1002,
+        1056
+      ],
+      "target_bbox": [
+        201,
+        51,
+        1117,
+        1078
+      ],
+      "candidate_is_inside_target": false
+    }
+  },
+  "component_selection": {
+    "method": "component_prior_v0",
+    "component_count": 89,
+    "kept_component_count": 76,
+    "kept_component_area": 209006,
+    "components": [
+      {
+        "part_id": "back_hair",
+        "area": 22381,
+        "bbox": [
+          710,
+          480,
+          968,
+          771
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 16651,
+        "bbox": [
+          432,
+          783,
+          525,
+          1029
+        ],
+        "kept": false,
+        "reason": "outside_component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 14346,
+        "bbox": [
+          349,
+          675,
+          444,
+          1015
+        ],
+        "kept": false,
+        "reason": "outside_component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 12791,
+        "bbox": [
+          589,
+          699,
+          733,
+          1025
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 10446,
+        "bbox": [
+          374,
+          640,
+          550,
+          746
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 9049,
+        "bbox": [
+          210,
+          762,
+          300,
+          1033
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 7012,
+        "bbox": [
+          576,
+          767,
+          659,
+          1026
+        ],
+        "kept": false,
+        "reason": "outside_component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 2932,
+        "bbox": [
+          736,
+          801,
+          907,
+          976
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 2244,
+        "bbox": [
+          964,
+          928,
+          1009,
+          1019
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 1290,
+        "bbox": [
+          789,
+          771,
+          869,
+          869
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 1217,
+        "bbox": [
+          819,
+          963,
+          882,
+          1022
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 1153,
+        "bbox": [
+          726,
+          554,
+          847,
+          691
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 1135,
+        "bbox": [
+          436,
+          746,
+          496,
+          783
+        ],
+        "kept": false,
+        "reason": "outside_component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 1093,
+        "bbox": [
+          896,
+          742,
+          983,
+          879
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 839,
+        "bbox": [
+          334,
+          886,
+          358,
+          1027
+        ],
+        "kept": false,
+        "reason": "outside_component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 815,
+        "bbox": [
+          544,
+          709,
+          573,
+          789
+        ],
+        "kept": false,
+        "reason": "outside_component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 742,
+        "bbox": [
+          130,
+          847,
+          188,
+          1035
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 731,
+        "bbox": [
+          194,
+          502,
+          230,
+          555
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 653,
+        "bbox": [
+          184,
+          762,
+          215,
+          846
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 517,
+        "bbox": [
+          635,
+          649,
+          679,
+          742
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 482,
+        "bbox": [
+          343,
+          640,
+          366,
+          678
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 416,
+        "bbox": [
+          157,
+          917,
+          200,
+          1035
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 403,
+        "bbox": [
+          154,
+          932,
+          181,
+          1008
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 348,
+        "bbox": [
+          729,
+          720,
+          752,
+          769
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 285,
+        "bbox": [
+          348,
+          996,
+          370,
+          1031
+        ],
+        "kept": false,
+        "reason": "outside_component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 249,
+        "bbox": [
+          734,
+          484,
+          756,
+          515
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 241,
+        "bbox": [
+          200,
+          797,
+          225,
+          872
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 223,
+        "bbox": [
+          636,
+          884,
+          651,
+          908
+        ],
+        "kept": false,
+        "reason": "outside_component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 222,
+        "bbox": [
+          534,
+          883,
+          548,
+          926
+        ],
+        "kept": false,
+        "reason": "outside_component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 189,
+        "bbox": [
+          897,
+          979,
+          937,
+          1020
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 179,
+        "bbox": [
+          182,
+          887,
+          204,
+          949
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 175,
+        "bbox": [
+          165,
+          872,
+          195,
+          963
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 165,
+        "bbox": [
+          368,
+          938,
+          375,
+          1031
+        ],
+        "kept": false,
+        "reason": "outside_component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 152,
+        "bbox": [
+          134,
+          504,
+          148,
+          541
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 146,
+        "bbox": [
+          225,
+          754,
+          241,
+          797
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 141,
+        "bbox": [
+          257,
+          500,
+          267,
+          531
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 129,
+        "bbox": [
+          339,
+          640,
+          348,
+          668
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 125,
+        "bbox": [
+          513,
+          841,
+          520,
+          873
+        ],
+        "kept": false,
+        "reason": "outside_component_prior_v0"
+      },
+      {
+        "part_id": "back_hair",
+        "area": 121,
+        "bbox": [
+          805,
+          963,
+          820,
+          1004
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_left",
+        "area": 22439,
+        "bbox": [
+          134,
+          216,
+          455,
+          558
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_left",
+        "area": 12989,
+        "bbox": [
+          374,
+          492,
+          483,
+          686
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_left",
+        "area": 6812,
+        "bbox": [
+          349,
+          675,
+          435,
+          800
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_left",
+        "area": 3769,
+        "bbox": [
+          410,
+          383,
+          483,
+          477
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_left",
+        "area": 2975,
+        "bbox": [
+          325,
+          522,
+          387,
+          678
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_left",
+        "area": 2691,
+        "bbox": [
+          402,
+          290,
+          477,
+          376
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_left",
+        "area": 1520,
+        "bbox": [
+          452,
+          315,
+          492,
+          382
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_left",
+        "area": 935,
+        "bbox": [
+          274,
+          725,
+          308,
+          812
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_left",
+        "area": 811,
+        "bbox": [
+          264,
+          606,
+          307,
+          648
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_left",
+        "area": 488,
+        "bbox": [
+          192,
+          762,
+          215,
+          822
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_left",
+        "area": 482,
+        "bbox": [
+          347,
+          405,
+          378,
+          457
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_left",
+        "area": 289,
+        "bbox": [
+          349,
+          756,
+          366,
+          803
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_left",
+        "area": 238,
+        "bbox": [
+          466,
+          491,
+          480,
+          522
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_left",
+        "area": 170,
+        "bbox": [
+          338,
+          757,
+          344,
+          804
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_left",
+        "area": 159,
+        "bbox": [
+          225,
+          753,
+          241,
+          797
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 49250,
+        "bbox": [
+          558,
+          157,
+          968,
+          771
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 2765,
+        "bbox": [
+          610,
+          412,
+          681,
+          510
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 1943,
+        "bbox": [
+          680,
+          736,
+          773,
+          854
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 1678,
+        "bbox": [
+          784,
+          747,
+          863,
+          862
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 1280,
+        "bbox": [
+          704,
+          667,
+          752,
+          769
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 1154,
+        "bbox": [
+          726,
+          554,
+          847,
+          691
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 1086,
+        "bbox": [
+          597,
+          521,
+          640,
+          617
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 1084,
+        "bbox": [
+          896,
+          742,
+          982,
+          875
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 926,
+        "bbox": [
+          542,
+          416,
+          589,
+          503
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 625,
+        "bbox": [
+          635,
+          644,
+          685,
+          742
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 509,
+        "bbox": [
+          627,
+          775,
+          657,
+          842
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 507,
+        "bbox": [
+          642,
+          591,
+          666,
+          654
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 434,
+        "bbox": [
+          674,
+          386,
+          747,
+          468
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 348,
+        "bbox": [
+          684,
+          567,
+          705,
+          620
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 334,
+        "bbox": [
+          631,
+          297,
+          651,
+          337
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 274,
+        "bbox": [
+          677,
+          744,
+          708,
+          796
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 211,
+        "bbox": [
+          724,
+          668,
+          739,
+          715
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 186,
+        "bbox": [
+          561,
+          143,
+          574,
+          175
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 181,
+        "bbox": [
+          723,
+          825,
+          761,
+          852
+        ],
+        "kept": false,
+        "reason": "outside_component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 141,
+        "bbox": [
+          610,
+          284,
+          638,
+          319
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 138,
+        "bbox": [
+          693,
+          523,
+          704,
+          555
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 133,
+        "bbox": [
+          557,
+          432,
+          572,
+          449
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "side_hair_right",
+        "area": 130,
+        "bbox": [
+          677,
+          688,
+          691,
+          711
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "bangs",
+        "area": 4847,
+        "bbox": [
+          414,
+          49,
+          572,
+          192
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "bangs",
+        "area": 3526,
+        "bbox": [
+          633,
+          246,
+          701,
+          372
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "bangs",
+        "area": 2276,
+        "bbox": [
+          423,
+          383,
+          483,
+          438
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "bangs",
+        "area": 2091,
+        "bbox": [
+          367,
+          261,
+          427,
+          356
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "bangs",
+        "area": 1808,
+        "bbox": [
+          402,
+          307,
+          447,
+          376
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "bangs",
+        "area": 771,
+        "bbox": [
+          452,
+          337,
+          492,
+          382
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "bangs",
+        "area": 422,
+        "bbox": [
+          644,
+          219,
+          715,
+          273
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "bangs",
+        "area": 334,
+        "bbox": [
+          631,
+          297,
+          651,
+          337
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "bangs",
+        "area": 147,
+        "bbox": [
+          382,
+          238,
+          414,
+          265
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "bangs",
+        "area": 136,
+        "bbox": [
+          612,
+          284,
+          638,
+          319
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "bangs",
+        "area": 135,
+        "bbox": [
+          663,
+          362,
+          681,
+          388
+        ],
+        "kept": true,
+        "reason": "component_prior_v0"
+      },
+      {
+        "part_id": "bangs",
+        "area": 127,
+        "bbox": [
+          535,
+          416,
+          547,
+          435
+        ],
+        "kept": false,
+        "reason": "outside_component_prior_v0"
+      }
+    ]
+  },
+  "artifacts": {
+    "raw_union_mask": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_mask_raw_union.png",
+      "exists": true,
+      "bytes": 42199
+    },
+    "strict_clean_mask": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_mask_strict_clean.png",
+      "exists": true,
+      "bytes": 9631
+    },
+    "refined_component_priors_mask": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_mask_refined_component_priors.png",
+      "exists": true,
+      "bytes": 26424
+    },
+    "raw_union_overlay": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_raw_union_overlay.png",
+      "exists": true,
+      "bytes": 1606322
+    },
+    "strict_clean_overlay": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_strict_clean_overlay.png",
+      "exists": true,
+      "bytes": 1610326
+    },
+    "refined_component_overlay": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_refined_component_overlay.png",
+      "exists": true,
+      "bytes": 1597313
+    },
+    "candidate_vs_refined_target_overlay": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/target_review/candidate_vs_refined_hair_target_overlay.png",
+      "exists": true,
+      "bytes": 54528
+    },
+    "review_report": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_review_report.json",
+      "exists": true,
+      "bytes": 23701
+    }
+  },
+  "decision": {
+    "ready_for_cloth_seam_surface": false,
+    "recommended_next": "fix_authored_hair_ribbons_v0_to_refined_target",
+    "reason": "The refined target is cleaner than the raw union, but the current candidate must be explicitly rebuilt/evaluated against it before any cloth actuator starts."
+  }
+}

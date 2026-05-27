@@ -36,6 +36,9 @@ candidate is not accepted.
 - Clean target mask: `CharacterPackage/semantic_layer_v9_hair/validation_ci/hair_target_mask_clean.png`
 - Dirty target overlay: `CharacterPackage/semantic_layer_v9_hair/validation_ci/hair_target_mask_dirty_overlay.png`
 - Clean target report: `CharacterPackage/semantic_layer_v9_hair/validation_ci/hair_target_cleaning_report.json`
+- Target review report: `CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_review_report.json`
+- Refined component-prior target: `CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_mask_refined_component_priors.png`
+- Candidate vs refined target overlay: `CharacterPackage/semantic_layer_v9_hair/target_review/candidate_vs_refined_hair_target_overlay.png`
 - Negative fixture from the bad black-occlusion render: `CharacterPackage/semantic_layer_v9_hair/negative_fixtures/yuna_semantic_layer_v9_hair_validation_front_failed_visual_fixture.png`
 
 ## Current Result
@@ -63,6 +66,9 @@ candidate is not accepted.
 - Clean hair mask IoU: `0.014959`.
 - Clean outside hair mask ratio: `0.973581`.
 - Clean candidate is hair-only: `false`.
+- Refined component-prior target IoU: `0.120324`.
+- Refined component-prior outside ratio: `0.474535`.
+- Refined component-prior candidate inside target: `false`.
 - Hair union projection valid: `true`.
 - Hair union projection overlap ratio: `0.612788`.
 - Candidate geometry alignment valid: `true`.
@@ -91,6 +97,6 @@ candidate is not accepted.
 
 ## Next
 
-Next step: `review_and_refine_hair_target_masks_v0`.
+Next step: `fix_authored_hair_ribbons_v0_to_refined_target`.
 
 `cloth_seam_surface` remains paused. Do not replace v8 beauty hair in the meantime.

@@ -100,7 +100,8 @@
         "coordinate-space debug shows the v8 hair union projection is usable but weak.",
         "candidate_front aligns to the overbroad projected v8 hair mask union, not to a clean hair-only target.",
         "The v8 hair target mask is dirty/overbroad and overlaps body masks heavily.",
-        "Do not advance to cloth_seam_surface until review_and_refine_hair_target_masks_v0 and a follow-up hair quality pass succeed."
+        "Do not advance to cloth_seam_surface until review_and_refine_hair_target_masks_v0 and a follow-up hair quality pass succeed.",
+        "Target review v0 shows refined component-prior target still does not accept the current candidate."
       ],
       "manual_visual_review": "failed",
       "ready_for_cloth_seam_surface": false,
@@ -127,6 +128,27 @@
         "alignment_failure_reason": "raw coordinate gate passes, but clean target alignment fails",
         "baseline_framing_valid": true,
         "overlay_alignment_valid": false
+      },
+      "target_review_report": "CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_review_report.json",
+      "target_review_status": "target_review_generated",
+      "refined_target_alignment": {
+        "iou": 0.120324,
+        "outside_ratio": 0.474535,
+        "candidate_visible_pixel_count": 45611,
+        "target_pixel_count": 177544,
+        "candidate_bbox": [
+          305,
+          73,
+          1002,
+          1056
+        ],
+        "target_bbox": [
+          201,
+          51,
+          1117,
+          1078
+        ],
+        "candidate_is_inside_target": false
       }
     }
   ],
@@ -149,6 +171,6 @@
     "must_keep_debug_guides_out_of_beauty": true,
     "side_back_are_soft_constraints": true
   },
-  "next_recommended_actuator": "review_and_refine_hair_target_masks_v0",
-  "next_recommended_reason": "cloth_seam_surface remains paused because the raw coordinate gate is only a weak pass and clean hair target validation fails."
+  "next_recommended_actuator": "fix_authored_hair_ribbons_v0_to_refined_target",
+  "next_recommended_reason": "The refined target is cleaner than the raw union, but the current candidate must be explicitly rebuilt/evaluated against it before any cloth actuator starts."
 }

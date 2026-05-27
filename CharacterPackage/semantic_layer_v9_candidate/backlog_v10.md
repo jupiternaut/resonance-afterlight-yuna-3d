@@ -7,9 +7,10 @@
 3. `authored_hair_ribbons`
 4. `fix_authored_hair_ribbons_v0_geometry_alignment`
 5. `review_and_refine_hair_target_masks_v0`
-6. `manual_review_authored_hair_ribbons_v0_quality`
-7. `cloth_seam_surface`
-8. `weapon_hardsurface_ortho_v1`
+6. `fix_authored_hair_ribbons_v0_to_refined_target`
+7. `manual_review_authored_hair_ribbons_v0_quality`
+8. `cloth_seam_surface`
+9. `weapon_hardsurface_ortho_v1`
 
 ## 1. Boot Hard-Surface Ortho
 
@@ -145,9 +146,34 @@ Acceptance:
   metrics for candidate hair-only status.
 - `ready_for_cloth_seam_surface=false` until this gate passes.
 
-## 4c. Manual Review Authored Hair Ribbons v0 Quality
+Current evidence:
 
-Status: blocked by clean hair target failure.
+- `CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_review_report.json`
+- Refined component-prior target candidate IoU: `0.120324`.
+- Refined component-prior outside ratio: `0.474535`.
+- Current candidate is not inside the refined target.
+- Recommended next: `fix_authored_hair_ribbons_v0_to_refined_target`.
+
+## 4c. Fix Authored Hair Ribbons v0 to Refined Target
+
+Status: required before manual hair quality review.
+
+Goal:
+
+- Rebuild authored hair ribbons so candidate-visible render is constrained to
+  `hair_target_mask_refined_component_priors.png`.
+
+Acceptance:
+
+- `refined_component_priors.candidate_alignment.candidate_is_inside_target=true`.
+- Candidate still has four hair groups and at least three depth groups.
+- No black alpha leakage regression.
+- `replace_in_beauty_glb=false`.
+- `ready_for_cloth_seam_surface=false` until manual review accepts screenshots.
+
+## 4d. Manual Review Authored Hair Ribbons v0 Quality
+
+Status: blocked by refined target candidate failure.
 
 Goal:
 

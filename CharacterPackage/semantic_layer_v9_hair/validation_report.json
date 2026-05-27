@@ -373,7 +373,135 @@
       }
     },
     "clean_candidate_geometry_alignment_valid": false,
-    "coordinate_alignment_gate": "weak_pass"
+    "coordinate_alignment_gate": "weak_pass",
+    "target_review": {
+      "route": "review_and_refine_hair_target_masks_v0",
+      "status": "target_review_generated",
+      "report": "CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_review_report.json",
+      "raw_union": {
+        "pixel_count": 214563,
+        "face_overlap_ratio": 0.039667,
+        "body_overlap_ratio": 0.82634,
+        "weapon_overlap_ratio": 0.024189,
+        "candidate_alignment": {
+          "iou": 0.165715,
+          "outside_ratio": 0.132534,
+          "candidate_visible_pixel_count": 45611,
+          "target_pixel_count": 232714,
+          "candidate_bbox": [
+            305,
+            73,
+            1002,
+            1056
+          ],
+          "target_bbox": [
+            201,
+            51,
+            1117,
+            1078
+          ],
+          "candidate_is_inside_target": false
+        }
+      },
+      "strict_clean": {
+        "pixel_count": 27014,
+        "face_overlap_ratio": 0.0,
+        "body_overlap_ratio": 0.0,
+        "weapon_overlap_ratio": 0.0,
+        "candidate_alignment": {
+          "iou": 0.017816,
+          "outside_ratio": 0.971235,
+          "candidate_visible_pixel_count": 45611,
+          "target_pixel_count": 29344,
+          "candidate_bbox": [
+            305,
+            73,
+            1002,
+            1056
+          ],
+          "target_bbox": [
+            213,
+            51,
+            998,
+            648
+          ],
+          "candidate_is_inside_target": false
+        }
+      },
+      "refined_component_priors": {
+        "pixel_count": 163799,
+        "face_overlap_ratio": 0.04577,
+        "body_overlap_ratio": 0.787105,
+        "weapon_overlap_ratio": 0.022192,
+        "candidate_alignment": {
+          "iou": 0.120324,
+          "outside_ratio": 0.474535,
+          "candidate_visible_pixel_count": 45611,
+          "target_pixel_count": 177544,
+          "candidate_bbox": [
+            305,
+            73,
+            1002,
+            1056
+          ],
+          "target_bbox": [
+            201,
+            51,
+            1117,
+            1078
+          ],
+          "candidate_is_inside_target": false
+        }
+      },
+      "artifacts": {
+        "raw_union_mask": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_mask_raw_union.png",
+          "exists": true,
+          "bytes": 42199
+        },
+        "strict_clean_mask": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_mask_strict_clean.png",
+          "exists": true,
+          "bytes": 9631
+        },
+        "refined_component_priors_mask": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_mask_refined_component_priors.png",
+          "exists": true,
+          "bytes": 26424
+        },
+        "raw_union_overlay": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_raw_union_overlay.png",
+          "exists": true,
+          "bytes": 1606322
+        },
+        "strict_clean_overlay": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_strict_clean_overlay.png",
+          "exists": true,
+          "bytes": 1610326
+        },
+        "refined_component_overlay": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_refined_component_overlay.png",
+          "exists": true,
+          "bytes": 1597313
+        },
+        "candidate_vs_refined_target_overlay": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/target_review/candidate_vs_refined_hair_target_overlay.png",
+          "exists": true,
+          "bytes": 54528
+        },
+        "review_report": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_review_report.json",
+          "exists": true,
+          "bytes": 23701
+        }
+      },
+      "decision": {
+        "ready_for_cloth_seam_surface": false,
+        "recommended_next": "fix_authored_hair_ribbons_v0_to_refined_target",
+        "reason": "The refined target is cleaner than the raw union, but the current candidate must be explicitly rebuilt/evaluated against it before any cloth actuator starts."
+      }
+    },
+    "recommended_next": "fix_authored_hair_ribbons_v0_to_refined_target"
   },
   "warnings": [
     "v0 derives deterministic ribbon guides from v8 mask bounds and texture alpha; these are authored-ribbon candidates, not final hand-authored production curves.",
