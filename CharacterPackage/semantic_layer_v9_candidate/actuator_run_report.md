@@ -18,7 +18,7 @@ The latest hair pass did not advance `cloth_seam_surface` and did not replace
 v8 beauty. It refined `art_directed_hair_ribbons_v1` by increasing the visible
 mass of the candidate-only render and preserving primary group presence.
 
-Result:
+Previous result:
 
 - `status=failed_target_schema_alignment`
 - `candidate_front_visible_hair_mass=true`
@@ -44,6 +44,31 @@ Interpretation:
   fragmented in candidate-only/yaw views.
 - Next recommended work is
   `fix_hair_ribbons_to_schema_v1_visible_mass_leak_balance`, not cloth.
+
+Follow-up result:
+
+- `status=art_directed_candidate_manual_review_required`
+- `candidate_target_schema_status=schema_gate_passed_manual_review_required`
+- `schema_render_correction_px={x:13.0,y:8.0}`
+- `candidate_front_visible_hair_mass=true`
+- `candidate_visible_area_ratio=0.010395`
+- `soft_silhouette_coverage_ratio=0.511386`
+- `candidate_core_coverage_ratio=0.608249`
+- `candidate_soft_inside_ratio=0.831454`
+- `forbidden_candidate_leak_ratio=0.071096`
+- `primary_group_presence_passed=true`
+- `yaw30_hair_readability=true`
+- `side_hair_readability=true`
+- `manual_visual_review_status=pending_user_review_visible_mass_refined`
+- `ready_for_cloth_seam_surface=false`
+
+Interpretation:
+
+- The leak/mass balance now passes after applying the same render correction to
+  schema masks that the art-directed hair mesh generation already uses.
+- This is a coordinate-consistency fix, not a threshold relaxation.
+- The route remains a candidate requiring manual visual review before any cloth
+  work or beauty replacement.
 
 ## Commands Run
 

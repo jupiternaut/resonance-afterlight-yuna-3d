@@ -10,10 +10,9 @@
 6. `build_hair_target_schema_v1`
 7. `fix_hair_ribbons_to_schema_v1`
 8. `build_art_directed_hair_ribbons_v1`
-9. `fix_hair_ribbons_to_schema_v1_visible_mass_leak_balance`
-10. `manual_review_art_directed_hair_ribbons_v1_quality`
-11. `cloth_seam_surface`
-12. `weapon_hardsurface_ortho_v1`
+9. `manual_review_art_directed_hair_ribbons_v1_quality`
+10. `cloth_seam_surface`
+11. `weapon_hardsurface_ortho_v1`
 
 ## 1. Boot Hard-Surface Ortho
 
@@ -222,7 +221,7 @@ Previous result:
 
 ## 4e. Refine Art-Directed Hair Ribbons v1 Visible Mass
 
-Status: visible-mass gate improved, but target-schema alignment failed.
+Status: target-schema gate passed; manual visual review required.
 
 Goal:
 
@@ -233,14 +232,15 @@ Current result:
 
 - `candidate_front_visible_hair_mass=true`.
 - `candidate_visible_area_ratio=0.010395`.
-- `soft_silhouette_coverage_ratio=0.464084`.
-- `candidate_core_coverage_ratio=0.521867`.
-- `candidate_soft_inside_ratio=0.754547`.
-- `forbidden_candidate_leak_ratio=0.194649`.
+- `soft_silhouette_coverage_ratio=0.511386`.
+- `candidate_core_coverage_ratio=0.608249`.
+- `candidate_soft_inside_ratio=0.831454`.
+- `forbidden_candidate_leak_ratio=0.071096`.
 - `primary_group_presence_passed=true`.
 - `yaw30_hair_readability=true`.
 - `side_hair_readability=true`.
-- `manual_visual_review_status=blocked_by_target_schema_alignment`.
+- `schema_render_correction_px={x:13.0,y:8.0}`.
+- `manual_visual_review_status=pending_user_review_visible_mass_refined`.
 - `ribbon_count=27`.
 - `depth_group_count=6`.
 - `replace_in_beauty_glb=false`.
@@ -248,15 +248,15 @@ Current result:
 
 Decision:
 
-- Reject as accepted hair candidate for now.
+- Keep as a candidate requiring manual visual review.
 - Keep the generated OBJ/GLB/BLEND/screenshots as evidence.
 - Do not proceed to `cloth_seam_surface`.
 
 Next:
 
-- `fix_hair_ribbons_to_schema_v1_visible_mass_leak_balance`.
-- Reduce forbidden leakage while preserving visible mass and primary group
-  presence.
+- `manual_review_art_directed_hair_ribbons_v1_quality`.
+- Accept or reject the candidate based on front/yaw screenshots, not only
+  numeric gates.
 
 ## 4e. Build Art-Directed Hair Ribbons v1
 

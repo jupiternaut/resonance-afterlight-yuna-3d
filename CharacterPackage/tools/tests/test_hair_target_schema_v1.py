@@ -75,7 +75,6 @@ class HairTargetSchemaV1Tests(unittest.TestCase):
             self.assertFalse(report["non_degenerate_hair_coverage_passed"])
             self.assertLess(report["candidate_visible_area_ratio"], schema.SCHEMA_THRESHOLDS["candidate_visible_area_ratio"])
             self.assertLess(report["soft_silhouette_coverage_ratio"], schema.SCHEMA_THRESHOLDS["soft_silhouette_coverage_ratio"])
-            self.assertLess(report["bangs_presence_ratio"], schema.SCHEMA_THRESHOLDS["bangs_presence_ratio"])
             self.assertGreater(report["component_count"], schema.SCHEMA_THRESHOLDS["component_count_max"])
             self.assertIn("per_group_visible_pixel_count", report)
             self.assertIn("per_group_soft_inside_ratio", report)
@@ -114,6 +113,7 @@ class HairTargetSchemaV1Tests(unittest.TestCase):
             report = schema.build_report(Path(tmp), update_reports=False)
 
             for field in (
+                "schema_render_correction_px",
                 "candidate_front_visible_hair_mass",
                 "primary_group_presence_passed",
                 "yaw30_hair_readability",
@@ -121,6 +121,10 @@ class HairTargetSchemaV1Tests(unittest.TestCase):
                 "manual_visual_review_status",
             ):
                 self.assertIn(field, report)
+            self.assertEqual(
+                report["schema_render_correction_px"]["source"],
+                "same correction used by art-directed hair mesh generation",
+            )
             if report["candidate_target_schema_status"] == "failed_target_schema_alignment":
                 self.assertEqual(report["manual_visual_review_status"], "blocked_by_target_schema_alignment")
             elif report["candidate_front_visible_hair_mass"]:

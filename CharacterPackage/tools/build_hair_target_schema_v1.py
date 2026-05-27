@@ -22,9 +22,12 @@ from run_blender_semantic_validation import (
     file_record,
     foreground_mask_from_render,
     load_json,
-    source_mask_to_render_bool,
     union_source_masks,
     write_json,
+)
+from semantic_actuators.authored_hair_ribbons import (
+    SCHEMA_RENDER_CORRECTION_UP_PX,
+    SCHEMA_RENDER_CORRECTION_X_PX,
 )
 
 
@@ -177,7 +180,26 @@ def build_schema_masks() -> tuple[dict[str, Image.Image], dict[str, Any]]:
 
 
 def render_mask(mask: Image.Image, width: int, height: int) -> list[list[bool]]:
-    return source_mask_to_render_bool(mask, width, height)
+    source_width, source_height = mask.size
+    target_height = height
+    target_width = round(source_width / source_height * target_height)
+    if target_width > width:
+        target_width = width
+        target_height = round(source_height / source_width * target_width)
+    resized = mask.resize((target_width, target_height), Image.Resampling.NEAREST)
+    canvas = Image.new("L", (width, height), 0)
+    scale_x = target_width / source_width
+    scale_y = target_height / source_height
+    offset_x = round(SCHEMA_RENDER_CORRECTION_X_PX * scale_x)
+    offset_y = round(SCHEMA_RENDER_CORRECTION_UP_PX * scale_y)
+    canvas.paste(
+        resized,
+        (
+            (width - target_width) // 2 + offset_x,
+            (height - target_height) // 2 + offset_y,
+        ),
+    )
+    return [[canvas.getpixel((x, y)) > 0 for x in range(width)] for y in range(height)]
 
 
 def connected_component_count(mask: list[list[bool]], width: int, height: int, *, min_area: int = 1) -> int:
@@ -361,6 +383,11 @@ def schema_candidate_metrics(masks: dict[str, Image.Image], candidate_front: Pat
 
     return {
         "render_size": [width, height],
+        "schema_render_correction_px": {
+            "x": SCHEMA_RENDER_CORRECTION_X_PX,
+            "y": SCHEMA_RENDER_CORRECTION_UP_PX,
+            "source": "same correction used by art-directed hair mesh generation",
+        },
         "candidate_visible_pixel_count": candidate_pixels,
         "strict_core_render_pixel_count": strict_pixels,
         "soft_silhouette_render_pixel_count": soft_pixels,
@@ -531,6 +558,7 @@ def update_json_reports(
         "yaw30_hair_readability": report["yaw30_hair_readability"],
         "side_hair_readability": report["side_hair_readability"],
         "manual_visual_review_status": report["manual_visual_review_status"],
+        "schema_render_correction_px": report["schema_render_correction_px"],
         "yaw30_visible_ratio_to_front": report["yaw30_visible_ratio_to_front"],
         "side_view_visible_ratio_to_front": report["side_visible_ratio_to_front"],
         "non_degenerate_hair_coverage_passed": report["non_degenerate_hair_coverage_passed"],

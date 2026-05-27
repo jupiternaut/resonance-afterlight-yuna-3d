@@ -1,6 +1,6 @@
 # Manual Review: art_directed_hair_ribbons_v1
 
-Status: `failed_target_schema_alignment`
+Status: `manual_review_required`
 
 Route: `build_art_directed_hair_ribbons_v1`
 
@@ -8,9 +8,11 @@ Actuator: `art_directed_hair_ribbons_v1`
 
 ## Decision
 
-The visible-mass refinement increases candidate-only front readability, but it
-does not pass the schema boundary because the forbidden non-hair leak rose above
-threshold. Keep it as an additive failed/needs-rework candidate.
+The visible-mass refinement increases candidate-only front readability. The
+target-schema pass now uses the same render correction as the generated hair
+meshes, which brings the forbidden non-hair leak below threshold. Keep it as an
+additive DCC handoff candidate until manual review accepts or rejects the
+visual result.
 
 ## Evidence
 
@@ -34,31 +36,30 @@ threshold. Keep it as an additive failed/needs-rework candidate.
 - `non_degenerate_hair_coverage_passed=true`
 - `candidate_front_visible_hair_mass=true`
 - `candidate_visible_area_ratio=0.010395`
-- `soft_silhouette_coverage_ratio=0.464084`
-- `candidate_core_coverage_ratio=0.521867`
-- `candidate_soft_inside_ratio=0.754547`
-- `forbidden_candidate_leak_ratio=0.194649`
-- `bangs_presence_ratio=0.371327`
-- `side_hair_left_presence_ratio=0.443825`
-- `side_hair_right_presence_ratio=0.792136`
-- `back_hair_mass_presence_ratio=0.591295`
+- `soft_silhouette_coverage_ratio=0.511386`
+- `candidate_core_coverage_ratio=0.608249`
+- `candidate_soft_inside_ratio=0.831454`
+- `forbidden_candidate_leak_ratio=0.071096`
+- `bangs_presence_ratio=0.891591`
+- `side_hair_left_presence_ratio=0.502321`
+- `side_hair_right_presence_ratio=0.667259`
+- `back_hair_mass_presence_ratio=0.474429`
 - `component_count=15`
-- `scalp_anchor_continuity=0.371327`
+- `scalp_anchor_continuity=0.474429`
 - `ribbon_count=27`
 - `depth_group_count=6`
 - `art_directed_primitive_intent_count=27`
 - `flow_continuity_passed=true`
-- `manual_visual_review_status=blocked_by_target_schema_alignment`
+- `schema_render_correction_px={x:13.0,y:8.0}`
+- `manual_visual_review_status=pending_user_review_visible_mass_refined`
 
 ## Visual Notes
 
 - Candidate-only front now has more readable visible mass than the prior sparse
-  pass, but it is still fragmented and not a complete accepted hairstyle.
+  pass, but it is still not a complete accepted hairstyle.
 - Yaw30 remains readable as a candidate artifact, but it still breaks into
   separated plates rather than continuous scalp-anchored hair ribbons.
-- The route now exposes the tradeoff clearly: more visible hair mass increases
-  forbidden-zone leakage under the current target schema.
-- This is a useful negative-plus checkpoint, not an accepted hair candidate.
+- The route is now ready for manual visual review, not cloth or replacement.
 
 ## Boundaries
 
@@ -70,7 +71,7 @@ threshold. Keep it as an additive failed/needs-rework candidate.
 
 ## Recommended Next
 
-`fix_hair_ribbons_to_schema_v1_visible_mass_leak_balance`
+`manual_review_art_directed_hair_ribbons_v1_quality`
 
-Next work must preserve the new visible-mass/readability fields while reducing
-`forbidden_candidate_leak_ratio` below threshold. Do not proceed to cloth.
+If rejected, refine authored curve placement and scalp integration while
+preserving the target-schema gates. Do not proceed to cloth.
