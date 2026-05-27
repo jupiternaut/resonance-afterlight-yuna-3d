@@ -1,23 +1,23 @@
-# Next Goal: Fix Hair Ribbons to Schema v1
+# Next Goal: Manual Review Authored Hair Ribbons v0 Quality
 
 ## Objective
 
-Rebuild or fix authored hair ribbons so the candidate is constrained to
-`hair_target_schema_v1`. This goal must not create a cloth actuator and must not
-replace v8 beauty.
+Review the schema-gated authored hair ribbons candidate visually before any
+cloth actuator or v8 beauty replacement. This goal must not create a cloth
+actuator and must not replace v8 beauty.
 
 ## Current Checkpoint
 
-A schema-constrained rebuild has been generated, but it still fails target
-schema gates:
+A tightened schema-constrained rebuild has generated a candidate that passes the
+target-schema numeric gates:
 
-- `forbidden_candidate_leak_ratio=0.299879` (threshold `<=0.10`)
-- `candidate_core_coverage_ratio=0.196487` (threshold `>=0.10`)
-- `candidate_soft_inside_ratio=0.557359` (threshold `>=0.70`)
+- `forbidden_candidate_leak_ratio=0.010006` (threshold `<0.10`)
+- `candidate_core_coverage_ratio=0.187749` (threshold `>=0.10`)
+- `candidate_soft_inside_ratio=0.916398` (threshold `>=0.70`)
+- `candidate_target_schema_status=schema_gate_passed_manual_review_required`
 
-The next pass should continue reducing forbidden-zone leakage and improving
-soft-silhouette containment, or move to `build_art_directed_hair_ribbons_v1`
-with explicit hand-authored strand lanes. Do not proceed to cloth.
+The next pass should review screenshots and decide whether the candidate is
+visually acceptable as a hair-only DCC candidate. Do not proceed to cloth.
 
 ## Inputs
 
@@ -33,15 +33,16 @@ with explicit hand-authored strand lanes. Do not proceed to cloth.
 
 ## Required Outputs
 
-- A rebuilt or fixed hair ribbon candidate evaluated against schema v1.
-- A JSON report explaining target-schema pass/fail.
-- Debug PNGs that show candidate coverage against strict/soft/forbidden zones.
+- A manual visual review report.
+- A clear accept/reject decision for the hair route.
+- If rejected, a specific next goal such as
+  `build_art_directed_hair_ribbons_v1`.
 - Updates to validation/backlog docs that keep the next blocker honest.
 
 Suggested output location:
 
 ```text
-CharacterPackage/semantic_layer_v9_hair/
+CharacterPackage/semantic_layer_v9_hair/manual_review/
 ```
 
 ## Acceptance
@@ -49,11 +50,10 @@ CharacterPackage/semantic_layer_v9_hair/
 - `semantic_layer_v8` diff is empty.
 - Tests pass.
 - Compile passes.
-- Candidate leak into `forbidden_nonhair_zone` is below threshold.
-- Candidate coverage is mostly inside `soft_hair_silhouette`.
-- Candidate covers enough of `strict_hair_core` to justify manual review.
-- The report does not mark the route as accepted unless the candidate passes the
-  clean schema and manual review accepts it.
+- Target-schema numeric gate remains passed.
+- Candidate-only, baseline-only, overlay, yaw15, yaw30, side, wire, and exploded
+  screenshots are reviewed.
+- The report does not mark the route as accepted unless manual review accepts it.
 - `ready_for_cloth_seam_surface=false` unless hair quality is accepted.
 
 ## Non-Goals

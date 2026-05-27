@@ -9,6 +9,7 @@ from pathlib import Path
 from unittest import mock
 
 from PIL import Image
+from PIL import ImageChops
 
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
@@ -22,8 +23,10 @@ from semantic_actuators.authored_hair_ribbons import (  # noqa: E402
     blender_export_glb,
     build_hair_ribbons,
     build_schema_constrained_group_masks,
+    load_schema_target_mask,
     load_hair_sources,
     mask_components,
+    mask_pixel_count,
     run_authored_hair_ribbons,
     write_obj,
 )
@@ -66,6 +69,8 @@ class AuthoredHairRibbonsActuatorTests(unittest.TestCase):
             schema_paths = build_schema_constrained_group_masks(CHARACTER_PACKAGE, Path(tmp) / "group_masks")
             sources = load_hair_sources(CHARACTER_PACKAGE, schema_mask_paths=schema_paths)
             original_sources = {source.part_id: source for source in load_hair_sources(CHARACTER_PACKAGE)}
+            forbidden = load_schema_target_mask(CHARACTER_PACKAGE, "forbidden_nonhair_zone")
+            self.assertIsNotNone(forbidden)
 
             self.assertEqual(set(schema_paths), set(HAIR_PART_IDS))
             for source in sources:
@@ -75,6 +80,8 @@ class AuthoredHairRibbonsActuatorTests(unittest.TestCase):
                 original = original_sources[source.part_id]
                 self.assertLess(source.width, original.width)
                 self.assertLess(source.depth_spread, original.depth_spread)
+                overlap = ImageChops.multiply(Image.open(source.mask_path).convert("L"), forbidden)
+                self.assertEqual(mask_pixel_count(overlap), 0)
 
     def test_hair_ribbons_have_groups_depths_uvs_and_faces(self) -> None:
         ribbons = build_hair_ribbons(CHARACTER_PACKAGE)
@@ -230,6 +237,8 @@ class AuthoredHairRibbonsActuatorTests(unittest.TestCase):
             self.assertEqual(report["validation"]["manual_visual_review"], "failed")
             self.assertFalse(report["validation"]["ready_for_cloth_seam_surface"])
             self.assertLess(report["validation"]["non_hair_occlusion_ratio"], 0.10)
+            self.assertTrue(report["mesh_summary"]["schema_constrained"])
+            self.assertEqual(report["mesh_summary"]["schema_render_correction_px"], {"x": 13.0, "up": 8.0})
             self.assertFalse(spec["part"]["replace_in_beauty_glb"])
 
 

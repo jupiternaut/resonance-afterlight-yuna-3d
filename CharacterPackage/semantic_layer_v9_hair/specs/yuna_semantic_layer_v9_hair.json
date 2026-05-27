@@ -126,17 +126,21 @@
     "ribbon_thickness": 0.0018,
     "ribbon_thickness_min": 0.0018,
     "schema_constrained": true,
+    "schema_render_correction_px": {
+      "x": 13.0,
+      "up": 8.0
+    },
     "groups": [
       {
         "group_id": "hair_back",
         "source_part_id": "back_hair",
-        "mask": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/back_hair_schema_v1_mask.png",
-        "texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_back_sanitized.png",
+        "mask": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/back_hair_schema_v1_mask.png",
+        "texture": "CharacterPackage/semantic_layer_v9_hair/textures/hair_back_sanitized.png",
         "bbox": [
-          138,
+          154,
           429,
-          256,
-          493
+          220,
+          480
         ],
         "spring_hook": "hair_back_spring_hook",
         "ribbon_count": 14
@@ -144,13 +148,13 @@
       {
         "group_id": "hair_side_left",
         "source_part_id": "side_hair_left",
-        "mask": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/side_hair_left_schema_v1_mask.png",
-        "texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_side_left_sanitized.png",
+        "mask": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/side_hair_left_schema_v1_mask.png",
+        "texture": "CharacterPackage/semantic_layer_v9_hair/textures/hair_side_left_sanitized.png",
         "bbox": [
-          144,
-          431,
-          256,
-          487
+          160,
+          432,
+          219,
+          476
         ],
         "spring_hook": "hair_side_left_spring_hook",
         "ribbon_count": 8
@@ -158,13 +162,13 @@
       {
         "group_id": "hair_side_right",
         "source_part_id": "side_hair_right",
-        "mask": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/side_hair_right_schema_v1_mask.png",
-        "texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_side_right_sanitized.png",
+        "mask": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/side_hair_right_schema_v1_mask.png",
+        "texture": "CharacterPackage/semantic_layer_v9_hair/textures/hair_side_right_sanitized.png",
         "bbox": [
-          634,
-          248,
-          693,
-          299
+          656,
+          224,
+          720,
+          281
         ],
         "spring_hook": "hair_side_right_spring_hook",
         "ribbon_count": 9
@@ -172,13 +176,13 @@
       {
         "group_id": "hair_bangs",
         "source_part_id": "bangs",
-        "mask": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/bangs_schema_v1_mask.png",
-        "texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_bangs_sanitized.png",
+        "mask": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/bangs_schema_v1_mask.png",
+        "texture": "CharacterPackage/semantic_layer_v9_hair/textures/hair_bangs_sanitized.png",
         "bbox": [
-          382,
-          240,
-          412,
-          265
+          431,
+          49,
+          545,
+          97
         ],
         "spring_hook": "hair_bangs_spring_hook",
         "ribbon_count": 10
@@ -187,9 +191,9 @@
     "sanitized_textures": [
       {
         "group_id": "hair_back",
-        "source_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/textures/back_hair.png",
-        "sanitized_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_back_sanitized.png",
-        "alpha_pixels": 16829,
+        "source_texture": "CharacterPackage/semantic_layer_v8/textures/back_hair.png",
+        "sanitized_texture": "CharacterPackage/semantic_layer_v9_hair/textures/hair_back_sanitized.png",
+        "alpha_pixels": 8490,
         "fill_color": [
           210,
           226,
@@ -198,35 +202,35 @@
       },
       {
         "group_id": "hair_side_left",
-        "source_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/textures/side_hair_left.png",
-        "sanitized_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_side_left_sanitized.png",
-        "alpha_pixels": 3769,
+        "source_texture": "CharacterPackage/semantic_layer_v8/textures/side_hair_left.png",
+        "sanitized_texture": "CharacterPackage/semantic_layer_v9_hair/textures/hair_side_left_sanitized.png",
+        "alpha_pixels": 1003,
         "fill_color": [
-          169,
-          215,
-          217
+          149,
+          218,
+          218
         ]
       },
       {
         "group_id": "hair_side_right",
-        "source_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/textures/side_hair_right.png",
-        "sanitized_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_side_right_sanitized.png",
-        "alpha_pixels": 10456,
+        "source_texture": "CharacterPackage/semantic_layer_v8/textures/side_hair_right.png",
+        "sanitized_texture": "CharacterPackage/semantic_layer_v9_hair/textures/hair_side_right_sanitized.png",
+        "alpha_pixels": 4679,
         "fill_color": [
-          176,
-          202,
-          209
+          187,
+          204,
+          211
         ]
       },
       {
         "group_id": "hair_bangs",
-        "source_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/textures/bangs.png",
-        "sanitized_texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_hair/textures/hair_bangs_sanitized.png",
-        "alpha_pixels": 6589,
+        "source_texture": "CharacterPackage/semantic_layer_v8/textures/bangs.png",
+        "sanitized_texture": "CharacterPackage/semantic_layer_v9_hair/textures/hair_bangs_sanitized.png",
+        "alpha_pixels": 1781,
         "fill_color": [
-          210,
-          209,
-          214
+          217,
+          216,
+          220
         ]
       }
     ]

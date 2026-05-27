@@ -14,15 +14,19 @@ from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 from .registry import register
 from .state import ActuatorPaths, ActuatorResult, MeshData
-from .validation_contract import file_record, validate_hair_candidate_report
+from .validation_contract import validate_hair_candidate_report
 
 
 ACTUATOR_NAME = "authored_hair_ribbons_v0"
 PART_ID = "hair"
 SEGMENT_COUNT = 24
 V8_SOURCE_HEIGHT_WORLD = 6.4
+REPO_ROOT = Path(__file__).resolve().parents[3]
 HAIR_PART_IDS = ("back_hair", "side_hair_left", "side_hair_right", "bangs")
 SCHEMA_MASK_MIN_AREA = 600
+SCHEMA_FORBIDDEN_GUARD_RADIUS = 16
+SCHEMA_RENDER_CORRECTION_X_PX = 13.0
+SCHEMA_RENDER_CORRECTION_UP_PX = 8.0
 VISUAL_SANITY_THRESHOLDS = {
     "black_alpha_leak_ratio": 0.02,
     "candidate_black_pixel_ratio": 0.05,
@@ -120,6 +124,18 @@ def display_path(path: Path, repo_root: Path) -> str:
         return str(path.relative_to(repo_root))
     except ValueError:
         return str(path)
+
+
+def report_path(path: Path) -> str:
+    return display_path(path, REPO_ROOT)
+
+
+def report_file_record(path: Path) -> dict[str, Any]:
+    return {
+        "path": report_path(path),
+        "exists": path.exists(),
+        "bytes": path.stat().st_size if path.exists() else 0,
+    }
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -379,10 +395,14 @@ def build_ribbon_mesh(
         previous_center_px = center_px
 
         center_x = (center_px - width_px * 0.5) * scale
+        if source.schema_constrained:
+            center_x += SCHEMA_RENDER_CORRECTION_X_PX * scale
         # Match the v8 semantic-layer coordinate system: source image Y maps
         # into positive world Z from feet upward. The earlier centered 2.2m
         # mapping made the hair candidate tiny and rendered near the boots.
         center_z = (height_px - y) * scale
+        if source.schema_constrained:
+            center_z += SCHEMA_RENDER_CORRECTION_UP_PX * scale
         center_depth = source.depth + ribbon_depth_offset + math.sin(t * math.pi) * source.curve_bias
         width_fraction = 0.10 if source.schema_constrained else 0.20
         local_half_width_px = min(half_width_px, max(1.0, (right - left + 1) * width_fraction))
@@ -532,8 +552,8 @@ def combined_summary(ribbons: list[HairRibbon], texture_records: list[SanitizedT
             {
                 "group_id": ribbon.group_id,
                 "source_part_id": ribbon.source_part_id,
-                "mask": str(ribbon.mask_path),
-                "texture": str(ribbon.texture_path),
+                "mask": report_path(ribbon.mask_path),
+                "texture": report_path(ribbon.texture_path),
                 "bbox": list(ribbon.bbox),
                 "spring_hook": ribbon.spring_hook,
                 "ribbon_count": 0,
@@ -551,12 +571,18 @@ def combined_summary(ribbons: list[HairRibbon], texture_records: list[SanitizedT
         "ribbon_thickness": round(max((ribbon.mesh.thickness for ribbon in ribbons), default=0.0), 6),
         "ribbon_thickness_min": round(min((ribbon.mesh.thickness for ribbon in ribbons), default=0.0), 6),
         "schema_constrained": any(ribbon.mask_path.name.endswith("_schema_v1_mask.png") for ribbon in ribbons),
+        "schema_render_correction_px": {
+            "x": SCHEMA_RENDER_CORRECTION_X_PX,
+            "up": SCHEMA_RENDER_CORRECTION_UP_PX,
+        }
+        if any(ribbon.mask_path.name.endswith("_schema_v1_mask.png") for ribbon in ribbons)
+        else None,
         "groups": list(groups.values()),
         "sanitized_textures": [
             {
                 "group_id": record.group_id,
-                "source_texture": str(record.source_texture),
-                "sanitized_texture": str(record.sanitized_texture),
+                "source_texture": report_path(record.source_texture),
+                "sanitized_texture": report_path(record.sanitized_texture),
                 "alpha_pixels": record.alpha_pixels,
                 "fill_color": list(record.fill_color),
             }
@@ -584,6 +610,13 @@ def load_schema_target_mask(character_package: Path, name: str) -> Image.Image |
     return Image.open(path).convert("L").point(lambda value: 255 if value > 0 else 0)
 
 
+def dilate_mask(mask: Image.Image, radius: int) -> Image.Image:
+    size = max(3, radius * 2 + 1)
+    if size % 2 == 0:
+        size += 1
+    return mask.convert("L").filter(ImageFilter.MaxFilter(size)).point(lambda value: 255 if value > 0 else 0)
+
+
 def schema_region_prior(part_id: str, size: tuple[int, int]) -> Image.Image:
     width, height = size
     region = Image.new("L", size, 0)
@@ -608,7 +641,8 @@ def build_schema_constrained_group_masks(character_package: Path, output_dir: Pa
         return {}
 
     output_dir.mkdir(parents=True, exist_ok=True)
-    allowed_soft = ImageChops.subtract(soft, forbidden).point(lambda value: 255 if value > 0 else 0)
+    forbidden_guard = dilate_mask(forbidden, SCHEMA_FORBIDDEN_GUARD_RADIUS)
+    allowed_soft = ImageChops.subtract(soft, forbidden_guard).point(lambda value: 255 if value > 0 else 0)
     paths: dict[str, Path] = {}
     for part_id in HAIR_PART_IDS:
         source = mask_luma(character_package / "semantic_layer_v8" / "masks" / "front" / f"{part_id}.png")
@@ -633,6 +667,7 @@ def build_schema_constrained_group_masks(character_package: Path, output_dir: Pa
                 "source": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1",
                 "method": method,
                 "pixel_count": mask_pixel_count(group_mask),
+                "forbidden_guard_radius": SCHEMA_FORBIDDEN_GUARD_RADIUS,
                 "estimated": True,
             },
         )
@@ -1028,8 +1063,8 @@ def run_authored_hair_ribbons(paths: ActuatorPaths) -> ActuatorResult:
         "replace_in_beauty_glb": False,
         "side_back_are_soft_constraints": True,
         **visual_metrics,
-        "obj": file_record(paths.obj_path),
-        "glb": file_record(paths.glb_path),
+        "obj": report_file_record(paths.obj_path),
+        "glb": report_file_record(paths.glb_path),
         "blender_glb_export": glb_report,
     }
     result = ActuatorResult(

@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-05-27T17:26:37.997951+00:00",
+  "created_at": "2026-05-27T18:08:50.617076+00:00",
   "route": "build_hair_target_schema_v1",
-  "status": "failed_target_schema_alignment",
+  "status": "schema_gate_passed_manual_review_required",
   "boundary": "Target-schema generation only. Does not modify semantic_layer_v8, generate GLB, or unblock cloth.",
   "formula_binding": {
     "state": "theta_hair target masks and validation fields, not raw mesh vertices",
@@ -44,7 +44,7 @@
     1200,
     1600
   ],
-  "candidate_visible_pixel_count": 9057,
+  "candidate_visible_pixel_count": 6196,
   "strict_core_render_pixel_count": 22088,
   "soft_silhouette_render_pixel_count": 32451,
   "forbidden_zone_render_pixel_count": 723309,
@@ -53,10 +53,10 @@
   "forbidden_zone_area": 666429,
   "core_body_overlap_ratio": 0.0,
   "soft_body_overlap_ratio": 0.0,
-  "forbidden_candidate_leak_ratio": 0.299879,
-  "candidate_core_coverage_ratio": 0.196487,
-  "candidate_soft_inside_ratio": 0.557359,
-  "candidate_target_schema_status": "failed_target_schema_alignment",
+  "forbidden_candidate_leak_ratio": 0.010006,
+  "candidate_core_coverage_ratio": 0.187749,
+  "candidate_soft_inside_ratio": 0.916398,
+  "candidate_target_schema_status": "schema_gate_passed_manual_review_required",
   "schema_ready_for_ribbon_rebuild": true,
   "thresholds": {
     "core_body_overlap_ratio": 0.02,
@@ -66,7 +66,7 @@
     "candidate_soft_inside_ratio": 0.7
   },
   "ready_for_cloth_seam_surface": false,
-  "recommended_next": "fix_hair_ribbons_to_schema_v1",
+  "recommended_next": "manual_review_authored_hair_ribbons_v0_quality",
   "artifacts": {
     "strict_hair_core_mask": {
       "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/strict_hair_core_mask.png",
@@ -86,17 +86,17 @@
     "candidate_vs_schema_overlay": {
       "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/candidate_vs_schema_overlay.png",
       "exists": true,
-      "bytes": 38673
+      "bytes": 36553
     },
     "schema_debug_contact_sheet": {
       "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/schema_debug_contact_sheet.png",
       "exists": true,
-      "bytes": 374991
+      "bytes": 369736
     },
     "report": {
       "path": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/hair_target_schema_v1_report.json",
       "exists": true,
-      "bytes": 3584
+      "bytes": 3623
     }
   }
 }

@@ -193,7 +193,7 @@ def schema_candidate_metrics(masks: dict[str, Image.Image]) -> dict[str, Any]:
     )
 
     if candidate_passes:
-        candidate_status = "passed_target_schema_gate_manual_review_required"
+        candidate_status = "schema_gate_passed_manual_review_required"
     elif schema_ready:
         candidate_status = "failed_target_schema_alignment"
     else:
@@ -297,6 +297,11 @@ def make_contact_sheet(masks: dict[str, Image.Image], candidate_overlay: Path, o
 
 
 def update_json_reports(report: dict[str, Any]) -> None:
+    manual_visual_review = (
+        "required"
+        if report["candidate_target_schema_status"] == "schema_gate_passed_manual_review_required"
+        else "blocked_by_target_schema"
+    )
     summary = {
         "route": report["route"],
         "status": report["candidate_target_schema_status"],
@@ -325,7 +330,7 @@ def update_json_reports(report: dict[str, Any]) -> None:
         validation["ready_for_cloth_seam_surface"] = False
         validation["recommended_next"] = report["recommended_next"]
         validation["visual_sanity_status"] = report["candidate_target_schema_status"]
-        validation["manual_visual_review"] = "blocked_by_target_schema"
+        validation["manual_visual_review"] = manual_visual_review
         write_json(VALIDATION_REPORT, validation_report)
 
     if VALIDATION_CI_REPORT.exists():
@@ -334,6 +339,7 @@ def update_json_reports(report: dict[str, Any]) -> None:
         ci_report.setdefault("quality", {})["target_schema_v1"] = summary
         ci_report.setdefault("candidate_contract", {})["target_schema_v1_status"] = report["candidate_target_schema_status"]
         ci_report.setdefault("candidate_contract", {})["visual_sanity_status"] = report["candidate_target_schema_status"]
+        ci_report.setdefault("candidate_contract", {})["manual_visual_review"] = manual_visual_review
         ci_report["ready_for_cloth_seam_surface"] = False
         write_json(VALIDATION_CI_REPORT, ci_report)
 
@@ -356,11 +362,12 @@ def build_report(output_dir: Path, *, update_reports: bool = True) -> dict[str, 
     make_contact_sheet(masks, overlay_path, contact_sheet_path)
 
     metrics = schema_candidate_metrics(masks)
-    recommended_next = (
-        "fix_hair_ribbons_to_schema_v1"
-        if metrics["schema_ready_for_ribbon_rebuild"]
-        else "build_hair_target_schema_v1"
-    )
+    if metrics["candidate_target_schema_status"] == "schema_gate_passed_manual_review_required":
+        recommended_next = "manual_review_authored_hair_ribbons_v0_quality"
+    elif metrics["schema_ready_for_ribbon_rebuild"]:
+        recommended_next = "fix_hair_ribbons_to_schema_v1"
+    else:
+        recommended_next = "build_hair_target_schema_v1"
     report = {
         "created_at": datetime.now(timezone.utc).isoformat(),
         "route": "build_hair_target_schema_v1",

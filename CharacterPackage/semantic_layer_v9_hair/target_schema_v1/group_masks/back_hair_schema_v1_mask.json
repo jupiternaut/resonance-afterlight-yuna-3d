@@ -2,6 +2,7 @@
   "part_id": "back_hair",
   "source": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1",
   "method": "schema_v1_region_prior",
-  "pixel_count": 16829,
+  "pixel_count": 8490,
+  "forbidden_guard_radius": 16,
   "estimated": true
 }

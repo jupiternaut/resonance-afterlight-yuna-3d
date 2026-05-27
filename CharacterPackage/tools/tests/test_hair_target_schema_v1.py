@@ -38,13 +38,26 @@ class HairTargetSchemaV1Tests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             report = schema.build_report(Path(tmp), update_reports=False)
 
-            self.assertIn(report["candidate_target_schema_status"], {"failed_target_schema_alignment", "schema_not_ready_for_rebuild"})
+            self.assertIn(
+                report["candidate_target_schema_status"],
+                {
+                    "schema_gate_passed_manual_review_required",
+                    "failed_target_schema_alignment",
+                    "schema_not_ready_for_rebuild",
+                },
+            )
             self.assertTrue(report["schema_ready_for_ribbon_rebuild"])
             self.assertFalse(report["ready_for_cloth_seam_surface"])
             self.assertLessEqual(report["core_body_overlap_ratio"], schema.SCHEMA_THRESHOLDS["core_body_overlap_ratio"])
-            self.assertGreater(report["forbidden_candidate_leak_ratio"], schema.SCHEMA_THRESHOLDS["forbidden_candidate_leak_ratio"])
             saved = json.loads((Path(tmp) / "hair_target_schema_v1_report.json").read_text(encoding="utf-8"))
-            self.assertEqual(saved["recommended_next"], "fix_hair_ribbons_to_schema_v1")
+            if report["candidate_target_schema_status"] == "schema_gate_passed_manual_review_required":
+                self.assertLess(report["forbidden_candidate_leak_ratio"], schema.SCHEMA_THRESHOLDS["forbidden_candidate_leak_ratio"])
+                self.assertGreaterEqual(report["candidate_soft_inside_ratio"], schema.SCHEMA_THRESHOLDS["candidate_soft_inside_ratio"])
+                self.assertGreaterEqual(report["candidate_core_coverage_ratio"], schema.SCHEMA_THRESHOLDS["candidate_core_coverage_ratio"])
+                self.assertEqual(saved["recommended_next"], "manual_review_authored_hair_ribbons_v0_quality")
+            else:
+                self.assertGreater(report["forbidden_candidate_leak_ratio"], schema.SCHEMA_THRESHOLDS["forbidden_candidate_leak_ratio"])
+                self.assertEqual(saved["recommended_next"], "fix_hair_ribbons_to_schema_v1")
 
     def test_schema_report_records_estimated_sources_and_confidence(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

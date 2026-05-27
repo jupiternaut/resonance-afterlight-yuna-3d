@@ -7,33 +7,39 @@
 - v9 actuator routes exist for weapon, boots, legs, and authored hair ribbons.
 - Weapon, boot, and leg routes are additive candidates/proxies; they do not
   replace v8 beauty.
-- `authored_hair_ribbons_v0` generated assets and fixed the black-alpha leak,
-  but it is rejected as a clean hair candidate.
-- Hair coordinate alignment is only a weak pass against the dirty v8 hair union.
-- Clean/refined hair target checks still fail:
-  - current status: `failed_target_schema_alignment`
-  - current candidate is not accepted as hair-only
+- `authored_hair_ribbons_v0` generated assets, fixed the black-alpha leak, and
+  now passes the v1 target-schema numeric gate.
+- Hair coordinate alignment is only a weak pass against the dirty v8 hair union,
+  so the route still requires manual visual review before any integration.
+- Clean/refined hair target status:
+  - current status: `schema_gate_passed_manual_review_required`
+  - current candidate is not accepted as hair-only until manual review passes
   - `ready_for_cloth_seam_surface=false`
 - `hair_target_schema_v1` now exists with `strict_hair_core`,
   `soft_hair_silhouette`, and `forbidden_nonhair_zone`.
-- A schema-constrained ribbon rebuild has been generated, but the current
-  candidate still fails against v1 target-schema thresholds:
+- A tighter schema-constrained ribbon rebuild has been generated and now passes
+  the v1 target-schema numeric thresholds:
   - baseline before rebuild:
     - `forbidden_candidate_leak_ratio=0.975006`
     - `candidate_core_coverage_ratio=0.041425`
     - `candidate_soft_inside_ratio=0.021113`
-  - current rebuild:
+  - first schema-constrained rebuild:
     - `forbidden_candidate_leak_ratio=0.299879`
     - `candidate_core_coverage_ratio=0.196487`
     - `candidate_soft_inside_ratio=0.557359`
+  - current tightened rebuild:
+    - `forbidden_candidate_leak_ratio=0.010006`
+    - `candidate_core_coverage_ratio=0.187749`
+    - `candidate_soft_inside_ratio=0.916398`
 - `cloth_seam_surface` remains blocked.
 
 ## Current Blocker
 
-Continue fixing authored hair ribbons against `hair_target_schema_v1` before
-any new actuator work. The schema-constrained rebuild improved forbidden-zone
-leakage and soft-silhouette alignment, but it still does not satisfy the target
-schema and remains blocked from manual acceptance.
+Run manual review on the schema-gated authored hair candidate before any new
+actuator work. The target-schema numeric gate now passes, but the route is not
+accepted, not integrated, and not ready for cloth until visual/manual review
+accepts candidate-only, baseline, overlay, yaw, side, wire, and exploded
+screenshots.
 
 ## Formula Binding
 
@@ -90,12 +96,11 @@ Current blocker:
 - strict clean target is too narrow;
 - refined component-prior target is still not final;
 - `hair_target_schema_v1` is available;
-- current candidate still leaks into the forbidden nonhair zone;
-- schema-constrained rebuild improved the metrics but did not pass thresholds;
+- current candidate passes the schema v1 numeric gate;
+- manual visual review is still required before the candidate can be accepted;
 - `cloth_seam_surface` remains blocked.
 
-Next valid task: `fix_hair_ribbons_to_schema_v1` follow-up or
-`build_art_directed_hair_ribbons_v1`.
+Next valid task: `manual_review_authored_hair_ribbons_v0_quality`.
 
 Invalid next task: `cloth_seam_surface`.
 

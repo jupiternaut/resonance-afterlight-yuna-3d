@@ -187,7 +187,7 @@ Current result:
 
 ## 4d. Fix Hair Ribbons to Schema v1
 
-Status: partially implemented, still blocked by target-schema failure.
+Status: schema gate passed; manual visual review required.
 
 Goal:
 
@@ -204,30 +204,41 @@ Acceptance:
 - `replace_in_beauty_glb=false`.
 - `ready_for_cloth_seam_surface=false` until manual review accepts screenshots.
 
-Current result:
+Previous result:
 
 - A schema-constrained rebuild now uses generated group masks under
   `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/`.
 - Four hair groups and four depth groups are preserved.
 - `replace_in_beauty_glb=false`.
 - Black alpha leakage remains under threshold.
-- Metrics improved but do not pass:
+- Metrics improved but did not pass:
   - `forbidden_candidate_leak_ratio`: `0.975006 -> 0.299879`
   - `candidate_core_coverage_ratio`: `0.041425 -> 0.196487`
   - `candidate_soft_inside_ratio`: `0.021113 -> 0.557359`
 - `candidate_target_schema_status=failed_target_schema_alignment`.
 - `ready_for_cloth_seam_surface=false`.
 
+Current result:
+
+- A tightened schema-constrained rebuild keeps the four hair groups and four
+  depth groups while applying forbidden-zone guard and render-space correction.
+- `forbidden_candidate_leak_ratio`: `0.975006 -> 0.299879 -> 0.010006`.
+- `candidate_core_coverage_ratio`: `0.041425 -> 0.196487 -> 0.187749`.
+- `candidate_soft_inside_ratio`: `0.021113 -> 0.557359 -> 0.916398`.
+- `candidate_target_schema_status=schema_gate_passed_manual_review_required`.
+- `replace_in_beauty_glb=false`.
+- `ready_for_cloth_seam_surface=false`.
+
 Remaining:
 
-- Reduce forbidden-zone leakage below `0.10`.
-- Increase soft-silhouette inside ratio above `0.70`.
-- If deterministic schema clipping continues to stall, move to
+- Run manual visual review on candidate-only, baseline-only, overlay, yaw15,
+  yaw30, side, wire, and exploded screenshots.
+- If review rejects the result, keep the route as needs-rework and move to
   `build_art_directed_hair_ribbons_v1` with hand-authored strand lanes.
 
 ## 4e. Manual Review Authored Hair Ribbons v0 Quality
 
-Status: blocked by schema v1 candidate failure.
+Status: unblocked by schema v1 numeric gate; pending human visual review.
 
 Goal:
 

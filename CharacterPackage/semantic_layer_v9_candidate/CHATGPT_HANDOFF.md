@@ -4,35 +4,37 @@
 
 分支：`feature/authored-hair-ribbons-v0`
 
-提交：待本轮提交后以 final response 为准；repo 内文件无法稳定自写入自身所在提交 hash。
+提交：见最终回复 / GitHub 当前提交；仓库文件无法稳定自包含自身所在提交 hash。
 
-本轮目标：实现 `fix_hair_ribbons_to_schema_v1`，让 v9 hair ribbon candidate 使用 `hair_target_schema_v1` 的 `strict_hair_core`、`soft_hair_silhouette`、`forbidden_nonhair_zone` 作为硬目标约束。
+本轮目标：继续 `fix_hair_ribbons_to_schema_v1`，作为 `tighten_schema_constrained_hair_ribbons_v1` 收紧 v9 hair ribbon candidate，使它通过 `hair_target_schema_v1` 的 strict / soft / forbidden 目标门禁。
 
-本轮结论：部分完成。hair candidate 已按 schema v1 group masks 重新生成，指标明显改善，但仍未达到 schema gate，不应推进 `cloth_seam_surface`，也不应接受为 hair-only candidate。
+本轮结论：schema gate 已通过，但 hair candidate 还没有被接受。当前状态是 `schema_gate_passed_manual_review_required`；不应推进 `cloth_seam_surface`，也不应替换 v8 beauty GLB。
 
 核心状态：
 
 - v8 unchanged: true
 - `replace_in_beauty_glb`: false
 - formula stage: `theta_p_next = ProjectToConstraints_p((1-alpha)*theta_p + alpha*RobustFuse(...))`
-- current route status: `failed_target_schema_alignment`
-- visual_sanity_status: `failed_target_schema_alignment`
-- manual_review: blocked by target schema
+- current route status: `schema_gate_passed_manual_review_required`
+- visual_sanity_status: `schema_gate_passed_manual_review_required`
+- manual_review: required
 - ready_for_cloth_seam_surface: false
 
 关键指标：
 
-- `forbidden_candidate_leak_ratio`: `0.975006 -> 0.299879`
-- `candidate_core_coverage_ratio`: `0.041425 -> 0.196487`
-- `candidate_soft_inside_ratio`: `0.021113 -> 0.557359`
-- `candidate_visible_pixel_count`: `45611 -> 9057`
+- `forbidden_candidate_leak_ratio`: `0.975006 -> 0.299879 -> 0.010006`
+- `candidate_core_coverage_ratio`: `0.041425 -> 0.196487 -> 0.187749`
+- `candidate_soft_inside_ratio`: `0.021113 -> 0.557359 -> 0.916398`
+- `candidate_visible_pixel_count`: `45611 -> 9057 -> 6196`
 - `schema_ready_for_ribbon_rebuild=true`
-- `candidate_target_schema_status=failed_target_schema_alignment`
+- `candidate_target_schema_status=schema_gate_passed_manual_review_required`
 
 生成/更新文件：
 
 - `CharacterPackage/tools/semantic_actuators/authored_hair_ribbons.py`
+- `CharacterPackage/tools/build_hair_target_schema_v1.py`
 - `CharacterPackage/tools/tests/test_semantic_actuators_hair.py`
+- `CharacterPackage/tools/tests/test_hair_target_schema_v1.py`
 - `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/`
 - `CharacterPackage/semantic_layer_v9_hair/specs/yuna_semantic_layer_v9_hair.json`
 - `CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.obj`
@@ -55,11 +57,13 @@
 - `CharacterPackage/semantic_layer_v9_candidate/PROJECT_STATE.md`
 - `CharacterPackage/semantic_layer_v9_candidate/backlog_v10.md`
 - `CharacterPackage/semantic_layer_v9_candidate/actuator_run_report.md`
+- `CharacterPackage/semantic_layer_v9_candidate/NEXT_GOAL.md`
 - `CharacterPackage/semantic_layer_v9_candidate/CHATGPT_HANDOFF.md`
 
 验证命令：
 
-- `python3 -m unittest CharacterPackage.tools.tests.test_semantic_actuators_hair -v`: 13 tests passed
+- `python3 -m unittest CharacterPackage.tools.tests.test_semantic_actuators_hair CharacterPackage.tools.tests.test_hair_target_schema_v1 -v`: 17 tests passed
+- `python3 -m unittest CharacterPackage.tools.tests.test_semantic_actuators_hair CharacterPackage.tools.tests.test_hair_target_schema_v1 -v`: 17 tests passed
 - `python3 -m unittest discover -s CharacterPackage/tools/tests -p 'test_*.py' -v`: 55 tests passed
 - `python3 -m compileall CharacterPackage/tools`: passed
 - `git diff --name-only -- CharacterPackage/semantic_layer_v8`: empty
@@ -67,24 +71,24 @@
 视觉 / 人工复核判断：
 
 - 黑底 alpha 泄漏未回归。
-- schema-constrained rebuild 减少了 forbidden-zone leakage 并提高了 soft/core 指标。
-- 仍未达到 target-schema 阈值，不能接受为 hair-only candidate。
+- schema-constrained rebuild 已显著降低 forbidden-zone leakage，并让 soft/core 指标过门禁。
+- 这不是 hair 接受结论；manual visual review 仍然 required。
 - 不应推进下一 actuator。
 
 当前 blocker：
 
-- `forbidden_candidate_leak_ratio` 仍高于 `0.10`。
-- `candidate_soft_inside_ratio` 仍低于 `0.70`。
-- 需要继续 `fix_hair_ribbons_to_schema_v1`，或进入更明确的 `build_art_directed_hair_ribbons_v1` 手工发束通道。
+- 需要人工复核 candidate-only、baseline-only、overlay、yaw15、yaw30、side、wire、exploded 截图。
+- 如果人工视觉复核不接受，应进入 `build_art_directed_hair_ribbons_v1`，而不是 cloth。
 
 推荐下一条 Codex Goal：
 
 ```text
-/goal Continue `fix_hair_ribbons_to_schema_v1` or implement `build_art_directed_hair_ribbons_v1`.
+/goal Run manual review for `authored_hair_ribbons_v0` after schema gate pass.
 
 Keep `semantic_layer_v8` immutable and keep `replace_in_beauty_glb=false`.
 Do not proceed to `cloth_seam_surface`.
-Use `CharacterPackage/semantic_layer_v9_hair/target_schema_v1/` as the hard target schema.
-The candidate must reduce `forbidden_candidate_leak_ratio` below 0.10, raise `candidate_soft_inside_ratio` above 0.70, preserve four hair groups and depth groups, regenerate reports/screenshots, and write `COPY_TO_CHATGPT_HANDOFF`.
-If metrics still fail, keep hair blocked and report failure honestly.
+Review candidate-only, baseline-only, overlay, yaw15, yaw30, side, wire, and exploded screenshots.
+If visual quality is accepted, write a manual review acceptance report but keep replacement disabled until a separate integration goal.
+If visual quality is rejected, keep `ready_for_cloth_seam_surface=false` and start `build_art_directed_hair_ribbons_v1`.
+Write `COPY_TO_CHATGPT_HANDOFF`.
 ```

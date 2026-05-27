@@ -50,7 +50,7 @@ checkpoint test runner for this pass was `unittest`.
 ## Tests
 
 - `python3 -m unittest discover -s CharacterPackage/tools/tests -p 'test_*.py' -v`
-- Result: 47 tests passed.
+- Result: 55 tests passed.
 
 Coverage added in this run:
 
@@ -64,6 +64,8 @@ Coverage added in this run:
 - leg quad-loop retopo proxy mesh/OBJ/report contract.
 - authored hair ribbon source/mesh/OBJ/report contract.
 - authored hair ribbon mask/texture, alpha bbox, missing hook/depth rejection, Blender skip, and v8 unchanged contracts.
+- hair target schema v1 contract, including schema gate pass/fail branching and
+  manual-review-next routing.
 - Blender semantic validation CLI/help/default input contract.
 - Blender semantic validation dirty target and clean hair target rejection contract.
 
@@ -174,11 +176,15 @@ The leg retopo proxy candidate status is `generated_with_warnings`.
 
 The leg Blender validation status is `passed_with_warnings`.
 
-The authored hair ribbon candidate status is `failed_clean_hair_mask_alignment`.
+The authored hair ribbon candidate status is
+`schema_gate_passed_manual_review_required`.
 
-The hair Blender validation status is `failed_clean_hair_mask_alignment`.
+The hair Blender validation route produced screenshots and then the target
+schema pass updated the route status to
+`schema_gate_passed_manual_review_required`.
 
-The hair visual sanity status is `failed_clean_hair_mask_alignment`.
+The hair visual sanity status is
+`schema_gate_passed_manual_review_required`.
 
 After the coordinate-space debug pass and component-local rebuild, the authored
 hair route no longer fails the raw coordinate alignment gate, but this is only
@@ -200,13 +206,21 @@ candidate fails: `clean_hair_mask_iou=0.014959`,
 `clean_candidate_is_hair_only=false`.
 
 This means the previous coordinate/scale/origin blocker is mostly fixed, but
-the hair candidate is not accepted. The route remains a candidate only:
-`manual_visual_review=failed`, `replace_in_beauty_glb=false`, and
+the dirty/clean raw target gates were not enough for acceptance.
+
+The tighter target-schema pass now satisfies the strict/soft/forbidden numeric
+gate:
+`forbidden_candidate_leak_ratio=0.010006`,
+`candidate_core_coverage_ratio=0.187749`, and
+`candidate_soft_inside_ratio=0.916398`.
+
+The hair candidate is still not accepted. The route remains a candidate only:
+`manual_visual_review=required`, `replace_in_beauty_glb=false`, and
 `ready_for_cloth_seam_surface=false`.
 
 The alpha leak and artifact-generation parts of the route are fixed, but the
-candidate is not integrated into v8 beauty. It requires target-mask cleanup and
-another hair quality pass before any later actuator is unblocked.
+candidate is not integrated into v8 beauty. It requires manual visual review
+before any later actuator is unblocked.
 
 The candidate has:
 
@@ -332,14 +346,13 @@ The hair candidate has:
 
 ## Next Step
 
-Next step: `fix_hair_ribbons_to_schema_v1` follow-up or
-`build_art_directed_hair_ribbons_v1`.
+Next step: `manual_review_authored_hair_ribbons_v0_quality`.
 
-Reason: `cloth_seam_surface` is intentionally paused. Hair generated artifacts
-and fixed the black-alpha failure mode, but the current candidate still fails
-against the schema v1 strict/soft/forbidden target. Do not start another
-actuator until the hair ribbons pass target-schema checks and a follow-up hair
-quality gate passes.
+Reason: `cloth_seam_surface` is intentionally paused. Hair generated artifacts,
+fixed the black-alpha failure mode, and now passes the schema v1 numeric gate.
+This is still not an accepted hair candidate. Do not start another actuator
+until manual review accepts the candidate-only, baseline-only, overlay, yaw15,
+yaw30, side, wire, and exploded screenshots.
 
 ## Fix Hair Ribbons to Schema v1 Update
 
@@ -382,4 +395,34 @@ Verdict:
 - `candidate_target_schema_status=failed_target_schema_alignment`.
 - This is a measurable improvement, not an accepted hair candidate.
 - Manual visual review remains blocked by target-schema failure.
+- `cloth_seam_surface` remains blocked.
+
+## Tighten Schema-Constrained Hair Ribbons v1 Update
+
+This pass tightened the schema-constrained hair candidate by guarding against
+forbidden zones and applying a small render-space correction. It regenerated
+the hair OBJ/MTL/GLB/BLEND, validation screenshots, schema overlays, group
+masks, and JSON reports.
+
+Preserved constraints:
+
+- v8 remains unchanged.
+- `replace_in_beauty_glb=false`.
+- side/back remain soft constraints.
+- four hair groups are preserved.
+- four depth groups are preserved.
+- `ready_for_cloth_seam_surface=false`.
+
+Metric movement:
+
+- `forbidden_candidate_leak_ratio`: `0.975006 -> 0.299879 -> 0.010006`
+- `candidate_core_coverage_ratio`: `0.041425 -> 0.196487 -> 0.187749`
+- `candidate_soft_inside_ratio`: `0.021113 -> 0.557359 -> 0.916398`
+- `candidate_visible_pixel_count`: `45611 -> 9057 -> 6196`
+
+Verdict:
+
+- `candidate_target_schema_status=schema_gate_passed_manual_review_required`.
+- This is a target-schema numeric pass, not an accepted hair candidate.
+- Manual visual review is required before any integration or cloth work.
 - `cloth_seam_surface` remains blocked.
