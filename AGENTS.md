@@ -127,6 +127,42 @@ python3 CharacterPackage/tools/review_hair_target_masks_v0.py
 - If target masks are dirty, fix the target schema before regenerating ribbons
   or proceeding to cloth.
 
+## ChatGPT Handoff
+
+At the end of any long-running Goal, Codex must write a Chinese handoff summary
+for ChatGPT. Write it to:
+
+```text
+CharacterPackage/semantic_layer_v9_candidate/CHATGPT_HANDOFF.md
+```
+
+Also include the same block in the final response under:
+
+```text
+COPY_TO_CHATGPT_HANDOFF
+```
+
+The handoff must use repo-relative paths only. Do not use local absolute paths
+such as `/Users/...`.
+
+The handoff must include:
+
+- branch and commit hash;
+- current formula stage, including `theta_p_next = ProjectToConstraints(...)`;
+- current route status;
+- whether v8 remained unchanged;
+- whether `replace_in_beauty_glb` is still `false`;
+- changed/generated files;
+- key metrics;
+- validation commands and results;
+- v8 diff status;
+- visual sanity/manual review verdict;
+- current blocker;
+- exact recommended next Goal.
+
+Do not claim a route is passed if it is only numeric-pass,
+manual-review-pending, or blocked by target-schema/visual sanity.
+
 ## Anti-Patterns
 
 - Mutating v8 while testing any v9/v10 candidate.
