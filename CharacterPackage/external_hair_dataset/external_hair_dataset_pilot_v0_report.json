@@ -1,0 +1,55 @@
+{
+  "report_version": "external_hair_dataset_pilot_v0_report_v0.1",
+  "generated_at": "2026-05-28T15:41:59+08:00",
+  "status": "metadata_scaffold_generated",
+  "summary": {
+    "source_count": 12,
+    "subagent_report_count": 5,
+    "downloaded_binaries": false,
+    "generated_assets": false,
+    "large_binaries_committed": false,
+    "external_asset_usage": "prior_only",
+    "replace_in_beauty_glb": false,
+    "v8_expected_unchanged": true,
+    "ready_for_cloth_seam_surface": false
+  },
+  "recommendation_counts": {
+    "open_template_source": 8,
+    "reference_report_only": 2,
+    "local_study_only": 1,
+    "pending": 1,
+    "do_not_use": 0
+  },
+  "pilot_gate": {
+    "status": "passed_metadata_only_gate",
+    "reason": "The pilot records source metadata and conservative permission gates only; no external payloads are committed.",
+    "skipped_with_reason": {
+      "download": "metadata_pilot_no_binary_download",
+      "import": "metadata_pilot_no_import",
+      "render": "metadata_pilot_no_render",
+      "curve_extraction": "metadata_pilot_no_extraction"
+    }
+  },
+  "next_allowed_step": {
+    "task": "external_hair_intake_probe_v0",
+    "scope": "Select at most two small open-template sources, capture license snapshots, download to quarantine only if size/license gates pass, and produce render/inspection reports with skipped_with_reason where needed.",
+    "blocked_until": [
+      "manual source selection",
+      "license snapshot capture",
+      "binary size check",
+      "v8 diff guard"
+    ]
+  },
+  "blocked_behavior": [
+    "Do not proceed to cloth_seam_surface.",
+    "Do not replace v8 beauty.",
+    "Do not commit external binaries from this pilot.",
+    "Do not claim any source is accepted production hair.",
+    "Do not use external sources as YUNA geometry without a separate prior extraction and manual review goal."
+  ],
+  "validation_commands": {
+    "unittest": "passed: python3 -m unittest discover -s CharacterPackage/tools/tests -p 'test_*.py' -v (73 tests)",
+    "compileall": "passed: python3 -m compileall CharacterPackage/tools",
+    "v8_diff": "passed_empty: git diff --name-only -- CharacterPackage/semantic_layer_v8"
+  }
+}

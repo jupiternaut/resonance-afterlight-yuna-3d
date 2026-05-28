@@ -66,3 +66,29 @@ currently has the strongest numeric balance for manual inspection.
 - Do not replace v8 beauty.
 - Do not set accepted status without explicit human review.
 - Do not call any variant final production hair.
+
+## Parallel Track: External Hair Dataset Pilot
+
+The metadata-only external hair dataset pilot now exists under:
+
+```text
+CharacterPackage/external_hair_dataset/
+```
+
+This is not a substitute for manual review of the current hair variants. It is a
+source/prior scaffold for later generator improvements.
+
+Allowed follow-up only after the manual hair review state is explicit:
+
+```text
+/goal Run external_hair_intake_probe_v0 for one or two selected open-template
+sources. Keep downloads quarantine-only, capture license snapshots, produce
+skipped_with_reason for missing Blender/import/render gates, keep v8 unchanged,
+and do not use external assets as replacement YUNA geometry.
+```
+
+Still invalid:
+
+```text
+cloth_seam_surface
+```

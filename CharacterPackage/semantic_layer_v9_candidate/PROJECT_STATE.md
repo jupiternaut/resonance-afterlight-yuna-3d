@@ -199,3 +199,34 @@ git diff --name-only -- CharacterPackage/semantic_layer_v8
 - `side_hair_volume_present=True`
 - Boundary: candidate review asset only; not accepted as production hair.
 
+## External Hair Dataset Pilot v0
+
+- Route: `external_hair_dataset_pilot_v0`
+- Status: `metadata_scaffold_generated`
+- Purpose: collect open-license/source triage and prior-extraction planning for
+  future YUNA hair generator improvements.
+- Boundary:
+  - no external binaries downloaded;
+  - no third-party geometry or texture committed;
+  - external assets are `prior_only`;
+  - `replace_in_beauty_glb=false`;
+  - v8 remains immutable;
+  - `cloth_seam_surface` remains blocked.
+- Main files:
+  - `CharacterPackage/external_hair_dataset/README.md`
+  - `CharacterPackage/external_hair_dataset/SOURCE_TRIAGE.md`
+  - `CharacterPackage/external_hair_dataset/assets_manifest.schema.json`
+  - `CharacterPackage/external_hair_dataset/assets_manifest.json`
+  - `CharacterPackage/external_hair_dataset/external_hair_dataset_pilot_v0_report.json`
+- Subagent inputs:
+  - `CharacterPackage/external_hair_dataset/subagent_reports/source_scout_report.md`
+  - `CharacterPackage/external_hair_dataset/subagent_reports/dataset_schema_plan.md`
+  - `CharacterPackage/external_hair_dataset/subagent_reports/intake_pipeline_plan.md`
+  - `CharacterPackage/external_hair_dataset/subagent_reports/hair_prior_plan.md`
+  - `CharacterPackage/external_hair_dataset/subagent_reports/test_contract_plan.md`
+
+This pilot does not unblock cloth and does not accept any external asset as
+YUNA hair. The next valid external-data task is a narrow intake probe for one or
+two selected open-template sources, with license snapshots, quarantine-only
+downloads, and explicit skipped reports when Blender/import/render gates are not
+available.

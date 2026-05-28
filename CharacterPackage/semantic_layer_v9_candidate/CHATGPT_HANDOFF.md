@@ -1,43 +1,47 @@
 COPY_TO_CHATGPT_HANDOFF
 项目：jupiternaut/resonance-afterlight-yuna-3d
 分支：feature/authored-hair-ribbons-v0
-提交：09d5159（本轮资产提交；最终 HEAD 以 GitHub/git log 为准）
-本轮目标：生成 `hair_silhouette_mass_v1`，用主发块优先路线解决 art_directed_v1 candidate-only 稀疏问题。
-本轮结论：`failed_silhouette_mass_readability`；仍需人工视觉复核，不应推进 `cloth_seam_surface`。
+提交：本文件所在提交；最终 HEAD 请以 `git rev-parse --short HEAD` / GitHub 显示为准
+本轮目标：并行调研 external hair asset sources，并由主流程集成 metadata-only external_hair_dataset_pilot_v0。
+本轮结论：已生成外部头发数据集 pilot scaffold；没有下载二进制，没有生成外部资产，没有替换 v8 beauty。该 pilot 只提供 priors / source triage / intake plan，不应推进 cloth。
+公式阶段：
+- theta_p_next = ProjectToConstraints_p((1-alpha)*theta_p + alpha*RobustFuse(front/side/back/validation/prior))
+- 本轮只更新 prior source metadata 和 dataset gates，不更新 YUNA hair mesh vertices。
 核心状态：
 - v8 unchanged: true
 - replace_in_beauty_glb: false
+- external_asset_usage: prior_only
+- large_binaries_committed: false
 - ready_for_cloth_seam_surface: false
-- visual_sanity_status: failed_silhouette_mass_readability
-- manual_review: failed_required_visible_mass_gate
+- visual_sanity_status: not_applicable_metadata_only
+- manual_review: still_required_for_current_hair_variants
 关键指标：
-- primary_mass_coverage_ratio: 0.725044
-- forbidden_candidate_leak_ratio: 0.037104
-- candidate_soft_inside_ratio: 0.833316
-- candidate_core_coverage_ratio: 0.573298
-- back_hair_mass_presence_ratio: 0.471055
-- side_hair_left_presence_ratio: 0.576602
-- side_hair_right_presence_ratio: 0.644339
-- bangs_presence_ratio: 0.920466
-- candidate_front_hair_readability: False
-- yaw30_hair_readability: True
-- side_hair_volume_present: True
+- source_count: 12
+- open_template_source: 8
+- reference_report_only: 2
+- local_study_only: 1
+- pending: 1
+- downloaded_binaries: false
+- generated_assets: false
 生成/更新文件：
-- CharacterPackage/semantic_layer_v9_hair/silhouette_mass_v1/specs/yuna_semantic_layer_v9_hair_silhouette_mass_v1.json
-- CharacterPackage/semantic_layer_v9_hair/silhouette_mass_v1/exports/yuna_semantic_layer_v9_hair_silhouette_mass_v1.obj
-- CharacterPackage/semantic_layer_v9_hair/silhouette_mass_v1/exports/yuna_semantic_layer_v9_hair_silhouette_mass_v1.mtl
-- CharacterPackage/semantic_layer_v9_hair/silhouette_mass_v1/exports/yuna_semantic_layer_v9_hair_silhouette_mass_v1.glb
-- CharacterPackage/semantic_layer_v9_hair/silhouette_mass_v1/validation_report.json
-- CharacterPackage/semantic_layer_v9_hair/silhouette_mass_v1/validation_ci/validation_ci_report.json
-- CharacterPackage/semantic_layer_v9_hair/silhouette_mass_v1/silhouette_mass_v1_contact_sheet.png
-- CharacterPackage/semantic_layer_v9_hair/silhouette_mass_v1/target_schema_v1_eval/hair_target_schema_v1_report.json
+- CharacterPackage/external_hair_dataset/README.md
+- CharacterPackage/external_hair_dataset/SOURCE_TRIAGE.md
+- CharacterPackage/external_hair_dataset/assets_manifest.schema.json
+- CharacterPackage/external_hair_dataset/assets_manifest.json
+- CharacterPackage/external_hair_dataset/external_hair_dataset_pilot_v0_report.json
+- CharacterPackage/external_hair_dataset/subagent_reports/source_scout_report.md
+- CharacterPackage/external_hair_dataset/subagent_reports/dataset_schema_plan.md
+- CharacterPackage/external_hair_dataset/subagent_reports/intake_pipeline_plan.md
+- CharacterPackage/external_hair_dataset/subagent_reports/hair_prior_plan.md
+- CharacterPackage/external_hair_dataset/subagent_reports/test_contract_plan.md
+- CharacterPackage/tools/tests/test_external_hair_dataset_pilot.py
+- CharacterPackage/semantic_layer_v9_candidate/PROJECT_STATE.md
+- CharacterPackage/semantic_layer_v9_candidate/NEXT_GOAL.md
+- CharacterPackage/semantic_layer_v9_candidate/CHATGPT_HANDOFF.md
 验证命令：
-- build: hair_silhouette_mass_candidate_manual_review_required
-- blender_validation_exit: 1
-- target_schema_eval_exit: 0
-- unittest: 66 tests passed
+- unittest: passed, 73 tests
 - compileall: passed
 - v8 diff: empty
-当前阻塞：hair route 仍是候选/复核对象；未人工接受前不允许替换 v8 beauty，也不允许推进 cloth。
+当前阻塞：当前 hair variants 仍需人工视觉复核；external dataset pilot 不改变 hair route acceptance，也不解除 cloth 阻塞。
 推荐下一步 Codex goal：
-/goal Manual-review `hair_silhouette_mass_v1` screenshots and, only if human review accepts candidate-only front/yaw/side, plan the next hair cleanup; otherwise mark failed and keep cloth blocked.
+/goal Manual-review art_directed_hair_ribbons_v1 variants first. If still rejected, optionally run external_hair_intake_probe_v0 on one or two selected open-template sources to extract priors only; keep v8 unchanged, quarantine downloads, and do not proceed to cloth.

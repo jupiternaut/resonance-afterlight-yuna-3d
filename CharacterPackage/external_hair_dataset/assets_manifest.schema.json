@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/jupiternaut/resonance-afterlight-yuna-3d/CharacterPackage/external_hair_dataset/assets_manifest.schema.json",
+  "title": "External Hair Dataset Pilot Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "dataset_id",
+    "generated_at",
+    "project_guards",
+    "sources",
+    "pilot_outputs",
+    "blocked_behavior"
+  ],
+  "properties": {
+    "schema_version": {"const": "external_hair_dataset_manifest_v0.1"},
+    "dataset_id": {"const": "external_hair_dataset_pilot_v0"},
+    "generated_at": {"type": "string"},
+    "project_guards": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "v8_immutable",
+        "replace_in_beauty_glb",
+        "external_asset_usage",
+        "large_binaries_committed",
+        "cloth_seam_surface_blocked"
+      ],
+      "properties": {
+        "v8_immutable": {"const": true},
+        "replace_in_beauty_glb": {"const": false},
+        "external_asset_usage": {"const": "prior_only"},
+        "large_binaries_committed": {"const": false},
+        "cloth_seam_surface_blocked": {"const": true}
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 5,
+      "items": {"$ref": "#/$defs/source"}
+    },
+    "pilot_outputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["subagent_reports", "final_reports", "tests"],
+      "properties": {
+        "subagent_reports": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "final_reports": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "tests": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "blocked_behavior": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "source_url",
+        "source_name",
+        "claimed_license",
+        "license_confidence",
+        "possible_usage_role",
+        "can_commit_binary_to_repo",
+        "can_commit_renders",
+        "can_extract_curve_templates",
+        "recommendation",
+        "intake_status",
+        "external_asset_usage",
+        "replace_in_beauty_glb",
+        "download_status",
+        "validation_status",
+        "notes"
+      ],
+      "properties": {
+        "source_id": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+        "source_url": {"type": "string", "format": "uri"},
+        "source_name": {"type": "string"},
+        "claimed_license": {"type": "string"},
+        "license_confidence": {
+          "enum": ["high", "medium-high", "medium", "medium-low", "low", "unknown"]
+        },
+        "possible_usage_role": {"type": "string"},
+        "can_commit_binary_to_repo": {
+          "enum": [
+            "yes_after_license_snapshot",
+            "yes_selected_cc0_files_after_review",
+            "partial_selected_small_files_only",
+            "yes_with_attribution_after_review",
+            "no_uploader_license_unverified",
+            "pending_paid_pack_context"
+          ]
+        },
+        "can_commit_renders": {
+          "enum": [
+            "yes",
+            "yes_selected_cc0_files",
+            "yes_with_attribution",
+            "local_internal_only",
+            "pending"
+          ]
+        },
+        "can_extract_curve_templates": {
+          "enum": [
+            "yes_from_mesh_centerlines",
+            "yes_curve_templates",
+            "yes_workflow_reference",
+            "yes_from_mesh_or_modifiers",
+            "yes_after_import_verification",
+            "yes_with_attribution_if_separable",
+            "limited_short_hair",
+            "local_study_only",
+            "no_texture_only",
+            "pending"
+          ]
+        },
+        "recommendation": {
+          "enum": [
+            "local_study_only",
+            "reference_report_only",
+            "open_template_source",
+            "do_not_use",
+            "pending"
+          ]
+        },
+        "intake_status": {
+          "enum": [
+            "source_identified_metadata_only",
+            "license_review_pending",
+            "reference_only_metadata_recorded",
+            "local_study_metadata_recorded"
+          ]
+        },
+        "external_asset_usage": {"const": "prior_only"},
+        "replace_in_beauty_glb": {"const": false},
+        "download_status": {"const": "not_downloaded"},
+        "validation_status": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "skipped_with_reason"],
+          "properties": {
+            "status": {"const": "skipped"},
+            "skipped_with_reason": {"type": "string", "minLength": 1}
+          }
+        },
+        "notes": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}
