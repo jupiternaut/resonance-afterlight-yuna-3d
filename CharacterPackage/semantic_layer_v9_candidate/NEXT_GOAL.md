@@ -67,25 +67,25 @@ currently has the strongest numeric balance for manual inspection.
 - Do not set accepted status without explicit human review.
 - Do not call any variant final production hair.
 
-## Parallel Track: External Hair Dataset Pilot
+## Parallel Track: External Hair Priors
 
-The metadata-only external hair dataset pilot now exists under:
+The external hair dataset pilot, intake probe, and abstract prior extraction now
+exist under:
 
 ```text
 CharacterPackage/external_hair_dataset/
 ```
 
-This is not a substitute for manual review of the current hair variants. It is a
-source/prior scaffold for later generator improvements.
+This is not a substitute for manual review of the current hair variants. The
+prior library is allowed to inform future schema/planner parameters only.
 
 Allowed follow-up only after the manual hair review state is explicit:
 
 ```text
-/goal Review external_hair_intake_probe_v0 outputs and, if useful, extract
-abstract priors only from the probe reports: scalp anchor hints, silhouette mass
-statistics, curve/width/taper hypotheses, and negative examples. Keep v8
-unchanged, do not commit source binaries, do not generate YUNA hair, and do not
-proceed to cloth.
+/goal Use external_hair_prior_library_v0 as planner input only. Propose updated
+hair design parameters or target-schema notes for a future YUNA hair pass, but
+do not generate YUNA hair, do not copy external shapes, keep v8 unchanged, and
+do not proceed to cloth.
 ```
 
 Still invalid:

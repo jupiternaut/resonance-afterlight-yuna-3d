@@ -262,3 +262,33 @@ available.
 
 The probe is useful evidence for external prior extraction. It is not an
 acceptance decision for any YUNA hair candidate.
+
+## External Hair Prior Extraction v0
+
+- Route: `external_hair_prior_extraction_v0`
+- Status: `prior_extraction_generated`
+- Inputs:
+  - `CharacterPackage/external_hair_dataset/probes/external_hair_intake_probe_v0_report.json`
+  - `CharacterPackage/external_hair_dataset/probes/opengameart_ponytail_female/hair_reference_prior_report.json`
+  - `CharacterPackage/external_hair_dataset/probes/opengameart_long_male/hair_reference_prior_report.json`
+  - probe renders: `front`, `yaw30`, `side`, `wire`, `alpha`
+- Outputs:
+  - `CharacterPackage/external_hair_dataset/priors/external_hair_prior_library_v0.json`
+  - `CharacterPackage/external_hair_dataset/reports/external_hair_prior_extraction_v0_report.json`
+- Extracted prior families:
+  - scalp anchor hints;
+  - primary curve families;
+  - width/taper profile hints;
+  - soft depth-group hints;
+  - silhouette mass distribution hints;
+  - card topology and negative/failure hints.
+- Boundary:
+  - no source shape can be copied directly;
+  - no source geometry or texture was copied into YUNA;
+  - no YUNA hair was generated;
+  - `replace_in_beauty_glb=false`;
+  - `cloth_seam_surface` remains blocked.
+
+This prior library is allowed to inform future schema/planner parameters only.
+It is not a hair candidate and not an acceptance decision for current v1
+variants.

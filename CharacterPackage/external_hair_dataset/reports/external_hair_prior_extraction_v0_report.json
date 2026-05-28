@@ -1,0 +1,38 @@
+{
+  "report_version": "external_hair_prior_extraction_v0_report_v0.1",
+  "generated_at": "2026-05-28T17:13:57+08:00",
+  "status": "prior_extraction_generated",
+  "input_probe_status": "probe_generated",
+  "input_source_ids": [
+    "opengameart_ponytail_female",
+    "opengameart_long_male"
+  ],
+  "output_prior_library": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_library_v0.json",
+  "source_count": 2,
+  "useful_prior_hint_count": 20,
+  "guards": {
+    "v8_immutable": true,
+    "replace_in_beauty_glb": false,
+    "external_asset_usage": "prior_only",
+    "direct_copy_allowed": false,
+    "generated_yuna_hair": false,
+    "ready_for_cloth_seam_surface": false,
+    "source_geometry_copied": false,
+    "source_texture_copied": false
+  },
+  "source_reports": [
+    {
+      "source_id": "opengameart_ponytail_female",
+      "representation_type": "hair_cards",
+      "suitability_score": 0.72,
+      "do_not_copy_shape_directly": true
+    },
+    {
+      "source_id": "opengameart_long_male",
+      "representation_type": "hair_cards",
+      "suitability_score": 0.58,
+      "do_not_copy_shape_directly": true
+    }
+  ],
+  "next_goal_recommendation": "Apply these priors to a schema/planner pass only: update hair design parameters or target notes, do not generate YUNA hair or proceed to cloth until manual review accepts the current hair route."
+}

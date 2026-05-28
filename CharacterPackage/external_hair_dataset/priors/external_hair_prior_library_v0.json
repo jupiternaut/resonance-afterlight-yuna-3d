@@ -1,0 +1,531 @@
+{
+  "library_version": "external_hair_prior_library_v0.1",
+  "generated_at": "2026-05-28T17:13:57+08:00",
+  "source_probe_report": "CharacterPackage/external_hair_dataset/probes/external_hair_intake_probe_v0_report.json",
+  "status": "prior_library_generated",
+  "external_asset_usage": "prior_only",
+  "replace_in_beauty_glb": false,
+  "generated_yuna_hair": false,
+  "cloth_seam_surface_blocked": true,
+  "direct_copy_allowed": false,
+  "sources": [
+    {
+      "source_id": "opengameart_ponytail_female",
+      "source_name": "OpenGameArt Ponytail hair style for female model",
+      "source_url": "https://opengameart.org/content/ponytail-hair-style-for-female-model",
+      "representation_type": "hair_cards",
+      "style_label": "pony_tail_back_mass",
+      "source_probe_paths": {
+        "front": "CharacterPackage/external_hair_dataset/probes/opengameart_ponytail_female/front.png",
+        "yaw30": "CharacterPackage/external_hair_dataset/probes/opengameart_ponytail_female/yaw30.png",
+        "side": "CharacterPackage/external_hair_dataset/probes/opengameart_ponytail_female/side.png",
+        "wire": "CharacterPackage/external_hair_dataset/probes/opengameart_ponytail_female/wire.png",
+        "alpha": "CharacterPackage/external_hair_dataset/probes/opengameart_ponytail_female/alpha.png",
+        "report": "CharacterPackage/external_hair_dataset/probes/opengameart_ponytail_female/hair_reference_prior_report.json"
+      },
+      "image_metrics": {
+        "front": {
+          "pixel_bbox": [
+            123,
+            38,
+            261,
+            344
+          ],
+          "normalized_bbox": [
+            0.320312,
+            0.098958,
+            0.679688,
+            0.895833
+          ],
+          "bbox_width_ratio": 0.359375,
+          "bbox_height_ratio": 0.796875,
+          "area_ratio": 0.14173
+        },
+        "yaw30": {
+          "pixel_bbox": [
+            97,
+            38,
+            259,
+            344
+          ],
+          "normalized_bbox": [
+            0.252604,
+            0.098958,
+            0.674479,
+            0.895833
+          ],
+          "bbox_width_ratio": 0.421875,
+          "bbox_height_ratio": 0.796875,
+          "area_ratio": 0.157355
+        },
+        "side": {
+          "pixel_bbox": [
+            89,
+            37,
+            295,
+            346
+          ],
+          "normalized_bbox": [
+            0.231771,
+            0.096354,
+            0.768229,
+            0.901042
+          ],
+          "bbox_width_ratio": 0.536458,
+          "bbox_height_ratio": 0.804688,
+          "area_ratio": 0.178989
+        },
+        "wire": {
+          "pixel_bbox": [
+            117,
+            33,
+            291,
+            349
+          ],
+          "normalized_bbox": [
+            0.304688,
+            0.085938,
+            0.757812,
+            0.908854
+          ],
+          "bbox_width_ratio": 0.453125,
+          "bbox_height_ratio": 0.822917,
+          "area_ratio": 0.170885
+        },
+        "yaw_to_front_width_ratio": 1.173913,
+        "side_to_front_width_ratio": 1.492753,
+        "front_vertical_mass_bands": [
+          {
+            "band": 0,
+            "mass_ratio": 0.394708
+          },
+          {
+            "band": 1,
+            "mass_ratio": 0.361166
+          },
+          {
+            "band": 2,
+            "mass_ratio": 0.153739
+          },
+          {
+            "band": 3,
+            "mass_ratio": 0.090387
+          }
+        ]
+      },
+      "scalp_anchor_hints": [
+        {
+          "anchor": "scalp_crown",
+          "confidence": "medium",
+          "reason": "Front silhouette has compact crown mass and long descending tail."
+        },
+        {
+          "anchor": "scalp_back_center",
+          "confidence": "medium",
+          "reason": "Side/yaw spread indicates rear-bundle depth useful for back_hair_mass priors."
+        }
+      ],
+      "primary_curve_hints": [
+        {
+          "curve_family": "crown_to_low_back_vertical_bundle",
+          "semantic_group": "back_hair_mass",
+          "direction": "downward",
+          "copy_source_curve": false,
+          "use_as": "abstract flow and bundle-count prior only"
+        }
+      ],
+      "width_profile_hints": {
+        "samples_top_to_tip": [
+          {
+            "t": 0.0,
+            "width_ratio": 0.043478
+          },
+          {
+            "t": 0.167,
+            "width_ratio": 0.949275
+          },
+          {
+            "t": 0.333,
+            "width_ratio": 0.905797
+          },
+          {
+            "t": 0.5,
+            "width_ratio": 0.5
+          },
+          {
+            "t": 0.667,
+            "width_ratio": 0.550725
+          },
+          {
+            "t": 0.833,
+            "width_ratio": 0.202899
+          },
+          {
+            "t": 1.0,
+            "width_ratio": 0.072464
+          }
+        ],
+        "recommended_use": "relative_width_profile_only",
+        "do_not_use_as_exact_yuna_widths": true
+      },
+      "taper_profile_hints": {
+        "family": "mixed_or_fragmented_taper",
+        "root_width_ratio": 0.043478,
+        "mid_width_ratio": 0.5,
+        "tip_width_ratio": 0.072464,
+        "recommended_use": "choose taper family and avoid sparse needle fragments"
+      },
+      "depth_group_hints": {
+        "suggested_depth_groups": [
+          "front_or_crown_mass",
+          "mid_side_or_tail",
+          "rear_support_mass"
+        ],
+        "side_to_front_width_ratio": 1.492753,
+        "yaw_to_front_width_ratio": 1.173913,
+        "side_back_are_soft_constraints": true
+      },
+      "silhouette_mass_hints": {
+        "front_area_ratio": 0.14173,
+        "front_bbox_height_ratio": 0.796875,
+        "front_bbox_width_ratio": 0.359375,
+        "vertical_mass_bands": [
+          {
+            "band": 0,
+            "mass_ratio": 0.394708
+          },
+          {
+            "band": 1,
+            "mass_ratio": 0.361166
+          },
+          {
+            "band": 2,
+            "mass_ratio": 0.153739
+          },
+          {
+            "band": 3,
+            "mass_ratio": 0.090387
+          }
+        ],
+        "recommended_use": "mass distribution and underfill/overfill guard only"
+      },
+      "card_topology_hints": {
+        "mesh_vertices": 367,
+        "mesh_faces": 345,
+        "has_alpha_material": true,
+        "card_density_hint": 0.243421,
+        "topology_use": "infer card density and broad sheet risk; do not copy vertices/faces"
+      },
+      "suitability_for_yuna": {
+        "score": 0.72,
+        "useful_for": [
+          "back_hair_mass",
+          "scalp_crown_anchor",
+          "long_bundle_depth"
+        ],
+        "not_useful_for": [
+          "bangs_primary",
+          "side_hair_left_right_full_style"
+        ],
+        "review_note": "Useful as a back-mass and ponytail/bundle prior, not as a direct YUNA silhouette."
+      },
+      "direct_copy_allowed": false,
+      "do_not_copy_shape_directly": true,
+      "contains_external_geometry": false,
+      "contains_external_texture": false,
+      "allowed_downstream_use": [
+        "hair_design_schema_prior_notes",
+        "curve_bundle_parameter_hints",
+        "negative_fixture_reasoning"
+      ],
+      "forbidden_downstream_use": [
+        "direct_yuna_geometry_import",
+        "direct_texture_transfer",
+        "v8_beauty_replacement",
+        "cloth_unblock_signal"
+      ]
+    },
+    {
+      "source_id": "opengameart_long_male",
+      "source_name": "OpenGameArt Long hairstyle for male model",
+      "source_url": "https://opengameart.org/content/long-hairstyle-for-male-model",
+      "representation_type": "hair_cards",
+      "style_label": "long_flat_curtain_sheet",
+      "source_probe_paths": {
+        "front": "CharacterPackage/external_hair_dataset/probes/opengameart_long_male/front.png",
+        "yaw30": "CharacterPackage/external_hair_dataset/probes/opengameart_long_male/yaw30.png",
+        "side": "CharacterPackage/external_hair_dataset/probes/opengameart_long_male/side.png",
+        "wire": "CharacterPackage/external_hair_dataset/probes/opengameart_long_male/wire.png",
+        "alpha": "CharacterPackage/external_hair_dataset/probes/opengameart_long_male/alpha.png",
+        "report": "CharacterPackage/external_hair_dataset/probes/opengameart_long_male/hair_reference_prior_report.json"
+      },
+      "image_metrics": {
+        "front": {
+          "pixel_bbox": [
+            80,
+            38,
+            304,
+            348
+          ],
+          "normalized_bbox": [
+            0.208333,
+            0.098958,
+            0.791667,
+            0.90625
+          ],
+          "bbox_width_ratio": 0.583333,
+          "bbox_height_ratio": 0.807292,
+          "area_ratio": 0.265557
+        },
+        "yaw30": {
+          "pixel_bbox": [
+            87,
+            38,
+            319,
+            350
+          ],
+          "normalized_bbox": [
+            0.226562,
+            0.098958,
+            0.830729,
+            0.911458
+          ],
+          "bbox_width_ratio": 0.604167,
+          "bbox_height_ratio": 0.8125,
+          "area_ratio": 0.279338
+        },
+        "side": {
+          "pixel_bbox": [
+            70,
+            37,
+            314,
+            349
+          ],
+          "normalized_bbox": [
+            0.182292,
+            0.096354,
+            0.817708,
+            0.908854
+          ],
+          "bbox_width_ratio": 0.635417,
+          "bbox_height_ratio": 0.8125,
+          "area_ratio": 0.293681
+        },
+        "wire": {
+          "pixel_bbox": [
+            79,
+            37,
+            305,
+            349
+          ],
+          "normalized_bbox": [
+            0.205729,
+            0.096354,
+            0.794271,
+            0.908854
+          ],
+          "bbox_width_ratio": 0.588542,
+          "bbox_height_ratio": 0.8125,
+          "area_ratio": 0.126227
+        },
+        "yaw_to_front_width_ratio": 1.035715,
+        "side_to_front_width_ratio": 1.089287,
+        "front_vertical_mass_bands": [
+          {
+            "band": 0,
+            "mass_ratio": 0.239364
+          },
+          {
+            "band": 1,
+            "mass_ratio": 0.284054
+          },
+          {
+            "band": 2,
+            "mass_ratio": 0.313703
+          },
+          {
+            "band": 3,
+            "mass_ratio": 0.162879
+          }
+        ]
+      },
+      "scalp_anchor_hints": [
+        {
+          "anchor": "scalp_crown",
+          "confidence": "medium",
+          "reason": "Broad top mass implies crown-to-curtain hair sheet organization."
+        },
+        {
+          "anchor": "scalp_left_temple_and_right_temple",
+          "confidence": "low-medium",
+          "reason": "Front silhouette contains symmetrical side curtains that can inform side-lock coverage."
+        }
+      ],
+      "primary_curve_hints": [
+        {
+          "curve_family": "crown_to_shoulder_curtain_sheet",
+          "semantic_group": "side_hair_left_right",
+          "direction": "downward_side_fall",
+          "copy_source_curve": false,
+          "use_as": "broad curtain mass prior only"
+        }
+      ],
+      "width_profile_hints": {
+        "samples_top_to_tip": [
+          {
+            "t": 0.0,
+            "width_ratio": 0.102679
+          },
+          {
+            "t": 0.167,
+            "width_ratio": 0.651786
+          },
+          {
+            "t": 0.333,
+            "width_ratio": 0.647321
+          },
+          {
+            "t": 0.5,
+            "width_ratio": 0.647321
+          },
+          {
+            "t": 0.667,
+            "width_ratio": 0.741071
+          },
+          {
+            "t": 0.833,
+            "width_ratio": 0.995536
+          },
+          {
+            "t": 1.0,
+            "width_ratio": 0.008929
+          }
+        ],
+        "recommended_use": "relative_width_profile_only",
+        "do_not_use_as_exact_yuna_widths": true
+      },
+      "taper_profile_hints": {
+        "family": "stable_root_full_mid_tapered_tip",
+        "root_width_ratio": 0.102679,
+        "mid_width_ratio": 0.647321,
+        "tip_width_ratio": 0.008929,
+        "recommended_use": "choose taper family and avoid sparse needle fragments"
+      },
+      "depth_group_hints": {
+        "suggested_depth_groups": [
+          "front_or_crown_mass",
+          "mid_side_or_tail",
+          "rear_support_mass"
+        ],
+        "side_to_front_width_ratio": 1.089287,
+        "yaw_to_front_width_ratio": 1.035715,
+        "side_back_are_soft_constraints": true
+      },
+      "silhouette_mass_hints": {
+        "front_area_ratio": 0.265557,
+        "front_bbox_height_ratio": 0.807292,
+        "front_bbox_width_ratio": 0.583333,
+        "vertical_mass_bands": [
+          {
+            "band": 0,
+            "mass_ratio": 0.239364
+          },
+          {
+            "band": 1,
+            "mass_ratio": 0.284054
+          },
+          {
+            "band": 2,
+            "mass_ratio": 0.313703
+          },
+          {
+            "band": 3,
+            "mass_ratio": 0.162879
+          }
+        ],
+        "recommended_use": "mass distribution and underfill/overfill guard only"
+      },
+      "card_topology_hints": {
+        "mesh_vertices": 136,
+        "mesh_faces": 154,
+        "has_alpha_material": true,
+        "card_density_hint": 0.057991,
+        "topology_use": "infer card density and broad sheet risk; do not copy vertices/faces"
+      },
+      "suitability_for_yuna": {
+        "score": 0.58,
+        "useful_for": [
+          "side_hair_mass",
+          "soft_silhouette_fill",
+          "sheet_width_negative_guard"
+        ],
+        "not_useful_for": [
+          "sci_fi_asymmetry",
+          "cyan_accent_strands",
+          "bangs_detail"
+        ],
+        "review_note": "Useful for avoiding underfilled side hair, but unsafe if it becomes a flat wall."
+      },
+      "direct_copy_allowed": false,
+      "do_not_copy_shape_directly": true,
+      "contains_external_geometry": false,
+      "contains_external_texture": false,
+      "allowed_downstream_use": [
+        "hair_design_schema_prior_notes",
+        "curve_bundle_parameter_hints",
+        "negative_fixture_reasoning"
+      ],
+      "forbidden_downstream_use": [
+        "direct_yuna_geometry_import",
+        "direct_texture_transfer",
+        "v8_beauty_replacement",
+        "cloth_unblock_signal"
+      ]
+    }
+  ],
+  "combined_prior_summary": {
+    "useful_prior_patterns": [
+      "Use compact crown/back anchors from ponytail-like sources to strengthen back_hair_mass continuity.",
+      "Use broad curtain-sheet references to prevent side hair underfill, but keep forbidden nonhair zones strict.",
+      "Sample width/taper families as ratios, not copied card outlines.",
+      "Use yaw30/side spread ratios as soft depth-group hints, never locked side/back truth."
+    ],
+    "unsafe_or_style_mismatched_patterns": [
+      "Do not copy the full ponytail or long flat curtain silhouette into YUNA.",
+      "Do not convert broad sheet references into a flat hair wall.",
+      "Do not treat low-poly source card topology as production-ready YUNA topology.",
+      "Do not use external renders to override YUNA front identity or target-schema gates."
+    ],
+    "recommended_yuna_curve_bundle_hints": [
+      {
+        "bundle_id": "back_mass_crown_to_low_tail",
+        "informed_by": [
+          "opengameart_ponytail_female"
+        ],
+        "anchors": [
+          "scalp_crown",
+          "scalp_back_center"
+        ],
+        "intended_yuna_group": "back_hair_mass",
+        "parameter_hint": "2-4 fuller downward mass ribbons plus secondary tapered strands"
+      },
+      {
+        "bundle_id": "side_curtain_left_right_fill",
+        "informed_by": [
+          "opengameart_long_male"
+        ],
+        "anchors": [
+          "scalp_left_temple",
+          "scalp_right_temple",
+          "scalp_crown"
+        ],
+        "intended_yuna_group": "side_hair_left_right",
+        "parameter_hint": "medium-width side fall curves with stronger taper and anti-wall clipping"
+      }
+    ],
+    "next_goal_recommendation": "Apply these priors to a schema/planner pass only: update hair design parameters or target notes, do not generate YUNA hair or proceed to cloth until manual review accepts the current hair route.",
+    "source_count": 2,
+    "direct_copy_allowed": false,
+    "ready_for_cloth_seam_surface": false
+  }
+}
