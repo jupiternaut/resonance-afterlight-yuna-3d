@@ -436,3 +436,17 @@ Acceptance:
 - No body/cloth residue in the weapon texture.
 - Subparts are independently named.
 - GLB roundtrip preserves material slots and socket metadata.
+
+## Hair Silhouette Mass v1
+
+- Route: `hair_silhouette_mass_v1`
+- Status: `failed_silhouette_mass_readability`
+- `replace_in_beauty_glb=false`
+- `ready_for_cloth_seam_surface=false`
+- `primary_mass_coverage_ratio=0.725044`
+- `forbidden_candidate_leak_ratio=0.037104`
+- `candidate_front_hair_readability=False`
+- `yaw30_hair_readability=True`
+- `side_hair_volume_present=True`
+- Boundary: candidate review asset only; not accepted as production hair.
+
