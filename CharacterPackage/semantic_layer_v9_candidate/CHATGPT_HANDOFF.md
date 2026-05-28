@@ -1,7 +1,7 @@
 COPY_TO_CHATGPT_HANDOFF
 项目：jupiternaut/resonance-afterlight-yuna-3d
 分支：feature/authored-hair-ribbons-v0
-提交：待本次提交 hash
+提交：09d5159（本轮资产提交；最终 HEAD 以 GitHub/git log 为准）
 本轮目标：生成 `hair_silhouette_mass_v1`，用主发块优先路线解决 art_directed_v1 candidate-only 稀疏问题。
 本轮结论：`failed_silhouette_mass_readability`；仍需人工视觉复核，不应推进 `cloth_seam_surface`。
 核心状态：
