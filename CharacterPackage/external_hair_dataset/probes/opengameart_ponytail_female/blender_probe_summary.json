@@ -1,0 +1,24 @@
+{
+  "object_count": 1,
+  "mesh_object_count": 1,
+  "curve_object_count": 0,
+  "particle_system_count": 0,
+  "mesh_vertices": 367,
+  "mesh_faces": 345,
+  "has_alpha_material": true,
+  "classification": "hair_cards",
+  "classification_confidence": "medium",
+  "bounds": {
+    "min": [
+      -10.644832611083984,
+      -16.934600830078125,
+      -6.693763256072998
+    ],
+    "max": [
+      11.179964065551758,
+      15.55687141418457,
+      42.4257926940918
+    ],
+    "span": 49.119555950164795
+  }
+}

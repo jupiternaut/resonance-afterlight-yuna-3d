@@ -81,10 +81,11 @@ source/prior scaffold for later generator improvements.
 Allowed follow-up only after the manual hair review state is explicit:
 
 ```text
-/goal Run external_hair_intake_probe_v0 for one or two selected open-template
-sources. Keep downloads quarantine-only, capture license snapshots, produce
-skipped_with_reason for missing Blender/import/render gates, keep v8 unchanged,
-and do not use external assets as replacement YUNA geometry.
+/goal Review external_hair_intake_probe_v0 outputs and, if useful, extract
+abstract priors only from the probe reports: scalp anchor hints, silhouette mass
+statistics, curve/width/taper hypotheses, and negative examples. Keep v8
+unchanged, do not commit source binaries, do not generate YUNA hair, and do not
+proceed to cloth.
 ```
 
 Still invalid:

@@ -1,0 +1,36 @@
+{
+  "report_version": "external_hair_intake_probe_v0_report_v0.1",
+  "generated_at": "2026-05-28T16:45:50+08:00",
+  "status": "probe_generated",
+  "dataset_id": "external_hair_dataset_pilot_v0",
+  "selected_source_ids": [
+    "opengameart_ponytail_female",
+    "opengameart_long_male"
+  ],
+  "selection_count": 2,
+  "successful_probe_count": 2,
+  "blocked_count": 0,
+  "source_reports": [
+    {
+      "source_id": "opengameart_ponytail_female",
+      "status": "probe_generated",
+      "representation_classification": "hair_cards",
+      "report_path": "CharacterPackage/external_hair_dataset/probes/opengameart_ponytail_female/hair_reference_prior_report.json"
+    },
+    {
+      "source_id": "opengameart_long_male",
+      "status": "probe_generated",
+      "representation_classification": "hair_cards",
+      "report_path": "CharacterPackage/external_hair_dataset/probes/opengameart_long_male/hair_reference_prior_report.json"
+    }
+  ],
+  "blocked_sources": [],
+  "guards": {
+    "v8_immutable": true,
+    "replace_in_beauty_glb": false,
+    "external_asset_usage": "prior_only",
+    "third_party_binary_committed": false,
+    "generated_yuna_hair": false,
+    "ready_for_cloth_seam_surface": false
+  }
+}

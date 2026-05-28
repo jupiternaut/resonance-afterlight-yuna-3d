@@ -30,9 +30,6 @@ FORBIDDEN_BINARY_EXTENSIONS = {
     ".zip",
     ".rar",
     ".7z",
-    ".png",
-    ".jpg",
-    ".jpeg",
     ".tif",
     ".tiff",
     ".exr",
@@ -98,7 +95,7 @@ class ExternalHairDatasetPilotTests(unittest.TestCase):
         for source in open_sources:
             self.assertIn(source["license_confidence"], {"high", "medium-high"})
 
-    def test_no_external_binary_payloads_are_present(self) -> None:
+    def test_no_external_source_binary_payloads_are_present(self) -> None:
         offenders = [
             path
             for path in DATASET_DIR.rglob("*")

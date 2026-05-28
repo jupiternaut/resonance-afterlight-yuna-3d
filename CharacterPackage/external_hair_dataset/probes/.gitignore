@@ -1,0 +1,10 @@
+# Do not commit raw third-party source payloads from intake probes.
+*.blend
+*.fbx
+*.glb
+*.gltf
+*.obj
+*.zip
+*.rar
+*.7z
+__source_downloads__/

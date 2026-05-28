@@ -40,6 +40,18 @@
       "v8 diff guard"
     ]
   },
+  "latest_probe": {
+    "task": "external_hair_intake_probe_v0",
+    "status": "probe_generated",
+    "selected_source_ids": [
+      "opengameart_ponytail_female",
+      "opengameart_long_male"
+    ],
+    "report_path": "CharacterPackage/external_hair_dataset/probes/external_hair_intake_probe_v0_report.json",
+    "source_binary_committed": false,
+    "generated_yuna_hair": false,
+    "ready_for_cloth_seam_surface": false
+  },
   "blocked_behavior": [
     "Do not proceed to cloth_seam_surface.",
     "Do not replace v8 beauty.",
@@ -48,7 +60,7 @@
     "Do not use external sources as YUNA geometry without a separate prior extraction and manual review goal."
   ],
   "validation_commands": {
-    "unittest": "passed: python3 -m unittest discover -s CharacterPackage/tools/tests -p 'test_*.py' -v (73 tests)",
+    "unittest": "passed: python3 -m unittest discover -s CharacterPackage/tools/tests -p 'test_*.py' -v (79 tests)",
     "compileall": "passed: python3 -m compileall CharacterPackage/tools",
     "v8_diff": "passed_empty: git diff --name-only -- CharacterPackage/semantic_layer_v8"
   }

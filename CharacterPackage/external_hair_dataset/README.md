@@ -24,7 +24,22 @@ party asset as YUNA geometry.
 - `assets_manifest.json`: machine-readable source manifest.
 - `external_hair_dataset_pilot_v0_report.json`: pilot summary and validation
   status.
+- `probes/`: minimal intake probes for selected sources. Probe reports and
+  renders are prior/reference evidence only; raw third-party source binaries are
+  not committed.
 - `subagent_reports/`: parallel research reports used as input.
+
+## Current Probe
+
+`external_hair_intake_probe_v0` selected two high-confidence `open_template_source`
+entries:
+
+- `opengameart_ponytail_female`
+- `opengameart_long_male`
+
+Both were downloaded to temporary files only, rendered through Blender, and
+recorded under `probes/<asset_id>/`. The committed artifacts are generated
+probe renders and JSON reports, not source `.blend` payloads.
 
 ## Intake Policy
 

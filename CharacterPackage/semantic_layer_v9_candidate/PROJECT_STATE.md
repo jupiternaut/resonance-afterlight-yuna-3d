@@ -230,3 +230,35 @@ YUNA hair. The next valid external-data task is a narrow intake probe for one or
 two selected open-template sources, with license snapshots, quarantine-only
 downloads, and explicit skipped reports when Blender/import/render gates are not
 available.
+
+## External Hair Intake Probe v0
+
+- Route: `external_hair_intake_probe_v0`
+- Status: `probe_generated`
+- Selected sources:
+  - `opengameart_ponytail_female`
+  - `opengameart_long_male`
+- Probe outputs:
+  - `CharacterPackage/external_hair_dataset/probes/external_hair_intake_probe_v0_report.json`
+  - `CharacterPackage/external_hair_dataset/probes/opengameart_ponytail_female/front.png`
+  - `CharacterPackage/external_hair_dataset/probes/opengameart_ponytail_female/yaw30.png`
+  - `CharacterPackage/external_hair_dataset/probes/opengameart_ponytail_female/side.png`
+  - `CharacterPackage/external_hair_dataset/probes/opengameart_ponytail_female/wire.png`
+  - `CharacterPackage/external_hair_dataset/probes/opengameart_ponytail_female/alpha.png`
+  - `CharacterPackage/external_hair_dataset/probes/opengameart_ponytail_female/hair_reference_prior_report.json`
+  - `CharacterPackage/external_hair_dataset/probes/opengameart_long_male/front.png`
+  - `CharacterPackage/external_hair_dataset/probes/opengameart_long_male/yaw30.png`
+  - `CharacterPackage/external_hair_dataset/probes/opengameart_long_male/side.png`
+  - `CharacterPackage/external_hair_dataset/probes/opengameart_long_male/wire.png`
+  - `CharacterPackage/external_hair_dataset/probes/opengameart_long_male/alpha.png`
+  - `CharacterPackage/external_hair_dataset/probes/opengameart_long_male/hair_reference_prior_report.json`
+- Boundary:
+  - source `.blend` files were downloaded to temporary files only;
+  - no third-party source binary was committed;
+  - probe renders/reports are reference-prior evidence only;
+  - no YUNA hair was generated;
+  - `replace_in_beauty_glb=false`;
+  - `cloth_seam_surface` remains blocked.
+
+The probe is useful evidence for external prior extraction. It is not an
+acceptance decision for any YUNA hair candidate.

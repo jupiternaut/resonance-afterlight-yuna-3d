@@ -1,0 +1,100 @@
+{
+  "report_version": "hair_reference_prior_report_v0.1",
+  "generated_at": "2026-05-28T16:45:44+08:00",
+  "source_id": "opengameart_ponytail_female",
+  "source_name": "OpenGameArt Ponytail hair style for female model",
+  "source_url": "https://opengameart.org/content/ponytail-hair-style-for-female-model",
+  "source_file_url": "https://opengameart.org/sites/default/files/female_hair_ponytail2.blend",
+  "status": "probe_generated",
+  "selection": {
+    "source_id": "opengameart_ponytail_female",
+    "source_name": "OpenGameArt Ponytail hair style for female model",
+    "source_url": "https://opengameart.org/content/ponytail-hair-style-for-female-model",
+    "why_selected": "Selected from manifest/SOURCE_TRIAGE because it is a high-confidence open_template_source, small enough for a minimal probe, and useful for YUNA hair priors.",
+    "intended_usage_role": "Ponytail/scalp anchor and low-poly clump prior.",
+    "binary_download_allowed": true,
+    "binary_download_policy": "yes_after_license_snapshot",
+    "renders_can_be_committed": true,
+    "renders_policy": "yes",
+    "curve_template_extraction_allowed": true,
+    "curve_template_policy": "yes_from_mesh_centerlines",
+    "recommendation": "open_template_source",
+    "license_confidence": "high",
+    "source_file_url": "https://opengameart.org/sites/default/files/female_hair_ponytail2.blend"
+  },
+  "download": {
+    "status": "downloaded_to_temporary_file_only",
+    "source_binary_committed": false,
+    "url": "https://opengameart.org/sites/default/files/female_hair_ponytail2.blend",
+    "sha256": "fe75fbed7f08ab70d8d24f075863579cd1dfd0c32d2a5af294b98328d08db2e9",
+    "size_bytes": 470840,
+    "response": {
+      "content_length": 470840,
+      "content_type": "application/octet-stream",
+      "final_url": "https://opengameart.org/sites/default/files/female_hair_ponytail2.blend"
+    }
+  },
+  "representation_classification": "hair_cards",
+  "classification_confidence": "medium",
+  "probe_outputs": {
+    "front": "front.png",
+    "yaw30": "yaw30.png",
+    "side": "side.png",
+    "wire": "wire.png",
+    "alpha": "alpha.png"
+  },
+  "prior_only": true,
+  "replace_in_beauty_glb": false,
+  "ready_for_yuna_replacement": false,
+  "ready_for_cloth_seam_surface": false,
+  "third_party_binary_committed": false,
+  "source_binary_committed": false,
+  "derived_prior_candidates": {
+    "scalp_anchors": "candidate_from_bounds_and_centerlines_only_after_manual_review",
+    "primary_curves": "candidate_from_rendered silhouette and mesh centerlines, not copied geometry",
+    "width_profiles": "candidate_from normalized mesh/card span statistics",
+    "taper_profiles": "pending_curve_or_mesh_analysis",
+    "depth_groups": "candidate_from yaw30/side visual layers",
+    "negative_examples": "use if source fails hair readability or import quality"
+  },
+  "blender_probe": {
+    "status": "rendered",
+    "skipped_with_reason": null,
+    "outputs": {
+      "front.png": "front.png",
+      "yaw30.png": "yaw30.png",
+      "side.png": "side.png",
+      "wire.png": "wire.png",
+      "alpha.png": "alpha.png"
+    },
+    "blender_summary": {
+      "object_count": 1,
+      "mesh_object_count": 1,
+      "curve_object_count": 0,
+      "particle_system_count": 0,
+      "mesh_vertices": 367,
+      "mesh_faces": 345,
+      "has_alpha_material": true,
+      "classification": "hair_cards",
+      "classification_confidence": "medium",
+      "bounds": {
+        "min": [
+          -10.644832611083984,
+          -16.934600830078125,
+          -6.693763256072998
+        ],
+        "max": [
+          11.179964065551758,
+          15.55687141418457,
+          42.4257926940918
+        ],
+        "span": 49.119555950164795
+      }
+    }
+  },
+  "limitations": [
+    "This report is a reference-prior probe only.",
+    "No source geometry or texture is imported into YUNA.",
+    "No candidate is accepted without manual visual review."
+  ]
+}

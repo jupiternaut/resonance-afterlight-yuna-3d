@@ -1,0 +1,8 @@
+source_id: opengameart_ponytail_female
+source_name: OpenGameArt Ponytail hair style for female model
+source_url: https://opengameart.org/content/ponytail-hair-style-for-female-model
+source_file_url: https://opengameart.org/sites/default/files/female_hair_ponytail2.blend
+claimed_license: CC0
+license_confidence: high
+recommendation: open_template_source
+snapshot_note: This text snapshot records manifest/source-triage evidence only; it is not legal advice.
