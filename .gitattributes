@@ -1,0 +1,4 @@
+CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/source/*.glb filter=lfs diff=lfs merge=lfs -text
+CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/extracted/*.glb filter=lfs diff=lfs merge=lfs -text
+CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/extracted/*.blend filter=lfs diff=lfs merge=lfs -text
+CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/extracted/*.obj filter=lfs diff=lfs merge=lfs -text

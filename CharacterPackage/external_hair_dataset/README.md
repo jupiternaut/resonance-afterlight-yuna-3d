@@ -1,8 +1,11 @@
 # External Hair Dataset Pilot v0
 
-This directory is a metadata-only pilot for external hair references that may
-inform YUNA hair priors. It does not import, download, or approve any third
-party asset as YUNA geometry.
+This directory started as a metadata-only pilot for external hair references
+that may inform YUNA hair priors. It now also contains a user-approved
+Sketchfab local-study intake under `sketchfab_gorgeous_japanese_fight/`.
+
+Downloaded or derived third-party assets remain `prior_only`. They do not
+replace YUNA geometry.
 
 ## Boundary
 
@@ -11,7 +14,9 @@ party asset as YUNA geometry.
 - External sources are `prior_only`: scalp anchors, curve families, width and
   taper profiles, depth grouping, topology patterns, silhouette mass, and
   negative examples.
-- No external binary payloads are committed in this pilot.
+- External binary payloads are committed only when explicitly requested by the
+  user, license/provenance is recorded, and the files remain reference/prior
+  assets.
 - No source is accepted as production hair, replacement hair, or direct texture
   transfer.
 - `cloth_seam_surface` remains blocked while the hair route is unresolved or
@@ -28,6 +33,8 @@ party asset as YUNA geometry.
   renders are prior/reference evidence only; raw third-party source binaries are
   not committed.
 - `subagent_reports/`: parallel research reports used as input.
+- `sketchfab_gorgeous_japanese_fight/`: user-approved CC BY 4.0 local-study
+  intake with original GLB, extracted pink-hair probe, screenshots, and reports.
 
 ## Current Probe
 
@@ -63,8 +70,9 @@ python3 -m compileall CharacterPackage/tools
 git diff --name-only -- CharacterPackage/semantic_layer_v8
 ```
 
-This pilot is successful only if it stays metadata-only, keeps v8 unchanged, and
-keeps cloth blocked.
+This dataset is successful only if it keeps external assets prior-only, keeps v8
+unchanged, and keeps cloth blocked until the hair route passes visual/manual
+review.
 
 <!-- source_expansion_v1:start -->
 ## Source Expansion v1

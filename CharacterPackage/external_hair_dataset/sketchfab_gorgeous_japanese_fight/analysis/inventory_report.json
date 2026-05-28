@@ -1,0 +1,242 @@
+{
+  "source_glb": "/Users/gengrf/Downloads/yuna_external_hair_sources/sketchfab_gorgeous_japanese_fight/gorgeous_japanese_fight.glb",
+  "analysis_route": "sketchfab_gorgeous_japanese_fight_hair_prior_intake_v0",
+  "scene": {
+    "mesh_object_count": 5,
+    "material_count": 3,
+    "total_vertices": 317744,
+    "total_polygons": 496472,
+    "bbox_min": [
+      -0.49370700120925903,
+      -0.22573921084403992,
+      -2.403828247565798e-08
+    ],
+    "bbox_max": [
+      0.48220399022102356,
+      0.2152920365333557,
+      1.036285400390625
+    ],
+    "dimensions": [
+      0.975911021232605,
+      0.44103124737739563,
+      1.036285400390625
+    ]
+  },
+  "hair_candidate_detection": {
+    "name_based_candidates": [],
+    "name_based_candidate_count": 0,
+    "separability_verdict": "unknown_pending_visual_review"
+  },
+  "objects": [
+    {
+      "name": "Object_7",
+      "mesh_name": "Object_3",
+      "vertex_count": 65532,
+      "polygon_count": 107609,
+      "material_names": [
+        "Material.001"
+      ],
+      "dimensions": [
+        0.975911021232605,
+        1.0275713205337524,
+        0.43916815519332886
+      ],
+      "bbox_min": [
+        -0.49370700120925903,
+        -0.22573921084403992,
+        1.9969676941400394e-05
+      ],
+      "bbox_max": [
+        0.48220399022102356,
+        0.21342907845973969,
+        1.027591347694397
+      ],
+      "hair_name_candidate": false
+    },
+    {
+      "name": "Object_6",
+      "mesh_name": "Object_2",
+      "vertex_count": 65532,
+      "polygon_count": 107557,
+      "material_names": [
+        "Material.001"
+      ],
+      "dimensions": [
+        0.8069000244140625,
+        1.036285400390625,
+        0.37477612495422363
+      ],
+      "bbox_min": [
+        -0.32469600439071655,
+        -0.17891119420528412,
+        -2.403828247565798e-08
+      ],
+      "bbox_max": [
+        0.48220399022102356,
+        0.19586507976055145,
+        1.036285400390625
+      ],
+      "hair_name_candidate": false
+    },
+    {
+      "name": "Object_4",
+      "mesh_name": "Object_0",
+      "vertex_count": 65532,
+      "polygon_count": 101001,
+      "material_names": [
+        "Material.001"
+      ],
+      "dimensions": [
+        0.3417559862136841,
+        0.6763142347335815,
+        0.3844481408596039
+      ],
+      "bbox_min": [
+        -0.11459700018167496,
+        -0.22009120881557465,
+        0.35886210203170776
+      ],
+      "bbox_max": [
+        0.22715899348258972,
+        0.1643570214509964,
+        1.035176396369934
+      ],
+      "hair_name_candidate": false
+    },
+    {
+      "name": "Object_5",
+      "mesh_name": "Object_1",
+      "vertex_count": 65532,
+      "polygon_count": 94355,
+      "material_names": [
+        "Material.001"
+      ],
+      "dimensions": [
+        0.39716100692749023,
+        0.6800183057785034,
+        0.4339551627635956
+      ],
+      "bbox_min": [
+        -0.1702059954404831,
+        -0.21866321563720703,
+        0.3553480803966522
+      ],
+      "bbox_max": [
+        0.22695499658584595,
+        0.2152920365333557,
+        1.035366415977478
+      ],
+      "hair_name_candidate": false
+    },
+    {
+      "name": "Object_8",
+      "mesh_name": "Object_4",
+      "vertex_count": 55616,
+      "polygon_count": 85950,
+      "material_names": [
+        "Material.001"
+      ],
+      "dimensions": [
+        0.47334498167037964,
+        0.7179072499275208,
+        0.40195515751838684
+      ],
+      "bbox_min": [
+        -0.24479100108146667,
+        -0.2251991629600525,
+        0.00011796978651545942
+      ],
+      "bbox_max": [
+        0.22855399549007416,
+        0.17675605416297913,
+        0.718025267124176
+      ],
+      "hair_name_candidate": false
+    }
+  ],
+  "materials": [
+    {
+      "name": "Dots Stroke",
+      "use_nodes": true,
+      "blend_method": "HASHED",
+      "surface_render_method": "DITHERED",
+      "alpha": 1.0,
+      "base_color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "textures": []
+    },
+    {
+      "name": "Material",
+      "use_nodes": true,
+      "blend_method": "HASHED",
+      "surface_render_method": "DITHERED",
+      "alpha": 1.0,
+      "base_color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "textures": []
+    },
+    {
+      "name": "Material.001",
+      "use_nodes": true,
+      "blend_method": "HASHED",
+      "surface_render_method": "DITHERED",
+      "alpha": 1.0,
+      "base_color": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "textures": [
+        {
+          "node": "Image Texture",
+          "image_name": "Image_0",
+          "filepath": "",
+          "size": [
+            4096,
+            4096
+          ],
+          "has_data": true
+        },
+        {
+          "node": "Image Texture.001",
+          "image_name": "Image_2",
+          "filepath": "",
+          "size": [
+            4096,
+            4096
+          ],
+          "has_data": true
+        },
+        {
+          "node": "Image Texture.002",
+          "image_name": "Image_1",
+          "filepath": "",
+          "size": [
+            4096,
+            4096
+          ],
+          "has_data": true
+        },
+        {
+          "node": "Image Texture.003",
+          "image_name": "Image_1.001",
+          "filepath": "",
+          "size": [
+            4096,
+            4096
+          ],
+          "has_data": true
+        }
+      ]
+    }
+  ]
+}

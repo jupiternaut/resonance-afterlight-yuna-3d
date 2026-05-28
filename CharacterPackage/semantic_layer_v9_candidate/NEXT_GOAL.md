@@ -1,17 +1,16 @@
-# Next Goal: External Hair Intake Probe v1 Selected Sources
+# Next Goal: Sketchfab Hair Prior Schema Extraction v0
 
 ## Objective
 
-Run a narrow intake probe for selected high-priority external hair prior sources.
+Convert the committed Sketchfab `Gorgeous japanese Fight` original GLB and
+pink-hair shell probe into a YUNA-safe prior schema.
 
-## Allowed Sources
+## Allowed Inputs
 
-Start with one or two of:
-
-- `vroid_hairsample_female_cc0`
-- `vroid_hairsample_male_cc0`
-- `blendswap_curly_hair`
-- selected small files from `opengameart_hair_alphas_for_days`
+- `CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/source/gorgeous_japanese_fight.glb`
+- `CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/extracted/pink_hair_segment_probe.glb`
+- analysis reports and screenshots under
+  `CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/analysis/`
 
 ## Rules
 
@@ -20,15 +19,22 @@ Start with one or two of:
 - Keep all external assets `prior_only`.
 - Do not generate YUNA hair.
 - Do not proceed to `cloth_seam_surface`.
-- Do not commit unclear-license or large third-party binaries.
-- Method references such as CHARM/DiffHairCard may inform schema language only.
+- Do not copy the high-poly shell directly into YUNA.
+- Do not call the extracted probe production topology.
+- Keep Sketchfab attribution intact.
 
 ## Required Evidence
 
-- license snapshot;
-- checksum and quarantine-only download metadata if any file is fetched;
-- front/yaw30/side/wire/alpha/depth/normal render or explicit `skipped_with_reason`;
-- prior report describing scalp anchors, curves, width/taper, depth groups, and failure/negative examples.
+- JSON prior schema describing:
+  - scalp anchor zones;
+  - crown/back mass;
+  - primary flow arcs;
+  - side strand arcs;
+  - width/taper hints;
+  - visible mass thresholds;
+  - negative/failure notes.
+- Review images or links to existing committed screenshots.
+- Explicit note that the result is a prior schema only.
 
 ## Verification
 

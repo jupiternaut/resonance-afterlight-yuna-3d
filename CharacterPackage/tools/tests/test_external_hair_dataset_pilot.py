@@ -37,6 +37,13 @@ FORBIDDEN_BINARY_EXTENSIONS = {
     ".mov",
 }
 
+APPROVED_BINARY_PREFIXES = {
+    DATASET_DIR / "sketchfab_gorgeous_japanese_fight" / "source" / "gorgeous_japanese_fight.glb",
+    DATASET_DIR / "sketchfab_gorgeous_japanese_fight" / "extracted" / "pink_hair_segment_probe.glb",
+    DATASET_DIR / "sketchfab_gorgeous_japanese_fight" / "extracted" / "pink_hair_segment_probe.obj",
+    DATASET_DIR / "sketchfab_gorgeous_japanese_fight" / "extracted" / "pink_hair_segment_probe.blend",
+}
+
 
 class ExternalHairDatasetPilotTests(unittest.TestCase):
     def load_manifest(self) -> dict:
@@ -95,14 +102,24 @@ class ExternalHairDatasetPilotTests(unittest.TestCase):
         for source in open_sources:
             self.assertIn(source["license_confidence"], {"high", "medium-high"})
 
-    def test_no_external_source_binary_payloads_are_present(self) -> None:
+    def test_only_approved_external_binary_payloads_are_present(self) -> None:
         offenders = [
             path
             for path in DATASET_DIR.rglob("*")
-            if path.is_file() and path.suffix.lower() in FORBIDDEN_BINARY_EXTENSIONS
+            if path.is_file()
+            and path.suffix.lower() in FORBIDDEN_BINARY_EXTENSIONS
+            and path not in APPROVED_BINARY_PREFIXES
         ]
 
         self.assertEqual(offenders, [])
+
+        sketchfab_dir = DATASET_DIR / "sketchfab_gorgeous_japanese_fight"
+        for path in APPROVED_BINARY_PREFIXES:
+            self.assertTrue(path.exists(), f"missing approved binary payload: {path}")
+        self.assertTrue((sketchfab_dir / "ATTRIBUTION.md").exists())
+        self.assertTrue((sketchfab_dir / "README.md").exists())
+        self.assertTrue((sketchfab_dir / "source" / "source_page_snapshot.html").exists())
+        self.assertTrue((sketchfab_dir / "analysis" / "hair_prior_analysis.md").exists())
 
     def test_readme_and_triage_state_blocked_behavior(self) -> None:
         readme = (DATASET_DIR / "README.md").read_text(encoding="utf-8")

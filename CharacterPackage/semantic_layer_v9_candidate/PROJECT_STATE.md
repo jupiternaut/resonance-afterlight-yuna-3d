@@ -308,3 +308,37 @@ Next valid external-data task: `external_hair_intake_probe_v1_selected_sources` 
 
 Still invalid: `cloth_seam_surface`.
 <!-- external_hair_source_expansion_v1:end -->
+
+<!-- sketchfab_gorgeous_japanese_fight_intake:start -->
+## Sketchfab Gorgeous Japanese Fight Hair Prior Intake
+
+- Route: `sketchfab_gorgeous_japanese_fight_hair_prior_intake`
+- Status: `asset_committed_for_local_study_prior`
+- Source: `Gorgeous japanese Fight` by `YØD (@YOD3DD)`
+- Claimed license: `CC BY 4.0`
+- Original asset:
+  - `CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/source/gorgeous_japanese_fight.glb`
+- Extracted pink-hair probe:
+  - `CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/extracted/pink_hair_segment_probe.glb`
+  - `CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/extracted/pink_hair_segment_probe.obj`
+  - `CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/extracted/pink_hair_segment_probe.blend`
+- Key evidence:
+  - `CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/ATTRIBUTION.md`
+  - `CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/analysis/hair_prior_analysis.md`
+  - `CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/analysis/pink_hair_segmentation_probe/pink_hair_segmentation_report.json`
+  - `CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/analysis/pink_hair_segmentation_probe/pink_hair_segmentation_contact_sheet.jpg`
+- Metrics:
+  - original polygons: `496472`
+  - extracted pink-hair probe polygons: `142313`
+  - extracted GLB SHA256: `2db2dd8cee583a2cdeee3d4aa1c839d57f07f222028e7e5662e9cdffc86062fc`
+- Boundary:
+  - source and extraction are `prior_only`;
+  - v8 remains immutable;
+  - `replace_in_beauty_glb=false`;
+  - no YUNA hair replacement is accepted;
+  - `cloth_seam_surface` remains blocked.
+
+Recommended next use: derive a hair prior schema from this source, especially
+scalp anchors, crown/back mass, side strand arcs, and visible hair mass targets.
+Do not directly copy the high-poly shell into YUNA.
+<!-- sketchfab_gorgeous_japanese_fight_intake:end -->

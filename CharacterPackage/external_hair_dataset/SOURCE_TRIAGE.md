@@ -2,8 +2,12 @@
 
 Prepared from the five subagent reports under `subagent_reports/`.
 
-No binaries were downloaded. No external source is approved as YUNA replacement
-hair. Every row is `prior_only`, and the dataset-level replacement policy is
+This file started as a metadata-only pilot. A later user-approved intake added
+the Sketchfab `Gorgeous japanese Fight` source and a derived pink-hair
+segmentation probe under `sketchfab_gorgeous_japanese_fight/`.
+
+No external source is approved as YUNA replacement hair. Every row is
+`prior_only`, and the dataset-level replacement policy is
 `replace_in_beauty_glb=false`. Recommendations are conservative and may be
 downgraded after direct license capture or local intake.
 
@@ -66,3 +70,23 @@ High-priority next intake candidates:
 
 The two existing probe sources remain retained but are explicitly low/medium prior quality, not quality targets.
 <!-- source_expansion_v1:end -->
+
+## User-Approved Binary Intake: Sketchfab Gorgeous Japanese Fight
+
+| source_id | source_name | claimed_license | confidence | usage role | binary policy | renders | curve/templates | recommendation |
+|---|---|---:|---:|---|---|---|---|---|
+| `sketchfab_gorgeous_japanese_fight` | Gorgeous japanese Fight by YØD (@YOD3DD) | CC BY 4.0 | medium-high from captured page metadata | short-bob anime hair mass / scalp anchor / strand-flow prior | `committed_with_attribution_lfs_after_user_request` | `yes` | `extractable_shell_probe_not_clean_template` | `local_study_prior_with_extractable_hair_shell_probe` |
+
+Committed artifacts:
+
+- `sketchfab_gorgeous_japanese_fight/source/gorgeous_japanese_fight.glb`
+- `sketchfab_gorgeous_japanese_fight/extracted/pink_hair_segment_probe.glb`
+- `sketchfab_gorgeous_japanese_fight/extracted/pink_hair_segment_probe.obj`
+- `sketchfab_gorgeous_japanese_fight/extracted/pink_hair_segment_probe.blend`
+- analysis reports and screenshots under `sketchfab_gorgeous_japanese_fight/analysis/`
+
+Boundary:
+
+- This source is not YUNA replacement hair.
+- `replace_in_beauty_glb=false`.
+- The extracted shell is a pink texture/UV/space probe, not production topology.
