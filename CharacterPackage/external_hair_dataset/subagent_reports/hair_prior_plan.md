@@ -1,24 +1,39 @@
-# Hair Prior Plan: External Assets to YUNA Hair Priors
+# Hair Prior Plan: External Assets As YUNA Priors
 
-Status: planning report only.
+Subagent D: Hair Prior Planner
 
-This report defines how external hair assets may inform YUNA hair priors. It
-does not import, generate, or approve any asset. It does not modify
-`semantic_layer_v8`, does not write a final README, manifest, or schema, and
-does not unblock `cloth_seam_surface`.
+Status: planning report only. This file explains how external hair assets can
+become bounded priors for YUNA hair planning. It does not generate assets,
+modify `semantic_layer_v8`, edit manifest/schema/final files, approve a
+candidate, replace v8 beauty hair, or unblock `cloth_seam_surface`.
 
-Hard boundary:
+## Hard Boundary
 
-- External hair assets may contribute only parameters, curves, topology
-  patterns, silhouette statistics, and negative/failure examples.
-- External hair assets must not directly replace YUNA v8 beauty hair.
-- External hair assets must not bypass manual visual review.
-- `replace_in_beauty_glb=false` remains the default until an explicit separate
-  review and integration pass accepts replacement.
+- External assets are evidence sources, not replacement hair.
+- External meshes, cards, curves, textures, UVs, materials, and full silhouettes
+  must not be copied into YUNA exports.
+- External priors may influence only parameter choices, target notes, future
+  schema planning, review prompts, and negative tests.
+- `replace_in_beauty_glb=false` remains mandatory unless a separate explicit
+  manual integration review changes it.
+- `ready_for_cloth_seam_surface=false` remains mandatory while YUNA hair is
+  pending, failed, unreviewed, or license/provenance blocked.
 
-## Current YUNA Constraints
+Current external prior evidence is limited to small probe reports and generated
+review images for:
 
-The current hair route is governed by the project formula:
+- `opengameart_ponytail_female`: useful as a crown/back-mass and long-bundle
+  depth prior.
+- `opengameart_long_male`: useful as a side-hair fill and flat-sheet negative
+  guard.
+
+Both are `prior_only`. Neither source is suitable as direct YUNA geometry,
+texture, silhouette, or production topology.
+
+## Binding To Current YUNA Hair Route
+
+External priors are introduced only as `prior_hair` inside the existing bounded
+hair update, not as raw geometry:
 
 ```text
 theta_hair_next =
@@ -34,330 +49,448 @@ ProjectToConstraints_hair(
 )
 ```
 
-In this plan, `prior_hair` is not mesh geometry. It is a bounded set of
-generator hints: anchor likelihoods, curve paths, width/taper profiles, depth
-ordering, card topology patterns, silhouette mass distributions, and known bad
-examples.
+`prior_hair` is a structured packet of hints:
 
-Relevant existing references:
+- scalp anchor likelihoods;
+- primary curve families;
+- width profiles;
+- taper profiles;
+- depth group ordering;
+- hair-card topology patterns;
+- silhouette mass distributions;
+- negative/failure examples.
 
-- `CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json`
-- `CharacterPackage/semantic_layer_v9_hair/art_directed_v1/manual_review.md`
-- `CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/manual_review_hair_v1.md`
-- `CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/hair_variants_comparison_report.json`
-- `CharacterPackage/semantic_layer_v9_hair/negative_fixtures/yuna_semantic_layer_v9_hair_validation_front_failed_visual_fixture.png`
+It is not a source asset, source mesh, source texture, or direct source curve.
 
-Current useful seed facts:
+Current YUNA target schema remains the authority:
 
-- Existing anchor names: `scalp_front_center`, `scalp_front_left`,
-  `scalp_front_right`, `scalp_left_temple`, `scalp_right_temple`,
-  `scalp_crown`, `scalp_back_left`, `scalp_back_right`.
-- Existing depth groups: `back_mass`, `front_bangs`, `side_left_mid`,
-  `side_right_mid`, `secondary_detail`, `flyaways`.
-- Current review variants are additive candidates only. `balanced` and `fuller`
-  pass numeric gates but remain `pending_user_review_visible_mass_refined`;
-  `silhouette` is useful as a low-leak comparison but fails front visible mass.
+- `strict_hair_core`: conservative hair-only region.
+- `soft_hair_silhouette`: allowed hair expansion and wisps.
+- `forbidden_nonhair_zone`: face, torso, weapon, legs, boots, cloth, and other
+  non-hair areas where candidate coverage must be rejected or explicitly
+  justified.
 
-## Conversion Pipeline
+Current required YUNA primary groups remain:
 
-External hair assets should be handled as a read-only prior dataset:
+- `bangs_primary`
+- `side_hair_left_primary`
+- `side_hair_right_primary`
+- `back_hair_mass`
 
-1. Intake external assets into an isolated review area with source metadata.
-2. Extract measurements, not production geometry: scalp root positions,
-   strand/card centerlines, card widths, taper behavior, z-order/depth clusters,
-   silhouette envelopes, and failure tags.
-3. Normalize those measurements into YUNA's existing front identity frame and
-   current hair target schema (`strict_hair_core`, `soft_hair_silhouette`,
-   `forbidden_nonhair_zone`).
-4. Convert normalized measurements into prior suggestions for the next hair
-   generator pass.
-5. Reject suggestions that violate v8 immutability, front identity, forbidden
-   zones, alpha sanity, group presence, or scalp continuity.
-6. Send any resulting YUNA candidate to manual visual review. Numeric fit and
-   external asset similarity are not acceptance.
+Current manual gates remain:
 
-No step in this pipeline is allowed to paste external mesh cards, textures, or
-full silhouettes onto YUNA.
+- candidate-only front must read as coherent YUNA hair without relying on the
+  v8 overlay;
+- yaw30 must read as hair, not broken plates;
+- side view must preserve volume without becoming a flat wall;
+- front identity must remain intact;
+- known failures such as shredded body/cloth/weapon texture, detached strips,
+  black-alpha artifacts, and broad face occlusion must be rejected.
+
+Numeric target-schema success is not acceptance. The current `balanced` and
+`fuller` variants still require manual review; the `silhouette` variant shows
+that low leak can still fail visible front mass.
+
+## Prior Record Shape
+
+Every external-derived prior should be recorded as a measurement or hypothesis:
+
+```text
+prior_id
+source_id
+prior_kind
+representation_class
+coordinate_space
+yuna_group_mapping
+confidence
+source_evidence_paths
+allowed_downstream_consumers
+forbidden_downstream_consumers
+limitations
+negative_tags
+```
+
+Allowed consumers:
+
+- target-schema notes;
+- design-parameter planning;
+- curve-bundle planning;
+- review rubrics;
+- negative fixture reasoning.
+
+Forbidden consumers:
+
+- v8 beauty replacement;
+- direct GLB/OBJ/BLEND import into YUNA;
+- texture transfer;
+- manifest/schema/final auto-approval;
+- cloth unblock signals.
+
+## Conversion Flow
+
+1. Confirm source provenance, license, size, and intake status.
+2. Inspect only permitted evidence: probe renders, wire view, alpha view, object
+   summary, and prior extraction report.
+3. Extract normalized measurements, not source geometry.
+4. Map measurements to YUNA groups and target-schema layers.
+5. Project suggestions through YUNA constraints: v8 immutable, front identity,
+   forbidden zones, alpha/material sanity, scalp continuity, and manual review.
+6. Emit parameter suggestions only. Any future candidate generation is a
+   separate additive route with its own report and review pack.
+
+No step may paste an external hairstyle onto YUNA.
 
 ## Scalp Anchors
 
-External assets can improve anchor priors by showing common root placement
-patterns for long anime/sci-fi hair, but the final anchors must remain YUNA
-specific.
+YUNA-compatible anchor vocabulary:
 
-Allowed extraction:
+- `scalp_front_center`
+- `scalp_front_left`
+- `scalp_front_right`
+- `scalp_left_temple`
+- `scalp_right_temple`
+- `scalp_crown`
+- `scalp_back_left`
+- `scalp_back_right`
 
-- Anchor likelihood near front hairline, temples, crown, and rear scalp.
-- Root spread statistics per group, such as bangs concentrated near
-  `scalp_front_center` and side locks near `scalp_left_temple` /
-  `scalp_right_temple`.
-- Confidence weights for whether an external card is scalp-attached,
-  secondary, flyaway, or detached/noise.
+Allowed external contribution:
 
-Required YUNA mapping:
+- root placement likelihood near crown, temples, and front hairline;
+- root spread ranges per group;
+- confidence that a visible card/strand is scalp-attached;
+- continuity warnings when mass appears detached from the scalp.
 
-- Bangs map only to `scalp_front_center`, `scalp_front_left`, and
-  `scalp_front_right`.
-- Left side hair maps to `scalp_left_temple` and `scalp_back_left` only when
-  a continuous root path exists.
-- Right side hair maps to `scalp_right_temple` and `scalp_back_right` only when
-  a continuous root path exists.
-- Back mass maps to `scalp_crown`, `scalp_back_left`, and
-  `scalp_back_right`.
+Current source mapping:
+
+- `opengameart_ponytail_female` can inform `scalp_crown` and rear mass
+  continuity. Its `scalp_back_center` hint must be translated into YUNA's
+  existing `scalp_back_left` / `scalp_back_right` vocabulary or kept as a note;
+  it must not silently add a new schema anchor.
+- `opengameart_long_male` can weakly inform `scalp_left_temple`,
+  `scalp_right_temple`, and `scalp_crown` because it presents broad side
+  curtain mass.
+- Neither current source is strong evidence for YUNA-specific bangs anchors.
+  Bangs must remain governed by YUNA's front identity, existing front anchors,
+  and manual review.
 
 Rejection rules:
 
-- Detached strips cannot become anchored strands.
-- Lower fragments without a visible root path become negative examples.
-- External scalp coordinates cannot override YUNA front identity or mask
-  constraints.
+- Detached lower fragments are not anchors.
+- External coordinates cannot override YUNA front identity.
+- Source root placement cannot justify coverage inside
+  `forbidden_nonhair_zone`.
+- A future candidate must still satisfy scalp-anchor continuity; the current
+  non-degenerate gate expects continuity at or above `0.15`.
 
 ## Primary Curves
 
-External assets can contribute curve families, not finished curves. Each curve
-prior should be stored conceptually as a normalized centerline with sampled
-points along `t=0..1`, direction, curvature, and intended group.
+Primary curves should be represented as abstract normalized centerlines:
 
-Primary YUNA curve groups:
+- sampled `t=0..1` points;
+- intended YUNA group;
+- anchor id;
+- direction vector;
+- curvature and smoothness class;
+- confidence and limitations;
+- explicit `copy_source_curve=false`.
 
-- `bangs_primary`: short front framing curves, scalp-rooted, readable over the
-  forehead without broad face occlusion.
-- `side_hair_left_primary`: longer left-side curves with shoulder-length flow,
-  not horizontal slats.
-- `side_hair_right_primary`: asymmetric right-side curves, kept away from
-  weapon contamination.
-- `back_hair_mass`: long rear volume curves from crown/back anchors, used to
-  carry most silhouette mass.
+YUNA primary curve groups:
 
-External curve priors may suggest:
+- `bangs_primary`: front framing, anchored to front hairline, with strict face
+  occlusion guard.
+- `side_hair_left_primary`: shoulder-length left flow, avoiding torso leakage
+  and horizontal slats.
+- `side_hair_right_primary`: asymmetric right flow, avoiding weapon leakage.
+- `back_hair_mass`: main long rear volume from crown/back anchors.
 
-- Curve count per group.
-- Knot spacing and smoothness.
-- Directionality, such as inward face framing for bangs and downward flow for
-  side/back hair.
-- Split/merge patterns where a mass divides into secondary ribbons.
+Useful current external curve hints:
 
-External curve priors must not suggest:
+- `back_mass_crown_to_low_tail`: from `opengameart_ponytail_female`; use as an
+  abstract suggestion for two to four fuller downward mass ribbons plus
+  secondary tapered strands.
+- `side_curtain_left_right_fill`: from `opengameart_long_male`; use as a
+  medium-width side-fall coverage hint with anti-wall clipping.
 
-- Copying an external silhouette as a complete hairstyle.
-- Replacing YUNA's current hair masks as ground truth.
-- Curves that depend on body, cape, weapon, or face pixels to read as hair.
+Current gap:
+
+- No current source provides a strong YUNA-like `bangs_primary` prior. Bangs
+  should use the current YUNA target schema, current anchors, and negative
+  examples until a vetted bangs-specific source is added.
+
+Curve priors fail when they:
+
+- copy an external style as a complete hairstyle;
+- depend on body, cape, face, or weapon pixels to read as hair;
+- create disconnected plates without a visible root path;
+- reduce leak by becoming too sparse to read as hair.
 
 ## Width Profiles
 
-Width priors should be extracted as relative profiles, not absolute pasted card
-sizes. The current YUNA variant pack uses scalp-anchored ribbon cards with
-primary ribbon thickness around `0.044..0.047` and minimum ribbon thickness
-around `0.018..0.020`, with wider primary masses and thinner secondary/flyaway
-strands.
+Width profiles are relative ratios, not pasted card sizes.
 
-For each external candidate strand/card, extract:
+Required extracted fields:
 
-- Normalized samples: root width, quarter width, mid width, three-quarter
-  width, tip width.
-- Width class: primary mass, side lock, bang, secondary detail, flyaway.
-- Width symmetry/asymmetry around the centerline.
-- Whether the card preserves a readable mass from candidate-only front view.
+- `t=0.0` root width ratio;
+- `t=0.25` or nearest quarter width ratio;
+- `t=0.5` mid width ratio;
+- `t=0.75` or nearest three-quarter width ratio;
+- `t=1.0` tip width ratio;
+- width class: primary mass, side lock, bang, secondary strand, or flyaway;
+- limitations and source confidence.
 
-Useful YUNA priors:
+Current probe hints:
 
-- Back mass can use broader root/mid widths to avoid underfilled hair.
+- `opengameart_ponytail_female` has a compact root, broad upper/mid mass, and
+  narrow tip behavior. Use this to strengthen `back_hair_mass` readability,
+  not to create a ponytail replacement.
+- `opengameart_long_male` has broader curtain-like width through most of its
+  length, then a sharp tip. Use this to avoid side-hair underfill, but also as
+  a negative guard against flat side walls.
+
+YUNA use:
+
+- Back mass can be wider at root/mid sections to avoid underfilled candidates.
 - Side hair can use medium widths with enough body to avoid shredded strips.
-- Bangs can use narrower widths, but must still pass `bangs_presence_ratio`.
-- Flyaways should remain thin and limited; they cannot carry the primary
-  hairstyle by themselves.
+- Bangs may be narrower, but must still pass presence and face-readability
+  review.
+- Flyaways must stay thin and low-weight; they cannot carry the primary
+  hairstyle.
 
-Failure cues:
+Failure rules:
 
-- Width profiles that collapse to needle-like shards.
-- Width profiles that create opaque face blocks.
-- Width distributions that pass leak metrics only by becoming too sparse.
+- needle-like shards fail even if leak is low;
+- broad opaque face blocks fail;
+- width choices that pass metrics only by shrinking visible mass fail;
+- exact external card outlines are forbidden.
 
 ## Taper Profiles
 
-Current primitive intents often express shape through `width_profile` while
-leaving `taper_profile` implicit. External assets should be used to make taper
-behavior explicit for future generator passes.
+Taper is a generator hint and review feature, not a source shape transfer.
 
-Taper priors to extract:
+Required extracted fields:
 
-- Root hold: how much width is retained near the scalp.
-- Mid-body bulge: whether the strand expands for hair mass readability.
-- Tip taper: how quickly the card narrows at the end.
-- Edge feathering: whether alpha/geometry taper produces clean tips without
-  black-alpha leakage.
+- root hold;
+- mid-body fullness;
+- tip taper rate;
+- edge feathering or alpha behavior;
+- visual failure tags.
 
 Recommended YUNA taper families:
 
-- `mass_ribbon_taper`: stable root, fuller midsection, controlled tip taper.
-- `bang_taper`: medium root, slight mid narrowing, sharp but not needle-like
-  tip.
-- `side_lock_taper`: strong root/mid body, gradual tip taper.
-- `flyaway_taper`: thin root and thin tip, short length, low silhouette weight.
+- `mass_ribbon_taper`: stable root, full midsection, controlled tip taper.
+- `side_lock_taper`: strong root/mid body, gradual tip taper, anti-wall guard.
+- `bang_taper`: medium root, controlled narrowing, no needle shards.
+- `flyaway_taper`: thin and short, used only as detail.
 
-Taper must be judged visually. A mathematically smooth taper still fails if it
-reads as sparse fragments, shredded texture, or a flat wall from yaw/side views.
+Current source guidance:
+
+- `opengameart_long_male` supports a `stable_root_full_mid_tapered_tip` family
+  for side-fill planning, but its flat curtain silhouette is a risk.
+- `opengameart_ponytail_female` is more mixed and should be used as a back-mass
+  bundle/taper caution rather than a clean YUNA taper template.
+
+Taper must be judged visually. A smooth taper still fails if the candidate reads
+as sparse fragments, flat walls, dark halos, or pasted source style.
 
 ## Depth Groups
 
-External assets can contribute z-order and layering patterns. They cannot
-define YUNA's final depth ordering directly.
+External assets may inform relative layer ordering only. Side/back views are
+soft constraints and cannot override front identity.
 
-Required YUNA depth groups:
+Current YUNA depth vocabulary in generated specs includes:
 
-- `front_bangs`: in front of scalp/forehead, with strict face occlusion guard.
-- `side_left_mid`: left side hair in the mid layer, visible from yaw/side.
-- `side_right_mid`: right side hair in the mid layer, separated from weapon
-  pixels.
-- `back_mass`: rear volume behind front/side details.
-- `secondary_detail`: support strands that enrich primary groups.
-- `flyaways`: small distributed wisps, never the only visible hair mass.
+- `front_bangs`
+- `side_left_mid`
+- `side_right_mid`
+- `back_mass`
+- `secondary_detail`
+- `flyaways`
 
-External assets should provide:
+The `silhouette_mass_v1` route also introduced `side_profile_volume` as a review
+depth aid. That kind of extra group must remain candidate-route-specific unless
+a later schema review accepts it.
 
-- Relative layer order between bangs, side locks, and back mass.
-- Occlusion patterns that keep the face readable.
-- Yaw/side readability patterns where hair does not collapse into slice walls.
+External depth hints:
 
-Depth priors fail if they:
+- `opengameart_ponytail_female`: side/front spread suggests rear bundle depth
+  useful for `back_hair_mass`.
+- `opengameart_long_male`: similar front/yaw/side width suggests broad side
+  sheets; useful for fill, risky for flat-wall artifacts.
 
-- Put broad opaque cards across the eyes, nose, or mouth.
-- Hide sparse fronts behind v8 overlay and only read in composite.
-- Create disconnected plates with no scalp path.
+Depth priors should suggest:
+
+- ordering between bangs, side locks, secondary detail, flyaways, and back mass;
+- yaw30/side readability expectations;
+- where to split broad masses into layered ribbons.
+
+Depth priors fail when they:
+
+- place broad opaque cards across the eyes, nose, or mouth;
+- hide sparse front mass behind v8 overlay;
+- create disconnected plates with no scalp path;
+- convert side-fill references into flat side walls.
 
 ## Hair Card Topology
 
-External assets may contribute topology patterns for card construction, not
-their actual card meshes.
+External topology is pattern evidence only.
+
+Current probe classes:
+
+- both current sources classify as `hair_cards` with medium confidence;
+- `opengameart_ponytail_female` reports 367 mesh vertices and 345 faces;
+- `opengameart_long_male` reports 136 mesh vertices and 154 faces;
+- both have alpha-material evidence.
+
+Allowed topology priors:
+
+- card density range;
+- broad sheet risk;
+- split-versus-overlap pattern;
+- card orientation patterns;
+- overdraw and alpha sanity examples;
+- possible need for multiple overlapping ribbons instead of one broad wall.
 
 Current YUNA-compatible topology direction:
 
-- Use scalp-anchored spline ribbon cards.
-- Keep primary groups independent by semantic role.
-- Keep at least the existing six depth groups for review candidates.
-- Use multiple sampled sections per card; the current variant pack records
-  `section_count=25`.
-- Current review variants use `ribbon_count=27` for `balanced`, `33` for
-  `fuller`, and `27` for `silhouette`.
-- Candidate cards must preserve UV/material sanity and alpha behavior.
+- use scalp-anchored spline ribbon cards;
+- keep semantic groups separate;
+- keep beauty, debug, and cage outputs separated;
+- maintain sampled sections along length; current review specs use
+  `section_count=25`;
+- current review variants use separate primary, secondary, and flyaway ribbons
+  and remain candidate-only.
 
-External topology priors may suggest:
+Forbidden topology use:
 
-- Card count ranges per group.
-- Whether wide mass should be one broad ribbon or several overlapping ribbons.
-- Edge-loop density along length for smooth curvature.
-- Split/merge arrangements for back mass and side locks.
-- Two-sided review-card conventions if they improve yaw/side readability.
-
-External topology priors must not:
-
-- Paste external topology into YUNA exports.
-- Merge hair, face, cape, body, boots, or weapon into one fused mesh.
-- Reintroduce debug/cage geometry into beauty exports.
-- Call candidate card topology production-ready retopology.
+- copying source vertices, faces, UVs, or card meshes;
+- calling low-poly source card topology production-ready YUNA topology;
+- merging hair, face, cape, body, boots, or weapon into one fused mesh;
+- reintroducing debug/cage geometry into beauty exports.
 
 ## Silhouette Mass
 
-External assets are useful for silhouette mass statistics, especially to avoid
-the current failure mode where a candidate passes leak/alignment gates by
-becoming too thin or fragmented.
+External silhouette mass is useful for underfill and overfill guards, not for
+style transfer.
 
-YUNA target schema should remain the governing envelope:
+Current YUNA failure context:
 
-- `strict_hair_core`: reliable hair-only area.
-- `soft_hair_silhouette`: allowed readable hair expansion.
-- `forbidden_nonhair_zone`: body, face, weapon, cape, boot, and other
-  non-hair contamination guard.
-
-External silhouette priors may contribute:
-
-- Desired mass balance between bangs, side hair, and back hair.
-- Minimum readable front mass for candidate-only render.
-- Yaw30 and side-view continuity expectations.
-- Asymmetric silhouette hints, if they preserve YUNA front identity.
-
-Current numeric context for future priors:
-
-- `balanced`: visible area `0.010395`, soft coverage `0.511386`, core coverage
-  `0.608249`, leak `0.071096`, pending manual review.
-- `fuller`: visible area `0.010896`, soft coverage `0.537518`, core coverage
-  `0.634326`, leak `0.072702`, pending manual review.
-- `silhouette`: leak `0.045859`, but front mass failed, so low leak alone is
-  not enough.
-
-Silhouette mass acceptance must still be visual. A candidate that matches an
-external silhouette but breaks YUNA identity, reads as a flat wall, or relies on
-v8 overlay is rejected.
-
-## Negative/Failure Examples
-
-External assets should include negative examples as first-class prior data.
-They are valuable because they define what the generator should avoid.
-
-Existing YUNA failure examples to preserve:
-
-- Dirty raw v8 hair union: body overlap is too high, so raw union cannot be
-  treated as final hair truth.
-- Strict clean target too narrow: it can reject useful visible mass and create
-  underfilled candidates.
-- Underfilled/schema-clipped v0: `candidate_visible_area_ratio=0.003227`,
+- The target-schema report showed an underfilled candidate with
+  `candidate_visible_area_ratio=0.003227`,
   `soft_silhouette_coverage_ratio=0.174971`, `component_count=39`, and
   `scalp_anchor_continuity=0.066363`.
-- Negative fixture:
-  `CharacterPackage/semantic_layer_v9_hair/negative_fixtures/yuna_semantic_layer_v9_hair_validation_front_failed_visual_fixture.png`
-- `silhouette` variant: lower leak but failed front visible mass, proving that
-  leak reduction is not sufficient.
+- Current `balanced` and `fuller` variants improved numeric coverage and are
+  recommended for manual review, but are not accepted.
+- Current `silhouette` variant reduced leak but failed front visible mass,
+  proving that low leak alone is not enough.
+
+Current external mass hints:
+
+- `opengameart_ponytail_female`: front area ratio around `0.141730`, compact
+  crown/back volume, side/front width ratio around `1.492753`; useful for
+  back-mass continuity and side-depth awareness.
+- `opengameart_long_male`: front area ratio around `0.265557`, broader curtain
+  width, side/front width ratio around `1.089287`; useful for preventing
+  underfill, risky for flat-sheet overfill.
+
+YUNA use:
+
+- Convert mass hints into minimum/maximum readable mass notes per YUNA group.
+- Compare future candidate-only front, yaw30, and side renders against these
+  notes.
+- Clip every suggestion through `forbidden_nonhair_zone`.
+- Preserve asymmetry and front identity rather than importing external balance.
+
+Silhouette priors fail when:
+
+- they make YUNA look like the source asset;
+- they create a helmet, curtain wall, or pasted ponytail;
+- they fill forbidden body/weapon/face zones;
+- they pass only because the v8 overlay makes them appear coherent.
+
+## Negative And Failure Examples
+
+Negative examples are first-class priors. They tell the planner what to reject
+before any generation and what manual review must check after any candidate
+render exists.
+
+Existing YUNA negatives:
+
+- dirty raw v8 union masks that include non-hair contamination;
+- strict clean masks that can become too narrow and underfill hair;
+- underfilled/schema-clipped candidates;
+- excessive disconnected components;
+- failed visual fixture:
+  `CharacterPackage/semantic_layer_v9_hair/negative_fixtures/yuna_semantic_layer_v9_hair_validation_front_failed_visual_fixture.png`;
+- low-leak but underfilled `silhouette` variant;
+- numeric-pass but manual-review-pending `balanced` and `fuller` variants.
 
 External negative tags to collect:
 
-- Detached floating strips.
-- Horizontal slat patterns.
-- Broken slice-wall yaw silhouettes.
-- Shredded body/cloth/weapon texture mistaken for hair.
-- Black-alpha leakage or dark halos.
-- Broad face occlusion.
-- Sparse flyaways used as primary hair mass.
-- Blocky side-volume panels that read as proxy geometry instead of hair.
-- Cards with no scalp-root continuity.
+- detached floating strips;
+- horizontal slat patterns;
+- broad flat curtain walls;
+- copied ponytail silhouette;
+- broken slice-wall yaw silhouettes;
+- black-alpha leakage or dark halos;
+- missing or dirty alpha;
+- source cards with no scalp-root continuity;
+- broad face occlusion;
+- body/cloth/weapon texture mistaken for hair;
+- sparse flyaways used as primary mass;
+- style mismatch with YUNA's premium cinematic sci-fi heroine direction;
+- unclear license or provenance.
 
-Negative examples should be used to block future generator suggestions before
-asset generation, and again during manual visual review after any candidate is
-rendered.
+Negative priors block downstream suggestions when they match a future candidate
+or when source evidence is not legally/technically safe for prior use.
 
-## Manual Review Gate
+## Relation To Target Schema And Manual Gates
 
-Manual visual review is mandatory for every candidate influenced by external
-hair priors.
+External priors can propose changes to future parameter notes, but they do not
+change the current target schema in this task.
 
-Review questions:
+Mapping to target schema:
 
-1. Does candidate-only front read as coherent YUNA hair without relying on the
-   v8 overlay?
-2. Does yaw30 read as hair instead of broken card plates?
-3. Does side view preserve hair volume without becoming a flat wall?
-4. Does the candidate preserve YUNA front identity?
-5. Does it avoid known negative examples, including dirty texture leakage,
-   detached fragments, black-alpha artifacts, and face/body/weapon
-   contamination?
+- `strict_hair_core` filters priors down to reliable hair-only support.
+- `soft_hair_silhouette` bounds allowable expansion for mass, wisps, and
+  translucent strands.
+- `forbidden_nonhair_zone` rejects any prior that would place hair on face,
+  body, cloth, boots, weapon, or other non-hair areas.
+- `front_identity` outranks side/back source evidence.
+- `manual_visual_review` is the final gate for readability.
 
-No external prior score, topology match, or numeric schema pass can answer
-these questions by itself.
+A future candidate influenced by external priors must report:
 
-## Recommended Use In Future Work
+- which source ids informed it;
+- which scalp anchor hints were adopted or rejected;
+- which primary curve families were adopted or rejected;
+- width and taper profile deltas;
+- depth group and topology deltas;
+- silhouette mass deltas against the YUNA target schema;
+- negative examples checked;
+- manual visual review status;
+- `replace_in_beauty_glb=false`;
+- `ready_for_cloth_seam_surface=false` unless a separate manual acceptance and
+  integration review explicitly changes it.
 
-Use external hair assets only to update a future hair-prior packet or design
-notes, then feed those hints into an additive generator route. The next route
-must still report:
+Manual review must still answer:
 
-- Which external priors influenced scalp anchors.
-- Which curve families were adopted or rejected.
-- Width/taper profile changes.
-- Depth group and card topology changes.
-- Silhouette mass deltas against the YUNA target schema.
-- Negative examples used as rejection checks.
-- Manual visual review status.
-- `replace_in_beauty_glb=false` unless a separate explicit integration review
-  says otherwise.
+- Does candidate-only front read as coherent YUNA hair?
+- Does yaw30 read as hair rather than plates?
+- Does side view preserve volume without becoming a flat wall?
+- Is YUNA's face/front identity preserved?
+- Are forbidden zones, alpha/material behavior, and negative examples clean?
 
-This preserves the core constraint: external assets can teach the generator what
-patterns are useful or harmful, but they cannot become YUNA hair by substitution.
+If any answer is no or pending, the result is `manual_review_required` or
+`not_accepted`, not accepted hair.
+
+## Recommended Next Use
+
+Use this plan to author a future prior packet or schema-planning note, not a
+hair asset. The next valid external-prior step should be a report-only or
+schema-planner pass that summarizes adopted/rejected prior hints. Any later
+geometry generation must be a separate additive YUNA candidate route with its
+own JSON report, screenshots, and manual review pack.
+
+This preserves the intended boundary: external hair assets can teach the
+planner which patterns are useful or harmful, but they cannot become YUNA hair
+by substitution.

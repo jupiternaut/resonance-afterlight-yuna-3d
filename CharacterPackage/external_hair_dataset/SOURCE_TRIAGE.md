@@ -34,3 +34,35 @@ explicitly open sources:
 5. selected CC0 VRoid hair samples after local import verification
 
 Do not begin with full Blender Studio character rigs or bulk texture archives.
+
+<!-- source_expansion_v1:start -->
+## Source Expansion v1
+
+Route: `external_hair_source_expansion_v1`.
+
+This expansion records curated, source-checked candidates for future external hair priors. It does not download binaries, generate YUNA hair, or unblock cloth.
+
+| source_id | representation | quality | yuna relevance | priority | recommendation | binary policy | reason |
+|---|---|---:|---:|---|---|---|---|
+| `vroid_hairsample_female_cc0` | vroid_vrm_hair_cards_or_meshes | 0.92 | 0.90 | high | open_template_source | `yes_selected_cc0_files_after_review` | Anime female hair template prior for bangs, side curtains, back mass, and scalp anchors. |
+| `vroid_hairsample_male_cc0` | vroid_vrm_hair_cards_or_meshes | 0.86 | 0.72 | high | open_template_source | `yes_selected_cc0_files_after_review` | Anime hair card/clump topology prior and scalp anchor convention reference. |
+| `opengameart_vroid_cc0_samples` | vroid_vrm_hair_cards_or_meshes | 0.84 | 0.88 | high | open_template_source | `yes_selected_cc0_files_after_review` | Umbrella source for VRoid CC0 anime/stylized hair sample intake. |
+| `blendswap_curly_hair` | curve_hair | 0.78 | 0.58 | high | open_template_source | `yes_after_license_snapshot` | Bezier-curve curl and curve-width template prior. |
+| `opengameart_hair_alphas_for_days` | hair_alpha_material_pack | 0.76 | 0.62 | high | open_template_source | `partial_selected_small_files_only` | Hair alpha/material fixture source for card transparency and strand texture tests. |
+| `charm_anime_hair_method_reference` | method_reference_control_point_hair_cards | 0.90 | 0.88 | medium | reference_report_only | `no_method_reference_only` | Anime hair control-point schema and card-sequence planning reference. |
+| `diffhaircard_method_reference` | method_reference_hair_card_extraction | 0.84 | 0.70 | low | reference_report_only | `no_method_reference_only` | Hair card clustering, texture/geometry optimization, and LoD planning reference. |
+| `blender_studio_spring_rig` | open_movie_stylized_hair_reference | 0.83 | 0.72 | medium | reference_report_only | `yes_with_attribution_after_review` | Reference-only stylized hair mass and rig organization study. |
+| `blender_studio_sintel_rig` | open_movie_character_hair_reference | 0.79 | 0.64 | medium | reference_report_only | `yes_with_attribution_after_review` | Reference-only long-hair organization and DCC rig/handoff study. |
+| `blendswap_braided_hair` | ribbon_or_solid_braid_mesh | 0.66 | 0.36 | medium | open_template_source | `yes_after_license_snapshot` | Braid topology and repeated interleaved-strand prior. |
+| `opengameart_ponytail_female` | solid_lowpoly_hair_mesh | 0.48 | 0.42 | low | open_template_source | `yes_after_license_snapshot` | Existing probe retained as a low-poly ponytail/back-mass prior, not a quality target. |
+| `opengameart_long_male` | lowpoly_hair_cards_or_strips | 0.44 | 0.38 | low | open_template_source | `yes_after_license_snapshot` | Existing probe retained as a low/medium strip-hair and sheet-risk prior. |
+
+High-priority next intake candidates:
+- `vroid_hairsample_female_cc0`: VRoid Studio CC0 HairSample_Female (yes_selected_cc0_files_after_review)
+- `vroid_hairsample_male_cc0`: VRoid Studio CC0 HairSample_Male (yes_selected_cc0_files_after_review)
+- `opengameart_vroid_cc0_samples`: OpenGameArt / VRoid Studio CC0 models and hair samples (yes_selected_cc0_files_after_review)
+- `blendswap_curly_hair`: Blend Swap Curly Hair (yes_after_license_snapshot)
+- `opengameart_hair_alphas_for_days`: OpenGameArt Hair Alphas For Days (partial_selected_small_files_only)
+
+The two existing probe sources remain retained but are explicitly low/medium prior quality, not quality targets.
+<!-- source_expansion_v1:end -->

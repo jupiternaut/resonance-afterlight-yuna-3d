@@ -65,3 +65,21 @@ git diff --name-only -- CharacterPackage/semantic_layer_v8
 
 This pilot is successful only if it stays metadata-only, keeps v8 unchanged, and
 keeps cloth blocked.
+
+<!-- source_expansion_v1:start -->
+## Source Expansion v1
+
+`external_hair_source_expansion_v1` adds quality/style annotations and method-reference records without downloading third-party binaries.
+
+- candidate sources: `12`
+- high-priority next intake sources: `5`
+- method references: `2`
+- current probe sources are retained as low/medium priors, not accepted hair targets.
+- external assets remain `prior_only`; `replace_in_beauty_glb=false`; `cloth_seam_surface` remains blocked.
+
+Report:
+
+```text
+CharacterPackage/external_hair_dataset/reports/external_hair_source_expansion_v1_report.json
+```
+<!-- source_expansion_v1:end -->

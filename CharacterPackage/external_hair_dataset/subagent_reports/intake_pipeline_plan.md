@@ -12,9 +12,13 @@ Scope: plan only. No assets, manifests, schemas, README files, or
 - Do not download large binary payloads. Record source metadata and skip the
   payload when size is above the configured intake cap, when size is unknown on
   a remote source, or when the source requires a bulk/archive download.
+- Do not commit large binaries. Allowed committed evidence should be small
+  metadata, reports, license snapshots, and review renders only when the
+  license gate explicitly permits that use.
 - If the license is unknown, unclear, incompatible, or missing, record metadata
-  only. Do not download, import, render, classify as usable, or derive assets
-  from it.
+  only for remote sources. If an unclear-license asset already exists locally,
+  keep it local-only/untracked and do not commit the binary, derived renders,
+  extracted priors, or classification claims beyond audit notes.
 - Do not run embedded scripts from `.blend` files or other asset containers.
 - Do not call any imported asset final production topology.
 
@@ -64,6 +68,8 @@ Scope: plan only. No assets, manifests, schemas, README files, or
    - Record a primary class plus secondary tags when the asset is mixed.
    - Leave ambiguous assets as `classification_deferred` rather than forcing a
      class.
+   - Feed classification results only into bounded prior records. Do not use
+     the class label to select, paste, or replace YUNA geometry.
 
 ## Asset Categories
 
@@ -224,12 +230,54 @@ skipped_with_reason:
 - If evidence conflicts, defer classification and keep the asset out of any
   candidate route until manual review.
 
+## Classification To Prior Feed
+
+Classification output is an input to `prior_hair`, not a YUNA replacement
+decision. The classifier may produce abstract hints for later schema or actuator
+work, but it must not authorize copying external mesh cards, curve splines,
+textures, materials, or complete silhouettes into YUNA.
+
+Allowed prior feeds by class:
+
+- `particle_hair`: density ranges, strand length distributions, root spread
+  patterns, layer ordering hints, and negative examples for over-dense grooms.
+- `curve_hair`: curve count ranges, normalized control-point patterns,
+  curvature/taper families, and scalp-anchor likelihoods.
+- `hair_cards`: card orientation patterns, UV/alpha sanity examples, width and
+  overdraw ranges, and failure cases for missing or dirty alpha.
+- `ribbon_surfaces`: ribbon width/taper families, connected-strip flow
+  patterns, and yaw/side readability constraints.
+- `solid_sculpt_hair`: silhouette mass envelopes, lock grouping patterns,
+  depth/normal readability examples, and negative examples for helmet-like or
+  fused geometry.
+
+Every prior record should preserve:
+
+- source asset id and classification evidence;
+- confidence and limitations;
+- whether third-party geometry or texture evidence influenced the measurement;
+- allowed downstream consumers, defaulting to schema/report tools;
+- forbidden downstream consumers, including beauty GLB builders and any direct
+  asset replacement path;
+- `replace_in_beauty_glb=false`;
+- `baseline_mutation_allowed=false` for
+  `CharacterPackage/semantic_layer_v8`.
+
+Downstream YUNA work may use these priors only as soft constraints inside
+`RobustFuse(..., prior_hair)` and `ProjectToConstraints_hair(...)`. Manual
+visual review, front identity, target-schema gates, alpha/material sanity, and
+the immutable v8 baseline still decide whether a future YUNA candidate is
+acceptable.
+
 ## Failure And Safety Gates
 
 - Unknown license: metadata only, no download, no import, no render.
 - Large binary: metadata only, no download. A small preview image may be
   referenced only if it is already exposed separately by the source page and
   license metadata is clear.
+- Already-local unclear-license binaries: local-only/untracked audit evidence
+  at most; no committed binaries, renders, extracted priors, or replacement
+  claims.
 - Blender unavailable: metadata/static inspection only; all render outputs get
   `skipped_with_reason`.
 - Unsupported format: record metadata and skip import/render unless an installed

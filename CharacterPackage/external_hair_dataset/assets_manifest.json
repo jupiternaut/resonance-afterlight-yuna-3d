@@ -1,7 +1,7 @@
 {
   "schema_version": "external_hair_dataset_manifest_v0.1",
   "dataset_id": "external_hair_dataset_pilot_v0",
-  "generated_at": "2026-05-28T00:00:00+08:00",
+  "generated_at": "2026-05-28T18:14:44+08:00",
   "project_guards": {
     "v8_immutable": true,
     "replace_in_beauty_glb": false,
@@ -25,8 +25,37 @@
       "external_asset_usage": "prior_only",
       "replace_in_beauty_glb": false,
       "download_status": "not_downloaded",
-      "validation_status": {"status": "skipped", "skipped_with_reason": "metadata_pilot_no_binary_download"},
-      "notes": ["Small CC0 mesh source; intake still requires license snapshot and checksum before any binary commit."]
+      "validation_status": {
+        "status": "skipped",
+        "skipped_with_reason": "metadata_pilot_no_binary_download"
+      },
+      "notes": [
+        "Small CC0 mesh source; intake still requires license snapshot and checksum before any binary commit."
+      ],
+      "source_quality_v1": {
+        "usage_role": "Existing probe retained as a low-poly ponytail/back-mass prior, not a quality target.",
+        "representation_type": "solid_lowpoly_hair_mesh",
+        "quality_score": 0.48,
+        "style_relevance_to_yuna": 0.42,
+        "has_bangs": false,
+        "has_side_hair": false,
+        "has_back_hair_mass": true,
+        "has_scalp_anchor_structure": true,
+        "has_hair_cards_or_curves": false,
+        "can_extract_curve_templates": "yes_from_mesh_centerlines",
+        "source_class": "existing_probe_low_medium_prior",
+        "prior_quality": "medium_low",
+        "next_intake_priority": "low",
+        "high_priority_for_next_intake": false,
+        "notes": [
+          "Useful as a back-bundle silhouette and scalp-anchor negative/contrast prior.",
+          "Too low-poly/simple to be a premium YUNA hair target."
+        ]
+      },
+      "verification_sources_v1": [
+        "https://opengameart.org/content/ponytail-hair-style-for-female-model",
+        "https://creativecommons.org/publicdomain/zero/1.0/"
+      ]
     },
     {
       "source_id": "opengameart_long_male",
@@ -43,8 +72,37 @@
       "external_asset_usage": "prior_only",
       "replace_in_beauty_glb": false,
       "download_status": "not_downloaded",
-      "validation_status": {"status": "skipped", "skipped_with_reason": "metadata_pilot_no_binary_download"},
-      "notes": ["Potential strip/ribbon width prior; not YUNA replacement geometry."]
+      "validation_status": {
+        "status": "skipped",
+        "skipped_with_reason": "metadata_pilot_no_binary_download"
+      },
+      "notes": [
+        "Potential strip/ribbon width prior; not YUNA replacement geometry."
+      ],
+      "source_quality_v1": {
+        "usage_role": "Existing probe retained as a low/medium strip-hair and sheet-risk prior.",
+        "representation_type": "lowpoly_hair_cards_or_strips",
+        "quality_score": 0.44,
+        "style_relevance_to_yuna": 0.38,
+        "has_bangs": false,
+        "has_side_hair": true,
+        "has_back_hair_mass": true,
+        "has_scalp_anchor_structure": true,
+        "has_hair_cards_or_curves": true,
+        "can_extract_curve_templates": "yes_from_mesh_centerlines",
+        "source_class": "existing_probe_low_medium_prior",
+        "prior_quality": "medium_low",
+        "next_intake_priority": "low",
+        "high_priority_for_next_intake": false,
+        "notes": [
+          "Useful mainly as a failure-boundary example for broad flat strips.",
+          "The source itself notes alpha texture trouble, so it should not guide material quality."
+        ]
+      },
+      "verification_sources_v1": [
+        "https://opengameart.org/content/long-hairstyle-for-male-model",
+        "https://creativecommons.org/publicdomain/zero/1.0/"
+      ]
     },
     {
       "source_id": "opengameart_upcomb_male",
@@ -61,8 +119,13 @@
       "external_asset_usage": "prior_only",
       "replace_in_beauty_glb": false,
       "download_status": "not_downloaded",
-      "validation_status": {"status": "skipped", "skipped_with_reason": "metadata_pilot_no_binary_download"},
-      "notes": ["Lower priority for YUNA long hair, but useful as negative/compact clump example."]
+      "validation_status": {
+        "status": "skipped",
+        "skipped_with_reason": "metadata_pilot_no_binary_download"
+      },
+      "notes": [
+        "Lower priority for YUNA long hair, but useful as negative/compact clump example."
+      ]
     },
     {
       "source_id": "opengameart_hair_alphas_for_days",
@@ -79,8 +142,37 @@
       "external_asset_usage": "prior_only",
       "replace_in_beauty_glb": false,
       "download_status": "not_downloaded",
-      "validation_status": {"status": "skipped", "skipped_with_reason": "bulk_archive_not_downloaded_in_metadata_pilot"},
-      "notes": ["Do not commit the bulk archive; future intake may select small individual PNGs after license snapshot."]
+      "validation_status": {
+        "status": "skipped",
+        "skipped_with_reason": "bulk_archive_not_downloaded_in_metadata_pilot"
+      },
+      "notes": [
+        "Do not commit the bulk archive; future intake may select small individual PNGs after license snapshot."
+      ],
+      "source_quality_v1": {
+        "usage_role": "Hair alpha/material fixture source for card transparency and strand texture tests.",
+        "representation_type": "hair_alpha_material_pack",
+        "quality_score": 0.76,
+        "style_relevance_to_yuna": 0.62,
+        "has_bangs": false,
+        "has_side_hair": false,
+        "has_back_hair_mass": false,
+        "has_scalp_anchor_structure": false,
+        "has_hair_cards_or_curves": false,
+        "can_extract_curve_templates": "no_texture_only",
+        "source_class": "open_material_prior",
+        "prior_quality": "medium_high",
+        "next_intake_priority": "high",
+        "high_priority_for_next_intake": true,
+        "notes": [
+          "Strong alpha/material sanity source, but no geometry or scalp anchors.",
+          "Future intake should select a few small PNGs only, not commit the full 138.5 MB archive."
+        ]
+      },
+      "verification_sources_v1": [
+        "https://opengameart.org/content/hair-alphas-for-days",
+        "https://creativecommons.org/publicdomain/zero/1.0/"
+      ]
     },
     {
       "source_id": "opengameart_vroid_cc0_samples",
@@ -97,8 +189,37 @@
       "external_asset_usage": "prior_only",
       "replace_in_beauty_glb": false,
       "download_status": "not_downloaded",
-      "validation_status": {"status": "skipped", "skipped_with_reason": "metadata_pilot_no_binary_download"},
-      "notes": ["Do not include restricted AvatarSample files; future intake must isolate HairSample files only."]
+      "validation_status": {
+        "status": "skipped",
+        "skipped_with_reason": "metadata_pilot_no_binary_download"
+      },
+      "notes": [
+        "Do not include restricted AvatarSample files; future intake must isolate HairSample files only."
+      ],
+      "source_quality_v1": {
+        "usage_role": "Umbrella source for VRoid CC0 anime/stylized hair sample intake.",
+        "representation_type": "vroid_vrm_hair_cards_or_meshes",
+        "quality_score": 0.84,
+        "style_relevance_to_yuna": 0.88,
+        "has_bangs": true,
+        "has_side_hair": true,
+        "has_back_hair_mass": true,
+        "has_scalp_anchor_structure": true,
+        "has_hair_cards_or_curves": true,
+        "can_extract_curve_templates": "yes_after_import_verification",
+        "source_class": "open_anime_template_source",
+        "prior_quality": "high",
+        "next_intake_priority": "high",
+        "high_priority_for_next_intake": true,
+        "notes": [
+          "Prefer explicit HairSample_Female and HairSample_Male files, not restricted AvatarSample A-C.",
+          "VRM import verification is required before any committed render or derived prior."
+        ]
+      },
+      "verification_sources_v1": [
+        "https://opengameart.org/content/vroid-studio-cc0-models",
+        "https://vroid.pixiv.help/hc/en-us/articles/4402614652569-Do-VRoid-Studio-s-sample-models-come-with-conditions-of-use"
+      ]
     },
     {
       "source_id": "blendswap_hair_factory",
@@ -115,8 +236,13 @@
       "external_asset_usage": "prior_only",
       "replace_in_beauty_glb": false,
       "download_status": "not_downloaded",
-      "validation_status": {"status": "skipped", "skipped_with_reason": "metadata_pilot_no_binary_download"},
-      "notes": ["Approximate 15 MB source should be deferred until its value is proven."]
+      "validation_status": {
+        "status": "skipped",
+        "skipped_with_reason": "metadata_pilot_no_binary_download"
+      },
+      "notes": [
+        "Approximate 15 MB source should be deferred until its value is proven."
+      ]
     },
     {
       "source_id": "blendswap_curly_hair",
@@ -133,8 +259,37 @@
       "external_asset_usage": "prior_only",
       "replace_in_beauty_glb": false,
       "download_status": "not_downloaded",
-      "validation_status": {"status": "skipped", "skipped_with_reason": "metadata_pilot_no_binary_download"},
-      "notes": ["Strong curve-template candidate after local license snapshot and checksum."]
+      "validation_status": {
+        "status": "skipped",
+        "skipped_with_reason": "metadata_pilot_no_binary_download"
+      },
+      "notes": [
+        "Strong curve-template candidate after local license snapshot and checksum."
+      ],
+      "source_quality_v1": {
+        "usage_role": "Bezier-curve curl and curve-width template prior.",
+        "representation_type": "curve_hair",
+        "quality_score": 0.78,
+        "style_relevance_to_yuna": 0.58,
+        "has_bangs": false,
+        "has_side_hair": true,
+        "has_back_hair_mass": true,
+        "has_scalp_anchor_structure": false,
+        "has_hair_cards_or_curves": true,
+        "can_extract_curve_templates": "yes_curve_templates",
+        "source_class": "open_curve_template_source",
+        "prior_quality": "medium_high",
+        "next_intake_priority": "high",
+        "high_priority_for_next_intake": true,
+        "notes": [
+          "Small CC0 Bezier-curve source; good for curve extraction tests.",
+          "Style is curly rather than YUNA-specific, so use as geometry parameter prior only."
+        ]
+      },
+      "verification_sources_v1": [
+        "https://blendswap.com/blend/24481",
+        "https://creativecommons.org/publicdomain/zero/1.0/"
+      ]
     },
     {
       "source_id": "blendswap_braided_hair",
@@ -151,8 +306,37 @@
       "external_asset_usage": "prior_only",
       "replace_in_beauty_glb": false,
       "download_status": "not_downloaded",
-      "validation_status": {"status": "skipped", "skipped_with_reason": "metadata_pilot_no_binary_download"},
-      "notes": ["Useful for topology pattern study, not direct shape transfer."]
+      "validation_status": {
+        "status": "skipped",
+        "skipped_with_reason": "metadata_pilot_no_binary_download"
+      },
+      "notes": [
+        "Useful for topology pattern study, not direct shape transfer."
+      ],
+      "source_quality_v1": {
+        "usage_role": "Braid topology and repeated interleaved-strand prior.",
+        "representation_type": "ribbon_or_solid_braid_mesh",
+        "quality_score": 0.66,
+        "style_relevance_to_yuna": 0.36,
+        "has_bangs": false,
+        "has_side_hair": false,
+        "has_back_hair_mass": true,
+        "has_scalp_anchor_structure": false,
+        "has_hair_cards_or_curves": true,
+        "can_extract_curve_templates": "yes_from_mesh_or_modifiers",
+        "source_class": "open_topology_reference",
+        "prior_quality": "medium",
+        "next_intake_priority": "medium",
+        "high_priority_for_next_intake": false,
+        "notes": [
+          "Useful for repeated strand topology and taper patterns.",
+          "Not a close YUNA silhouette match."
+        ]
+      },
+      "verification_sources_v1": [
+        "https://blendswap.com/blend/18823",
+        "https://creativecommons.org/publicdomain/zero/1.0/"
+      ]
     },
     {
       "source_id": "blendswap_dynamic_hairstyle_1",
@@ -169,8 +353,13 @@
       "external_asset_usage": "prior_only",
       "replace_in_beauty_glb": false,
       "download_status": "not_downloaded",
-      "validation_status": {"status": "skipped", "skipped_with_reason": "license_context_pending"},
-      "notes": ["Do not download or derive until the single free asset license is separated from paid pack context."]
+      "validation_status": {
+        "status": "skipped",
+        "skipped_with_reason": "license_context_pending"
+      },
+      "notes": [
+        "Do not download or derive until the single free asset license is separated from paid pack context."
+      ]
     },
     {
       "source_id": "open3dlab_hair_cards_to_curves",
@@ -187,8 +376,13 @@
       "external_asset_usage": "prior_only",
       "replace_in_beauty_glb": false,
       "download_status": "not_downloaded",
-      "validation_status": {"status": "skipped", "skipped_with_reason": "uploader_license_unverified"},
-      "notes": ["Open3DLab warns that license is uploader-selected and not site-moderated; keep out of committed assets."]
+      "validation_status": {
+        "status": "skipped",
+        "skipped_with_reason": "uploader_license_unverified"
+      },
+      "notes": [
+        "Open3DLab warns that license is uploader-selected and not site-moderated; keep out of committed assets."
+      ]
     },
     {
       "source_id": "blender_studio_sintel_rig",
@@ -205,8 +399,36 @@
       "external_asset_usage": "prior_only",
       "replace_in_beauty_glb": false,
       "download_status": "not_downloaded",
-      "validation_status": {"status": "skipped", "skipped_with_reason": "reference_only_no_binary_download"},
-      "notes": ["Use for open-project reference reports first; attribution is required for any future render/derived use."]
+      "validation_status": {
+        "status": "skipped",
+        "skipped_with_reason": "reference_only_no_binary_download"
+      },
+      "notes": [
+        "Use for open-project reference reports first; attribution is required for any future render/derived use."
+      ],
+      "source_quality_v1": {
+        "usage_role": "Reference-only long-hair organization and DCC rig/handoff study.",
+        "representation_type": "open_movie_character_hair_reference",
+        "quality_score": 0.79,
+        "style_relevance_to_yuna": 0.64,
+        "has_bangs": true,
+        "has_side_hair": true,
+        "has_back_hair_mass": true,
+        "has_scalp_anchor_structure": true,
+        "has_hair_cards_or_curves": true,
+        "can_extract_curve_templates": "yes_with_attribution_if_separable",
+        "source_class": "cc_by_reference_report_only",
+        "prior_quality": "medium_high",
+        "next_intake_priority": "medium",
+        "high_priority_for_next_intake": false,
+        "notes": [
+          "Good for DCC organization and long hair reference, but attribution and full-rig size make it non-first-intake.",
+          "Keep as reference report only until attribution and file scope are explicit."
+        ]
+      },
+      "verification_sources_v1": [
+        "https://studio.blender.org/characters/5d41a32b8307e9cd1023fa78/v2/"
+      ]
     },
     {
       "source_id": "blender_studio_spring_rig",
@@ -223,8 +445,228 @@
       "external_asset_usage": "prior_only",
       "replace_in_beauty_glb": false,
       "download_status": "not_downloaded",
-      "validation_status": {"status": "skipped", "skipped_with_reason": "reference_only_no_binary_download"},
-      "notes": ["Good study source; do not commit full character binary in this pilot."]
+      "validation_status": {
+        "status": "skipped",
+        "skipped_with_reason": "reference_only_no_binary_download"
+      },
+      "notes": [
+        "Good study source; do not commit full character binary in this pilot."
+      ],
+      "source_quality_v1": {
+        "usage_role": "Reference-only stylized hair mass and rig organization study.",
+        "representation_type": "open_movie_stylized_hair_reference",
+        "quality_score": 0.83,
+        "style_relevance_to_yuna": 0.72,
+        "has_bangs": true,
+        "has_side_hair": true,
+        "has_back_hair_mass": true,
+        "has_scalp_anchor_structure": true,
+        "has_hair_cards_or_curves": true,
+        "can_extract_curve_templates": "yes_with_attribution_if_separable",
+        "source_class": "cc_by_reference_report_only",
+        "prior_quality": "medium_high",
+        "next_intake_priority": "medium",
+        "high_priority_for_next_intake": false,
+        "notes": [
+          "Useful visual/DCC reference for stylized silhouette mass.",
+          "Do not use as direct template without attribution review and separability check."
+        ]
+      },
+      "verification_sources_v1": [
+        "https://studio.blender.org/characters/spring/v1/"
+      ]
+    },
+    {
+      "source_id": "vroid_hairsample_female_cc0",
+      "source_url": "https://opengameart.org/content/vroid-studio-cc0-models",
+      "source_name": "VRoid Studio CC0 HairSample_Female",
+      "claimed_license": "CC0 for HairSample_Female per VRoid FAQ and OpenGameArt mirror",
+      "license_confidence": "high",
+      "possible_usage_role": "High-priority anime/stylized female hair sample for scalp anchors, bangs, side hair, and back mass priors.",
+      "can_commit_binary_to_repo": "yes_selected_cc0_files_after_review",
+      "can_commit_renders": "yes_selected_cc0_files",
+      "can_extract_curve_templates": "yes_after_import_verification",
+      "recommendation": "open_template_source",
+      "intake_status": "source_identified_metadata_only",
+      "external_asset_usage": "prior_only",
+      "replace_in_beauty_glb": false,
+      "download_status": "not_downloaded",
+      "validation_status": {
+        "status": "skipped",
+        "skipped_with_reason": "source_expansion_metadata_only_no_binary_download"
+      },
+      "notes": [
+        "High-priority next intake candidate; isolate HairSample_Female zip only.",
+        "Do not ingest restricted AvatarSample A-C; use official FAQ as license guard."
+      ],
+      "source_quality_v1": {
+        "usage_role": "Anime female hair template prior for bangs, side curtains, back mass, and scalp anchors.",
+        "representation_type": "vroid_vrm_hair_cards_or_meshes",
+        "quality_score": 0.92,
+        "style_relevance_to_yuna": 0.9,
+        "has_bangs": true,
+        "has_side_hair": true,
+        "has_back_hair_mass": true,
+        "has_scalp_anchor_structure": true,
+        "has_hair_cards_or_curves": true,
+        "can_extract_curve_templates": "yes_after_import_verification",
+        "source_class": "open_anime_template_source",
+        "prior_quality": "high",
+        "next_intake_priority": "high",
+        "high_priority_for_next_intake": true,
+        "notes": [
+          "Best first external prior candidate because it matches anime/stylized hair structure.",
+          "Use abstract control curves and mass ratios only; no direct YUNA geometry transfer."
+        ]
+      },
+      "verification_sources_v1": [
+        "https://opengameart.org/content/vroid-studio-cc0-models",
+        "https://vroid.pixiv.help/hc/en-us/articles/4402614652569-Do-VRoid-Studio-s-sample-models-come-with-conditions-of-use"
+      ]
+    },
+    {
+      "source_id": "vroid_hairsample_male_cc0",
+      "source_url": "https://opengameart.org/content/vroid-studio-cc0-models",
+      "source_name": "VRoid Studio CC0 HairSample_Male",
+      "claimed_license": "CC0 for HairSample_Male per VRoid FAQ and OpenGameArt mirror",
+      "license_confidence": "high",
+      "possible_usage_role": "High-priority anime/stylized male hair sample for short/medium clump topology and scalp anchor priors.",
+      "can_commit_binary_to_repo": "yes_selected_cc0_files_after_review",
+      "can_commit_renders": "yes_selected_cc0_files",
+      "can_extract_curve_templates": "yes_after_import_verification",
+      "recommendation": "open_template_source",
+      "intake_status": "source_identified_metadata_only",
+      "external_asset_usage": "prior_only",
+      "replace_in_beauty_glb": false,
+      "download_status": "not_downloaded",
+      "validation_status": {
+        "status": "skipped",
+        "skipped_with_reason": "source_expansion_metadata_only_no_binary_download"
+      },
+      "notes": [
+        "Useful companion to HairSample_Female for anime card/mesh conventions.",
+        "Use for topology/clump priors only, not as YUNA style target."
+      ],
+      "source_quality_v1": {
+        "usage_role": "Anime hair card/clump topology prior and scalp anchor convention reference.",
+        "representation_type": "vroid_vrm_hair_cards_or_meshes",
+        "quality_score": 0.86,
+        "style_relevance_to_yuna": 0.72,
+        "has_bangs": true,
+        "has_side_hair": true,
+        "has_back_hair_mass": true,
+        "has_scalp_anchor_structure": true,
+        "has_hair_cards_or_curves": true,
+        "can_extract_curve_templates": "yes_after_import_verification",
+        "source_class": "open_anime_template_source",
+        "prior_quality": "high",
+        "next_intake_priority": "high",
+        "high_priority_for_next_intake": true,
+        "notes": [
+          "Less directly YUNA-like than female sample but still valuable for anime topology grammar.",
+          "Keep as selected-file intake only."
+        ]
+      },
+      "verification_sources_v1": [
+        "https://opengameart.org/content/vroid-studio-cc0-models",
+        "https://vroid.pixiv.help/hc/en-us/articles/4402614652569-Do-VRoid-Studio-s-sample-models-come-with-conditions-of-use"
+      ]
+    },
+    {
+      "source_id": "charm_anime_hair_method_reference",
+      "source_url": "https://hyzcluster.github.io/charm/",
+      "source_name": "CHARM anime hair card parameterization method reference",
+      "claimed_license": "GPL-3.0 code; paper/project method reference; raw training models not redistributed",
+      "license_confidence": "medium-high",
+      "possible_usage_role": "Method reference for anime hair control points, card sequencing, and priors; not an asset source.",
+      "can_commit_binary_to_repo": "no_method_reference_only",
+      "can_commit_renders": "no_method_reference_only",
+      "can_extract_curve_templates": "control_point_schema_reference",
+      "recommendation": "reference_report_only",
+      "intake_status": "method_reference_metadata_recorded",
+      "external_asset_usage": "prior_only",
+      "replace_in_beauty_glb": false,
+      "download_status": "not_downloaded",
+      "validation_status": {
+        "status": "skipped",
+        "skipped_with_reason": "method_reference_only_no_asset_download"
+      },
+      "notes": [
+        "Use as schema/planner literature reference only.",
+        "Do not download datasets or model weights into this repo."
+      ],
+      "source_quality_v1": {
+        "usage_role": "Anime hair control-point schema and card-sequence planning reference.",
+        "representation_type": "method_reference_control_point_hair_cards",
+        "quality_score": 0.9,
+        "style_relevance_to_yuna": 0.88,
+        "has_bangs": true,
+        "has_side_hair": true,
+        "has_back_hair_mass": true,
+        "has_scalp_anchor_structure": true,
+        "has_hair_cards_or_curves": true,
+        "can_extract_curve_templates": "control_point_schema_reference",
+        "source_class": "method_reference",
+        "prior_quality": "high_method_reference",
+        "next_intake_priority": "medium",
+        "high_priority_for_next_intake": false,
+        "notes": [
+          "Relevant to future parameter-state updates, not direct geometry extraction.",
+          "Dataset/raw models remain outside repo unless separately licensed and reviewed."
+        ]
+      },
+      "verification_sources_v1": [
+        "https://hyzcluster.github.io/charm/",
+        "https://arxiv.org/abs/2509.21114",
+        "https://github.com/hyz317/CHARM"
+      ]
+    },
+    {
+      "source_id": "diffhaircard_method_reference",
+      "source_url": "https://arxiv.org/abs/2505.18805",
+      "source_name": "DiffHairCard / Auto Hair Card Extraction method reference",
+      "claimed_license": "arXiv paper reference; no reusable asset binary license captured",
+      "license_confidence": "unknown",
+      "possible_usage_role": "Method reference for strand clustering into hair cards, texture sharing, LoD, and differentiable validation.",
+      "can_commit_binary_to_repo": "no_method_reference_only",
+      "can_commit_renders": "no_method_reference_only",
+      "can_extract_curve_templates": "hair_card_clustering_method_reference",
+      "recommendation": "reference_report_only",
+      "intake_status": "method_reference_metadata_recorded",
+      "external_asset_usage": "prior_only",
+      "replace_in_beauty_glb": false,
+      "download_status": "not_downloaded",
+      "validation_status": {
+        "status": "skipped",
+        "skipped_with_reason": "method_reference_only_no_asset_download"
+      },
+      "notes": [
+        "Use as literature prior for card clustering and card-density validation.",
+        "Do not treat paper figures or examples as reusable dataset assets."
+      ],
+      "source_quality_v1": {
+        "usage_role": "Hair card clustering, texture/geometry optimization, and LoD planning reference.",
+        "representation_type": "method_reference_hair_card_extraction",
+        "quality_score": 0.84,
+        "style_relevance_to_yuna": 0.7,
+        "has_bangs": false,
+        "has_side_hair": true,
+        "has_back_hair_mass": true,
+        "has_scalp_anchor_structure": false,
+        "has_hair_cards_or_curves": true,
+        "can_extract_curve_templates": "hair_card_clustering_method_reference",
+        "source_class": "method_reference",
+        "prior_quality": "medium_high_method_reference",
+        "next_intake_priority": "low",
+        "high_priority_for_next_intake": false,
+        "notes": [
+          "Good validation/planning reference for card count and LoD.",
+          "Not anime-specific enough to drive YUNA shape alone."
+        ]
+      },
+      "verification_sources_v1": [
+        "https://arxiv.org/abs/2505.18805"
+      ]
     }
   ],
   "pilot_outputs": {
@@ -239,10 +681,12 @@
       "CharacterPackage/external_hair_dataset/README.md",
       "CharacterPackage/external_hair_dataset/SOURCE_TRIAGE.md",
       "CharacterPackage/external_hair_dataset/assets_manifest.schema.json",
-      "CharacterPackage/external_hair_dataset/external_hair_dataset_pilot_v0_report.json"
+      "CharacterPackage/external_hair_dataset/external_hair_dataset_pilot_v0_report.json",
+      "CharacterPackage/external_hair_dataset/reports/external_hair_source_expansion_v1_report.json"
     ],
     "tests": [
-      "CharacterPackage/tools/tests/test_external_hair_dataset_pilot.py"
+      "CharacterPackage/tools/tests/test_external_hair_dataset_pilot.py",
+      "CharacterPackage/tools/tests/test_external_hair_source_expansion_v1.py"
     ]
   },
   "blocked_behavior": [

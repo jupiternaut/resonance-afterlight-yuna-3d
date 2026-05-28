@@ -292,3 +292,19 @@ acceptance decision for any YUNA hair candidate.
 This prior library is allowed to inform future schema/planner parameters only.
 It is not a hair candidate and not an acceptance decision for current v1
 variants.
+
+<!-- external_hair_source_expansion_v1:start -->
+## External Hair Source Expansion v1
+
+- Route: `external_hair_source_expansion_v1`
+- Status: `source_expansion_generated`
+- Candidate sources annotated: `12`
+- High-priority next intake sources: `vroid_hairsample_female_cc0`, `vroid_hairsample_male_cc0`, `opengameart_vroid_cc0_samples`, `blendswap_curly_hair`, `opengameart_hair_alphas_for_days`
+- Existing probe samples remain retained as low/medium prior quality, not quality targets.
+- Method references such as CHARM and DiffHairCard are `method_reference` / `reference_report_only`; they must not introduce binaries.
+- Boundary: no source binaries downloaded or committed; no YUNA hair generated; v8 remains immutable; `replace_in_beauty_glb=false`; `cloth_seam_surface` remains blocked.
+
+Next valid external-data task: `external_hair_intake_probe_v1_selected_sources` for selected VRoid HairSample and/or BlendSwap Curly Hair with license snapshots and quarantine-only downloads.
+
+Still invalid: `cloth_seam_surface`.
+<!-- external_hair_source_expansion_v1:end -->

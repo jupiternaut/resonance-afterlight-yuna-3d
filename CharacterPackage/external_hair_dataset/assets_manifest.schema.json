@@ -102,7 +102,8 @@
             "partial_selected_small_files_only",
             "yes_with_attribution_after_review",
             "no_uploader_license_unverified",
-            "pending_paid_pack_context"
+            "pending_paid_pack_context",
+            "no_method_reference_only"
           ]
         },
         "can_commit_renders": {
@@ -111,7 +112,8 @@
             "yes_selected_cc0_files",
             "yes_with_attribution",
             "local_internal_only",
-            "pending"
+            "pending",
+            "no_method_reference_only"
           ]
         },
         "can_extract_curve_templates": {
@@ -124,6 +126,8 @@
             "yes_with_attribution_if_separable",
             "limited_short_hair",
             "local_study_only",
+            "control_point_schema_reference",
+            "hair_card_clustering_method_reference",
             "no_texture_only",
             "pending"
           ]
@@ -142,7 +146,8 @@
             "source_identified_metadata_only",
             "license_review_pending",
             "reference_only_metadata_recorded",
-            "local_study_metadata_recorded"
+            "local_study_metadata_recorded",
+            "method_reference_metadata_recorded"
           ]
         },
         "external_asset_usage": {"const": "prior_only"},
@@ -157,7 +162,49 @@
             "skipped_with_reason": {"type": "string", "minLength": 1}
           }
         },
-        "notes": {"type": "array", "items": {"type": "string"}}
+        "notes": {"type": "array", "items": {"type": "string"}},
+        "source_quality_v1": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "usage_role",
+            "representation_type",
+            "quality_score",
+            "style_relevance_to_yuna",
+            "has_bangs",
+            "has_side_hair",
+            "has_back_hair_mass",
+            "has_scalp_anchor_structure",
+            "has_hair_cards_or_curves",
+            "can_extract_curve_templates",
+            "source_class",
+            "prior_quality",
+            "next_intake_priority",
+            "high_priority_for_next_intake",
+            "notes"
+          ],
+          "properties": {
+            "usage_role": {"type": "string"},
+            "representation_type": {"type": "string"},
+            "quality_score": {"type": "number", "minimum": 0, "maximum": 1},
+            "style_relevance_to_yuna": {"type": "number", "minimum": 0, "maximum": 1},
+            "has_bangs": {"type": "boolean"},
+            "has_side_hair": {"type": "boolean"},
+            "has_back_hair_mass": {"type": "boolean"},
+            "has_scalp_anchor_structure": {"type": "boolean"},
+            "has_hair_cards_or_curves": {"type": "boolean"},
+            "can_extract_curve_templates": {"type": "string"},
+            "source_class": {"type": "string"},
+            "prior_quality": {"type": "string"},
+            "next_intake_priority": {"enum": ["high", "medium", "low", "blocked"]},
+            "high_priority_for_next_intake": {"type": "boolean"},
+            "notes": {"type": "array", "items": {"type": "string"}}
+          }
+        },
+        "verification_sources_v1": {
+          "type": "array",
+          "items": {"type": "string", "format": "uri"}
+        }
       }
     }
   }
