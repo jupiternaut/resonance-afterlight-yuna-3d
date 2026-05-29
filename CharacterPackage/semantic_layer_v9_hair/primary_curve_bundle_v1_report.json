@@ -1,7 +1,7 @@
 {
   "route": "external_prior_to_yuna_primary_curve_bundle_v1",
   "status": "primary_curve_bundle_generated_planning_only",
-  "generated_at": "2026-05-28T16:56:24.678601+00:00",
+  "generated_at": "2026-05-29T06:54:24.200496+00:00",
   "boundary": "No YUNA hair GLB generated; no v8 replacement; external shape is not copied.",
   "formula_stage": "theta_hair_curves = ProjectToConstraints_hair(RobustFuse(external_prior, hair_design_schema_v1, target_schema_v1))",
   "primary_group_count": 4,
@@ -22,7 +22,52 @@
   "target_schema_status": "schema_gate_passed_manual_review_failed_underfilled",
   "external_benchmark_status": "constraint_benchmark_passed_for_external_probe",
   "positive_probe_status": "passed",
+  "positive_pink_hair_probe_benchmark": {
+    "source": "positive_pink_hair_probe_benchmark",
+    "usage_role": "positive_control_prior_only",
+    "not_a_shape_source": true,
+    "segmentation_report": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/analysis/pink_hair_segmentation_probe/pink_hair_segmentation_report.json",
+    "constraint_benchmark_v0": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json",
+    "segmentation_route": "pink_hair_color_uv_space_probe_v0",
+    "benchmark_status": "constraint_benchmark_passed_for_external_probe",
+    "positive_probe_status": "passed",
+    "positive_metrics": {
+      "candidate_visible_area_ratio": 0.081359,
+      "soft_silhouette_coverage_ratio": 0.880268,
+      "component_count": 1,
+      "flow_continuity": 0.994529,
+      "scalp_anchor_continuity": 0.605787,
+      "yaw30_visible_ratio_to_front": 1.011169,
+      "side_view_visible_ratio_to_front": 0.893491
+    },
+    "transfer_policy": [
+      "use scalar mass/readability priors only",
+      "use scalp-anchor and taper semantics only",
+      "do not copy mesh vertices, topology, UV islands, object transforms, or silhouette outline"
+    ]
+  },
   "negative_control_count": 5,
+  "machine_readable_curve_bundle": {
+    "required_groups": [
+      "bangs_primary",
+      "side_hair_left_primary",
+      "side_hair_right_primary",
+      "back_hair_mass",
+      "secondary_strands",
+      "flyaway_strands"
+    ],
+    "primary_curve_required_fields": [
+      "scalp_anchor",
+      "curve_points",
+      "width_profile",
+      "taper_profile",
+      "depth_group",
+      "forbidden_zone_policy",
+      "source_prior_reference",
+      "confidence",
+      "manual_review_required"
+    ]
+  },
   "guards": {
     "semantic_layer_v8_modified": false,
     "replace_in_beauty_glb": false,
@@ -53,18 +98,18 @@
     "external_hair_prior_schema_v1": {
       "path": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json",
       "exists": true,
-      "bytes": 6214
+      "bytes": 7703
     },
     "primary_curve_bundle_v1": {
       "path": "CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1.json",
       "exists": true,
-      "bytes": 45751
+      "bytes": 61457
     },
     "primary_curve_bundle_v1_report": {
       "path": "CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1_report.json",
       "exists": true,
-      "bytes": 2474
+      "bytes": 4286
     }
   },
-  "recommended_next": "build_hair_ribbons_from_primary_curve_bundle_v1"
+  "recommended_next": "manual_review_primary_curve_bundle_v1_before_generation"
 }

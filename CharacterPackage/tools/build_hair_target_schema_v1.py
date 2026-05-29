@@ -640,9 +640,13 @@ def build_report(
         recommended_next = "fix_hair_ribbons_to_schema_v1"
     else:
         recommended_next = "build_hair_target_schema_v1"
+    manual_review_status_by_route = {
+        "art_directed_hair_ribbons_v1": "art_directed_candidate_manual_review_required",
+        "curve_bundle_hair_ribbons_v1": "curve_bundle_candidate_manual_review_required",
+    }
     candidate_route_status = (
-        "art_directed_candidate_manual_review_required"
-        if candidate_route_label == "art_directed_hair_ribbons_v1"
+        manual_review_status_by_route[candidate_route_label]
+        if candidate_route_label in manual_review_status_by_route
         and metrics["candidate_target_schema_status"] == "schema_gate_passed_manual_review_required"
         else metrics["candidate_target_schema_status"]
     )

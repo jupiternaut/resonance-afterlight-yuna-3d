@@ -101,7 +101,12 @@ def validate_hair_candidate_report(report: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     if report.get("part_id") != "hair":
         errors.append("part_id must be hair")
-    if report.get("actuator") not in {"authored_hair_ribbons_v0", "art_directed_hair_ribbons_v1", "hair_silhouette_mass_v1"}:
+    if report.get("actuator") not in {
+        "authored_hair_ribbons_v0",
+        "art_directed_hair_ribbons_v1",
+        "hair_silhouette_mass_v1",
+        "curve_bundle_hair_ribbons_v1",
+    }:
         errors.append("unexpected actuator")
     if report.get("status") not in {
         "generated_with_warnings",
@@ -119,6 +124,8 @@ def validate_hair_candidate_report(report: dict[str, Any]) -> list[str]:
         "art_directed_candidate_manual_review_required",
         "hair_silhouette_mass_candidate_manual_review_required",
         "failed_silhouette_mass_readability",
+        "curve_bundle_candidate_manual_review_required",
+        "curve_bundle_candidate_failed",
     }:
         errors.append("status must be generated_with_warnings, failed, or a hair visual failure status")
     mesh = report.get("mesh_summary", {})
@@ -204,6 +211,8 @@ def validate_hair_candidate_report(report: dict[str, Any]) -> list[str]:
         "art_directed_candidate_manual_review_required",
         "hair_silhouette_mass_candidate_manual_review_required",
         "failed_silhouette_mass_readability",
+        "curve_bundle_candidate_manual_review_required",
+        "curve_bundle_candidate_failed",
     }:
         errors.append("hair candidate visual_sanity_status is invalid")
     if visual_status in {"passed", "passed_with_minor_warnings"}:

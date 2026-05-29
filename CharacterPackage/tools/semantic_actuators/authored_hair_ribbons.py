@@ -890,9 +890,13 @@ side_mat.use_nodes = True
 side_mat.blend_method = 'CLIP'
 side_mat.alpha_threshold = 0.5
 side_bsdf = side_mat.node_tree.nodes.get('Principled BSDF')
-side_bsdf.inputs['Base Color'].default_value = (0.72, 0.82, 0.84, {side_alpha!r})
+side_bsdf.inputs['Base Color'].default_value = (0.90, 0.98, 1.0, {side_alpha!r})
 side_bsdf.inputs['Alpha'].default_value = {side_alpha!r}
 side_bsdf.inputs['Roughness'].default_value = 0.68
+if 'Emission Color' in side_bsdf.inputs:
+    side_bsdf.inputs['Emission Color'].default_value = (0.90, 0.98, 1.0, 1.0)
+if 'Emission Strength' in side_bsdf.inputs:
+    side_bsdf.inputs['Emission Strength'].default_value = 0.25
 
 front_mats = {{}}
 for item in RIBBONS:

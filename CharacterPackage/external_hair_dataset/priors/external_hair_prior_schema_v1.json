@@ -1,7 +1,7 @@
 {
   "schema": "external_hair_prior_schema_v1",
   "version": 1,
-  "generated_at": "2026-05-28T16:56:24.041430+00:00",
+  "generated_at": "2026-05-29T06:54:23.641937+00:00",
   "status": "prior_schema_generated",
   "external_asset_usage": "prior_only",
   "do_not_copy_shape_directly": true,
@@ -11,8 +11,33 @@
   "ready_for_cloth_seam_surface": false,
   "source_inputs": {
     "external_prior_library_v0": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_library_v0.json",
+    "positive_pink_hair_segmentation_probe": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/analysis/pink_hair_segmentation_probe/pink_hair_segmentation_report.json",
     "constraint_benchmark_v0": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json",
     "hair_design_schema_v1": "CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json"
+  },
+  "positive_pink_hair_probe_benchmark": {
+    "source": "positive_pink_hair_probe_benchmark",
+    "usage_role": "positive_control_prior_only",
+    "not_a_shape_source": true,
+    "segmentation_report": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/analysis/pink_hair_segmentation_probe/pink_hair_segmentation_report.json",
+    "constraint_benchmark_v0": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json",
+    "segmentation_route": "pink_hair_color_uv_space_probe_v0",
+    "benchmark_status": "constraint_benchmark_passed_for_external_probe",
+    "positive_probe_status": "passed",
+    "positive_metrics": {
+      "candidate_visible_area_ratio": 0.081359,
+      "soft_silhouette_coverage_ratio": 0.880268,
+      "component_count": 1,
+      "flow_continuity": 0.994529,
+      "scalp_anchor_continuity": 0.605787,
+      "yaw30_visible_ratio_to_front": 1.011169,
+      "side_view_visible_ratio_to_front": 0.893491
+    },
+    "transfer_policy": [
+      "use scalar mass/readability priors only",
+      "use scalp-anchor and taper semantics only",
+      "do not copy mesh vertices, topology, UV islands, object transforms, or silhouette outline"
+    ]
   },
   "scalp_anchor_patterns": [
     {

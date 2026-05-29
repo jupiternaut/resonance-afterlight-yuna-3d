@@ -33,6 +33,14 @@ DESIGN_SCHEMA = HAIR_DIR / "hair_design_schema_v1.json"
 TARGET_SCHEMA_REPORT = TARGET_SCHEMA_DIR / "hair_target_schema_v1_report.json"
 EXTERNAL_PRIOR_LIBRARY = PRIORS_DIR / "external_hair_prior_library_v0.json"
 BENCHMARK_REPORT = SKETCHFAB_BENCHMARK_DIR / "external_hair_probe_constraint_benchmark_v0_report.json"
+PINK_SEGMENTATION_REPORT = (
+    CHARACTER_PACKAGE
+    / "external_hair_dataset"
+    / "sketchfab_gorgeous_japanese_fight"
+    / "analysis"
+    / "pink_hair_segmentation_probe"
+    / "pink_hair_segmentation_report.json"
+)
 BASELINE_FRONT = HAIR_DIR / "validation_ci" / "yuna_semantic_layer_v9_hair_validation_baseline_front.png"
 
 EXTERNAL_PRIOR_SCHEMA_V1 = PRIORS_DIR / "external_hair_prior_schema_v1.json"
@@ -162,10 +170,40 @@ def taper_profile_for_group(group_id: str) -> dict[str, Any]:
     }
 
 
+def positive_probe_summary(benchmark: dict[str, Any], segmentation: dict[str, Any]) -> dict[str, Any]:
+    positive_result = benchmark.get("positive_probe_result", {})
+    metrics = positive_result.get("metrics", {})
+    return {
+        "source": "positive_pink_hair_probe_benchmark",
+        "usage_role": "positive_control_prior_only",
+        "not_a_shape_source": True,
+        "segmentation_report": display_path(PINK_SEGMENTATION_REPORT),
+        "constraint_benchmark_v0": display_path(BENCHMARK_REPORT),
+        "segmentation_route": segmentation.get("route"),
+        "benchmark_status": benchmark.get("status"),
+        "positive_probe_status": benchmark.get("positive_probe_status"),
+        "positive_metrics": {
+            "candidate_visible_area_ratio": metrics.get("candidate_visible_area_ratio"),
+            "soft_silhouette_coverage_ratio": metrics.get("soft_silhouette_coverage_ratio"),
+            "component_count": metrics.get("component_count"),
+            "flow_continuity": metrics.get("flow_continuity"),
+            "scalp_anchor_continuity": metrics.get("scalp_anchor_continuity"),
+            "yaw30_visible_ratio_to_front": metrics.get("yaw30_visible_ratio_to_front"),
+            "side_view_visible_ratio_to_front": metrics.get("side_view_visible_ratio_to_front"),
+        },
+        "transfer_policy": [
+            "use scalar mass/readability priors only",
+            "use scalp-anchor and taper semantics only",
+            "do not copy mesh vertices, topology, UV islands, object transforms, or silhouette outline",
+        ],
+    }
+
+
 def build_external_prior_schema(
     design: dict[str, Any],
     prior_library: dict[str, Any],
     benchmark: dict[str, Any],
+    segmentation: dict[str, Any],
 ) -> dict[str, Any]:
     combined = prior_library.get("combined_prior_summary", {})
     negative_patterns = []
@@ -178,6 +216,7 @@ def build_external_prior_schema(
             }
         )
     positive = benchmark.get("positive_probe_result", {}).get("metrics", {})
+    positive_summary = positive_probe_summary(benchmark, segmentation)
     return {
         "schema": "external_hair_prior_schema_v1",
         "version": 1,
@@ -191,9 +230,11 @@ def build_external_prior_schema(
         "ready_for_cloth_seam_surface": False,
         "source_inputs": {
             "external_prior_library_v0": display_path(EXTERNAL_PRIOR_LIBRARY),
+            "positive_pink_hair_segmentation_probe": display_path(PINK_SEGMENTATION_REPORT),
             "constraint_benchmark_v0": display_path(BENCHMARK_REPORT),
             "hair_design_schema_v1": display_path(DESIGN_SCHEMA),
         },
+        "positive_pink_hair_probe_benchmark": positive_summary,
         "scalp_anchor_patterns": [
             {
                 "anchor_id": item["id"],
@@ -271,9 +312,26 @@ def build_primary_curve(group_id: str, design: dict[str, Any]) -> dict[str, Any]
         },
         "source_prior_reference": {
             "external_prior_schema_v1": display_path(EXTERNAL_PRIOR_SCHEMA_V1),
+            "positive_pink_hair_probe_benchmark": display_path(BENCHMARK_REPORT),
+            "positive_pink_hair_segmentation_probe": display_path(PINK_SEGMENTATION_REPORT),
             "constraint_benchmark_v0": display_path(BENCHMARK_REPORT),
             "hair_design_schema_v1": display_path(DESIGN_SCHEMA),
             "direct_copy_allowed": False,
+            "copy_external_geometry": False,
+            "usage_role": "prior_only",
+            "allowed_transfer": [
+                "relative visible-mass thresholds",
+                "scalp-anchor semantics",
+                "width/taper profile families",
+                "negative-control rejection lessons",
+            ],
+            "forbidden_transfer": [
+                "mesh vertices",
+                "topology",
+                "UV layout",
+                "object transforms",
+                "source silhouette outline",
+            ],
         },
         "confidence": "medium",
         "manual_review_required": True,
@@ -358,10 +416,13 @@ def build_curve_bundle(design: dict[str, Any], external_prior_schema: dict[str, 
         "manual_review_required": True,
         "source_inputs": {
             "external_hair_prior_schema_v1": display_path(EXTERNAL_PRIOR_SCHEMA_V1),
+            "positive_pink_hair_probe_benchmark": display_path(BENCHMARK_REPORT),
+            "positive_pink_hair_segmentation_probe": display_path(PINK_SEGMENTATION_REPORT),
             "hair_design_schema_v1": display_path(DESIGN_SCHEMA),
             "target_schema_v1_report": display_path(TARGET_SCHEMA_REPORT),
             "constraint_benchmark_v0": display_path(BENCHMARK_REPORT),
         },
+        "positive_pink_hair_probe_benchmark": external_prior_schema.get("positive_pink_hair_probe_benchmark", {}),
         "primary_curves": primary_curves,
         "bangs_primary": primary_curves["bangs_primary"],
         "side_hair_left_primary": primary_curves["side_hair_left_primary"],
@@ -462,7 +523,8 @@ def build_report() -> dict[str, Any]:
     target_report = load_json(TARGET_SCHEMA_REPORT)
     prior_library = load_json(EXTERNAL_PRIOR_LIBRARY)
     benchmark = load_json(BENCHMARK_REPORT)
-    external_prior_schema = build_external_prior_schema(design, prior_library, benchmark)
+    segmentation = load_json(PINK_SEGMENTATION_REPORT)
+    external_prior_schema = build_external_prior_schema(design, prior_library, benchmark, segmentation)
     bundle = build_curve_bundle(design, external_prior_schema)
 
     write_json(EXTERNAL_PRIOR_SCHEMA_V1, external_prior_schema)
@@ -491,7 +553,29 @@ def build_report() -> dict[str, Any]:
         "target_schema_status": target_report.get("status"),
         "external_benchmark_status": benchmark.get("status"),
         "positive_probe_status": benchmark.get("positive_probe_status"),
+        "positive_pink_hair_probe_benchmark": positive_probe_summary(benchmark, segmentation),
         "negative_control_count": len(benchmark.get("negative_control_results", {})),
+        "machine_readable_curve_bundle": {
+            "required_groups": [
+                "bangs_primary",
+                "side_hair_left_primary",
+                "side_hair_right_primary",
+                "back_hair_mass",
+                "secondary_strands",
+                "flyaway_strands",
+            ],
+            "primary_curve_required_fields": [
+                "scalp_anchor",
+                "curve_points",
+                "width_profile",
+                "taper_profile",
+                "depth_group",
+                "forbidden_zone_policy",
+                "source_prior_reference",
+                "confidence",
+                "manual_review_required",
+            ],
+        },
         "guards": {
             "semantic_layer_v8_modified": False,
             "replace_in_beauty_glb": False,
@@ -511,7 +595,7 @@ def build_report() -> dict[str, Any]:
             "primary_curve_bundle_v1": file_record(PRIMARY_CURVE_BUNDLE),
             "primary_curve_bundle_v1_report": file_record(PRIMARY_CURVE_REPORT),
         },
-        "recommended_next": "build_hair_ribbons_from_primary_curve_bundle_v1",
+        "recommended_next": "manual_review_primary_curve_bundle_v1_before_generation",
     }
     write_json(PRIMARY_CURVE_REPORT, report)
     report["outputs"]["primary_curve_bundle_v1_report"] = file_record(PRIMARY_CURVE_REPORT)

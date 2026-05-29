@@ -775,23 +775,44 @@ def run_wrapper(args: argparse.Namespace) -> int:
             args.output_dir,
             args.candidate_glb.stem,
         )
-        report.setdefault("quality", {})["visual_sanity"] = visual_sanity
-        report.setdefault("candidate_contract", {})["visual_sanity_status"] = visual_sanity["visual_sanity_status"]
-        if visual_sanity["visual_sanity_status"] != "passed":
-            report["status"] = visual_sanity["visual_sanity_status"]
-        candidate_report.setdefault("validation", {}).update(visual_sanity)
-        if visual_sanity["visual_sanity_status"] != "passed":
-            candidate_report["status"] = visual_sanity["visual_sanity_status"]
-        elif candidate_report.get("status") in {
-            "failed_hair_mask_alignment",
-            "failed_hair_mask_projection",
-            "failed_candidate_geometry_alignment",
-            "failed_validation_framing",
-            "failed_visual_sanity",
-            "failed_clean_hair_mask_alignment",
-            "manual_review_failed_clean_target",
-        }:
-            candidate_report["status"] = "generated_with_warnings"
+        uses_curve_bundle_target_schema = (
+            candidate_report.get("actuator") == "curve_bundle_hair_ribbons_v1"
+            or candidate_report.get("validation", {}).get("uses_curve_bundle_v1") is True
+        )
+        if uses_curve_bundle_target_schema:
+            target_schema_pending = {
+                "visual_sanity_status": "pending_target_schema_v1_eval",
+                "visual_sanity_reason": (
+                    "raw v8 hair-union alignment is retained as legacy diagnostics; "
+                    "curve-bundle candidates are judged by target_schema_v1 plus manual review"
+                ),
+                "legacy_raw_hair_union_status": visual_sanity["visual_sanity_status"],
+                "manual_visual_review": "required",
+                "ready_for_cloth_seam_surface": False,
+            }
+            report.setdefault("quality", {})["legacy_raw_hair_union_visual_sanity"] = visual_sanity
+            report.setdefault("quality", {})["visual_sanity"] = target_schema_pending
+            report.setdefault("candidate_contract", {})["visual_sanity_status"] = "pending_target_schema_v1_eval"
+            candidate_report.setdefault("validation", {})["legacy_raw_hair_union_gate"] = visual_sanity
+            candidate_report.setdefault("validation", {}).update(target_schema_pending)
+        else:
+            report.setdefault("quality", {})["visual_sanity"] = visual_sanity
+            report.setdefault("candidate_contract", {})["visual_sanity_status"] = visual_sanity["visual_sanity_status"]
+            if visual_sanity["visual_sanity_status"] != "passed":
+                report["status"] = visual_sanity["visual_sanity_status"]
+            candidate_report.setdefault("validation", {}).update(visual_sanity)
+            if visual_sanity["visual_sanity_status"] != "passed":
+                candidate_report["status"] = visual_sanity["visual_sanity_status"]
+            elif candidate_report.get("status") in {
+                "failed_hair_mask_alignment",
+                "failed_hair_mask_projection",
+                "failed_candidate_geometry_alignment",
+                "failed_validation_framing",
+                "failed_visual_sanity",
+                "failed_clean_hair_mask_alignment",
+                "manual_review_failed_clean_target",
+            }:
+                candidate_report["status"] = "generated_with_warnings"
         write_json(args.candidate_report, candidate_report)
     if result.returncode != 0:
         report["status"] = "failed"
