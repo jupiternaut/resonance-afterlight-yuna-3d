@@ -1,0 +1,434 @@
+{
+  "route": "external_hair_probe_constraint_benchmark_v0",
+  "status": "constraint_benchmark_passed_for_external_probe",
+  "generated_at": "2026-05-28T16:35:35.601872+00:00",
+  "formula_stage": "theta_p_next = ProjectToConstraints_p((1-alpha)*theta_p + alpha*RobustFuse(observations, prior_p))",
+  "purpose": "Use the approved extracted pink hair probe as a positive-control prior sample to test hair constraint reasonableness.",
+  "source_probe": {
+    "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/extracted/pink_hair_segment_probe.glb",
+    "exists": true,
+    "bytes": 15371116
+  },
+  "source_model": {
+    "name": "Sketchfab Gorgeous japanese Fight",
+    "usage": "positive_control_external_hair_prior_only",
+    "not_yuna_replacement": true
+  },
+  "views": {
+    "front": {
+      "status": "consumed_existing_render",
+      "source": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/analysis/pink_hair_segmentation_probe/candidate_only_front.png",
+      "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/views/positive_front.png",
+      "exists": true,
+      "bytes": 1525511
+    },
+    "yaw30": {
+      "status": "consumed_existing_render",
+      "source": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/analysis/pink_hair_segmentation_probe/candidate_only_yaw30.png",
+      "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/views/positive_yaw30.png",
+      "exists": true,
+      "bytes": 1517985
+    },
+    "side": {
+      "status": "consumed_existing_render",
+      "source": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/analysis/pink_hair_segmentation_probe/candidate_only_side.png",
+      "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/views/positive_side.png",
+      "exists": true,
+      "bytes": 1489711
+    },
+    "wire": {
+      "status": "consumed_existing_render",
+      "source": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/analysis/pink_hair_segmentation_probe/wire_front.png",
+      "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/views/positive_wire.png",
+      "exists": true,
+      "bytes": 2251735
+    },
+    "depth": {
+      "status": "skipped_with_reason",
+      "skipped_with_reason": "depth view is not available for the committed extracted probe"
+    },
+    "normal": {
+      "status": "skipped_with_reason",
+      "skipped_with_reason": "normal view is not available for the committed extracted probe"
+    }
+  },
+  "constraint_model": {
+    "type": "external_probe_normalized_target_schema",
+    "reason": "External probe does not share YUNA coordinate space; target masks are derived from the probe foreground itself.",
+    "thresholds": {
+      "candidate_visible_area_ratio": 0.005,
+      "candidate_core_coverage_ratio": 0.1,
+      "candidate_soft_inside_ratio": 0.7,
+      "forbidden_candidate_leak_ratio": 0.1,
+      "component_count_max": 32,
+      "yaw30_visible_ratio_to_front": 0.45,
+      "side_view_visible_ratio_to_front": 0.18,
+      "flow_continuity": 0.36,
+      "scalp_anchor_continuity": 0.15
+    },
+    "depth_view": {
+      "status": "skipped_with_reason",
+      "skipped_with_reason": "depth view is not available for the committed extracted probe"
+    },
+    "normal_view": {
+      "status": "skipped_with_reason",
+      "skipped_with_reason": "normal view is not available for the committed extracted probe"
+    }
+  },
+  "positive_probe_status": "passed",
+  "positive_probe_result": {
+    "name": "positive_probe",
+    "status": "passed",
+    "expected_role": "positive_control",
+    "metrics": {
+      "candidate_visible_pixel_count": 205024,
+      "candidate_visible_area_ratio": 0.081359,
+      "candidate_core_coverage_ratio": 1.0,
+      "candidate_soft_inside_ratio": 1.0,
+      "soft_silhouette_coverage_ratio": 0.880268,
+      "forbidden_candidate_leak_ratio": 0.0,
+      "component_count": 1,
+      "largest_component_area": 205022,
+      "largest_component_ratio": 0.99999,
+      "yaw30_visible_ratio_to_front": 1.011169,
+      "side_view_visible_ratio_to_front": 0.893491,
+      "flow_continuity": 0.994529,
+      "scalp_anchor_continuity": 0.605787
+    },
+    "gates": {
+      "visible_mass": true,
+      "core_coverage": true,
+      "soft_inside": true,
+      "forbidden_leak": true,
+      "component_count": true,
+      "yaw30_readability": true,
+      "side_readability": true,
+      "flow_continuity": true,
+      "scalp_anchor_continuity": true
+    },
+    "failed_gates": []
+  },
+  "negative_control_results": {
+    "shrunken_probe": {
+      "name": "shrunken_probe",
+      "status": "failed",
+      "expected_role": "negative_control",
+      "metrics": {
+        "candidate_visible_pixel_count": 8252,
+        "candidate_visible_area_ratio": 0.003275,
+        "candidate_core_coverage_ratio": 0.040852,
+        "candidate_soft_inside_ratio": 1.0,
+        "soft_silhouette_coverage_ratio": 0.03543,
+        "forbidden_candidate_leak_ratio": 0.0,
+        "component_count": 1,
+        "largest_component_area": 8234,
+        "largest_component_ratio": 0.997819,
+        "yaw30_visible_ratio_to_front": 1.009695,
+        "side_view_visible_ratio_to_front": 0.891178,
+        "flow_continuity": 0.993986,
+        "scalp_anchor_continuity": 0.603604
+      },
+      "gates": {
+        "visible_mass": false,
+        "core_coverage": false,
+        "soft_inside": true,
+        "forbidden_leak": true,
+        "component_count": true,
+        "yaw30_readability": true,
+        "side_readability": true,
+        "flow_continuity": true,
+        "scalp_anchor_continuity": true
+      },
+      "failed_gates": [
+        "visible_mass",
+        "core_coverage"
+      ],
+      "expected_to_fail": true,
+      "failed_as_expected": true,
+      "artifacts": {
+        "front_alpha": {
+          "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/negative_controls/shrunken_probe/front_alpha.png",
+          "exists": true,
+          "bytes": 3406
+        },
+        "yaw30_alpha": {
+          "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/negative_controls/shrunken_probe/yaw30_alpha.png",
+          "exists": true,
+          "bytes": 3347
+        },
+        "side_alpha": {
+          "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/negative_controls/shrunken_probe/side_alpha.png",
+          "exists": true,
+          "bytes": 3323
+        }
+      }
+    },
+    "shifted_probe": {
+      "name": "shifted_probe",
+      "status": "failed",
+      "expected_role": "negative_control",
+      "metrics": {
+        "candidate_visible_pixel_count": 205024,
+        "candidate_visible_area_ratio": 0.081359,
+        "candidate_core_coverage_ratio": 0.124617,
+        "candidate_soft_inside_ratio": 0.174038,
+        "soft_silhouette_coverage_ratio": 0.1532,
+        "forbidden_candidate_leak_ratio": 0.790561,
+        "component_count": 1,
+        "largest_component_area": 205022,
+        "largest_component_ratio": 0.99999,
+        "yaw30_visible_ratio_to_front": 1.011169,
+        "side_view_visible_ratio_to_front": 0.893491,
+        "flow_continuity": 0.994529,
+        "scalp_anchor_continuity": 0.605787
+      },
+      "gates": {
+        "visible_mass": true,
+        "core_coverage": true,
+        "soft_inside": false,
+        "forbidden_leak": false,
+        "component_count": true,
+        "yaw30_readability": true,
+        "side_readability": true,
+        "flow_continuity": true,
+        "scalp_anchor_continuity": true
+      },
+      "failed_gates": [
+        "soft_inside",
+        "forbidden_leak"
+      ],
+      "expected_to_fail": true,
+      "failed_as_expected": true,
+      "artifacts": {
+        "front_alpha": {
+          "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/negative_controls/shifted_probe/front_alpha.png",
+          "exists": true,
+          "bytes": 7757
+        },
+        "yaw30_alpha": {
+          "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/negative_controls/shifted_probe/yaw30_alpha.png",
+          "exists": true,
+          "bytes": 7235
+        },
+        "side_alpha": {
+          "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/negative_controls/shifted_probe/side_alpha.png",
+          "exists": true,
+          "bytes": 7153
+        }
+      }
+    },
+    "fragmented_probe": {
+      "name": "fragmented_probe",
+      "status": "failed",
+      "expected_role": "negative_control",
+      "metrics": {
+        "candidate_visible_pixel_count": 68601,
+        "candidate_visible_area_ratio": 0.027223,
+        "candidate_core_coverage_ratio": 0.334469,
+        "candidate_soft_inside_ratio": 1.0,
+        "soft_silhouette_coverage_ratio": 0.294537,
+        "forbidden_candidate_leak_ratio": 0.0,
+        "component_count": 165,
+        "largest_component_area": 484,
+        "largest_component_ratio": 0.007055,
+        "yaw30_visible_ratio_to_front": 0.993951,
+        "side_view_visible_ratio_to_front": 0.891824,
+        "flow_continuity": 0.401764,
+        "scalp_anchor_continuity": 0.603261
+      },
+      "gates": {
+        "visible_mass": true,
+        "core_coverage": true,
+        "soft_inside": true,
+        "forbidden_leak": true,
+        "component_count": false,
+        "yaw30_readability": true,
+        "side_readability": true,
+        "flow_continuity": true,
+        "scalp_anchor_continuity": true
+      },
+      "failed_gates": [
+        "component_count"
+      ],
+      "expected_to_fail": true,
+      "failed_as_expected": true,
+      "artifacts": {
+        "front_alpha": {
+          "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/negative_controls/fragmented_probe/front_alpha.png",
+          "exists": true,
+          "bytes": 5452
+        },
+        "yaw30_alpha": {
+          "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/negative_controls/fragmented_probe/yaw30_alpha.png",
+          "exists": true,
+          "bytes": 5246
+        },
+        "side_alpha": {
+          "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/negative_controls/fragmented_probe/side_alpha.png",
+          "exists": true,
+          "bytes": 5096
+        }
+      }
+    },
+    "barcode_strip_probe": {
+      "name": "barcode_strip_probe",
+      "status": "failed",
+      "expected_role": "negative_control",
+      "metrics": {
+        "candidate_visible_pixel_count": 125225,
+        "candidate_visible_area_ratio": 0.049692,
+        "candidate_core_coverage_ratio": 0.582977,
+        "candidate_soft_inside_ratio": 1.0,
+        "soft_silhouette_coverage_ratio": 0.537652,
+        "forbidden_candidate_leak_ratio": 0.0,
+        "component_count": 68,
+        "largest_component_area": 3585,
+        "largest_component_ratio": 0.028628,
+        "yaw30_visible_ratio_to_front": 0.999473,
+        "side_view_visible_ratio_to_front": 0.890317,
+        "flow_continuity": 0.282608,
+        "scalp_anchor_continuity": 0.357401
+      },
+      "gates": {
+        "visible_mass": true,
+        "core_coverage": true,
+        "soft_inside": true,
+        "forbidden_leak": true,
+        "component_count": false,
+        "yaw30_readability": true,
+        "side_readability": true,
+        "flow_continuity": false,
+        "scalp_anchor_continuity": true
+      },
+      "failed_gates": [
+        "component_count",
+        "flow_continuity"
+      ],
+      "expected_to_fail": true,
+      "failed_as_expected": true,
+      "artifacts": {
+        "front_alpha": {
+          "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/negative_controls/barcode_strip_probe/front_alpha.png",
+          "exists": true,
+          "bytes": 5624
+        },
+        "yaw30_alpha": {
+          "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/negative_controls/barcode_strip_probe/yaw30_alpha.png",
+          "exists": true,
+          "bytes": 5455
+        },
+        "side_alpha": {
+          "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/negative_controls/barcode_strip_probe/side_alpha.png",
+          "exists": true,
+          "bytes": 5353
+        }
+      }
+    },
+    "nonhair_component_probe": {
+      "name": "nonhair_component_probe",
+      "status": "failed",
+      "expected_role": "negative_control",
+      "metrics": {
+        "candidate_visible_pixel_count": 233260,
+        "candidate_visible_area_ratio": 0.092563,
+        "candidate_core_coverage_ratio": 1.0,
+        "candidate_soft_inside_ratio": 0.878951,
+        "soft_silhouette_coverage_ratio": 0.880268,
+        "forbidden_candidate_leak_ratio": 0.121049,
+        "component_count": 2,
+        "largest_component_area": 205022,
+        "largest_component_ratio": 0.878942,
+        "yaw30_visible_ratio_to_front": 1.009817,
+        "side_view_visible_ratio_to_front": 0.906383,
+        "flow_continuity": 0.623216,
+        "scalp_anchor_continuity": 0.583603
+      },
+      "gates": {
+        "visible_mass": true,
+        "core_coverage": true,
+        "soft_inside": true,
+        "forbidden_leak": false,
+        "component_count": true,
+        "yaw30_readability": true,
+        "side_readability": true,
+        "flow_continuity": true,
+        "scalp_anchor_continuity": true
+      },
+      "failed_gates": [
+        "forbidden_leak"
+      ],
+      "expected_to_fail": true,
+      "failed_as_expected": true,
+      "artifacts": {
+        "front_alpha": {
+          "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/negative_controls/nonhair_component_probe/front_alpha.png",
+          "exists": true,
+          "bytes": 8006
+        },
+        "yaw30_alpha": {
+          "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/negative_controls/nonhair_component_probe/yaw30_alpha.png",
+          "exists": true,
+          "bytes": 7492
+        },
+        "side_alpha": {
+          "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/negative_controls/nonhair_component_probe/side_alpha.png",
+          "exists": true,
+          "bytes": 7495
+        }
+      }
+    }
+  },
+  "negative_controls_generated": true,
+  "negative_controls_skipped_with_reason": null,
+  "constraint_false_positive_risk": "low",
+  "constraint_false_negative_risk": "low",
+  "constraints_too_strict": false,
+  "constraints_too_weak": false,
+  "recommended_constraint_updates": [
+    "Constraint set is useful as a smoke gate for external hair priors, but it is not a visual acceptance gate for YUNA.",
+    "Keep external probe as prior_only; do not copy this geometry into YUNA or unblock cloth from this benchmark alone."
+  ],
+  "usable_as_yuna_prior": true,
+  "usable_as_yuna_prior_reason": "External probe passed normalized smoke constraints; usable only as a visual/flow prior, not as replacement geometry.",
+  "guards": {
+    "external_asset_usage": "positive_control_prior_only",
+    "generated_yuna_hair": false,
+    "replace_in_beauty_glb": false,
+    "ready_for_cloth_seam_surface": false,
+    "semantic_layer_v8_modified": false,
+    "external_probe_is_final_yuna_hair": false
+  },
+  "artifacts": {
+    "report": {
+      "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json",
+      "exists": true,
+      "bytes": 17635
+    },
+    "contact_sheet": {
+      "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_contact_sheet.png",
+      "exists": true,
+      "bytes": 112361
+    },
+    "positive_alpha": {
+      "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/masks/positive_alpha.png",
+      "exists": true,
+      "bytes": 7570
+    },
+    "strict_core": {
+      "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/masks/strict_core.png",
+      "exists": true,
+      "bytes": 7208
+    },
+    "soft_silhouette": {
+      "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/masks/soft_silhouette.png",
+      "exists": true,
+      "bytes": 5587
+    },
+    "forbidden_zone": {
+      "path": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/masks/forbidden_zone.png",
+      "exists": true,
+      "bytes": 7911
+    },
+    "negative_controls_dir": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/negative_controls"
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "schema": "external_hair_prior_schema_v1",
+  "version": 1,
+  "generated_at": "2026-05-28T16:56:24.041430+00:00",
+  "status": "prior_schema_generated",
+  "external_asset_usage": "prior_only",
+  "do_not_copy_shape_directly": true,
+  "direct_copy_allowed": false,
+  "replace_in_beauty_glb": false,
+  "generated_yuna_hair": false,
+  "ready_for_cloth_seam_surface": false,
+  "source_inputs": {
+    "external_prior_library_v0": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_library_v0.json",
+    "constraint_benchmark_v0": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json",
+    "hair_design_schema_v1": "CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json"
+  },
+  "scalp_anchor_patterns": [
+    {
+      "anchor_id": "scalp_front_center",
+      "semantic_location": "front hairline center above face",
+      "confidence": "estimated",
+      "use_as": "YUNA anchor name and semantic region only"
+    },
+    {
+      "anchor_id": "scalp_front_left",
+      "semantic_location": "front-left bangs root",
+      "confidence": "estimated",
+      "use_as": "YUNA anchor name and semantic region only"
+    },
+    {
+      "anchor_id": "scalp_front_right",
+      "semantic_location": "front-right bangs root",
+      "confidence": "estimated",
+      "use_as": "YUNA anchor name and semantic region only"
+    },
+    {
+      "anchor_id": "scalp_left_temple",
+      "semantic_location": "left temple / side hair root",
+      "confidence": "estimated",
+      "use_as": "YUNA anchor name and semantic region only"
+    },
+    {
+      "anchor_id": "scalp_right_temple",
+      "semantic_location": "right temple / side hair root",
+      "confidence": "estimated",
+      "use_as": "YUNA anchor name and semantic region only"
+    },
+    {
+      "anchor_id": "scalp_crown",
+      "semantic_location": "crown and upper back hair root",
+      "confidence": "estimated",
+      "use_as": "YUNA anchor name and semantic region only"
+    },
+    {
+      "anchor_id": "scalp_back_left",
+      "semantic_location": "left rear hair mass root",
+      "confidence": "estimated",
+      "use_as": "YUNA anchor name and semantic region only"
+    },
+    {
+      "anchor_id": "scalp_back_right",
+      "semantic_location": "right rear hair mass root",
+      "confidence": "estimated",
+      "use_as": "YUNA anchor name and semantic region only"
+    }
+  ],
+  "flow_arc_patterns": [
+    {
+      "bundle_id": "back_mass_crown_to_low_tail",
+      "informed_by": [
+        "opengameart_ponytail_female"
+      ],
+      "anchors": [
+        "scalp_crown",
+        "scalp_back_center"
+      ],
+      "intended_yuna_group": "back_hair_mass",
+      "parameter_hint": "2-4 fuller downward mass ribbons plus secondary tapered strands"
+    },
+    {
+      "bundle_id": "side_curtain_left_right_fill",
+      "informed_by": [
+        "opengameart_long_male"
+      ],
+      "anchors": [
+        "scalp_left_temple",
+        "scalp_right_temple",
+        "scalp_crown"
+      ],
+      "intended_yuna_group": "side_hair_left_right",
+      "parameter_hint": "medium-width side fall curves with stronger taper and anti-wall clipping"
+    },
+    {
+      "bundle_id": "pink_probe_compact_bob_mass",
+      "informed_by": [
+        "sketchfab_gorgeous_japanese_fight_pink_hair_probe"
+      ],
+      "intended_yuna_group": "bangs_side_back_balance",
+      "parameter_hint": "Use as mass/readability positive-control only; do not copy bob silhouette."
+    }
+  ],
+  "width_profile_patterns": {
+    "source": "external prior ratios plus pink probe visible-mass benchmark",
+    "positive_probe_visible_area_ratio": 0.081359,
+    "positive_probe_soft_silhouette_coverage_ratio": 0.880268,
+    "recommended_use": "relative width envelopes for YUNA curves, not copied outlines"
+  },
+  "taper_profile_patterns": {
+    "family": "full root and mid mass with narrow tapered tips",
+    "negative_controls": [
+      "shrunken_probe",
+      "barcode_strip_probe"
+    ],
+    "recommended_use": "preserve enough visible mass while avoiding barcode/slat fragmentation"
+  },
+  "visible_mass_patterns": {
+    "positive_probe_component_count": 1,
+    "positive_probe_flow_continuity": 0.994529,
+    "positive_probe_scalp_anchor_continuity": 0.605787,
+    "benchmark_status": "constraint_benchmark_passed_for_external_probe"
+  },
+  "depth_group_patterns": {
+    "front_bangs": "front identity group; keep around face without broad opaque occlusion",
+    "side_ribbons": "mid-depth side-fall curves; preserve left/right silhouette",
+    "back_mass": "rear mass; use crown anchor and visible volume, not a flat wall",
+    "flyaways": "thin distributed accents after primary groups pass",
+    "side_back_are_soft_constraints": true
+  },
+  "negative_failure_patterns": [
+    {
+      "control": "shrunken_probe",
+      "failed_gates": [
+        "visible_mass",
+        "core_coverage"
+      ],
+      "lesson": "Reject shrunken probe when building YUNA primary curves."
+    },
+    {
+      "control": "shifted_probe",
+      "failed_gates": [
+        "soft_inside",
+        "forbidden_leak"
+      ],
+      "lesson": "Reject shifted probe when building YUNA primary curves."
+    },
+    {
+      "control": "fragmented_probe",
+      "failed_gates": [
+        "component_count"
+      ],
+      "lesson": "Reject fragmented probe when building YUNA primary curves."
+    },
+    {
+      "control": "barcode_strip_probe",
+      "failed_gates": [
+        "component_count",
+        "flow_continuity"
+      ],
+      "lesson": "Reject barcode strip probe when building YUNA primary curves."
+    },
+    {
+      "control": "nonhair_component_probe",
+      "failed_gates": [
+        "forbidden_leak"
+      ],
+      "lesson": "Reject nonhair component probe when building YUNA primary curves."
+    }
+  ],
+  "unsafe_or_style_mismatched_patterns": [
+    "Do not copy the full ponytail or long flat curtain silhouette into YUNA.",
+    "Do not convert broad sheet references into a flat hair wall.",
+    "Do not treat low-poly source card topology as production-ready YUNA topology.",
+    "Do not use external renders to override YUNA front identity or target-schema gates."
+  ]
+}

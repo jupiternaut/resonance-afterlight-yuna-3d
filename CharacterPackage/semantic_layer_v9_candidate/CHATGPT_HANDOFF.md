@@ -1,52 +1,53 @@
 COPY_TO_CHATGPT_HANDOFF
 项目：jupiternaut/resonance-afterlight-yuna-3d
 分支：feature/authored-hair-ribbons-v0
-提交：本文件所在提交；最终 HEAD 请以 `git rev-parse --short HEAD` / GitHub 显示为准
-本轮目标：把已下载的 Sketchfab `Gorgeous japanese Fight` 原始 GLB 和粉色头发提取资产上传到 GitHub，并保留授权/分析/截图证据。
-本轮结论：已将原始 GLB、粉色头发提取 GLB/OBJ/BLEND、截图、分析报告和 CC BY 署名文件加入 `CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/`。这些文件是 external prior / local study 资产，不替换 YUNA v8，也不解除 cloth 阻塞。
+提交：当前 HEAD 为 f17fc8c；本轮 primary-curve 文件尚未提交，最终提交号请以 GitHub / `git rev-parse --short HEAD` 为准
+本轮目标：实现 `external_prior_to_yuna_primary_curve_bundle_v1`。基于 external pink hair benchmark、external prior library、`hair_design_schema_v1` 和 YUNA `target_schema_v1`，生成 YUNA 专用 primary curve bundle；不生成新 hair GLB。
+本轮结论：已生成 planning-only primary curve bundle。四个主发组都有显式 scalp anchor、curve_points、width/taper/depth policy、soft silhouette region 和 forbidden-zone policy。该结果是下一轮 ribbon 生成器的输入，不是人工头发验收，也不是 v8 替换。
+
 公式阶段：
-- theta_p_next = ProjectToConstraints_p((1-alpha)*theta_p + alpha*RobustFuse(front/side/back/validation/prior))
-- 本轮只提交外部 prior 资产和证据，不改 YUNA mesh vertices。
+- theta_hair_curves = ProjectToConstraints_hair(RobustFuse(external_prior, hair_design_schema_v1, target_schema_v1))
+- 本轮只更新 part-parameter / curve-planning state，不优化 raw mesh vertices，不复制外部几何。
+
 核心状态：
 - v8 unchanged: true
 - replace_in_beauty_glb: false
-- external_asset_usage: prior_only
-- source_binary_committed: true, Git LFS
-- generated_yuna_hair: false
+- generated_yuna_hair_glb: false
+- direct_copy_allowed: false
+- do_not_copy_shape_directly: true
+- primary_curve_bundle_status: primary_curve_bundle_generated_planning_only
+- manual_review_required: true
 - ready_for_cloth_seam_surface: false
-- visual_sanity_status: not_applicable_external_prior_upload
-- manual_review: still_required_for_current_hair_route
+
 关键指标：
-- original_source_glb: CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/source/gorgeous_japanese_fight.glb
-- original_sha256: f57fadf8dbaad1c0bdda71c6354fca27264991cadfb7b9787be45a0c5463d9f1
-- extracted_hair_glb: CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/extracted/pink_hair_segment_probe.glb
-- extracted_hair_glb_sha256: 2db2dd8cee583a2cdeee3d4aa1c839d57f07f222028e7e5662e9cdffc86062fc
-- original_polygons: 496472
-- extracted_hair_probe_polygons: 142313
-- claimed_license: CC BY 4.0
-- attribution_required: true
+- primary_group_count: 4
+- primary_groups: bangs_primary, side_hair_left_primary, side_hair_right_primary, back_hair_mass
+- primary_curve_point_counts: 4 / 4 / 4 / 4
+- secondary_strand_count: 4
+- flyaway_strand_count: 4
+- external_benchmark_status: constraint_benchmark_passed_for_external_probe
+- positive_probe_status: passed
+- negative_control_count: 5
+
 生成/更新文件：
-- .gitattributes
-- CharacterPackage/external_hair_dataset/README.md
-- CharacterPackage/external_hair_dataset/SOURCE_TRIAGE.md
-- CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/README.md
-- CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/ATTRIBUTION.md
-- CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/source/gorgeous_japanese_fight.glb
-- CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/source/metadata.json
-- CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/source/source_page_snapshot.html
-- CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/source/thumbnail.jpeg
-- CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/extracted/pink_hair_segment_probe.glb
-- CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/extracted/pink_hair_segment_probe.obj
-- CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/extracted/pink_hair_segment_probe.mtl
-- CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/extracted/pink_hair_segment_probe.blend
-- CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/analysis/*
+- CharacterPackage/tools/build_primary_curve_bundle_v1.py
+- CharacterPackage/tools/tests/test_primary_curve_bundle_v1.py
+- CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json
+- CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1.json
+- CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1_report.json
+- CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1_front_overlay.png
+- CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1_yaw30_plan.png
+- CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1_contact_sheet.png
 - CharacterPackage/semantic_layer_v9_candidate/PROJECT_STATE.md
 - CharacterPackage/semantic_layer_v9_candidate/NEXT_GOAL.md
 - CharacterPackage/semantic_layer_v9_candidate/CHATGPT_HANDOFF.md
+
 验证命令：
-- unittest: passed, 95 tests
+- unittest: passed, 109 tests
 - compileall: passed
 - v8 diff: empty
-当前阻塞：Sketchfab 资产只能作为发型体量/头皮锚点/发束走向 prior；当前 YUNA hair route 仍需人工视觉复核，`cloth_seam_surface` 继续阻塞。
+
+当前阻塞：还没有新 YUNA hair geometry；当前输出只是下一轮 generator 的 primary curve 参数。`cloth_seam_surface` 继续阻塞。
+
 推荐下一步 Codex goal：
-/goal Build `sketchfab_hair_prior_schema_v0` from `CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/`. Extract scalp anchor zones, crown/back mass, primary flow arcs, side strand arcs, width/taper hints, visible mass thresholds, and negative notes. Do not copy the high-poly shell into YUNA, do not replace v8 beauty, keep `replace_in_beauty_glb=false`, and keep cloth blocked.
+/goal Build `build_hair_ribbons_from_primary_curve_bundle_v1`. Use `CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1.json` to generate a new additive hair candidate where every ribbon references a named primary curve, secondary strand, or flyaway. Keep `semantic_layer_v8` unchanged, keep `replace_in_beauty_glb=false`, do not copy external geometry, do not call it final production hair, and keep `cloth_seam_surface` blocked until manual visual review accepts the hair direction.

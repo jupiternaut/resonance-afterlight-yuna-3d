@@ -218,6 +218,44 @@ git diff --name-only -- CharacterPackage/semantic_layer_v8
   - `CharacterPackage/external_hair_dataset/assets_manifest.schema.json`
   - `CharacterPackage/external_hair_dataset/assets_manifest.json`
   - `CharacterPackage/external_hair_dataset/external_hair_dataset_pilot_v0_report.json`
+
+## External Hair Probe Constraint Benchmark v0
+
+- Route: `external_hair_probe_constraint_benchmark_v0`
+- Status: `constraint_benchmark_passed_for_external_probe`
+- Purpose: use the extracted Sketchfab pink hair segment as a positive-control
+  external hair prior sample, not as YUNA replacement geometry.
+- Input:
+  - `CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/extracted/pink_hair_segment_probe.glb`
+  - committed front/yaw30/side/wire review renders from the pink-hair
+    segmentation probe.
+- Benchmark model:
+  - builds an external-probe-local `strict_core`, `soft_silhouette`, and
+    `forbidden_zone` from the positive probe foreground;
+  - evaluates visible mass, soft-inside, core coverage, forbidden leak,
+    component count, yaw30 readability, side readability, flow continuity, and
+    scalp-anchor continuity;
+  - generates negative controls for shrunken, shifted, fragmented, barcode,
+    and nonhair-component probes.
+- Result:
+  - positive probe passed all benchmark gates;
+  - all negative controls failed at least one intended gate;
+  - `constraint_false_positive_risk=low`;
+  - `constraint_false_negative_risk=low`;
+  - `constraints_too_strict=false`;
+  - `constraints_too_weak=false`;
+  - `usable_as_yuna_prior=true`.
+- Boundary:
+  - this proves the current constraint family is useful as an external-prior
+    smoke gate only;
+  - it does not accept any current YUNA hair candidate;
+  - it does not copy the Sketchfab shell into YUNA;
+  - it does not unblock `cloth_seam_surface`.
+- Main evidence:
+  - `CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json`
+  - `CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_contact_sheet.png`
+  - `CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/masks/`
+  - `CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/negative_controls/`
 - Subagent inputs:
   - `CharacterPackage/external_hair_dataset/subagent_reports/source_scout_report.md`
   - `CharacterPackage/external_hair_dataset/subagent_reports/dataset_schema_plan.md`
@@ -342,3 +380,44 @@ Recommended next use: derive a hair prior schema from this source, especially
 scalp anchors, crown/back mass, side strand arcs, and visible hair mass targets.
 Do not directly copy the high-poly shell into YUNA.
 <!-- sketchfab_gorgeous_japanese_fight_intake:end -->
+
+<!-- primary_curve_bundle_v1:start -->
+## External Prior To YUNA Primary Curve Bundle v1
+
+- Route: `external_prior_to_yuna_primary_curve_bundle_v1`
+- Status: `primary_curve_bundle_generated_planning_only`
+- Purpose: convert external-hair prior evidence, `hair_design_schema_v1`, and
+  YUNA `target_schema_v1` into explicit YUNA-specific primary hair curves.
+- Outputs:
+  - `CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json`
+  - `CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1.json`
+  - `CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1_report.json`
+  - `CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1_front_overlay.png`
+  - `CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1_yaw30_plan.png`
+  - `CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1_contact_sheet.png`
+- Curves defined:
+  - `bangs_primary`
+  - `side_hair_left_primary`
+  - `side_hair_right_primary`
+  - `back_hair_mass`
+  - `secondary_strands`
+  - `flyaway_strands`
+- Key metrics:
+  - primary group count: `4`
+  - secondary strand count: `4`
+  - flyaway strand count: `4`
+  - all primary curves have `4` curve points
+  - positive external probe status: `passed`
+  - negative benchmark controls: `5`
+- Boundary:
+  - this is a curve planner only;
+  - no YUNA hair GLB was generated;
+  - external shape is not copied directly;
+  - `replace_in_beauty_glb=false`;
+  - manual review is still required;
+  - `cloth_seam_surface` remains blocked.
+
+Next valid task: `build_hair_ribbons_from_primary_curve_bundle_v1`.
+
+Still invalid: `cloth_seam_surface`.
+<!-- primary_curve_bundle_v1:end -->

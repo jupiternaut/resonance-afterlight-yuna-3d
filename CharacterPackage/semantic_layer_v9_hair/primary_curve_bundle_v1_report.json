@@ -1,0 +1,70 @@
+{
+  "route": "external_prior_to_yuna_primary_curve_bundle_v1",
+  "status": "primary_curve_bundle_generated_planning_only",
+  "generated_at": "2026-05-28T16:56:24.678601+00:00",
+  "boundary": "No YUNA hair GLB generated; no v8 replacement; external shape is not copied.",
+  "formula_stage": "theta_hair_curves = ProjectToConstraints_hair(RobustFuse(external_prior, hair_design_schema_v1, target_schema_v1))",
+  "primary_group_count": 4,
+  "secondary_strand_count": 4,
+  "flyaway_strand_count": 4,
+  "primary_groups": [
+    "back_hair_mass",
+    "bangs_primary",
+    "side_hair_left_primary",
+    "side_hair_right_primary"
+  ],
+  "primary_curve_point_counts": {
+    "bangs_primary": 4,
+    "side_hair_left_primary": 4,
+    "side_hair_right_primary": 4,
+    "back_hair_mass": 4
+  },
+  "target_schema_status": "schema_gate_passed_manual_review_failed_underfilled",
+  "external_benchmark_status": "constraint_benchmark_passed_for_external_probe",
+  "positive_probe_status": "passed",
+  "negative_control_count": 5,
+  "guards": {
+    "semantic_layer_v8_modified": false,
+    "replace_in_beauty_glb": false,
+    "generated_yuna_hair_glb": false,
+    "direct_copy_allowed": false,
+    "do_not_copy_shape_directly": true,
+    "ready_for_cloth_seam_surface": false,
+    "manual_review_required": true
+  },
+  "visual_planning_artifacts": {
+    "front_overlay": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1_front_overlay.png",
+      "exists": true,
+      "bytes": 1383664
+    },
+    "yaw30_plan": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1_yaw30_plan.png",
+      "exists": true,
+      "bytes": 26320
+    },
+    "contact_sheet": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1_contact_sheet.png",
+      "exists": true,
+      "bytes": 615415
+    }
+  },
+  "outputs": {
+    "external_hair_prior_schema_v1": {
+      "path": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json",
+      "exists": true,
+      "bytes": 6214
+    },
+    "primary_curve_bundle_v1": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1.json",
+      "exists": true,
+      "bytes": 45751
+    },
+    "primary_curve_bundle_v1_report": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1_report.json",
+      "exists": true,
+      "bytes": 2474
+    }
+  },
+  "recommended_next": "build_hair_ribbons_from_primary_curve_bundle_v1"
+}

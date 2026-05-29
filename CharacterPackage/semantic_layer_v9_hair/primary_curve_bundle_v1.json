@@ -1,0 +1,1719 @@
+{
+  "schema": "primary_curve_bundle_v1",
+  "version": 1,
+  "generated_at": "2026-05-28T16:56:24.076850+00:00",
+  "status": "primary_curve_bundle_generated_planning_only",
+  "boundary": "Curve planner only. Does not generate YUNA hair geometry, GLB, or beauty replacement.",
+  "formula_stage": "theta_hair_curves = ProjectToConstraints_hair(RobustFuse(external_prior, hair_design_schema_v1, target_schema_v1))",
+  "direct_copy_allowed": false,
+  "do_not_copy_shape_directly": true,
+  "replace_in_beauty_glb": false,
+  "ready_for_cloth_seam_surface": false,
+  "manual_review_required": true,
+  "source_inputs": {
+    "external_hair_prior_schema_v1": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json",
+    "hair_design_schema_v1": "CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json",
+    "target_schema_v1_report": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/hair_target_schema_v1_report.json",
+    "constraint_benchmark_v0": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json"
+  },
+  "primary_curves": {
+    "bangs_primary": {
+      "id": "bangs_primary",
+      "source_part": "bangs",
+      "role": "front identity and face framing",
+      "scalp_anchor": "scalp_front_center",
+      "curve_points": [
+        {
+          "t": 0.0,
+          "xy": [
+            0.530762,
+            0.039518
+          ],
+          "pixel_xy": [
+            544,
+            61
+          ]
+        },
+        {
+          "t": 0.333,
+          "xy": [
+            0.524062,
+            0.074557
+          ],
+          "pixel_xy": [
+            537,
+            115
+          ]
+        },
+        {
+          "t": 0.667,
+          "xy": [
+            0.510664,
+            0.12026
+          ],
+          "pixel_xy": [
+            523,
+            185
+          ]
+        },
+        {
+          "t": 1.0,
+          "xy": [
+            0.497266,
+            0.173581
+          ],
+          "pixel_xy": [
+            509,
+            267
+          ]
+        }
+      ],
+      "coordinate_space": "target_schema_source_mask_normalized_xy",
+      "width_profile": [
+        {
+          "t": 0.0,
+          "width_ratio": 0.28
+        },
+        {
+          "t": 0.36,
+          "width_ratio": 0.44
+        },
+        {
+          "t": 0.72,
+          "width_ratio": 0.3
+        },
+        {
+          "t": 1.0,
+          "width_ratio": 0.08
+        }
+      ],
+      "taper_profile": {
+        "family": "root_full_mid_mass_tip_taper",
+        "samples": [
+          {
+            "t": 0.0,
+            "taper": 0.88
+          },
+          {
+            "t": 0.35,
+            "taper": 1.0
+          },
+          {
+            "t": 0.7,
+            "taper": 0.55
+          },
+          {
+            "t": 1.0,
+            "taper": 0.12
+          }
+        ],
+        "source": "external prior width/taper ratios plus YUNA target-schema group bbox",
+        "copy_source_curve": false
+      },
+      "depth_group": "front_bangs",
+      "allowed_soft_silhouette_region": {
+        "source": "hair_target_schema_v1.soft_hair_silhouette",
+        "group_mask": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/bangs_schema_v1_mask.png",
+        "policy": "curve envelope must remain in soft silhouette unless explicitly marked as a flyaway"
+      },
+      "forbidden_zone_policy": {
+        "source": "hair_target_schema_v1.forbidden_nonhair_zone",
+        "policy": "do not place primary curves through face/body/weapon forbidden zones",
+        "leak_threshold": 0.1
+      },
+      "source_prior_reference": {
+        "external_prior_schema_v1": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json",
+        "constraint_benchmark_v0": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json",
+        "hair_design_schema_v1": "CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json",
+        "direct_copy_allowed": false
+      },
+      "confidence": "medium",
+      "manual_review_required": true,
+      "source_mask_bbox": [
+        372,
+        49,
+        715,
+        283
+      ],
+      "source_mask_area": 1781
+    },
+    "side_hair_left_primary": {
+      "id": "side_hair_left_primary",
+      "source_part": "side_hair_left",
+      "role": "left silhouette and shoulder-length flow",
+      "scalp_anchor": "scalp_left_temple",
+      "curve_points": [
+        {
+          "t": 0.0,
+          "xy": [
+            0.322187,
+            0.172396
+          ],
+          "pixel_xy": [
+            330,
+            265
+          ]
+        },
+        {
+          "t": 0.333,
+          "xy": [
+            0.280703,
+            0.215365
+          ],
+          "pixel_xy": [
+            287,
+            331
+          ]
+        },
+        {
+          "t": 0.667,
+          "xy": [
+            0.234609,
+            0.264063
+          ],
+          "pixel_xy": [
+            240,
+            406
+          ]
+        },
+        {
+          "t": 1.0,
+          "xy": [
+            0.197734,
+            0.304167
+          ],
+          "pixel_xy": [
+            202,
+            467
+          ]
+        }
+      ],
+      "coordinate_space": "target_schema_source_mask_normalized_xy",
+      "width_profile": [
+        {
+          "t": 0.0,
+          "width_ratio": 0.24
+        },
+        {
+          "t": 0.32,
+          "width_ratio": 0.58
+        },
+        {
+          "t": 0.66,
+          "width_ratio": 0.44
+        },
+        {
+          "t": 1.0,
+          "width_ratio": 0.1
+        }
+      ],
+      "taper_profile": {
+        "family": "root_full_mid_mass_tip_taper",
+        "samples": [
+          {
+            "t": 0.0,
+            "taper": 0.88
+          },
+          {
+            "t": 0.35,
+            "taper": 1.0
+          },
+          {
+            "t": 0.7,
+            "taper": 0.55
+          },
+          {
+            "t": 1.0,
+            "taper": 0.12
+          }
+        ],
+        "source": "external prior width/taper ratios plus YUNA target-schema group bbox",
+        "copy_source_curve": false
+      },
+      "depth_group": "side_ribbons",
+      "allowed_soft_silhouette_region": {
+        "source": "hair_target_schema_v1.soft_hair_silhouette",
+        "group_mask": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/side_hair_left_schema_v1_mask.png",
+        "policy": "curve envelope must remain in soft silhouette unless explicitly marked as a flyaway"
+      },
+      "forbidden_zone_policy": {
+        "source": "hair_target_schema_v1.forbidden_nonhair_zone",
+        "policy": "do not place primary curves through face/body/weapon forbidden zones",
+        "leak_threshold": 0.1
+      },
+      "source_prior_reference": {
+        "external_prior_schema_v1": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json",
+        "constraint_benchmark_v0": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json",
+        "hair_design_schema_v1": "CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json",
+        "direct_copy_allowed": false
+      },
+      "confidence": "medium",
+      "manual_review_required": true,
+      "source_mask_bbox": [
+        160,
+        256,
+        396,
+        476
+      ],
+      "source_mask_area": 1003
+    },
+    "side_hair_right_primary": {
+      "id": "side_hair_right_primary",
+      "source_part": "side_hair_right",
+      "role": "right silhouette and asymmetric cyan-white flow",
+      "scalp_anchor": "scalp_right_temple",
+      "curve_points": [
+        {
+          "t": 0.0,
+          "xy": [
+            0.698164,
+            0.151563
+          ],
+          "pixel_xy": [
+            715,
+            233
+          ]
+        },
+        {
+          "t": 0.333,
+          "xy": [
+            0.740703,
+            0.195964
+          ],
+          "pixel_xy": [
+            758,
+            301
+          ]
+        },
+        {
+          "t": 0.667,
+          "xy": [
+            0.787969,
+            0.246094
+          ],
+          "pixel_xy": [
+            807,
+            378
+          ]
+        },
+        {
+          "t": 1.0,
+          "xy": [
+            0.825781,
+            0.283333
+          ],
+          "pixel_xy": [
+            846,
+            435
+          ]
+        }
+      ],
+      "coordinate_space": "target_schema_source_mask_normalized_xy",
+      "width_profile": [
+        {
+          "t": 0.0,
+          "width_ratio": 0.24
+        },
+        {
+          "t": 0.32,
+          "width_ratio": 0.58
+        },
+        {
+          "t": 0.66,
+          "width_ratio": 0.44
+        },
+        {
+          "t": 1.0,
+          "width_ratio": 0.1
+        }
+      ],
+      "taper_profile": {
+        "family": "root_full_mid_mass_tip_taper",
+        "samples": [
+          {
+            "t": 0.0,
+            "taper": 0.88
+          },
+          {
+            "t": 0.35,
+            "taper": 1.0
+          },
+          {
+            "t": 0.7,
+            "taper": 0.55
+          },
+          {
+            "t": 1.0,
+            "taper": 0.12
+          }
+        ],
+        "source": "external prior width/taper ratios plus YUNA target-schema group bbox",
+        "copy_source_curve": false
+      },
+      "depth_group": "side_ribbons",
+      "allowed_soft_silhouette_region": {
+        "source": "hair_target_schema_v1.soft_hair_silhouette",
+        "group_mask": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/side_hair_right_schema_v1_mask.png",
+        "policy": "curve envelope must remain in soft silhouette unless explicitly marked as a flyaway"
+      },
+      "forbidden_zone_policy": {
+        "source": "hair_target_schema_v1.forbidden_nonhair_zone",
+        "policy": "do not place primary curves through face/body/weapon forbidden zones",
+        "leak_threshold": 0.1
+      },
+      "source_prior_reference": {
+        "external_prior_schema_v1": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json",
+        "constraint_benchmark_v0": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json",
+        "hair_design_schema_v1": "CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json",
+        "direct_copy_allowed": false
+      },
+      "confidence": "medium",
+      "manual_review_required": true,
+      "source_mask_bbox": [
+        652,
+        224,
+        894,
+        444
+      ],
+      "source_mask_area": 4679
+    },
+    "back_hair_mass": {
+      "id": "back_hair_mass",
+      "source_part": "back_hair",
+      "role": "main rear volume and long flowing mass",
+      "scalp_anchor": "scalp_crown",
+      "curve_points": [
+        {
+          "t": 0.0,
+          "xy": [
+            0.512695,
+            0.215397
+          ],
+          "pixel_xy": [
+            525,
+            331
+          ]
+        },
+        {
+          "t": 0.333,
+          "xy": [
+            0.54168,
+            0.245039
+          ],
+          "pixel_xy": [
+            555,
+            376
+          ]
+        },
+        {
+          "t": 0.667,
+          "xy": [
+            0.519941,
+            0.277747
+          ],
+          "pixel_xy": [
+            532,
+            427
+          ]
+        },
+        {
+          "t": 1.0,
+          "xy": [
+            0.490957,
+            0.307389
+          ],
+          "pixel_xy": [
+            503,
+            472
+          ]
+        }
+      ],
+      "coordinate_space": "target_schema_source_mask_normalized_xy",
+      "width_profile": [
+        {
+          "t": 0.0,
+          "width_ratio": 0.34
+        },
+        {
+          "t": 0.28,
+          "width_ratio": 0.88
+        },
+        {
+          "t": 0.62,
+          "width_ratio": 0.68
+        },
+        {
+          "t": 0.86,
+          "width_ratio": 0.34
+        },
+        {
+          "t": 1.0,
+          "width_ratio": 0.12
+        }
+      ],
+      "taper_profile": {
+        "family": "root_full_mid_mass_tip_taper",
+        "samples": [
+          {
+            "t": 0.0,
+            "taper": 0.88
+          },
+          {
+            "t": 0.35,
+            "taper": 1.0
+          },
+          {
+            "t": 0.7,
+            "taper": 0.55
+          },
+          {
+            "t": 1.0,
+            "taper": 0.12
+          }
+        ],
+        "source": "external prior width/taper ratios plus YUNA target-schema group bbox",
+        "copy_source_curve": false
+      },
+      "depth_group": "back_mass",
+      "allowed_soft_silhouette_region": {
+        "source": "hair_target_schema_v1.soft_hair_silhouette",
+        "group_mask": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/back_hair_schema_v1_mask.png",
+        "policy": "curve envelope must remain in soft silhouette unless explicitly marked as a flyaway"
+      },
+      "forbidden_zone_policy": {
+        "source": "hair_target_schema_v1.forbidden_nonhair_zone",
+        "policy": "do not place primary curves through face/body/weapon forbidden zones",
+        "leak_threshold": 0.1
+      },
+      "source_prior_reference": {
+        "external_prior_schema_v1": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json",
+        "constraint_benchmark_v0": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json",
+        "hair_design_schema_v1": "CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json",
+        "direct_copy_allowed": false
+      },
+      "confidence": "medium",
+      "manual_review_required": true,
+      "source_mask_bbox": [
+        154,
+        323,
+        896,
+        480
+      ],
+      "source_mask_area": 8490
+    }
+  },
+  "bangs_primary": {
+    "id": "bangs_primary",
+    "source_part": "bangs",
+    "role": "front identity and face framing",
+    "scalp_anchor": "scalp_front_center",
+    "curve_points": [
+      {
+        "t": 0.0,
+        "xy": [
+          0.530762,
+          0.039518
+        ],
+        "pixel_xy": [
+          544,
+          61
+        ]
+      },
+      {
+        "t": 0.333,
+        "xy": [
+          0.524062,
+          0.074557
+        ],
+        "pixel_xy": [
+          537,
+          115
+        ]
+      },
+      {
+        "t": 0.667,
+        "xy": [
+          0.510664,
+          0.12026
+        ],
+        "pixel_xy": [
+          523,
+          185
+        ]
+      },
+      {
+        "t": 1.0,
+        "xy": [
+          0.497266,
+          0.173581
+        ],
+        "pixel_xy": [
+          509,
+          267
+        ]
+      }
+    ],
+    "coordinate_space": "target_schema_source_mask_normalized_xy",
+    "width_profile": [
+      {
+        "t": 0.0,
+        "width_ratio": 0.28
+      },
+      {
+        "t": 0.36,
+        "width_ratio": 0.44
+      },
+      {
+        "t": 0.72,
+        "width_ratio": 0.3
+      },
+      {
+        "t": 1.0,
+        "width_ratio": 0.08
+      }
+    ],
+    "taper_profile": {
+      "family": "root_full_mid_mass_tip_taper",
+      "samples": [
+        {
+          "t": 0.0,
+          "taper": 0.88
+        },
+        {
+          "t": 0.35,
+          "taper": 1.0
+        },
+        {
+          "t": 0.7,
+          "taper": 0.55
+        },
+        {
+          "t": 1.0,
+          "taper": 0.12
+        }
+      ],
+      "source": "external prior width/taper ratios plus YUNA target-schema group bbox",
+      "copy_source_curve": false
+    },
+    "depth_group": "front_bangs",
+    "allowed_soft_silhouette_region": {
+      "source": "hair_target_schema_v1.soft_hair_silhouette",
+      "group_mask": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/bangs_schema_v1_mask.png",
+      "policy": "curve envelope must remain in soft silhouette unless explicitly marked as a flyaway"
+    },
+    "forbidden_zone_policy": {
+      "source": "hair_target_schema_v1.forbidden_nonhair_zone",
+      "policy": "do not place primary curves through face/body/weapon forbidden zones",
+      "leak_threshold": 0.1
+    },
+    "source_prior_reference": {
+      "external_prior_schema_v1": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json",
+      "constraint_benchmark_v0": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json",
+      "hair_design_schema_v1": "CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json",
+      "direct_copy_allowed": false
+    },
+    "confidence": "medium",
+    "manual_review_required": true,
+    "source_mask_bbox": [
+      372,
+      49,
+      715,
+      283
+    ],
+    "source_mask_area": 1781
+  },
+  "side_hair_left_primary": {
+    "id": "side_hair_left_primary",
+    "source_part": "side_hair_left",
+    "role": "left silhouette and shoulder-length flow",
+    "scalp_anchor": "scalp_left_temple",
+    "curve_points": [
+      {
+        "t": 0.0,
+        "xy": [
+          0.322187,
+          0.172396
+        ],
+        "pixel_xy": [
+          330,
+          265
+        ]
+      },
+      {
+        "t": 0.333,
+        "xy": [
+          0.280703,
+          0.215365
+        ],
+        "pixel_xy": [
+          287,
+          331
+        ]
+      },
+      {
+        "t": 0.667,
+        "xy": [
+          0.234609,
+          0.264063
+        ],
+        "pixel_xy": [
+          240,
+          406
+        ]
+      },
+      {
+        "t": 1.0,
+        "xy": [
+          0.197734,
+          0.304167
+        ],
+        "pixel_xy": [
+          202,
+          467
+        ]
+      }
+    ],
+    "coordinate_space": "target_schema_source_mask_normalized_xy",
+    "width_profile": [
+      {
+        "t": 0.0,
+        "width_ratio": 0.24
+      },
+      {
+        "t": 0.32,
+        "width_ratio": 0.58
+      },
+      {
+        "t": 0.66,
+        "width_ratio": 0.44
+      },
+      {
+        "t": 1.0,
+        "width_ratio": 0.1
+      }
+    ],
+    "taper_profile": {
+      "family": "root_full_mid_mass_tip_taper",
+      "samples": [
+        {
+          "t": 0.0,
+          "taper": 0.88
+        },
+        {
+          "t": 0.35,
+          "taper": 1.0
+        },
+        {
+          "t": 0.7,
+          "taper": 0.55
+        },
+        {
+          "t": 1.0,
+          "taper": 0.12
+        }
+      ],
+      "source": "external prior width/taper ratios plus YUNA target-schema group bbox",
+      "copy_source_curve": false
+    },
+    "depth_group": "side_ribbons",
+    "allowed_soft_silhouette_region": {
+      "source": "hair_target_schema_v1.soft_hair_silhouette",
+      "group_mask": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/side_hair_left_schema_v1_mask.png",
+      "policy": "curve envelope must remain in soft silhouette unless explicitly marked as a flyaway"
+    },
+    "forbidden_zone_policy": {
+      "source": "hair_target_schema_v1.forbidden_nonhair_zone",
+      "policy": "do not place primary curves through face/body/weapon forbidden zones",
+      "leak_threshold": 0.1
+    },
+    "source_prior_reference": {
+      "external_prior_schema_v1": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json",
+      "constraint_benchmark_v0": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json",
+      "hair_design_schema_v1": "CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json",
+      "direct_copy_allowed": false
+    },
+    "confidence": "medium",
+    "manual_review_required": true,
+    "source_mask_bbox": [
+      160,
+      256,
+      396,
+      476
+    ],
+    "source_mask_area": 1003
+  },
+  "side_hair_right_primary": {
+    "id": "side_hair_right_primary",
+    "source_part": "side_hair_right",
+    "role": "right silhouette and asymmetric cyan-white flow",
+    "scalp_anchor": "scalp_right_temple",
+    "curve_points": [
+      {
+        "t": 0.0,
+        "xy": [
+          0.698164,
+          0.151563
+        ],
+        "pixel_xy": [
+          715,
+          233
+        ]
+      },
+      {
+        "t": 0.333,
+        "xy": [
+          0.740703,
+          0.195964
+        ],
+        "pixel_xy": [
+          758,
+          301
+        ]
+      },
+      {
+        "t": 0.667,
+        "xy": [
+          0.787969,
+          0.246094
+        ],
+        "pixel_xy": [
+          807,
+          378
+        ]
+      },
+      {
+        "t": 1.0,
+        "xy": [
+          0.825781,
+          0.283333
+        ],
+        "pixel_xy": [
+          846,
+          435
+        ]
+      }
+    ],
+    "coordinate_space": "target_schema_source_mask_normalized_xy",
+    "width_profile": [
+      {
+        "t": 0.0,
+        "width_ratio": 0.24
+      },
+      {
+        "t": 0.32,
+        "width_ratio": 0.58
+      },
+      {
+        "t": 0.66,
+        "width_ratio": 0.44
+      },
+      {
+        "t": 1.0,
+        "width_ratio": 0.1
+      }
+    ],
+    "taper_profile": {
+      "family": "root_full_mid_mass_tip_taper",
+      "samples": [
+        {
+          "t": 0.0,
+          "taper": 0.88
+        },
+        {
+          "t": 0.35,
+          "taper": 1.0
+        },
+        {
+          "t": 0.7,
+          "taper": 0.55
+        },
+        {
+          "t": 1.0,
+          "taper": 0.12
+        }
+      ],
+      "source": "external prior width/taper ratios plus YUNA target-schema group bbox",
+      "copy_source_curve": false
+    },
+    "depth_group": "side_ribbons",
+    "allowed_soft_silhouette_region": {
+      "source": "hair_target_schema_v1.soft_hair_silhouette",
+      "group_mask": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/side_hair_right_schema_v1_mask.png",
+      "policy": "curve envelope must remain in soft silhouette unless explicitly marked as a flyaway"
+    },
+    "forbidden_zone_policy": {
+      "source": "hair_target_schema_v1.forbidden_nonhair_zone",
+      "policy": "do not place primary curves through face/body/weapon forbidden zones",
+      "leak_threshold": 0.1
+    },
+    "source_prior_reference": {
+      "external_prior_schema_v1": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json",
+      "constraint_benchmark_v0": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json",
+      "hair_design_schema_v1": "CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json",
+      "direct_copy_allowed": false
+    },
+    "confidence": "medium",
+    "manual_review_required": true,
+    "source_mask_bbox": [
+      652,
+      224,
+      894,
+      444
+    ],
+    "source_mask_area": 4679
+  },
+  "back_hair_mass": {
+    "id": "back_hair_mass",
+    "source_part": "back_hair",
+    "role": "main rear volume and long flowing mass",
+    "scalp_anchor": "scalp_crown",
+    "curve_points": [
+      {
+        "t": 0.0,
+        "xy": [
+          0.512695,
+          0.215397
+        ],
+        "pixel_xy": [
+          525,
+          331
+        ]
+      },
+      {
+        "t": 0.333,
+        "xy": [
+          0.54168,
+          0.245039
+        ],
+        "pixel_xy": [
+          555,
+          376
+        ]
+      },
+      {
+        "t": 0.667,
+        "xy": [
+          0.519941,
+          0.277747
+        ],
+        "pixel_xy": [
+          532,
+          427
+        ]
+      },
+      {
+        "t": 1.0,
+        "xy": [
+          0.490957,
+          0.307389
+        ],
+        "pixel_xy": [
+          503,
+          472
+        ]
+      }
+    ],
+    "coordinate_space": "target_schema_source_mask_normalized_xy",
+    "width_profile": [
+      {
+        "t": 0.0,
+        "width_ratio": 0.34
+      },
+      {
+        "t": 0.28,
+        "width_ratio": 0.88
+      },
+      {
+        "t": 0.62,
+        "width_ratio": 0.68
+      },
+      {
+        "t": 0.86,
+        "width_ratio": 0.34
+      },
+      {
+        "t": 1.0,
+        "width_ratio": 0.12
+      }
+    ],
+    "taper_profile": {
+      "family": "root_full_mid_mass_tip_taper",
+      "samples": [
+        {
+          "t": 0.0,
+          "taper": 0.88
+        },
+        {
+          "t": 0.35,
+          "taper": 1.0
+        },
+        {
+          "t": 0.7,
+          "taper": 0.55
+        },
+        {
+          "t": 1.0,
+          "taper": 0.12
+        }
+      ],
+      "source": "external prior width/taper ratios plus YUNA target-schema group bbox",
+      "copy_source_curve": false
+    },
+    "depth_group": "back_mass",
+    "allowed_soft_silhouette_region": {
+      "source": "hair_target_schema_v1.soft_hair_silhouette",
+      "group_mask": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/back_hair_schema_v1_mask.png",
+      "policy": "curve envelope must remain in soft silhouette unless explicitly marked as a flyaway"
+    },
+    "forbidden_zone_policy": {
+      "source": "hair_target_schema_v1.forbidden_nonhair_zone",
+      "policy": "do not place primary curves through face/body/weapon forbidden zones",
+      "leak_threshold": 0.1
+    },
+    "source_prior_reference": {
+      "external_prior_schema_v1": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json",
+      "constraint_benchmark_v0": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json",
+      "hair_design_schema_v1": "CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json",
+      "direct_copy_allowed": false
+    },
+    "confidence": "medium",
+    "manual_review_required": true,
+    "source_mask_bbox": [
+      154,
+      323,
+      896,
+      480
+    ],
+    "source_mask_area": 8490
+  },
+  "secondary_strands": [
+    {
+      "id": "secondary_1_back_hair_mass",
+      "parent_primary": "back_hair_mass",
+      "scalp_anchor": "scalp_crown",
+      "curve_points": [
+        {
+          "t": 0.0,
+          "xy": [
+            0.512695,
+            0.215397
+          ],
+          "pixel_xy": [
+            525,
+            331
+          ]
+        },
+        {
+          "t": 0.333,
+          "xy": [
+            0.54168,
+            0.245039
+          ],
+          "pixel_xy": [
+            555,
+            376
+          ]
+        },
+        {
+          "t": 0.667,
+          "xy": [
+            0.519941,
+            0.277747
+          ],
+          "pixel_xy": [
+            532,
+            427
+          ]
+        },
+        {
+          "t": 1.0,
+          "xy": [
+            0.490957,
+            0.307389
+          ],
+          "pixel_xy": [
+            503,
+            472
+          ]
+        }
+      ],
+      "width_profile": [
+        {
+          "t": 0.0,
+          "width_ratio": 0.153
+        },
+        {
+          "t": 0.28,
+          "width_ratio": 0.396
+        },
+        {
+          "t": 0.62,
+          "width_ratio": 0.306
+        },
+        {
+          "t": 0.86,
+          "width_ratio": 0.153
+        },
+        {
+          "t": 1.0,
+          "width_ratio": 0.054
+        }
+      ],
+      "taper_profile": {
+        "family": "root_full_mid_mass_tip_taper",
+        "samples": [
+          {
+            "t": 0.0,
+            "taper": 0.88
+          },
+          {
+            "t": 0.35,
+            "taper": 1.0
+          },
+          {
+            "t": 0.7,
+            "taper": 0.55
+          },
+          {
+            "t": 1.0,
+            "taper": 0.12
+          }
+        ],
+        "source": "external prior width/taper ratios plus YUNA target-schema group bbox",
+        "copy_source_curve": false
+      },
+      "depth_group": "back_mass",
+      "allowed_soft_silhouette_region": {
+        "source": "hair_target_schema_v1.soft_hair_silhouette",
+        "group_mask": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/back_hair_schema_v1_mask.png",
+        "policy": "curve envelope must remain in soft silhouette unless explicitly marked as a flyaway"
+      },
+      "forbidden_zone_policy": {
+        "source": "hair_target_schema_v1.forbidden_nonhair_zone",
+        "policy": "do not place primary curves through face/body/weapon forbidden zones",
+        "leak_threshold": 0.1
+      },
+      "source_prior_reference": {
+        "external_prior_schema_v1": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json",
+        "constraint_benchmark_v0": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json",
+        "hair_design_schema_v1": "CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json",
+        "direct_copy_allowed": false
+      },
+      "confidence": "medium_low",
+      "manual_review_required": true
+    },
+    {
+      "id": "secondary_2_side_hair_left_primary",
+      "parent_primary": "side_hair_left_primary",
+      "scalp_anchor": "scalp_left_temple",
+      "curve_points": [
+        {
+          "t": 0.0,
+          "xy": [
+            0.322187,
+            0.172396
+          ],
+          "pixel_xy": [
+            330,
+            265
+          ]
+        },
+        {
+          "t": 0.333,
+          "xy": [
+            0.280703,
+            0.215365
+          ],
+          "pixel_xy": [
+            287,
+            331
+          ]
+        },
+        {
+          "t": 0.667,
+          "xy": [
+            0.234609,
+            0.264063
+          ],
+          "pixel_xy": [
+            240,
+            406
+          ]
+        },
+        {
+          "t": 1.0,
+          "xy": [
+            0.197734,
+            0.304167
+          ],
+          "pixel_xy": [
+            202,
+            467
+          ]
+        }
+      ],
+      "width_profile": [
+        {
+          "t": 0.0,
+          "width_ratio": 0.108
+        },
+        {
+          "t": 0.32,
+          "width_ratio": 0.261
+        },
+        {
+          "t": 0.66,
+          "width_ratio": 0.198
+        },
+        {
+          "t": 1.0,
+          "width_ratio": 0.045
+        }
+      ],
+      "taper_profile": {
+        "family": "root_full_mid_mass_tip_taper",
+        "samples": [
+          {
+            "t": 0.0,
+            "taper": 0.88
+          },
+          {
+            "t": 0.35,
+            "taper": 1.0
+          },
+          {
+            "t": 0.7,
+            "taper": 0.55
+          },
+          {
+            "t": 1.0,
+            "taper": 0.12
+          }
+        ],
+        "source": "external prior width/taper ratios plus YUNA target-schema group bbox",
+        "copy_source_curve": false
+      },
+      "depth_group": "side_ribbons",
+      "allowed_soft_silhouette_region": {
+        "source": "hair_target_schema_v1.soft_hair_silhouette",
+        "group_mask": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/side_hair_left_schema_v1_mask.png",
+        "policy": "curve envelope must remain in soft silhouette unless explicitly marked as a flyaway"
+      },
+      "forbidden_zone_policy": {
+        "source": "hair_target_schema_v1.forbidden_nonhair_zone",
+        "policy": "do not place primary curves through face/body/weapon forbidden zones",
+        "leak_threshold": 0.1
+      },
+      "source_prior_reference": {
+        "external_prior_schema_v1": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json",
+        "constraint_benchmark_v0": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json",
+        "hair_design_schema_v1": "CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json",
+        "direct_copy_allowed": false
+      },
+      "confidence": "medium_low",
+      "manual_review_required": true
+    },
+    {
+      "id": "secondary_3_side_hair_right_primary",
+      "parent_primary": "side_hair_right_primary",
+      "scalp_anchor": "scalp_right_temple",
+      "curve_points": [
+        {
+          "t": 0.0,
+          "xy": [
+            0.698164,
+            0.151563
+          ],
+          "pixel_xy": [
+            715,
+            233
+          ]
+        },
+        {
+          "t": 0.333,
+          "xy": [
+            0.740703,
+            0.195964
+          ],
+          "pixel_xy": [
+            758,
+            301
+          ]
+        },
+        {
+          "t": 0.667,
+          "xy": [
+            0.787969,
+            0.246094
+          ],
+          "pixel_xy": [
+            807,
+            378
+          ]
+        },
+        {
+          "t": 1.0,
+          "xy": [
+            0.825781,
+            0.283333
+          ],
+          "pixel_xy": [
+            846,
+            435
+          ]
+        }
+      ],
+      "width_profile": [
+        {
+          "t": 0.0,
+          "width_ratio": 0.108
+        },
+        {
+          "t": 0.32,
+          "width_ratio": 0.261
+        },
+        {
+          "t": 0.66,
+          "width_ratio": 0.198
+        },
+        {
+          "t": 1.0,
+          "width_ratio": 0.045
+        }
+      ],
+      "taper_profile": {
+        "family": "root_full_mid_mass_tip_taper",
+        "samples": [
+          {
+            "t": 0.0,
+            "taper": 0.88
+          },
+          {
+            "t": 0.35,
+            "taper": 1.0
+          },
+          {
+            "t": 0.7,
+            "taper": 0.55
+          },
+          {
+            "t": 1.0,
+            "taper": 0.12
+          }
+        ],
+        "source": "external prior width/taper ratios plus YUNA target-schema group bbox",
+        "copy_source_curve": false
+      },
+      "depth_group": "side_ribbons",
+      "allowed_soft_silhouette_region": {
+        "source": "hair_target_schema_v1.soft_hair_silhouette",
+        "group_mask": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/side_hair_right_schema_v1_mask.png",
+        "policy": "curve envelope must remain in soft silhouette unless explicitly marked as a flyaway"
+      },
+      "forbidden_zone_policy": {
+        "source": "hair_target_schema_v1.forbidden_nonhair_zone",
+        "policy": "do not place primary curves through face/body/weapon forbidden zones",
+        "leak_threshold": 0.1
+      },
+      "source_prior_reference": {
+        "external_prior_schema_v1": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json",
+        "constraint_benchmark_v0": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json",
+        "hair_design_schema_v1": "CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json",
+        "direct_copy_allowed": false
+      },
+      "confidence": "medium_low",
+      "manual_review_required": true
+    },
+    {
+      "id": "secondary_4_bangs_primary",
+      "parent_primary": "bangs_primary",
+      "scalp_anchor": "scalp_front_center",
+      "curve_points": [
+        {
+          "t": 0.0,
+          "xy": [
+            0.530762,
+            0.039518
+          ],
+          "pixel_xy": [
+            544,
+            61
+          ]
+        },
+        {
+          "t": 0.333,
+          "xy": [
+            0.524062,
+            0.074557
+          ],
+          "pixel_xy": [
+            537,
+            115
+          ]
+        },
+        {
+          "t": 0.667,
+          "xy": [
+            0.510664,
+            0.12026
+          ],
+          "pixel_xy": [
+            523,
+            185
+          ]
+        },
+        {
+          "t": 1.0,
+          "xy": [
+            0.497266,
+            0.173581
+          ],
+          "pixel_xy": [
+            509,
+            267
+          ]
+        }
+      ],
+      "width_profile": [
+        {
+          "t": 0.0,
+          "width_ratio": 0.126
+        },
+        {
+          "t": 0.36,
+          "width_ratio": 0.198
+        },
+        {
+          "t": 0.72,
+          "width_ratio": 0.135
+        },
+        {
+          "t": 1.0,
+          "width_ratio": 0.036
+        }
+      ],
+      "taper_profile": {
+        "family": "root_full_mid_mass_tip_taper",
+        "samples": [
+          {
+            "t": 0.0,
+            "taper": 0.88
+          },
+          {
+            "t": 0.35,
+            "taper": 1.0
+          },
+          {
+            "t": 0.7,
+            "taper": 0.55
+          },
+          {
+            "t": 1.0,
+            "taper": 0.12
+          }
+        ],
+        "source": "external prior width/taper ratios plus YUNA target-schema group bbox",
+        "copy_source_curve": false
+      },
+      "depth_group": "flyaways",
+      "allowed_soft_silhouette_region": {
+        "source": "hair_target_schema_v1.soft_hair_silhouette",
+        "group_mask": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1/group_masks/bangs_schema_v1_mask.png",
+        "policy": "curve envelope must remain in soft silhouette unless explicitly marked as a flyaway"
+      },
+      "forbidden_zone_policy": {
+        "source": "hair_target_schema_v1.forbidden_nonhair_zone",
+        "policy": "do not place primary curves through face/body/weapon forbidden zones",
+        "leak_threshold": 0.1
+      },
+      "source_prior_reference": {
+        "external_prior_schema_v1": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json",
+        "constraint_benchmark_v0": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json",
+        "hair_design_schema_v1": "CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json",
+        "direct_copy_allowed": false
+      },
+      "confidence": "medium_low",
+      "manual_review_required": true
+    }
+  ],
+  "flyaway_strands": [
+    {
+      "id": "flyaway_1_bangs_primary",
+      "parent_primary": "bangs_primary",
+      "scalp_anchor": "scalp_front_center",
+      "curve_points": [
+        {
+          "t": 0.0,
+          "xy": [
+            0.536762,
+            0.035518
+          ]
+        },
+        {
+          "t": 0.333,
+          "xy": [
+            0.530062,
+            0.070557
+          ]
+        },
+        {
+          "t": 0.667,
+          "xy": [
+            0.516664,
+            0.11626
+          ]
+        },
+        {
+          "t": 1.0,
+          "xy": [
+            0.503266,
+            0.169581
+          ]
+        }
+      ],
+      "width_profile": [
+        {
+          "t": 0.0,
+          "width_ratio": 0.1
+        },
+        {
+          "t": 1.0,
+          "width_ratio": 0.02
+        }
+      ],
+      "taper_profile": {
+        "family": "thin_wisp_taper",
+        "copy_source_curve": false
+      },
+      "depth_group": "flyaways",
+      "allowed_soft_silhouette_region": {
+        "source": "hair_design_schema_v1.allowed_silhouette_expansion",
+        "maximum_px": 18
+      },
+      "forbidden_zone_policy": {
+        "source": "hair_target_schema_v1.forbidden_nonhair_zone",
+        "policy": "do not place primary curves through face/body/weapon forbidden zones",
+        "leak_threshold": 0.1
+      },
+      "source_prior_reference": {
+        "external_prior_schema_v1": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json",
+        "constraint_benchmark_v0": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json",
+        "hair_design_schema_v1": "CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json",
+        "direct_copy_allowed": false
+      },
+      "confidence": "low",
+      "manual_review_required": true
+    },
+    {
+      "id": "flyaway_2_side_hair_left_primary",
+      "parent_primary": "side_hair_left_primary",
+      "scalp_anchor": "scalp_left_temple",
+      "curve_points": [
+        {
+          "t": 0.0,
+          "xy": [
+            0.316187,
+            0.168396
+          ]
+        },
+        {
+          "t": 0.333,
+          "xy": [
+            0.274703,
+            0.211365
+          ]
+        },
+        {
+          "t": 0.667,
+          "xy": [
+            0.228609,
+            0.260063
+          ]
+        },
+        {
+          "t": 1.0,
+          "xy": [
+            0.191734,
+            0.300167
+          ]
+        }
+      ],
+      "width_profile": [
+        {
+          "t": 0.0,
+          "width_ratio": 0.1
+        },
+        {
+          "t": 1.0,
+          "width_ratio": 0.02
+        }
+      ],
+      "taper_profile": {
+        "family": "thin_wisp_taper",
+        "copy_source_curve": false
+      },
+      "depth_group": "flyaways",
+      "allowed_soft_silhouette_region": {
+        "source": "hair_design_schema_v1.allowed_silhouette_expansion",
+        "maximum_px": 18
+      },
+      "forbidden_zone_policy": {
+        "source": "hair_target_schema_v1.forbidden_nonhair_zone",
+        "policy": "do not place primary curves through face/body/weapon forbidden zones",
+        "leak_threshold": 0.1
+      },
+      "source_prior_reference": {
+        "external_prior_schema_v1": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json",
+        "constraint_benchmark_v0": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json",
+        "hair_design_schema_v1": "CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json",
+        "direct_copy_allowed": false
+      },
+      "confidence": "low",
+      "manual_review_required": true
+    },
+    {
+      "id": "flyaway_3_side_hair_right_primary",
+      "parent_primary": "side_hair_right_primary",
+      "scalp_anchor": "scalp_right_temple",
+      "curve_points": [
+        {
+          "t": 0.0,
+          "xy": [
+            0.704164,
+            0.147563
+          ]
+        },
+        {
+          "t": 0.333,
+          "xy": [
+            0.746703,
+            0.191964
+          ]
+        },
+        {
+          "t": 0.667,
+          "xy": [
+            0.793969,
+            0.242094
+          ]
+        },
+        {
+          "t": 1.0,
+          "xy": [
+            0.831781,
+            0.279333
+          ]
+        }
+      ],
+      "width_profile": [
+        {
+          "t": 0.0,
+          "width_ratio": 0.1
+        },
+        {
+          "t": 1.0,
+          "width_ratio": 0.02
+        }
+      ],
+      "taper_profile": {
+        "family": "thin_wisp_taper",
+        "copy_source_curve": false
+      },
+      "depth_group": "flyaways",
+      "allowed_soft_silhouette_region": {
+        "source": "hair_design_schema_v1.allowed_silhouette_expansion",
+        "maximum_px": 18
+      },
+      "forbidden_zone_policy": {
+        "source": "hair_target_schema_v1.forbidden_nonhair_zone",
+        "policy": "do not place primary curves through face/body/weapon forbidden zones",
+        "leak_threshold": 0.1
+      },
+      "source_prior_reference": {
+        "external_prior_schema_v1": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json",
+        "constraint_benchmark_v0": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json",
+        "hair_design_schema_v1": "CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json",
+        "direct_copy_allowed": false
+      },
+      "confidence": "low",
+      "manual_review_required": true
+    },
+    {
+      "id": "flyaway_4_back_hair_mass",
+      "parent_primary": "back_hair_mass",
+      "scalp_anchor": "scalp_crown",
+      "curve_points": [
+        {
+          "t": 0.0,
+          "xy": [
+            0.518695,
+            0.211397
+          ]
+        },
+        {
+          "t": 0.333,
+          "xy": [
+            0.54768,
+            0.241039
+          ]
+        },
+        {
+          "t": 0.667,
+          "xy": [
+            0.525941,
+            0.273747
+          ]
+        },
+        {
+          "t": 1.0,
+          "xy": [
+            0.496957,
+            0.303389
+          ]
+        }
+      ],
+      "width_profile": [
+        {
+          "t": 0.0,
+          "width_ratio": 0.1
+        },
+        {
+          "t": 1.0,
+          "width_ratio": 0.02
+        }
+      ],
+      "taper_profile": {
+        "family": "thin_wisp_taper",
+        "copy_source_curve": false
+      },
+      "depth_group": "flyaways",
+      "allowed_soft_silhouette_region": {
+        "source": "hair_design_schema_v1.allowed_silhouette_expansion",
+        "maximum_px": 18
+      },
+      "forbidden_zone_policy": {
+        "source": "hair_target_schema_v1.forbidden_nonhair_zone",
+        "policy": "do not place primary curves through face/body/weapon forbidden zones",
+        "leak_threshold": 0.1
+      },
+      "source_prior_reference": {
+        "external_prior_schema_v1": "CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json",
+        "constraint_benchmark_v0": "CharacterPackage/external_hair_dataset/sketchfab_gorgeous_japanese_fight/benchmarks/constraint_benchmark_v0/external_hair_probe_constraint_benchmark_v0_report.json",
+        "hair_design_schema_v1": "CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json",
+        "direct_copy_allowed": false
+      },
+      "confidence": "low",
+      "manual_review_required": true
+    }
+  ],
+  "external_prior_summary": {
+    "status": "prior_schema_generated",
+    "do_not_copy_shape_directly": true,
+    "usable_patterns": [
+      "scalp anchor semantics",
+      "visible mass and flow continuity thresholds",
+      "width/taper ratio families",
+      "negative-control failure lessons"
+    ]
+  }
+}
