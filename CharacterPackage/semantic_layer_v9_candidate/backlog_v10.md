@@ -258,6 +258,45 @@ Next:
 - Accept or reject the candidate based on front/yaw screenshots, not only
   numeric gates.
 
+## 4f. Build Curve Bundle Hair Candidate v1
+
+Status: generated actual OBJ/GLB/BLEND candidate, but failed target-schema
+alignment.
+
+Goal:
+
+- Convert `primary_curve_bundle_v1.json` into actual ribbon geometry rather
+  than another planning-only report.
+
+Current result:
+
+- Output route:
+  `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/`
+- `ribbon_count=46`.
+- `depth_group_count=7`.
+- `candidate_front_visible_hair_mass=true`.
+- `primary_group_presence_passed=true`.
+- `yaw30_hair_readability=true`.
+- `side_hair_readability=true`.
+- `forbidden_candidate_leak_ratio=0.330678` in `validation_report.json`.
+- `forbidden_candidate_leak_ratio=0.441191` in target-schema render evaluation.
+- `candidate_soft_inside_ratio=0.484489` in `validation_report.json`.
+- `candidate_soft_inside_ratio=0.321086` in target-schema render evaluation.
+- `candidate_target_schema_status=failed_target_schema_alignment`.
+- `visual_sanity_status=curve_bundle_candidate_failed_visual_review`.
+- `replace_in_beauty_glb=false`.
+- `ready_for_cloth_seam_surface=false`.
+
+Decision:
+
+- Keep the generated assets as an experimental candidate and negative evidence.
+- Do not proceed to `cloth_seam_surface`.
+- Do not call this accepted or final production hair.
+
+Next:
+
+- `fix_curve_bundle_hair_candidate_v1_target_alignment`.
+
 ## 4e. Build Art-Directed Hair Ribbons v1
 
 Status: completed as an additive candidate; manual visual review is required.
@@ -449,4 +488,3 @@ Acceptance:
 - `yaw30_hair_readability=True`
 - `side_hair_volume_present=True`
 - Boundary: candidate review asset only; not accepted as production hair.
-

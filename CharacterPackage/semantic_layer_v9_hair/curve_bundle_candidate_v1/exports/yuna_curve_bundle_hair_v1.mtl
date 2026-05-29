@@ -1,0 +1,47 @@
+newmtl bangs_primary_front_texture
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.040 0.040 0.045
+d 1.000
+map_Kd bangs_primary_curve_bundle_v1.png
+
+newmtl side_hair_left_primary_front_texture
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.040 0.040 0.045
+d 1.000
+map_Kd side_hair_left_primary_curve_bundle_v1.png
+
+newmtl side_hair_right_primary_front_texture
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.040 0.040 0.045
+d 1.000
+map_Kd side_hair_right_primary_curve_bundle_v1.png
+
+newmtl back_hair_mass_front_texture
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.040 0.040 0.045
+d 1.000
+map_Kd back_hair_mass_curve_bundle_v1.png
+
+newmtl secondary_strands_front_texture
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.040 0.040 0.045
+d 1.000
+map_Kd back_hair_mass_curve_bundle_v1.png
+
+newmtl flyaway_strands_front_texture
+Ka 1.000 1.000 1.000
+Kd 1.000 1.000 1.000
+Ks 0.040 0.040 0.045
+d 1.000
+map_Kd bangs_primary_curve_bundle_v1.png
+
+newmtl hair_ribbon_side_material
+Ka 0.630 0.720 0.740
+Kd 0.720 0.820 0.840
+Ks 0.030 0.040 0.045
+d 0.000

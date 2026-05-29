@@ -1,0 +1,517 @@
+{
+  "created_at": "2026-05-29T09:08:35.759246+00:00",
+  "route": "blender_semantic_validation_v0",
+  "status": "curve_bundle_candidate_failed_visual_review",
+  "boundary": "Candidate validation only. It does not replace v8 beauty GLB.",
+  "inputs": {
+    "baseline_glb": {
+      "path": "CharacterPackage/semantic_layer_v8/exports/yuna_semantic_layer_v8.glb",
+      "exists": true,
+      "bytes": 22268232
+    },
+    "cage_glb": {
+      "path": "CharacterPackage/semantic_layer_v8/exports/yuna_semantic_layer_v8_cage_debug.glb",
+      "exists": true,
+      "bytes": 22403908
+    },
+    "candidate_glb": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/exports/yuna_curve_bundle_hair_v1.glb",
+      "exists": true,
+      "bytes": 653344
+    },
+    "candidate_report": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_report.json",
+      "exists": true,
+      "bytes": 209532
+    }
+  },
+  "screenshots": {
+    "front": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_front.png",
+      "exists": true,
+      "bytes": 1130695
+    },
+    "candidate_front": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_candidate_front.png",
+      "exists": true,
+      "bytes": 1130695
+    },
+    "baseline_front": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_baseline_front.png",
+      "exists": true,
+      "bytes": 1988922
+    },
+    "overlay_front": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_overlay_front.png",
+      "exists": true,
+      "bytes": 2008964
+    },
+    "yaw15": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_yaw15.png",
+      "exists": true,
+      "bytes": 1166351
+    },
+    "yaw30": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_yaw30.png",
+      "exists": true,
+      "bytes": 1179775
+    },
+    "side": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_side.png",
+      "exists": true,
+      "bytes": 1090850
+    },
+    "wire": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_wire.png",
+      "exists": true,
+      "bytes": 1179774
+    },
+    "exploded": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_exploded.png",
+      "exists": true,
+      "bytes": 1173795
+    }
+  },
+  "inventory": {
+    "baseline_object_count": 23,
+    "cage_object_count": 35,
+    "candidate_mesh_count": 46,
+    "candidate_empty_count": 4,
+    "candidate_mesh_names": [
+      "bangs_primary_component_01_01",
+      "bangs_primary_component_01_02",
+      "bangs_primary_component_02_01",
+      "bangs_primary_component_02_02",
+      "bangs_primary_component_03_01",
+      "bangs_primary_component_03_02",
+      "bangs_primary_component_04_01",
+      "bangs_primary_component_04_02",
+      "side_hair_left_primary_component_01_01",
+      "side_hair_left_primary_component_01_02",
+      "side_hair_left_primary_component_02_01",
+      "side_hair_left_primary_component_02_02",
+      "side_hair_left_primary_component_03_01",
+      "side_hair_left_primary_component_03_02",
+      "side_hair_right_primary_component_01_01",
+      "side_hair_right_primary_component_01_02",
+      "side_hair_right_primary_component_02_01",
+      "side_hair_right_primary_component_02_02",
+      "side_hair_right_primary_component_03_01",
+      "side_hair_right_primary_component_03_02",
+      "side_hair_right_primary_component_04_01",
+      "side_hair_right_primary_component_04_02",
+      "back_hair_mass_component_01_01",
+      "back_hair_mass_component_01_02",
+      "back_hair_mass_component_01_03",
+      "back_hair_mass_component_02_01",
+      "back_hair_mass_component_02_02",
+      "back_hair_mass_component_02_03",
+      "back_hair_mass_component_03_01",
+      "back_hair_mass_component_03_02",
+      "back_hair_mass_component_03_03",
+      "back_hair_mass_component_04_01",
+      "back_hair_mass_component_04_02",
+      "back_hair_mass_component_04_03",
+      "secondary_01_back_hair_mass",
+      "secondary_02_side_hair_left_primary",
+      "secondary_03_side_hair_right_primary",
+      "secondary_04_bangs_primary",
+      "flyaway_01_bangs_primary",
+      "flyaway_02_side_hair_left_primary",
+      "flyaway_03_side_hair_right_primary",
+      "flyaway_04_back_hair_mass",
+      "bangs_primary_side_profile_support",
+      "side_hair_left_primary_side_profile_support",
+      "side_hair_right_primary_side_profile_support",
+      "back_hair_mass_side_profile_support"
+    ],
+    "candidate_empty_names": [
+      "hair_back_spring_hook",
+      "hair_bangs_spring_hook",
+      "hair_side_left_spring_hook",
+      "hair_side_right_spring_hook"
+    ]
+  },
+  "candidate_contract": {
+    "part_id": "hair",
+    "has_independent_candidate_mesh": true,
+    "has_independent_weapon_mesh": false,
+    "has_boot_candidate_meshes": null,
+    "has_leg_candidate_meshes": null,
+    "has_hair_candidate_meshes": true,
+    "has_hand_R_socket": false,
+    "has_foot_sockets": false,
+    "has_leg_loop_markers": false,
+    "has_hair_spring_hooks": true,
+    "has_hair_depth_groups": true,
+    "replace_in_beauty_glb": false,
+    "visual_sanity_status": "curve_bundle_candidate_failed_visual_review",
+    "target_schema_v1_status": "failed_target_schema_alignment",
+    "candidate_route_status": "failed_target_schema_alignment",
+    "manual_visual_review": "blocked_by_target_schema",
+    "candidate_front_visible_hair_mass": true,
+    "primary_group_presence_passed": true,
+    "yaw30_hair_readability": true,
+    "side_hair_readability": true,
+    "manual_visual_review_status": "blocked_by_target_schema_alignment"
+  },
+  "quality": {
+    "missing_screenshots": [],
+    "known_limits": [
+      "hair candidate is an actuator proxy, not final DCC asset",
+      "v8 beauty GLB remains the active baseline until replacement validation is accepted"
+    ],
+    "legacy_raw_hair_union_visual_sanity": {
+      "alpha_material_valid": true,
+      "face_occlusion_ratio": 0.0,
+      "non_hair_occlusion_ratio": 0.330678,
+      "hair_mask_iou": 0.045771,
+      "outside_hair_mask_ratio": 0.488875,
+      "raw_candidate_is_hair_only": false,
+      "candidate_is_hair_only": false,
+      "candidate_visible_pixel_count": 32988,
+      "expected_hair_pixel_count": 352254,
+      "candidate_bbox": [
+        259,
+        64,
+        981,
+        569
+      ],
+      "hair_union_bbox": [
+        199,
+        49,
+        1119,
+        1080
+      ],
+      "hair_union_body_overlap_ratio": 0.844485,
+      "hair_union_face_overlap_ratio": 0.044609,
+      "hair_union_weapon_overlap_ratio": 0.043164,
+      "hair_union_target_is_clean": false,
+      "hair_target_quality": "dirty_or_overbroad",
+      "clean_hair_mask_iou": 0.195108,
+      "clean_outside_hair_mask_ratio": 0.657845,
+      "clean_candidate_is_hair_only": false,
+      "hair_target_cleaning_report": {
+        "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/hair_target_cleaning_report.json",
+        "exists": true,
+        "bytes": 1352
+      },
+      "hair_target_cleaning_artifacts": {
+        "hair_target_mask_clean": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/hair_target_mask_clean.png",
+          "exists": true,
+          "bytes": 12474
+        },
+        "hair_target_mask_dirty_overlay": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/hair_target_mask_dirty_overlay.png",
+          "exists": true,
+          "bytes": 1534165
+        }
+      },
+      "hair_union_projection_valid": true,
+      "hair_union_projection_overlap_ratio": 0.612788,
+      "coordinate_mapping_debug": {
+        "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/coordinate_mapping_debug.json",
+        "exists": true,
+        "bytes": 1566
+      },
+      "coordinate_debug_images": {
+        "v8_hair_union_mask_projected_on_baseline": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_v8_hair_union_mask_projected_on_baseline.png",
+          "exists": true,
+          "bytes": 1545317
+        },
+        "candidate_visible_mask": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_candidate_visible_mask.png",
+          "exists": true,
+          "bytes": 6654
+        },
+        "candidate_mask_vs_hair_union_overlay": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_candidate_mask_vs_hair_union_overlay.png",
+          "exists": true,
+          "bytes": 47353
+        },
+        "candidate_bbox_vs_hair_union_bbox": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_candidate_bbox_vs_hair_union_bbox.png",
+          "exists": true,
+          "bytes": 1580979
+        }
+      },
+      "baseline_framing_valid": true,
+      "baseline_framing_reason": "foreground spans a valid full-frame character range",
+      "baseline_framing": {
+        "framing_valid": true,
+        "foreground_ratio": 0.267118,
+        "bbox": [
+          93,
+          73,
+          1101,
+          1527
+        ],
+        "bbox_height_ratio": 0.90875,
+        "bbox_width_ratio": 0.84,
+        "reason": "foreground spans a valid full-frame character range"
+      },
+      "overlay_alignment_valid": false,
+      "overlay_alignment_reason": "foreground spans a valid full-frame character range",
+      "overlay_framing": {
+        "framing_valid": true,
+        "foreground_ratio": 0.275426,
+        "bbox": [
+          93,
+          64,
+          1101,
+          1527
+        ],
+        "bbox_height_ratio": 0.914375,
+        "bbox_width_ratio": 0.84,
+        "reason": "foreground spans a valid full-frame character range"
+      },
+      "candidate_geometry_alignment_valid": false,
+      "clean_candidate_geometry_alignment_valid": false,
+      "coordinate_alignment_gate": "failed",
+      "coordinate_mapping_status": "failed_candidate_geometry_alignment",
+      "alignment_failure_reason": "hair union projection is valid but candidate geometry does not align",
+      "candidate_black_pixel_ratio": 0.0,
+      "black_alpha_leak_ratio": 0.0,
+      "visual_sanity_status": "failed_candidate_geometry_alignment",
+      "visual_sanity_reason": "candidate source coverage exceeds non-hair threshold; candidate front render is not constrained to the v8 hair mask union",
+      "manual_visual_review": "failed",
+      "ready_for_cloth_seam_surface": false,
+      "artifact_generated": true,
+      "black_alpha_leak_fixed": true,
+      "numeric_metrics_passed": false,
+      "thresholds": {
+        "black_alpha_leak_ratio": 0.02,
+        "candidate_black_pixel_ratio": 0.05,
+        "face_occlusion_ratio": 0.15,
+        "non_hair_occlusion_ratio": 0.1,
+        "outside_hair_mask_ratio": 0.1,
+        "hair_mask_iou": 0.12,
+        "hair_union_projection_overlap_ratio": 0.35,
+        "clean_outside_hair_mask_ratio": 0.1,
+        "clean_hair_mask_iou": 0.12,
+        "hair_union_body_overlap_ratio": 0.2,
+        "hair_union_face_overlap_ratio": 0.08,
+        "hair_union_weapon_overlap_ratio": 0.05
+      },
+      "negative_fixture": "CharacterPackage/semantic_layer_v9_hair/negative_fixtures/yuna_semantic_layer_v9_hair_validation_front_failed_visual_fixture.png"
+    },
+    "visual_sanity": {
+      "visual_sanity_status": "curve_bundle_candidate_failed_visual_review",
+      "visual_sanity_reason": "raw v8 hair-union alignment is retained as legacy diagnostics; curve-bundle candidates are judged by target_schema_v1 plus manual review",
+      "legacy_raw_hair_union_status": "failed_candidate_geometry_alignment",
+      "manual_visual_review": "required",
+      "ready_for_cloth_seam_surface": false
+    },
+    "target_schema_v1": {
+      "route": "build_hair_target_schema_v1",
+      "status": "failed_target_schema_alignment",
+      "strict_core_area": 20309,
+      "soft_silhouette_area": 29823,
+      "forbidden_zone_area": 666429,
+      "core_body_overlap_ratio": 0.0,
+      "soft_body_overlap_ratio": 0.0,
+      "forbidden_candidate_leak_ratio": 0.441191,
+      "candidate_core_coverage_ratio": 0.354627,
+      "candidate_soft_inside_ratio": 0.321086,
+      "candidate_visible_area_ratio": 0.017181,
+      "soft_silhouette_coverage_ratio": 0.3264,
+      "per_group_visible_pixel_count": {
+        "bangs": 1171,
+        "side_hair_left": 510,
+        "side_hair_right": 3782,
+        "back_hair": 5347
+      },
+      "per_group_soft_inside_ratio": {
+        "bangs": 0.035498,
+        "side_hair_left": 0.01546,
+        "side_hair_right": 0.114648,
+        "back_hair": 0.162089
+      },
+      "bangs_presence_ratio": 0.593212,
+      "side_hair_left_presence_ratio": 0.473538,
+      "side_hair_right_presence_ratio": 0.747283,
+      "back_hair_mass_presence_ratio": 0.581828,
+      "component_count": 1,
+      "scalp_anchor_continuity": 0.473538,
+      "candidate_front_visible_hair_mass": true,
+      "primary_group_presence_passed": true,
+      "yaw30_hair_readability": true,
+      "side_hair_readability": true,
+      "manual_visual_review_status": "blocked_by_target_schema_alignment",
+      "schema_render_correction_px": {
+        "x": 13.0,
+        "y": 8.0,
+        "source": "same correction used by art-directed hair mesh generation"
+      },
+      "yaw30_visible_ratio_to_front": 1.729447,
+      "side_view_visible_ratio_to_front": 1.029314,
+      "non_degenerate_hair_coverage_passed": true,
+      "non_degenerate_hair_coverage_reason": "candidate has enough visible mass, group presence, and continuity",
+      "candidate_target_schema_status": "failed_target_schema_alignment",
+      "schema_ready_for_ribbon_rebuild": true,
+      "ready_for_cloth_seam_surface": false,
+      "recommended_next": "fix_hair_ribbons_to_schema_v1",
+      "artifacts": {
+        "strict_hair_core_mask": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/target_schema_v1_eval/strict_hair_core_mask.png",
+          "exists": true,
+          "bytes": 6555
+        },
+        "soft_hair_silhouette_mask": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/target_schema_v1_eval/soft_hair_silhouette_mask.png",
+          "exists": true,
+          "bytes": 6789
+        },
+        "forbidden_nonhair_zone_mask": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/target_schema_v1_eval/forbidden_nonhair_zone_mask.png",
+          "exists": true,
+          "bytes": 16345
+        },
+        "candidate_vs_schema_overlay": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/target_schema_v1_eval/candidate_vs_schema_overlay.png",
+          "exists": true,
+          "bytes": 39184
+        },
+        "schema_debug_contact_sheet": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/target_schema_v1_eval/schema_debug_contact_sheet.png",
+          "exists": true,
+          "bytes": 390183
+        },
+        "report": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/target_schema_v1_eval/hair_target_schema_v1_report.json",
+          "exists": true,
+          "bytes": 6284
+        }
+      }
+    }
+  },
+  "wrapper": {
+    "blender": "/opt/homebrew/bin/blender",
+    "exit_code": 0,
+    "log": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/blender_semantic_validation.log",
+    "log_tail": [
+      "17:08:15 | INFO: Blender create Mesh node cape_left_mesh",
+      "17:08:15 | INFO: Blender create Mesh node cape_right_mesh",
+      "17:08:15 | INFO: Blender create Mesh node skirt_front_mesh",
+      "17:08:15 | INFO: Blender create Mesh node boots_mesh",
+      "17:08:15 | INFO: Blender create Mesh node face_mesh",
+      "17:08:15 | INFO: Blender create Mesh node bangs_mesh",
+      "17:08:15 | INFO: Blender create Mesh node weapon_mesh",
+      "17:08:15 | INFO: Blender create Mesh node leg_L_visual_panel_mesh",
+      "17:08:15 | INFO: Blender create Mesh node leg_R_visual_panel_mesh",
+      "17:08:15 | INFO: Blender create Mesh node leg_L_retopo_proxy_mesh",
+      "17:08:15 | INFO: Blender create Mesh node leg_R_retopo_proxy_mesh",
+      "17:08:15 | INFO: Blender create Mesh node boot_L_hardsurface_proxy_mesh",
+      "17:08:15 | INFO: Blender create Mesh node boot_R_hardsurface_proxy_mesh",
+      "17:08:15 | INFO: Blender create Mesh node Torus",
+      "17:08:15 | INFO: Blender create Mesh node Torus.001",
+      "17:08:15 | INFO: Blender create Mesh node Torus.002",
+      "17:08:15 | INFO: Blender create Mesh node Torus.003",
+      "17:08:15 | INFO: Blender create Mesh node Sphere",
+      "17:08:15 | INFO: Blender create Mesh node Sphere.001",
+      "17:08:15 | INFO: Blender create Mesh node Cylinder",
+      "17:08:15 | INFO: Blender create Mesh node Cylinder.001",
+      "17:08:15 | INFO: glTF import finished in 0.03s",
+      "17:08:15 | INFO: Data are loaded, start creating Blender stuff",
+      "17:08:15 | INFO: Blender create Mesh node bangs_primary_component_01_01_mesh",
+      "17:08:15 | INFO: Blender create Mesh node bangs_primary_component_01_02_mesh",
+      "17:08:15 | INFO: Blender create Mesh node bangs_primary_component_02_01_mesh",
+      "17:08:15 | INFO: Blender create Mesh node bangs_primary_component_02_02_mesh",
+      "17:08:15 | INFO: Blender create Mesh node bangs_primary_component_03_01_mesh",
+      "17:08:15 | INFO: Blender create Mesh node bangs_primary_component_03_02_mesh",
+      "17:08:15 | INFO: Blender create Mesh node bangs_primary_component_04_01_mesh",
+      "17:08:15 | INFO: Blender create Mesh node bangs_primary_component_04_02_mesh",
+      "17:08:15 | INFO: Blender create Mesh node side_hair_left_primary_component_01_01_mesh",
+      "17:08:15 | INFO: Blender create Mesh node side_hair_left_primary_component_01_02_mesh",
+      "17:08:15 | INFO: Blender create Mesh node side_hair_left_primary_component_02_01_mesh",
+      "17:08:15 | INFO: Blender create Mesh node side_hair_left_primary_component_02_02_mesh",
+      "17:08:15 | INFO: Blender create Mesh node side_hair_left_primary_component_03_01_mesh",
+      "17:08:15 | INFO: Blender create Mesh node side_hair_left_primary_component_03_02_mesh",
+      "17:08:15 | INFO: Blender create Mesh node side_hair_right_primary_component_01_01_mesh",
+      "17:08:15 | INFO: Blender create Mesh node side_hair_right_primary_component_01_02_mesh",
+      "17:08:15 | INFO: Blender create Mesh node side_hair_right_primary_component_02_01_mesh",
+      "17:08:15 | INFO: Blender create Mesh node side_hair_right_primary_component_02_02_mesh",
+      "17:08:15 | INFO: Blender create Mesh node side_hair_right_primary_component_03_01_mesh",
+      "17:08:15 | INFO: Blender create Mesh node side_hair_right_primary_component_03_02_mesh",
+      "17:08:15 | INFO: Blender create Mesh node side_hair_right_primary_component_04_01_mesh",
+      "17:08:15 | INFO: Blender create Mesh node side_hair_right_primary_component_04_02_mesh",
+      "17:08:15 | INFO: Blender create Mesh node back_hair_mass_component_01_01_mesh",
+      "17:08:15 | INFO: Blender create Mesh node back_hair_mass_component_01_02_mesh",
+      "17:08:15 | INFO: Blender create Mesh node back_hair_mass_component_01_03_mesh",
+      "17:08:15 | INFO: Blender create Mesh node back_hair_mass_component_02_01_mesh",
+      "17:08:15 | INFO: Blender create Mesh node back_hair_mass_component_02_02_mesh",
+      "17:08:15 | INFO: Blender create Mesh node back_hair_mass_component_02_03_mesh",
+      "17:08:15 | INFO: Blender create Mesh node back_hair_mass_component_03_01_mesh",
+      "17:08:15 | INFO: Blender create Mesh node back_hair_mass_component_03_02_mesh",
+      "17:08:15 | INFO: Blender create Mesh node back_hair_mass_component_03_03_mesh",
+      "17:08:15 | INFO: Blender create Mesh node back_hair_mass_component_04_01_mesh",
+      "17:08:15 | INFO: Blender create Mesh node back_hair_mass_component_04_02_mesh",
+      "17:08:15 | INFO: Blender create Mesh node back_hair_mass_component_04_03_mesh",
+      "17:08:15 | INFO: Blender create Mesh node secondary_01_back_hair_mass_mesh",
+      "17:08:15 | INFO: Blender create Mesh node secondary_02_side_hair_left_primary_mesh",
+      "17:08:15 | INFO: Blender create Mesh node secondary_03_side_hair_right_primary_mesh",
+      "17:08:15 | INFO: Blender create Mesh node secondary_04_bangs_primary_mesh",
+      "17:08:15 | INFO: Blender create Mesh node flyaway_01_bangs_primary_mesh",
+      "17:08:15 | INFO: Blender create Mesh node flyaway_02_side_hair_left_primary_mesh",
+      "17:08:15 | INFO: Blender create Mesh node flyaway_03_side_hair_right_primary_mesh",
+      "17:08:15 | INFO: Blender create Mesh node flyaway_04_back_hair_mass_mesh",
+      "17:08:15 | INFO: Blender create Mesh node bangs_primary_side_profile_support_mesh",
+      "17:08:15 | INFO: Blender create Mesh node side_hair_left_primary_side_profile_support_mesh",
+      "17:08:15 | INFO: Blender create Mesh node side_hair_right_primary_side_profile_support_mesh",
+      "17:08:15 | INFO: Blender create Mesh node back_hair_mass_side_profile_support_mesh",
+      "17:08:15 | INFO: glTF import finished in 0.04s",
+      "00:02.317  render           | Saved: './CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_front.png'",
+      "00:04.395  render           | Saved: './CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_candidate_front.png'",
+      "00:06.778  render           | Saved: './CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_baseline_front.png'",
+      "00:10.585  render           | Saved: './CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_overlay_front.png'",
+      "00:12.506  render           | Saved: './CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_yaw15.png'",
+      "00:14.422  render           | Saved: './CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_yaw30.png'",
+      "00:16.377  render           | Saved: './CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_side.png'",
+      "00:18.383  render           | Saved: './CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_wire.png'",
+      "00:20.433  render           | Saved: './CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_exploded.png'",
+      "Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)"
+    ]
+  },
+  "screenshot_aliases": {
+    "candidate_front": {
+      "source": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_candidate_front.png",
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/candidate_front.png",
+      "exists": true,
+      "bytes": 1130695
+    },
+    "overlay_front": {
+      "source": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_overlay_front.png",
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/overlay_front.png",
+      "exists": true,
+      "bytes": 2008964
+    },
+    "yaw30": {
+      "source": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_yaw30.png",
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yaw30.png",
+      "exists": true,
+      "bytes": 1179775
+    },
+    "side": {
+      "source": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_side.png",
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/side.png",
+      "exists": true,
+      "bytes": 1090850
+    },
+    "wire": {
+      "source": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_wire.png",
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/wire.png",
+      "exists": true,
+      "bytes": 1179774
+    },
+    "exploded": {
+      "source": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yuna_curve_bundle_hair_v1_validation_exploded.png",
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/exploded.png",
+      "exists": true,
+      "bytes": 1173795
+    }
+  },
+  "ready_for_cloth_seam_surface": false,
+  "target_schema_status": "failed_target_schema_alignment"
+}
