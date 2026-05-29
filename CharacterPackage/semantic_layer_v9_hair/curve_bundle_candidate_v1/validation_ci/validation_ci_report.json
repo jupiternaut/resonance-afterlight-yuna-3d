@@ -1,7 +1,7 @@
 {
   "created_at": "2026-05-29T11:24:03.576667+00:00",
   "route": "blender_semantic_validation_v0",
-  "status": "schema_gate_passed_manual_review_required",
+  "status": "style_gate_failed_manual_review_required",
   "boundary": "Candidate validation only. It does not replace v8 beauty GLB.",
   "inputs": {
     "baseline_glb": {
@@ -187,7 +187,7 @@
     "has_hair_spring_hooks": true,
     "has_hair_depth_groups": true,
     "replace_in_beauty_glb": false,
-    "visual_sanity_status": "schema_gate_passed_manual_review_required",
+    "visual_sanity_status": "style_gate_failed_manual_review_required",
     "target_schema_v1_status": "schema_gate_passed_manual_review_required",
     "candidate_route_status": "schema_gate_passed_manual_review_required",
     "manual_visual_review": "required",
@@ -195,7 +195,14 @@
     "primary_group_presence_passed": true,
     "yaw30_hair_readability": true,
     "side_hair_readability": true,
-    "manual_visual_review_status": "pending_user_review_schema_gate_passed"
+    "manual_visual_review_status": "pending_user_review_schema_gate_passed",
+    "style_target": "CharacterPackage/style_targets/yuna_cinematic_sci_fi_heroine_v0.json",
+    "style_target_status": "style_gate_failed_manual_review_required",
+    "debug_guides_hidden_in_beauty": true,
+    "beauty_render_exists": true,
+    "guide_leak_into_beauty": false,
+    "reads_as_hair": false,
+    "candidate_beauty_manual_review_required": true
   },
   "quality": {
     "missing_screenshots": [],
@@ -427,6 +434,124 @@
           "bytes": 6400
         }
       }
+    },
+    "style_gate": {
+      "style_target": "CharacterPackage/style_targets/yuna_cinematic_sci_fi_heroine_v0.json",
+      "style_target_id": "yuna_cinematic_sci_fi_heroine_v0",
+      "style_target_status": "style_gate_failed_manual_review_required",
+      "style_target_reason": "beauty renders are separated from debug outputs and schema metrics pass, but the candidate remains construction-like and is not accepted against the cinematic sci-fi heroine style target",
+      "debug_guides_hidden_in_beauty": true,
+      "beauty_render_exists": true,
+      "guide_leak_into_beauty": false,
+      "guide_leak_mesh_names": [],
+      "reads_as_hair": false,
+      "front_hair_silhouette_quality": "manual_review_required_coherent_mass_but_construction_like",
+      "yaw30_hair_likeness": "manual_review_required_readable_but_not_final_hair",
+      "side_hair_likeness": "manual_review_required_readable_but_not_final_hair",
+      "candidate_beauty_manual_review_required": true,
+      "candidate_accepted": false,
+      "replace_in_beauty_glb": false,
+      "ready_for_cloth_seam_surface": false,
+      "schema_gate_passed": true,
+      "numeric_readability": true,
+      "debug_outputs": {
+        "debug_curve_overlay_front": {
+          "source": {
+            "path": "CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1_front_overlay.png",
+            "exists": true,
+            "bytes": 1383664
+          },
+          "output": {
+            "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/debug_curve_overlay_front.png",
+            "exists": true,
+            "bytes": 1383664
+          }
+        },
+        "debug_curve_overlay_yaw30": {
+          "source": {
+            "path": "CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1_yaw30_plan.png",
+            "exists": true,
+            "bytes": 26320
+          },
+          "output": {
+            "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/debug_curve_overlay_yaw30.png",
+            "exists": true,
+            "bytes": 26320
+          }
+        },
+        "debug_schema_overlay": {
+          "source": {
+            "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/target_schema_v1_eval/candidate_vs_schema_overlay.png",
+            "exists": true,
+            "bytes": 37297
+          },
+          "output": {
+            "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/debug_schema_overlay.png",
+            "exists": true,
+            "bytes": 37297
+          }
+        }
+      },
+      "beauty_outputs": {
+        "candidate_beauty_front": {
+          "source": {
+            "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/candidate_front.png",
+            "exists": true,
+            "bytes": 1103241
+          },
+          "output": {
+            "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/candidate_beauty_front.png",
+            "exists": true,
+            "bytes": 1103241
+          }
+        },
+        "overlay_beauty_front": {
+          "source": {
+            "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/overlay_front.png",
+            "exists": true,
+            "bytes": 1996372
+          },
+          "output": {
+            "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/overlay_beauty_front.png",
+            "exists": true,
+            "bytes": 1996372
+          }
+        },
+        "yaw30_beauty": {
+          "source": {
+            "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yaw30.png",
+            "exists": true,
+            "bytes": 1126299
+          },
+          "output": {
+            "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yaw30_beauty.png",
+            "exists": true,
+            "bytes": 1126299
+          }
+        },
+        "side_beauty": {
+          "source": {
+            "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/side.png",
+            "exists": true,
+            "bytes": 1065422
+          },
+          "output": {
+            "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/side_beauty.png",
+            "exists": true,
+            "bytes": 1065422
+          }
+        }
+      },
+      "beauty_contact_sheet": {
+        "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/beauty_contact_sheet.png",
+        "exists": true,
+        "bytes": 785568
+      },
+      "failure_rules": {
+        "debug_leak_status": "failed_debug_leak_into_beauty",
+        "not_hair_like_status": "style_gate_failed_manual_review_required",
+        "manual_review_status": "beauty_candidate_manual_review_required"
+      }
     }
   },
   "wrapper": {
@@ -581,5 +706,125 @@
     "manual_visual_review_status": "pending_user_review_schema_gate_passed",
     "ready_for_cloth_seam_surface": false,
     "replace_in_beauty_glb": false
-  }
+  },
+  "schema_gate_status": "beauty_candidate_manual_review_required",
+  "style_gate": {
+    "style_target": "CharacterPackage/style_targets/yuna_cinematic_sci_fi_heroine_v0.json",
+    "style_target_id": "yuna_cinematic_sci_fi_heroine_v0",
+    "style_target_status": "style_gate_failed_manual_review_required",
+    "style_target_reason": "beauty renders are separated from debug outputs and schema metrics pass, but the candidate remains construction-like and is not accepted against the cinematic sci-fi heroine style target",
+    "debug_guides_hidden_in_beauty": true,
+    "beauty_render_exists": true,
+    "guide_leak_into_beauty": false,
+    "guide_leak_mesh_names": [],
+    "reads_as_hair": false,
+    "front_hair_silhouette_quality": "manual_review_required_coherent_mass_but_construction_like",
+    "yaw30_hair_likeness": "manual_review_required_readable_but_not_final_hair",
+    "side_hair_likeness": "manual_review_required_readable_but_not_final_hair",
+    "candidate_beauty_manual_review_required": true,
+    "candidate_accepted": false,
+    "replace_in_beauty_glb": false,
+    "ready_for_cloth_seam_surface": false,
+    "schema_gate_passed": true,
+    "numeric_readability": true,
+    "debug_outputs": {
+      "debug_curve_overlay_front": {
+        "source": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1_front_overlay.png",
+          "exists": true,
+          "bytes": 1383664
+        },
+        "output": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/debug_curve_overlay_front.png",
+          "exists": true,
+          "bytes": 1383664
+        }
+      },
+      "debug_curve_overlay_yaw30": {
+        "source": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/primary_curve_bundle_v1_yaw30_plan.png",
+          "exists": true,
+          "bytes": 26320
+        },
+        "output": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/debug_curve_overlay_yaw30.png",
+          "exists": true,
+          "bytes": 26320
+        }
+      },
+      "debug_schema_overlay": {
+        "source": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/target_schema_v1_eval/candidate_vs_schema_overlay.png",
+          "exists": true,
+          "bytes": 37297
+        },
+        "output": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/debug_schema_overlay.png",
+          "exists": true,
+          "bytes": 37297
+        }
+      }
+    },
+    "beauty_outputs": {
+      "candidate_beauty_front": {
+        "source": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/candidate_front.png",
+          "exists": true,
+          "bytes": 1103241
+        },
+        "output": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/candidate_beauty_front.png",
+          "exists": true,
+          "bytes": 1103241
+        }
+      },
+      "overlay_beauty_front": {
+        "source": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/overlay_front.png",
+          "exists": true,
+          "bytes": 1996372
+        },
+        "output": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/overlay_beauty_front.png",
+          "exists": true,
+          "bytes": 1996372
+        }
+      },
+      "yaw30_beauty": {
+        "source": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yaw30.png",
+          "exists": true,
+          "bytes": 1126299
+        },
+        "output": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yaw30_beauty.png",
+          "exists": true,
+          "bytes": 1126299
+        }
+      },
+      "side_beauty": {
+        "source": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/side.png",
+          "exists": true,
+          "bytes": 1065422
+        },
+        "output": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/side_beauty.png",
+          "exists": true,
+          "bytes": 1065422
+        }
+      }
+    },
+    "beauty_contact_sheet": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/beauty_contact_sheet.png",
+      "exists": true,
+      "bytes": 785568
+    },
+    "failure_rules": {
+      "debug_leak_status": "failed_debug_leak_into_beauty",
+      "not_hair_like_status": "style_gate_failed_manual_review_required",
+      "manual_review_status": "beauty_candidate_manual_review_required"
+    }
+  },
+  "style_target": "CharacterPackage/style_targets/yuna_cinematic_sci_fi_heroine_v0.json"
 }

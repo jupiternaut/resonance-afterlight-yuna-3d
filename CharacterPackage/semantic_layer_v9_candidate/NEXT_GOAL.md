@@ -1,66 +1,71 @@
-# Next Goal: Manual Review Curve Bundle Hair Candidate v1
+# Next Goal: Manual Style Review Curve Bundle Hair Candidate v1
 
 ## Objective
 
-Review the repaired curve-bundle candidate:
+Review the separated beauty outputs for:
 
 `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/`
 
-The repair loop passed the programmatic target-schema gate, but this is still a
-candidate-only route. It must not replace v8 beauty hair or unblock
-`cloth_seam_surface` until human visual review explicitly accepts it.
+The schema gate passed, and debug/planning overlays are now separated from
+beauty images. The style gate still marks the route as:
+
+`style_gate_failed_manual_review_required`
+
+This route must not replace v8 beauty hair or unblock `cloth_seam_surface`
+until human visual review explicitly accepts a follow-up style refinement.
 
 ## Current Route
 
-- Route: `repair_curve_bundle_hair_candidate_v1_until_schema_gate`
-- Status: `schema_gate_passed_manual_review_required`
-- Best attempt: `6`
-- Boundary: independent candidate-only hair route.
+- Route: `separate_hair_debug_beauty_and_add_style_gate_v1`
+- Style target: `CharacterPackage/style_targets/yuna_cinematic_sci_fi_heroine_v0.json`
+- Status: `style_gate_failed_manual_review_required`
+- `debug_guides_hidden_in_beauty=true`
+- `beauty_render_exists=true`
+- `guide_leak_into_beauty=false`
+- `reads_as_hair=false`
 - `replace_in_beauty_glb=false`
 - `ready_for_cloth_seam_surface=false`
 
 ## Current Evidence
 
-- `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_report.json`
+Debug/planning-only outputs:
+
+- `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/debug_curve_overlay_front.png`
+- `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/debug_curve_overlay_yaw30.png`
+- `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/debug_schema_overlay.png`
+
+Beauty outputs:
+
+- `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/candidate_beauty_front.png`
+- `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/overlay_beauty_front.png`
+- `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yaw30_beauty.png`
+- `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/side_beauty.png`
+- `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/beauty_contact_sheet.png`
+
+Reports:
+
 - `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_report.json`
-- `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/target_schema_v1_eval/hair_target_schema_v1_report.json`
-- `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/candidate_front.png`
-- `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/overlay_front.png`
-- `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yaw30.png`
-- `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/side.png`
-- `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/wire.png`
-- `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/exploded.png`
-
-## Key Metrics
-
-- `forbidden_candidate_leak_ratio=0.084696`
-- `candidate_soft_inside_ratio=0.832798`
-- `candidate_core_coverage_ratio=0.645373`
-- `candidate_visible_area_ratio=0.01118`
-- `candidate_front_visible_hair_mass=true`
-- `primary_group_presence_passed=true`
-- `yaw30_hair_readability=true`
-- `side_hair_readability=true`
-- `manual_visual_review_status=pending_user_review_visible_mass_refined`
+- `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/validation_ci_report.json`
 
 ## Recommended Next Codex Goal
 
 ```text
-/goal Manual-review curve_bundle_candidate_v1.
+/goal Manual-review curve_bundle_candidate_v1 beauty outputs.
 
 Read:
-- CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_report.json
+- CharacterPackage/style_targets/yuna_cinematic_sci_fi_heroine_v0.json
 - CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_report.json
-- CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/target_schema_v1_eval/hair_target_schema_v1_report.json
-- CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/candidate_front.png
-- CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/overlay_front.png
-- CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yaw30.png
-- CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/side.png
+- CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/validation_ci_report.json
+- CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/candidate_beauty_front.png
+- CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/overlay_beauty_front.png
+- CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yaw30_beauty.png
+- CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/side_beauty.png
+- CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/beauty_contact_sheet.png
 
 Goal:
-Decide whether the repaired candidate is visually acceptable as a hair candidate
-for the next integration planning step. Do not replace v8 beauty, do not proceed
-to cloth, and do not call it final production hair.
+Decide whether this beauty candidate is worth another style refinement pass.
+Do not replace v8 beauty, do not proceed to cloth, and do not call it final
+production hair.
 
 Run:
 python3 -m unittest discover -s CharacterPackage/tools/tests -p 'test_*.py' -v

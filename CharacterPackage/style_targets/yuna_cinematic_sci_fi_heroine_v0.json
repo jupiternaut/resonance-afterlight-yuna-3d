@@ -1,0 +1,42 @@
+{
+  "id": "yuna_cinematic_sci_fi_heroine_v0",
+  "version": 1,
+  "created_for": "YUNA semantic v9 hair candidate style gate",
+  "direction": {
+    "summary": "premium cinematic sci-fi heroine",
+    "intent": "Hair should read as a coherent, elegant, scalp-anchored anime heroine silhouette suitable for later DCC hair authoring, not as a construction overlay or generic alpha-sliced technical demo.",
+    "not_final_production_hair": true
+  },
+  "palette": {
+    "graphite_black": "#101318",
+    "pearl_white": "#F4F8FA",
+    "gunmetal": "#4B5563",
+    "cyan_accent": "#28DDEB",
+    "notes": "Pearl/cyan hair accents are allowed, but debug-white guide bars are not beauty hair."
+  },
+  "hair_requirements": {
+    "large_coherent_back_hair_mass": true,
+    "soft_curved_bangs": true,
+    "left_right_side_drape": true,
+    "scalp_anchored_flow": true,
+    "limited_secondary_strands": true,
+    "limited_flyaway_strands": true,
+    "transparent_tapered_tips": true,
+    "no_barcode_strips": true,
+    "no_straight_guide_bars": true,
+    "no_fragmented_shards": true,
+    "no_copied_commercial_character_design": true
+  },
+  "beauty_render_forbidden_content": [
+    "curve guide lines",
+    "anchor markers",
+    "bounding boxes",
+    "straight construction bars",
+    "schema masks",
+    "white debug material used as hair material"
+  ],
+  "external_prior_policy": {
+    "external_assets_are_priors_not_replacements": true,
+    "copying_commercial_character_design_is_forbidden": true
+  }
+}
