@@ -79,30 +79,38 @@ planning metadata, not generated mesh vertices.
 - `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/overlay_front.png`
 - `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/yaw30.png`
 - `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_ci/side.png`
-- `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/failure_report.md`
+- `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_report.json`
+- `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_success_report.md`
 - `CharacterPackage/external_hair_dataset/priors/external_hair_prior_schema_v1.json`
 - `CharacterPackage/tools/build_primary_curve_bundle_v1.py`
 - `CharacterPackage/tools/build_curve_bundle_hair_candidate_v1.py`
+- `CharacterPackage/tools/repair_curve_bundle_hair_candidate_v1_until_schema_gate.py`
 - `CharacterPackage/tools/tests/test_primary_curve_bundle_v1.py`
 - `CharacterPackage/tools/tests/test_curve_bundle_hair_candidate_v1.py`
+- `CharacterPackage/tools/tests/test_curve_bundle_hair_repair_v1.py`
 
-## Curve Bundle Candidate v1 Result
+## Curve Bundle Candidate v1 Repair Result
 
-- Route: `build_curve_bundle_hair_candidate_v1`
-- Status: `curve_bundle_candidate_failed_visual_review`
-- `ribbon_count=46`
-- `depth_group_count=7`
+- Route: `repair_curve_bundle_hair_candidate_v1_until_schema_gate`
+- Status: `schema_gate_passed_manual_review_required`
+- Best attempt: `6`
+- `attempt_count=6`
+- `ribbon_count=88`
+- `depth_group_count=4`
 - `candidate_front_visible_hair_mass=true`
 - `primary_group_presence_passed=true`
 - `yaw30_hair_readability=true`
 - `side_hair_readability=true`
-- `forbidden_candidate_leak_ratio=0.330678` in `validation_report.json`
-- `forbidden_candidate_leak_ratio=0.441191` in target-schema render evaluation
-- `candidate_soft_inside_ratio=0.484489` in `validation_report.json`
-- `candidate_soft_inside_ratio=0.321086` in target-schema render evaluation
-- `candidate_target_schema_status=failed_target_schema_alignment`
+- `forbidden_candidate_leak_ratio=0.084696`
+- `candidate_soft_inside_ratio=0.832798`
+- `candidate_core_coverage_ratio=0.645373`
+- `candidate_visible_area_ratio=0.01118`
+- `candidate_target_schema_status=schema_gate_passed_manual_review_required`
+- `manual_visual_review_status=pending_user_review_visible_mass_refined`
 - `replace_in_beauty_glb=false`
 - `ready_for_cloth_seam_surface=false`
+- Boundary: schema gate passed, but manual visual review is still required; do
+  not call this accepted or production hair.
 
 ## External Hair Source Expansion v1
 
@@ -116,18 +124,20 @@ planning metadata, not generated mesh vertices.
 
 ## Current Blocker
 
-The curve bundle has now produced a real candidate asset, but target-schema
-alignment failed. Do not proceed to `cloth_seam_surface`.
+The curve-bundle repair loop passed the programmatic target-schema gate, but
+the candidate still needs manual visual review before it can influence any
+beauty replacement or unblock `cloth_seam_surface`.
 
 ## Next Valid Task
 
-`fix_curve_bundle_hair_candidate_v1_target_alignment`
+`manual_visual_review_curve_bundle_hair_candidate_v1`
 
 ## Invalid Next Tasks
 
 - `cloth_seam_surface`
 - replacing v8 beauty hair
-- calling `curve_bundle_candidate_v1` accepted or production hair
+- calling `curve_bundle_candidate_v1` accepted or production hair before manual
+  visual review
 
 ## Required Verification
 

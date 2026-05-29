@@ -258,44 +258,51 @@ Next:
 - Accept or reject the candidate based on front/yaw screenshots, not only
   numeric gates.
 
-## 4f. Build Curve Bundle Hair Candidate v1
+## 4f. Build And Repair Curve Bundle Hair Candidate v1
 
-Status: generated actual OBJ/GLB/BLEND candidate, but failed target-schema
-alignment.
+Status: generated actual OBJ/GLB/BLEND candidate; repair loop passed the
+programmatic target-schema gate, but manual visual review is still required.
 
 Goal:
 
 - Convert `primary_curve_bundle_v1.json` into actual ribbon geometry rather
   than another planning-only report.
 
-Current result:
+Current repaired result:
 
 - Output route:
   `CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/`
-- `ribbon_count=46`.
-- `depth_group_count=7`.
+- Repair route: `repair_curve_bundle_hair_candidate_v1_until_schema_gate`.
+- Best repair attempt: `6`.
+- `attempt_count=6`.
+- `ribbon_count=88`.
+- `depth_group_count=4`.
 - `candidate_front_visible_hair_mass=true`.
 - `primary_group_presence_passed=true`.
 - `yaw30_hair_readability=true`.
 - `side_hair_readability=true`.
-- `forbidden_candidate_leak_ratio=0.330678` in `validation_report.json`.
-- `forbidden_candidate_leak_ratio=0.441191` in target-schema render evaluation.
-- `candidate_soft_inside_ratio=0.484489` in `validation_report.json`.
-- `candidate_soft_inside_ratio=0.321086` in target-schema render evaluation.
-- `candidate_target_schema_status=failed_target_schema_alignment`.
-- `visual_sanity_status=curve_bundle_candidate_failed_visual_review`.
+- `forbidden_candidate_leak_ratio=0.084696`.
+- `candidate_soft_inside_ratio=0.832798`.
+- `candidate_core_coverage_ratio=0.645373`.
+- `candidate_visible_area_ratio=0.01118`.
+- `candidate_target_schema_status=schema_gate_passed_manual_review_required`.
+- `visual_sanity_status=schema_gate_passed_manual_review_required`.
+- `manual_visual_review_status=pending_user_review_visible_mass_refined`.
 - `replace_in_beauty_glb=false`.
 - `ready_for_cloth_seam_surface=false`.
 
 Decision:
 
-- Keep the generated assets as an experimental candidate and negative evidence.
-- Do not proceed to `cloth_seam_surface`.
-- Do not call this accepted or final production hair.
+- Keep the generated assets as an experimental candidate that passed schema
+  metrics.
+- Do not replace v8 beauty hair.
+- Do not proceed to `cloth_seam_surface` until manual visual review explicitly
+  accepts the repaired candidate.
+- Do not call this final production hair.
 
 Next:
 
-- `fix_curve_bundle_hair_candidate_v1_target_alignment`.
+- `manual_visual_review_curve_bundle_hair_candidate_v1`.
 
 ## 4e. Build Art-Directed Hair Ribbons v1
 

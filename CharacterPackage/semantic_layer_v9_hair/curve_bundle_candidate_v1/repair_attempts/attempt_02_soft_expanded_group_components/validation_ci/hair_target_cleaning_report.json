@@ -1,0 +1,46 @@
+{
+  "hair_union_pixel_count": 324554,
+  "clean_hair_target_pixel_count": 33196,
+  "clean_hair_target_kept_ratio": 0.102282,
+  "hair_union_body_overlap_ratio": 0.844485,
+  "hair_union_face_overlap_ratio": 0.044609,
+  "hair_union_weapon_overlap_ratio": 0.043164,
+  "hair_union_target_is_clean": false,
+  "raw_hair_mask_iou": 0.030479,
+  "raw_outside_hair_mask_ratio": 0.146798,
+  "raw_candidate_is_hair_only": false,
+  "clean_hair_mask_iou": 0.280209,
+  "clean_outside_hair_mask_ratio": 0.155652,
+  "clean_candidate_is_hair_only": false,
+  "clean_candidate_bbox": [
+    253,
+    61,
+    997,
+    499
+  ],
+  "clean_hair_union_bbox": [
+    199,
+    49,
+    1077,
+    1078
+  ],
+  "artifacts": {
+    "hair_target_mask_clean": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_02_soft_expanded_group_components/validation_ci/hair_target_mask_clean.png",
+      "exists": true,
+      "bytes": 12474
+    },
+    "hair_target_mask_dirty_overlay": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_02_soft_expanded_group_components/validation_ci/hair_target_mask_dirty_overlay.png",
+      "exists": true,
+      "bytes": 1534165
+    }
+  },
+  "thresholds": {
+    "clean_hair_mask_iou": 0.12,
+    "clean_outside_hair_mask_ratio": 0.1,
+    "hair_union_body_overlap_ratio": 0.2,
+    "hair_union_face_overlap_ratio": 0.08,
+    "hair_union_weapon_overlap_ratio": 0.05
+  }
+}

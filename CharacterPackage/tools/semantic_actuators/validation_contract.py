@@ -127,6 +127,7 @@ def validate_hair_candidate_report(report: dict[str, Any]) -> list[str]:
         "curve_bundle_candidate_manual_review_required",
         "curve_bundle_candidate_failed",
         "curve_bundle_candidate_failed_visual_review",
+        "repair_failed_after_6_attempts",
     }:
         errors.append("status must be generated_with_warnings, failed, or a hair visual failure status")
     mesh = report.get("mesh_summary", {})
@@ -215,6 +216,7 @@ def validate_hair_candidate_report(report: dict[str, Any]) -> list[str]:
         "curve_bundle_candidate_manual_review_required",
         "curve_bundle_candidate_failed",
         "curve_bundle_candidate_failed_visual_review",
+        "repair_failed_after_6_attempts",
     }:
         errors.append("hair candidate visual_sanity_status is invalid")
     if visual_status in {"passed", "passed_with_minor_warnings"}:

@@ -1,0 +1,566 @@
+{
+  "created_at": "2026-05-29T11:22:03.693179+00:00",
+  "route": "blender_semantic_validation_v0",
+  "status": "failed_target_schema_alignment",
+  "boundary": "Candidate validation only. It does not replace v8 beauty GLB.",
+  "inputs": {
+    "baseline_glb": {
+      "path": "CharacterPackage/semantic_layer_v8/exports/yuna_semantic_layer_v8.glb",
+      "exists": true,
+      "bytes": 22268232
+    },
+    "cage_glb": {
+      "path": "CharacterPackage/semantic_layer_v8/exports/yuna_semantic_layer_v8_cage_debug.glb",
+      "exists": true,
+      "bytes": 22403908
+    },
+    "candidate_glb": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/exports/yuna_curve_bundle_hair_v1_repair_attempt_04.glb",
+      "exists": true,
+      "bytes": 1355560
+    },
+    "candidate_report": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_report.json",
+      "exists": true,
+      "bytes": 501386
+    }
+  },
+  "screenshots": {
+    "front": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_front.png",
+      "exists": true,
+      "bytes": 1106582
+    },
+    "candidate_front": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_candidate_front.png",
+      "exists": true,
+      "bytes": 1106582
+    },
+    "baseline_front": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_baseline_front.png",
+      "exists": true,
+      "bytes": 1988922
+    },
+    "overlay_front": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_overlay_front.png",
+      "exists": true,
+      "bytes": 1996463
+    },
+    "yaw15": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_yaw15.png",
+      "exists": true,
+      "bytes": 1121962
+    },
+    "yaw30": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_yaw30.png",
+      "exists": true,
+      "bytes": 1127910
+    },
+    "side": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_side.png",
+      "exists": true,
+      "bytes": 1065422
+    },
+    "wire": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_wire.png",
+      "exists": true,
+      "bytes": 1127909
+    },
+    "exploded": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_exploded.png",
+      "exists": true,
+      "bytes": 1131248
+    }
+  },
+  "inventory": {
+    "baseline_object_count": 23,
+    "cage_object_count": 35,
+    "candidate_mesh_count": 96,
+    "candidate_empty_count": 4,
+    "candidate_mesh_names": [
+      "bangs_primary_repair_04_01_01",
+      "bangs_primary_repair_04_01_02",
+      "bangs_primary_repair_04_01_03",
+      "bangs_primary_repair_04_02_01",
+      "bangs_primary_repair_04_02_02",
+      "bangs_primary_repair_04_02_03",
+      "bangs_primary_repair_04_03_01",
+      "bangs_primary_repair_04_03_02",
+      "bangs_primary_repair_04_03_03",
+      "bangs_primary_repair_04_04_01",
+      "bangs_primary_repair_04_04_02",
+      "bangs_primary_repair_04_04_03",
+      "bangs_primary_repair_04_05_01",
+      "bangs_primary_repair_04_05_02",
+      "bangs_primary_repair_04_05_03",
+      "bangs_primary_repair_04_06_01",
+      "bangs_primary_repair_04_06_02",
+      "bangs_primary_repair_04_06_03",
+      "bangs_primary_repair_04_07_01",
+      "bangs_primary_repair_04_07_02",
+      "bangs_primary_repair_04_07_03",
+      "bangs_primary_repair_04_08_01",
+      "bangs_primary_repair_04_08_02",
+      "bangs_primary_repair_04_08_03",
+      "side_hair_left_primary_repair_04_01_01",
+      "side_hair_left_primary_repair_04_01_02",
+      "side_hair_left_primary_repair_04_01_03",
+      "side_hair_left_primary_repair_04_02_01",
+      "side_hair_left_primary_repair_04_02_02",
+      "side_hair_left_primary_repair_04_02_03",
+      "side_hair_left_primary_repair_04_03_01",
+      "side_hair_left_primary_repair_04_03_02",
+      "side_hair_left_primary_repair_04_03_03",
+      "side_hair_left_primary_repair_04_04_01",
+      "side_hair_left_primary_repair_04_04_02",
+      "side_hair_left_primary_repair_04_04_03",
+      "side_hair_left_primary_repair_04_05_01",
+      "side_hair_left_primary_repair_04_05_02",
+      "side_hair_left_primary_repair_04_05_03",
+      "side_hair_left_primary_repair_04_06_01",
+      "side_hair_left_primary_repair_04_06_02",
+      "side_hair_left_primary_repair_04_06_03",
+      "side_hair_left_primary_repair_04_07_01",
+      "side_hair_left_primary_repair_04_07_02",
+      "side_hair_left_primary_repair_04_07_03",
+      "side_hair_left_primary_repair_04_08_01",
+      "side_hair_left_primary_repair_04_08_02",
+      "side_hair_left_primary_repair_04_08_03",
+      "side_hair_right_primary_repair_04_01_01",
+      "side_hair_right_primary_repair_04_01_02",
+      "side_hair_right_primary_repair_04_01_03",
+      "side_hair_right_primary_repair_04_02_01",
+      "side_hair_right_primary_repair_04_02_02",
+      "side_hair_right_primary_repair_04_02_03",
+      "side_hair_right_primary_repair_04_03_01",
+      "side_hair_right_primary_repair_04_03_02",
+      "side_hair_right_primary_repair_04_03_03",
+      "side_hair_right_primary_repair_04_04_01",
+      "side_hair_right_primary_repair_04_04_02",
+      "side_hair_right_primary_repair_04_04_03",
+      "side_hair_right_primary_repair_04_05_01",
+      "side_hair_right_primary_repair_04_05_02",
+      "side_hair_right_primary_repair_04_05_03",
+      "side_hair_right_primary_repair_04_06_01",
+      "side_hair_right_primary_repair_04_06_02",
+      "side_hair_right_primary_repair_04_06_03",
+      "side_hair_right_primary_repair_04_07_01",
+      "side_hair_right_primary_repair_04_07_02",
+      "side_hair_right_primary_repair_04_07_03",
+      "side_hair_right_primary_repair_04_08_01",
+      "side_hair_right_primary_repair_04_08_02",
+      "side_hair_right_primary_repair_04_08_03",
+      "back_hair_mass_repair_04_01_01",
+      "back_hair_mass_repair_04_01_02",
+      "back_hair_mass_repair_04_01_03",
+      "back_hair_mass_repair_04_02_01",
+      "back_hair_mass_repair_04_02_02",
+      "back_hair_mass_repair_04_02_03",
+      "back_hair_mass_repair_04_03_01",
+      "back_hair_mass_repair_04_03_02",
+      "back_hair_mass_repair_04_03_03",
+      "back_hair_mass_repair_04_04_01",
+      "back_hair_mass_repair_04_04_02",
+      "back_hair_mass_repair_04_04_03",
+      "back_hair_mass_repair_04_05_01",
+      "back_hair_mass_repair_04_05_02",
+      "back_hair_mass_repair_04_05_03",
+      "back_hair_mass_repair_04_06_01",
+      "back_hair_mass_repair_04_06_02",
+      "back_hair_mass_repair_04_06_03",
+      "back_hair_mass_repair_04_07_01",
+      "back_hair_mass_repair_04_07_02",
+      "back_hair_mass_repair_04_07_03",
+      "back_hair_mass_repair_04_08_01",
+      "back_hair_mass_repair_04_08_02",
+      "back_hair_mass_repair_04_08_03"
+    ],
+    "candidate_empty_names": [
+      "hair_back_spring_hook",
+      "hair_bangs_spring_hook",
+      "hair_side_left_spring_hook",
+      "hair_side_right_spring_hook"
+    ]
+  },
+  "candidate_contract": {
+    "part_id": "hair",
+    "has_independent_candidate_mesh": true,
+    "has_independent_weapon_mesh": false,
+    "has_boot_candidate_meshes": null,
+    "has_leg_candidate_meshes": null,
+    "has_hair_candidate_meshes": true,
+    "has_hand_R_socket": false,
+    "has_foot_sockets": false,
+    "has_leg_loop_markers": false,
+    "has_hair_spring_hooks": true,
+    "has_hair_depth_groups": true,
+    "replace_in_beauty_glb": false,
+    "visual_sanity_status": "failed_target_schema_alignment",
+    "target_schema_v1_status": "failed_target_schema_alignment",
+    "candidate_route_status": "failed_target_schema_alignment",
+    "manual_visual_review": "blocked_by_target_schema",
+    "candidate_front_visible_hair_mass": true,
+    "primary_group_presence_passed": true,
+    "yaw30_hair_readability": true,
+    "side_hair_readability": true,
+    "manual_visual_review_status": "blocked_by_target_schema_alignment"
+  },
+  "quality": {
+    "missing_screenshots": [],
+    "known_limits": [
+      "hair candidate is an actuator proxy, not final DCC asset",
+      "v8 beauty GLB remains the active baseline until replacement validation is accepted"
+    ],
+    "legacy_raw_hair_union_visual_sanity": {
+      "alpha_material_valid": true,
+      "face_occlusion_ratio": 0.0,
+      "non_hair_occlusion_ratio": 0.0,
+      "hair_mask_iou": 0.051189,
+      "outside_hair_mask_ratio": 0.207862,
+      "raw_candidate_is_hair_only": false,
+      "candidate_is_hair_only": false,
+      "candidate_visible_pixel_count": 23073,
+      "expected_hair_pixel_count": 352254,
+      "candidate_bbox": [
+        252,
+        61,
+        997,
+        509
+      ],
+      "hair_union_bbox": [
+        199,
+        49,
+        1119,
+        1080
+      ],
+      "hair_union_body_overlap_ratio": 0.844485,
+      "hair_union_face_overlap_ratio": 0.044609,
+      "hair_union_weapon_overlap_ratio": 0.043164,
+      "hair_union_target_is_clean": false,
+      "hair_target_quality": "dirty_or_overbroad",
+      "clean_hair_mask_iou": 0.376648,
+      "clean_outside_hair_mask_ratio": 0.297751,
+      "clean_candidate_is_hair_only": false,
+      "hair_target_cleaning_report": {
+        "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/hair_target_cleaning_report.json",
+        "exists": true,
+        "bytes": 1472
+      },
+      "hair_target_cleaning_artifacts": {
+        "hair_target_mask_clean": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/hair_target_mask_clean.png",
+          "exists": true,
+          "bytes": 12474
+        },
+        "hair_target_mask_dirty_overlay": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/hair_target_mask_dirty_overlay.png",
+          "exists": true,
+          "bytes": 1534165
+        }
+      },
+      "hair_union_projection_valid": true,
+      "hair_union_projection_overlap_ratio": 0.612788,
+      "coordinate_mapping_debug": {
+        "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/coordinate_mapping_debug.json",
+        "exists": true,
+        "bytes": 1878
+      },
+      "coordinate_debug_images": {
+        "v8_hair_union_mask_projected_on_baseline": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_v8_hair_union_mask_projected_on_baseline.png",
+          "exists": true,
+          "bytes": 1545317
+        },
+        "candidate_visible_mask": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_candidate_visible_mask.png",
+          "exists": true,
+          "bytes": 5914
+        },
+        "candidate_mask_vs_hair_union_overlay": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_candidate_mask_vs_hair_union_overlay.png",
+          "exists": true,
+          "bytes": 46286
+        },
+        "candidate_bbox_vs_hair_union_bbox": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_candidate_bbox_vs_hair_union_bbox.png",
+          "exists": true,
+          "bytes": 1580655
+        }
+      },
+      "baseline_framing_valid": true,
+      "baseline_framing_reason": "foreground spans a valid full-frame character range",
+      "baseline_framing": {
+        "framing_valid": true,
+        "foreground_ratio": 0.267118,
+        "bbox": [
+          93,
+          73,
+          1101,
+          1527
+        ],
+        "bbox_height_ratio": 0.90875,
+        "bbox_width_ratio": 0.84,
+        "reason": "foreground spans a valid full-frame character range"
+      },
+      "overlay_alignment_valid": false,
+      "overlay_alignment_reason": "foreground spans a valid full-frame character range",
+      "overlay_framing": {
+        "framing_valid": true,
+        "foreground_ratio": 0.273408,
+        "bbox": [
+          93,
+          61,
+          1101,
+          1527
+        ],
+        "bbox_height_ratio": 0.91625,
+        "bbox_width_ratio": 0.84,
+        "reason": "foreground spans a valid full-frame character range"
+      },
+      "candidate_geometry_alignment_valid": false,
+      "clean_candidate_geometry_alignment_valid": false,
+      "coordinate_alignment_gate": "failed",
+      "coordinate_mapping_status": "failed_candidate_geometry_alignment",
+      "alignment_failure_reason": "hair union projection is valid but candidate geometry does not align",
+      "candidate_black_pixel_ratio": 0.0,
+      "black_alpha_leak_ratio": 0.0,
+      "visual_sanity_status": "failed_candidate_geometry_alignment",
+      "visual_sanity_reason": "candidate front render is not constrained to the v8 hair mask union",
+      "manual_visual_review": "failed",
+      "ready_for_cloth_seam_surface": false,
+      "artifact_generated": true,
+      "black_alpha_leak_fixed": true,
+      "numeric_metrics_passed": true,
+      "thresholds": {
+        "black_alpha_leak_ratio": 0.02,
+        "candidate_black_pixel_ratio": 0.05,
+        "face_occlusion_ratio": 0.15,
+        "non_hair_occlusion_ratio": 0.1,
+        "outside_hair_mask_ratio": 0.1,
+        "hair_mask_iou": 0.12,
+        "hair_union_projection_overlap_ratio": 0.35,
+        "clean_outside_hair_mask_ratio": 0.1,
+        "clean_hair_mask_iou": 0.12,
+        "hair_union_body_overlap_ratio": 0.2,
+        "hair_union_face_overlap_ratio": 0.08,
+        "hair_union_weapon_overlap_ratio": 0.05
+      },
+      "negative_fixture": "CharacterPackage/semantic_layer_v9_hair/negative_fixtures/yuna_semantic_layer_v9_hair_validation_front_failed_visual_fixture.png"
+    },
+    "visual_sanity": {
+      "visual_sanity_status": "pending_target_schema_v1_eval",
+      "visual_sanity_reason": "raw v8 hair-union alignment is retained as legacy diagnostics; curve-bundle candidates are judged by target_schema_v1 plus manual review",
+      "legacy_raw_hair_union_status": "failed_candidate_geometry_alignment",
+      "manual_visual_review": "required",
+      "ready_for_cloth_seam_surface": false
+    },
+    "target_schema_v1": {
+      "route": "build_hair_target_schema_v1",
+      "status": "failed_target_schema_alignment",
+      "strict_core_area": 20309,
+      "soft_silhouette_area": 29823,
+      "forbidden_zone_area": 666429,
+      "core_body_overlap_ratio": 0.0,
+      "soft_body_overlap_ratio": 0.0,
+      "forbidden_candidate_leak_ratio": 0.117107,
+      "candidate_core_coverage_ratio": 0.675072,
+      "candidate_soft_inside_ratio": 0.808304,
+      "candidate_visible_area_ratio": 0.012017,
+      "soft_silhouette_coverage_ratio": 0.574713,
+      "per_group_visible_pixel_count": {
+        "bangs": 1797,
+        "side_hair_left": 625,
+        "side_hair_right": 3260,
+        "back_hair": 4232
+      },
+      "per_group_soft_inside_ratio": {
+        "bangs": 0.077883,
+        "side_hair_left": 0.027088,
+        "side_hair_right": 0.141291,
+        "back_hair": 0.183418
+      },
+      "bangs_presence_ratio": 0.910334,
+      "side_hair_left_presence_ratio": 0.580316,
+      "side_hair_right_presence_ratio": 0.644141,
+      "back_hair_mass_presence_ratio": 0.460501,
+      "component_count": 30,
+      "scalp_anchor_continuity": 0.460501,
+      "candidate_front_visible_hair_mass": true,
+      "primary_group_presence_passed": true,
+      "yaw30_hair_readability": true,
+      "side_hair_readability": true,
+      "manual_visual_review_status": "blocked_by_target_schema_alignment",
+      "schema_render_correction_px": {
+        "x": 13.0,
+        "y": 8.0,
+        "source": "same correction used by art-directed hair mesh generation"
+      },
+      "yaw30_visible_ratio_to_front": 1.551164,
+      "side_view_visible_ratio_to_front": 0.0,
+      "non_degenerate_hair_coverage_passed": true,
+      "non_degenerate_hair_coverage_reason": "candidate has enough visible mass, group presence, and continuity",
+      "candidate_target_schema_status": "failed_target_schema_alignment",
+      "schema_ready_for_ribbon_rebuild": true,
+      "ready_for_cloth_seam_surface": false,
+      "recommended_next": "fix_hair_ribbons_to_schema_v1",
+      "artifacts": {
+        "strict_hair_core_mask": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/target_schema_v1_eval/strict_hair_core_mask.png",
+          "exists": true,
+          "bytes": 6555
+        },
+        "soft_hair_silhouette_mask": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/target_schema_v1_eval/soft_hair_silhouette_mask.png",
+          "exists": true,
+          "bytes": 6789
+        },
+        "forbidden_nonhair_zone_mask": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/target_schema_v1_eval/forbidden_nonhair_zone_mask.png",
+          "exists": true,
+          "bytes": 16345
+        },
+        "candidate_vs_schema_overlay": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/target_schema_v1_eval/candidate_vs_schema_overlay.png",
+          "exists": true,
+          "bytes": 37440
+        },
+        "schema_debug_contact_sheet": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/target_schema_v1_eval/schema_debug_contact_sheet.png",
+          "exists": true,
+          "bytes": 377272
+        },
+        "report": {
+          "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/target_schema_v1_eval/hair_target_schema_v1_report.json",
+          "exists": true,
+          "bytes": 6751
+        }
+      }
+    }
+  },
+  "wrapper": {
+    "blender": "/opt/homebrew/bin/blender",
+    "exit_code": 0,
+    "log": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/blender_semantic_validation.log",
+    "log_tail": [
+      "19:21:48 | INFO: Blender create Mesh node side_hair_left_primary_repair_04_02_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_left_primary_repair_04_02_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_left_primary_repair_04_02_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_left_primary_repair_04_03_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_left_primary_repair_04_03_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_left_primary_repair_04_03_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_left_primary_repair_04_04_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_left_primary_repair_04_04_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_left_primary_repair_04_04_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_left_primary_repair_04_05_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_left_primary_repair_04_05_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_left_primary_repair_04_05_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_left_primary_repair_04_06_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_left_primary_repair_04_06_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_left_primary_repair_04_06_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_left_primary_repair_04_07_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_left_primary_repair_04_07_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_left_primary_repair_04_07_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_left_primary_repair_04_08_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_left_primary_repair_04_08_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_left_primary_repair_04_08_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_01_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_01_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_01_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_02_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_02_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_02_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_03_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_03_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_03_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_04_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_04_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_04_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_05_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_05_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_05_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_06_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_06_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_06_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_07_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_07_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_07_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_08_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_08_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node side_hair_right_primary_repair_04_08_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_01_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_01_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_01_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_02_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_02_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_02_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_03_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_03_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_03_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_04_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_04_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_04_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_05_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_05_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_05_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_06_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_06_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_06_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_07_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_07_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_07_03_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_08_01_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_08_02_mesh",
+      "19:21:48 | INFO: Blender create Mesh node back_hair_mass_repair_04_08_03_mesh",
+      "19:21:48 | INFO: glTF import finished in 0.07s",
+      "00:02.072  render           | Saved: './CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_front.png'",
+      "00:03.499  render           | Saved: './CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_candidate_front.png'",
+      "00:05.332  render           | Saved: './CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_baseline_front.png'",
+      "00:07.812  render           | Saved: './CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_overlay_front.png'",
+      "00:09.183  render           | Saved: './CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_yaw15.png'",
+      "00:10.871  render           | Saved: './CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_yaw30.png'",
+      "00:12.387  render           | Saved: './CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_side.png'",
+      "00:13.819  render           | Saved: './CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_wire.png'",
+      "00:15.269  render           | Saved: './CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_exploded.png'",
+      "Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)"
+    ]
+  },
+  "screenshot_aliases": {
+    "candidate_front": {
+      "source": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_candidate_front.png",
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/candidate_front.png",
+      "exists": true,
+      "bytes": 1106582
+    },
+    "overlay_front": {
+      "source": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_overlay_front.png",
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/overlay_front.png",
+      "exists": true,
+      "bytes": 1996463
+    },
+    "yaw30": {
+      "source": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_yaw30.png",
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yaw30.png",
+      "exists": true,
+      "bytes": 1127910
+    },
+    "side": {
+      "source": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_side.png",
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/side.png",
+      "exists": true,
+      "bytes": 1065422
+    },
+    "wire": {
+      "source": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_wire.png",
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/wire.png",
+      "exists": true,
+      "bytes": 1127909
+    },
+    "exploded": {
+      "source": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_04_validation_exploded.png",
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_04_dense_core_preserving_components/validation_ci/exploded.png",
+      "exists": true,
+      "bytes": 1131248
+    }
+  },
+  "ready_for_cloth_seam_surface": false
+}
