@@ -1,0 +1,111 @@
+{
+  "character_id": "yuna-white-sword",
+  "status": "production_slice_exported",
+  "source_boundary": "Automated production vertical slice. Requires manual sculpt/retopo art pass before final commercial use.",
+  "armature": {
+    "object": "YUNA_Production_Armature",
+    "bones": [
+      "Hips",
+      "Spine",
+      "Chest",
+      "Neck",
+      "Head",
+      "HairRoot",
+      "Mantle_L",
+      "Mantle_R",
+      "LeftUpperArm",
+      "LeftLowerArm",
+      "LeftHand",
+      "RightUpperArm",
+      "RightLowerArm",
+      "RightHand",
+      "Weapon",
+      "LeftUpperLeg",
+      "LeftLowerLeg",
+      "LeftFoot",
+      "LeftToes",
+      "RightUpperLeg",
+      "RightLowerLeg",
+      "RightFoot",
+      "RightToes"
+    ],
+    "bone_count": 23,
+    "humanoid_minimum_bones_met": true
+  },
+  "lod0": {
+    "objects": 30,
+    "mesh_objects": 30,
+    "vertices": 3332,
+    "polygons": 3275,
+    "uv_mapped_meshes": 30,
+    "skinned_meshes": 30
+  },
+  "lod1": {
+    "objects": 30,
+    "mesh_objects": 30,
+    "vertices": 1938,
+    "polygons": 2367,
+    "uv_mapped_meshes": 30,
+    "skinned_meshes": 30
+  },
+  "lod2": {
+    "objects": 30,
+    "mesh_objects": 30,
+    "vertices": 1057,
+    "polygons": 1581,
+    "uv_mapped_meshes": 30,
+    "skinned_meshes": 30
+  },
+  "shape_keys": [
+    "Blink_L",
+    "Blink_R",
+    "Smile",
+    "Frown",
+    "Brow_Up",
+    "Brow_Down",
+    "Jaw_Open",
+    "Mouth_A",
+    "Mouth_E",
+    "Mouth_O",
+    "Mouth_M",
+    "Mouth_FV"
+  ],
+  "shape_key_count": 12,
+  "shape_key_target_met": true,
+  "materials": [
+    "YUNA_PBR_black_armor_fabric",
+    "YUNA_PBR_dark_metal_trim",
+    "YUNA_PBR_face_lines",
+    "YUNA_PBR_silver_cyan_hair",
+    "YUNA_PBR_skin_soft",
+    "YUNA_PBR_teal_hair_gradient",
+    "YUNA_PBR_teal_resonance_emissive",
+    "YUNA_PBR_translucent_mantle",
+    "YUNA_PBR_warm_gold_trim",
+    "YUNA_PBR_white_fabric_stocking"
+  ],
+  "texture_outputs": {
+    "unity_urp": [
+      "yuna_urp_basecolor.png",
+      "yuna_urp_emission.png",
+      "yuna_urp_mask_metallic_occlusion_smoothness.png",
+      "yuna_urp_normal.png"
+    ],
+    "gltf_web": [
+      "yuna_gltf_basecolor.png",
+      "yuna_gltf_emission.png",
+      "yuna_gltf_metallic_roughness.png",
+      "yuna_gltf_normal.png"
+    ]
+  },
+  "exports": {
+    "blend": "CharacterPackage/dcc/blender/yuna_production_slice.blend",
+    "lod0_fbx": "CharacterPackage/rig/yuna_production_lod0.fbx",
+    "lod0_glb": "CharacterPackage/web/yuna_production_lod0.glb",
+    "lod0_preview_nomorph_glb": "CharacterPackage/web/yuna_production_lod0_preview_nomorph.glb",
+    "lod1_fbx": "CharacterPackage/rig/yuna_production_lod1.fbx",
+    "lod1_glb": "CharacterPackage/web/yuna_production_lod1.glb",
+    "lod2_fbx": "CharacterPackage/rig/yuna_production_lod2.fbx",
+    "lod2_glb": "CharacterPackage/web/yuna_production_lod2.glb"
+  }
+}

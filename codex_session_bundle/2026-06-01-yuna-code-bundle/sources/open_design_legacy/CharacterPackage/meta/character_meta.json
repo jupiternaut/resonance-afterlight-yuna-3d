@@ -1,0 +1,59 @@
+{
+  "project": "Resonance Afterlight",
+  "character_id": "yuna-white-sword",
+  "display_name": "YUNA",
+  "role": "White Sword",
+  "sample_character": true,
+  "source_stage": "2d_cutout_to_unity_3d_sample",
+  "selected_reason": "Female character, white stockings, clean silhouette, representative translucent mantle and blade complexity.",
+  "source_files": {
+    "front_rgba": "../refs/front_rgba/yuna_front_rgba.png",
+    "front_raw": "../refs/front_raw/yuna_front_raw_green.png",
+    "basecolor_rgba": "../textures/source/yuna_basecolor_rgba.png",
+    "left_side_ai_inferred": "../refs/ai_turnarounds/cutouts/yuna_left_side.png",
+    "back_ai_inferred": "../refs/ai_turnarounds/cutouts/yuna_back.png",
+    "face_expression_sheet_ai_inferred": "../refs/ai_turnarounds/cutouts/yuna_face_expression_sheet.png",
+    "weapon_orthographic_ai_inferred": "../refs/ai_turnarounds/cutouts/yuna_weapon_orthographic.png"
+  },
+  "source_image": {
+    "width_px": 1024,
+    "height_px": 1536,
+    "alpha_status": "validated_transparent_cutout",
+    "view_source": "ai_generated_front_view",
+    "raw_background": "green_screen"
+  },
+  "design_lock": {
+    "gender_presentation": "female",
+    "visual_age_range": "20-24",
+    "hair": "long silver-white hair with cyan gradient ends",
+    "outfit": "black-white-gray sci-fi combat outfit, translucent mantle, white stockings, black mechanical boots",
+    "weapon": "slender energy sword",
+    "accent_colors": ["teal", "cool white", "small warm gold"]
+  },
+  "unity_target": {
+    "render_pipeline": "URP recommended",
+    "main_delivery": "FBX after final DCC production; current package includes a DCC blockout FBX",
+    "web_delivery": "GLB blockout generated in this package",
+    "rig_target": "Humanoid if final skeleton maps cleanly, otherwise Generic",
+    "minimum_face_blendshapes": [
+      "Blink_L",
+      "Blink_R",
+      "Smile",
+      "Frown",
+      "Brow_Up",
+      "Brow_Down",
+      "Jaw_Open",
+      "Mouth_A",
+      "Mouth_E",
+      "Mouth_O",
+      "Mouth_M",
+      "Mouth_FV"
+    ]
+  },
+  "known_limits": [
+    "Only front view is locked source evidence.",
+    "Side, back, expression, and weapon references are AI-inferred and must be treated as modeling references only.",
+    "The generated DCC GLB/FBX files are blockout assets, not skinned production meshes.",
+    "Blender blockout generation succeeded locally; final retopology, UV, PBR, skinning, blendshapes, LOD, and Unity QA are still pending."
+  ]
+}

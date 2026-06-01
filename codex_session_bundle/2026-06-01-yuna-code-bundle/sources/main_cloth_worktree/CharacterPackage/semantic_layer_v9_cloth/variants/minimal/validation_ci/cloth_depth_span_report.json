@@ -1,0 +1,57 @@
+{
+  "created_at": "2026-05-28T03:23:28.346320+00:00",
+  "route": "cloth_volume_and_purity_gate_v1",
+  "status": "side_volume_refined_manual_review_required",
+  "metrics": {
+    "cloth_side_volume_present": true,
+    "cloth_edge_thickness_present": true,
+    "cloth_panel_curvature_score": 0.138019,
+    "cloth_drape_depth_span": 1.05545
+  },
+  "panels": [
+    {
+      "part_id": "jacket_outer",
+      "edge_thickness": 0.0435,
+      "depth_min": 0.280875,
+      "depth_max": 0.37425,
+      "depth_span": 0.093375,
+      "edge_faces": 61,
+      "edge_thickness_present": true,
+      "front_back_depth_separation_present": true
+    },
+    {
+      "part_id": "cape_left",
+      "edge_thickness": 0.0638,
+      "depth_min": -0.53415,
+      "depth_max": -0.35835,
+      "depth_span": 0.1758,
+      "edge_faces": 62,
+      "edge_thickness_present": true,
+      "front_back_depth_separation_present": true
+    },
+    {
+      "part_id": "cape_right",
+      "edge_thickness": 0.0638,
+      "depth_min": -0.47415,
+      "depth_max": -0.29835,
+      "depth_span": 0.1758,
+      "edge_faces": 62,
+      "edge_thickness_present": true,
+      "front_back_depth_separation_present": true
+    },
+    {
+      "part_id": "skirt_front",
+      "edge_thickness": 0.0406,
+      "depth_min": 0.4142,
+      "depth_max": 0.5213,
+      "depth_span": 0.1071,
+      "edge_faces": 61,
+      "edge_thickness_present": true,
+      "front_back_depth_separation_present": true
+    }
+  ],
+  "files": {
+    "cloth_side_volume_debug": "CharacterPackage/semantic_layer_v9_cloth/variants/minimal/validation_ci/cloth_side_volume_debug.png",
+    "cloth_depth_span_report": "CharacterPackage/semantic_layer_v9_cloth/variants/minimal/validation_ci/cloth_depth_span_report.json"
+  }
+}

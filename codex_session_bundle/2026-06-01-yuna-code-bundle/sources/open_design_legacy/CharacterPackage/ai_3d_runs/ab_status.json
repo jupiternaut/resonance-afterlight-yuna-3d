@@ -1,0 +1,82 @@
+{
+  "character_id": "yuna-white-sword",
+  "created_at": "2026-05-22T11:55:45.753609+00:00",
+  "purpose": "Rodin Gen-2 vs Meshy 6 Multi-view A/B export readiness report.",
+  "tools": {
+    "rodin": {
+      "tool": "rodin",
+      "root": "ai_3d_runs/rodin",
+      "request_present": true,
+      "run_log_present": false,
+      "execution_log_present": true,
+      "submitted_marker_present": false,
+      "blocked_on_credentials": true,
+      "exports": [],
+      "tool_status": {
+        "run_id": "rodin_yuna_gen2_ab_20260522",
+        "agent": "rodin",
+        "created_at": "2026-05-22T19:49:06+08:00",
+        "write_scope": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/ai_3d_runs/rodin",
+        "official_api_confirmed": true,
+        "credentials": {
+          "env_present": false,
+          "local_config_present": false,
+          "secret_values_logged": false
+        },
+        "submission": {
+          "attempted": false,
+          "submitted": false,
+          "blocked_on_credentials": true,
+          "task_uuid": null,
+          "subscription_key": null
+        },
+        "verification": {
+          "json_parse_ok": true,
+          "scripts_compile_ok": true,
+          "submit_script_dry_run": "blocked_on_missing_credentials",
+          "external_python_dependencies": []
+        },
+        "primary_payload": "rodin_gen2_payload.json",
+        "optional_weapon_payload": "rodin_weapon_payload.json",
+        "created_files": [
+          "README.md",
+          "upload_manifest.json",
+          "rodin_gen2_payload.json",
+          "rodin_weapon_payload.json",
+          "submit_rodin_gen2.py",
+          "rodin_status_download.py",
+          "execution_log.md",
+          "status.json"
+        ]
+      },
+      "state": "prepared_blocked_on_credentials"
+    },
+    "meshy": {
+      "tool": "meshy",
+      "root": "ai_3d_runs/meshy",
+      "request_present": true,
+      "run_log_present": false,
+      "execution_log_present": true,
+      "submitted_marker_present": false,
+      "blocked_on_credentials": true,
+      "exports": [],
+      "tool_status": {
+        "run_id": "meshy_yuna_multiview_20260522",
+        "line": "Meshy 6 Multi-view",
+        "created_at_utc": "2026-05-22T11:50:42Z",
+        "official_api_confirmed": true,
+        "api_key_env_present": false,
+        "local_config_key_reference_present": false,
+        "submitted": false,
+        "blocked_on_credentials": true,
+        "blocking_reason": "No Meshy API key was present in environment variables or common local config locations.",
+        "primary_payload_ready": true,
+        "cloud_result_available": false,
+        "task_id": null,
+        "success_definition": "A Meshy cloud-generated YUNA base mesh with downloadable GLB/FBX/OBJ files, not a local procedural dummy."
+      },
+      "state": "prepared_blocked_on_credentials"
+    }
+  },
+  "next_gate": "Import available GLB/FBX exports into Blender, render front orthographic preview, then compare against locked_front_rgba."
+}

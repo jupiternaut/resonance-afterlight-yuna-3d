@@ -1,0 +1,1516 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Resonance Afterlight UI Prototype</title>
+  <style>
+    :root {
+      --bg: #0B0F14;
+      --panel: #151A21;
+      --panel-2: rgba(21, 26, 33, 0.78);
+      --fg: #EAF2FF;
+      --muted: #8F9AAA;
+      --border: #314052;
+      --blue: #5FB8FF;
+      --teal: #45F0D0;
+      --violet: #9A7CFF;
+      --red: #FF4D5E;
+      --gold: #F5C766;
+      --shadow: rgba(0, 0, 0, 0.42);
+      --font-display: "Rajdhani", "DIN Alternate", "Saira Condensed", system-ui, sans-serif;
+      --font-body: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --ease: cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--fg); font-family: var(--font-body); }
+    body { overflow: hidden; }
+    button, input { font: inherit; }
+    button { color: inherit; }
+
+    .app {
+      width: 100vw;
+      height: 100dvh;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 52% 44%, rgba(69, 240, 208, 0.12), transparent 26%),
+        radial-gradient(circle at 73% 12%, rgba(154, 124, 255, 0.12), transparent 24%),
+        linear-gradient(130deg, #070A0E 0%, #0B0F14 44%, #101621 100%);
+    }
+
+    .app::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(234, 242, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(234, 242, 255, 0.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(circle at center, #000 0 58%, transparent 86%);
+      pointer-events: none;
+    }
+
+    .scanline {
+      position: absolute;
+      inset: -20% 0 auto;
+      height: 18%;
+      background: linear-gradient(to bottom, transparent, rgba(95, 184, 255, 0.12), transparent);
+      animation: scan 5.5s linear infinite;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    @keyframes scan {
+      from { transform: translateY(-35vh); }
+      to { transform: translateY(130vh); }
+    }
+
+    .topbar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px 0 96px;
+      border-bottom: 1px solid rgba(49, 64, 82, 0.72);
+      background: rgba(11, 15, 20, 0.74);
+      backdrop-filter: blur(18px);
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font: 700 15px/1 var(--font-display);
+    }
+
+    .sigil {
+      width: 36px;
+      height: 36px;
+      position: relative;
+      border: 1px solid var(--blue);
+      clip-path: polygon(18% 0, 100% 0, 100% 82%, 82% 100%, 0 100%, 0 18%);
+      box-shadow: 0 0 18px rgba(95, 184, 255, 0.26);
+    }
+
+    .sigil::before, .sigil::after {
+      content: "";
+      position: absolute;
+      inset: 9px;
+      border: 1px solid var(--teal);
+      border-radius: 50%;
+    }
+
+    .sigil::after { inset: 15px 7px; border-color: var(--violet); border-radius: 0; }
+
+    .status-line {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--muted);
+      font: 12px/1 var(--font-mono);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 16px var(--teal);
+    }
+
+    .sidebar {
+      position: absolute;
+      inset: 64px auto 0 0;
+      width: 80px;
+      border-right: 1px solid rgba(49, 64, 82, 0.72);
+      background: rgba(11, 15, 20, 0.78);
+      backdrop-filter: blur(18px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 18px 10px;
+      gap: 12px;
+      z-index: 9;
+    }
+
+    .nav-btn {
+      width: 48px;
+      height: 48px;
+      border: 1px solid rgba(49, 64, 82, 0.8);
+      background: rgba(21, 26, 33, 0.5);
+      cursor: pointer;
+      position: relative;
+      border-radius: 10px 10px 10px 3px;
+      transition: transform 160ms var(--ease), border-color 160ms var(--ease), background 160ms var(--ease);
+    }
+
+    .nav-btn::before {
+      content: none;
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 100%;
+      color: var(--muted);
+      font: 700 14px/1 var(--font-mono);
+    }
+
+    .nav-btn:hover, .nav-btn.active {
+      border-color: var(--blue);
+      background: rgba(95, 184, 255, 0.12);
+      transform: translateX(3px);
+      box-shadow: 0 0 20px rgba(95, 184, 255, 0.17);
+    }
+
+    .nav-btn.active::before { color: var(--fg); }
+
+    .screen {
+      position: absolute;
+      inset: 64px 0 0 80px;
+      padding: 26px 28px;
+      display: none;
+      animation: panelIn 220ms var(--ease) both;
+    }
+
+    .screen.active { display: block; }
+
+    @keyframes panelIn {
+      from { opacity: 0; transform: translateX(18px); filter: blur(3px); }
+      to { opacity: 1; transform: translateX(0); filter: blur(0); }
+    }
+
+    .screen-grid {
+      height: 100%;
+      display: grid;
+      grid-template-columns: minmax(270px, 0.95fr) minmax(420px, 2.1fr) minmax(280px, 0.92fr);
+      gap: 20px;
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(21, 26, 33, 0.82), rgba(12, 17, 24, 0.74));
+      border: 1px solid rgba(49, 64, 82, 0.88);
+      clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+      box-shadow: 0 20px 50px var(--shadow);
+      position: relative;
+    }
+
+    .panel::before, .panel::after {
+      content: "";
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border-color: rgba(95, 184, 255, 0.74);
+      pointer-events: none;
+    }
+
+    .panel::before { top: 8px; left: 8px; border-top: 1px solid; border-left: 1px solid; }
+    .panel::after { right: 8px; bottom: 8px; border-right: 1px solid; border-bottom: 1px solid; }
+
+    .panel-pad { padding: 20px; }
+    .section-title {
+      margin: 0 0 14px;
+      font: 700 20px/1.1 var(--font-display);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow {
+      color: var(--teal);
+      font: 11px/1 var(--font-mono);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .muted { color: var(--muted); }
+    .mono { font-family: var(--font-mono); }
+
+    .stage {
+      min-height: 100%;
+      position: relative;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .ruin {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to top, rgba(6, 9, 13, 0.97), transparent 48%),
+        radial-gradient(circle at 74% 34%, rgba(245, 199, 102, 0.12), transparent 14%),
+        radial-gradient(circle at 48% 55%, rgba(95, 184, 255, 0.14), transparent 35%),
+        linear-gradient(180deg, #17283A 0%, #0E1722 44%, #070B10 100%);
+    }
+
+    .ruin::before {
+      content: "";
+      position: absolute;
+      left: 7%;
+      right: 5%;
+      bottom: 0;
+      height: 38%;
+      background:
+        linear-gradient(90deg, transparent 0 4%, #111820 4% 10%, transparent 10% 14%, #18202A 14% 19%, transparent 19% 26%, #0F151D 26% 32%, transparent 32% 39%, #192230 39% 45%, transparent 45%, #101823 58% 64%, transparent 64%, #1A2230 78% 84%, transparent 84%),
+        linear-gradient(to top, #080B10, transparent);
+      opacity: 0.85;
+      mask-image: linear-gradient(to top, black, rgba(0, 0, 0, 0.82) 62%, transparent);
+    }
+
+    .character {
+      width: min(40vw, 480px);
+      height: min(72vh, 690px);
+      position: relative;
+      filter: drop-shadow(0 32px 38px rgba(0, 0, 0, 0.46));
+      animation: float 4.8s ease-in-out infinite;
+      z-index: 2;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .character::before {
+      content: none;
+    }
+
+    .character::after {
+      content: none;
+    }
+
+    .weapon {
+      position: absolute;
+      width: 5px;
+      height: 74%;
+      left: 68%;
+      top: 12%;
+      background: linear-gradient(var(--teal), var(--blue), transparent);
+      transform: rotate(12deg);
+      box-shadow: 0 0 18px rgba(69, 240, 208, 0.42);
+      z-index: 1;
+      display: none;
+    }
+
+    .halo {
+      position: absolute;
+      width: 560px;
+      aspect-ratio: 1;
+      border: 1px solid rgba(95, 184, 255, 0.26);
+      border-radius: 50%;
+      animation: ring 3.2s linear infinite;
+      z-index: 1;
+    }
+
+    .halo::before, .halo::after {
+      content: "";
+      position: absolute;
+      inset: 48px;
+      border-radius: 50%;
+      border: 1px dashed rgba(69, 240, 208, 0.34);
+    }
+
+    .halo::after { inset: 108px; border-color: rgba(154, 124, 255, 0.32); animation: ring 2.2s linear reverse infinite; }
+
+    @keyframes ring { to { transform: rotate(360deg); } }
+
+    .btn-row, .tabs, .resource-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+    .btn {
+      min-height: 40px;
+      padding: 0 16px;
+      border: 1px solid rgba(95, 184, 255, 0.76);
+      background: linear-gradient(180deg, rgba(95, 184, 255, 0.16), rgba(21, 26, 33, 0.64));
+      color: var(--fg);
+      clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 160ms var(--ease), transform 160ms var(--ease), opacity 160ms var(--ease);
+    }
+
+    .btn:hover { transform: translateY(-1px); border-color: var(--teal); box-shadow: 0 0 22px rgba(69, 240, 208, 0.16); }
+    .btn:active::after, .btn.pulse::after {
+      content: "";
+      position: absolute;
+      inset: 50%;
+      border: 1px solid rgba(69, 240, 208, 0.95);
+      animation: pulse 420ms var(--ease);
+    }
+    .btn.secondary { border-color: rgba(49, 64, 82, 0.95); background: rgba(21, 26, 33, 0.32); color: var(--muted); }
+    .btn[disabled] { opacity: 0.38; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    @keyframes pulse {
+      from { inset: 50%; opacity: 1; }
+      to { inset: -20%; opacity: 0; }
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border);
+      background: rgba(21, 26, 33, 0.55);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+    }
+    .icon-btn:hover, .icon-btn.selected { border-color: var(--teal); color: var(--teal); }
+
+    .tab {
+      height: 34px;
+      padding: 0 12px;
+      border: 0;
+      border-bottom: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      letter-spacing: 0.06em;
+    }
+    .tab:hover, .tab.active { color: var(--fg); border-color: var(--teal); }
+
+    .stat-list { display: grid; gap: 10px; margin-top: 14px; }
+    .stat {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(49, 64, 82, 0.55);
+      font-size: 13px;
+    }
+    .stat strong { font: 700 16px/1 var(--font-mono); color: var(--fg); }
+
+    .progress {
+      height: 8px;
+      background: rgba(49, 64, 82, 0.55);
+      overflow: hidden;
+      display: flex;
+      gap: 2px;
+      padding: 1px;
+    }
+    .progress i {
+      flex: 1;
+      background: rgba(95, 184, 255, 0.3);
+    }
+    .progress i.on { background: linear-gradient(90deg, var(--blue), var(--teal)); box-shadow: 0 0 10px rgba(69, 240, 208, 0.35); }
+
+    .mission-list, .log-list { display: grid; gap: 10px; }
+    .mission {
+      padding: 12px;
+      border: 1px solid rgba(49, 64, 82, 0.7);
+      background: rgba(11, 15, 20, 0.38);
+    }
+    .mission.selected { border-color: var(--teal); background: rgba(69, 240, 208, 0.08); }
+
+    .summon-grid { grid-template-columns: 320px 1fr 320px; }
+    .summon-stage {
+      position: relative;
+      overflow: hidden;
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+    }
+    .summon-stage::before {
+      content: "";
+      position: absolute;
+      width: 620px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background:
+        repeating-conic-gradient(from 0deg, rgba(95, 184, 255, 0.0) 0 7deg, rgba(95, 184, 255, 0.22) 8deg 10deg),
+        radial-gradient(circle, transparent 0 42%, rgba(69, 240, 208, 0.18) 43% 44%, transparent 45% 100%);
+      animation: ring 12s linear infinite;
+      filter: drop-shadow(0 0 32px rgba(69, 240, 208, 0.16));
+    }
+    .summon-core {
+      width: 270px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 1px solid rgba(234, 242, 255, 0.18);
+      position: relative;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle, rgba(95, 184, 255, 0.22), rgba(154, 124, 255, 0.08) 45%, transparent 70%);
+    }
+    .summon-core::before {
+      content: "";
+      width: 84px;
+      height: 84px;
+      border: 1px solid var(--teal);
+      transform: rotate(45deg);
+      box-shadow: 0 0 28px rgba(69, 240, 208, 0.34);
+    }
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 18px;
+      background: var(--teal);
+      left: var(--x);
+      top: var(--y);
+      opacity: 0.68;
+      animation: spark var(--d) linear infinite;
+    }
+    @keyframes spark {
+      from { transform: translateY(70px) scaleY(0.4); opacity: 0; }
+      30% { opacity: 0.8; }
+      to { transform: translateY(-220px) scaleY(1); opacity: 0; }
+    }
+
+    .eq { display: flex; align-items: end; height: 70px; gap: 5px; margin-top: 16px; }
+    .eq i { width: 8px; height: var(--h); background: linear-gradient(var(--teal), var(--blue)); animation: eq 680ms ease-in-out infinite alternate; animation-delay: var(--delay); }
+    @keyframes eq { to { height: calc(var(--h) * 0.38); opacity: 0.46; } }
+
+    .hud-screen { padding: 0; }
+    .combat {
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(to top, rgba(11, 15, 20, 0.96), transparent 46%),
+        radial-gradient(circle at 68% 40%, rgba(255, 77, 94, 0.1), transparent 20%),
+        radial-gradient(circle at 43% 54%, rgba(95, 184, 255, 0.16), transparent 30%);
+    }
+    .combat .character { position: absolute; left: 35%; bottom: 2%; width: 310px; height: 610px; }
+    .enemy {
+      position: absolute;
+      right: 22%;
+      bottom: 26%;
+      width: 190px;
+      height: 260px;
+      border: 1px solid rgba(255, 77, 94, 0.55);
+      border-radius: 48% 52% 44% 56%;
+      background:
+        radial-gradient(circle at 54% 34%, rgba(255, 255, 255, 0.26), transparent 9%),
+        radial-gradient(circle at center, rgba(255, 77, 94, 0.32), transparent 60%);
+      filter: drop-shadow(0 0 22px rgba(255, 77, 94, 0.24));
+    }
+    .hp-strip {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      top: 18px;
+      display: grid;
+      grid-template-columns: 320px 1fr 260px;
+      gap: 16px;
+      z-index: 2;
+    }
+    .hud-panel {
+      background: rgba(11, 15, 20, 0.66);
+      border: 1px solid rgba(49, 64, 82, 0.82);
+      padding: 12px;
+      backdrop-filter: blur(12px);
+    }
+    .mini-map {
+      width: 156px;
+      height: 156px;
+      border-radius: 50%;
+      border: 1px solid rgba(95, 184, 255, 0.6);
+      position: absolute;
+      top: 96px;
+      right: 28px;
+      background:
+        radial-gradient(circle, transparent 0 38%, rgba(95, 184, 255, 0.18) 39% 41%, transparent 42%),
+        linear-gradient(45deg, transparent 48%, rgba(69, 240, 208, 0.4) 50%, transparent 52%);
+    }
+    .skill-ring {
+      position: absolute;
+      right: 32px;
+      bottom: 32px;
+      display: grid;
+      grid-template-columns: repeat(3, 64px);
+      gap: 12px;
+      z-index: 4;
+    }
+    .skill {
+      width: 64px;
+      height: 64px;
+      border: 1px solid var(--border);
+      background: radial-gradient(circle, rgba(95, 184, 255, 0.14), rgba(21, 26, 33, 0.82));
+      display: grid;
+      place-items: center;
+      font: 700 18px/1 var(--font-mono);
+      cursor: pointer;
+      clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+    }
+    .skill:hover, .skill.selected { border-color: var(--teal); box-shadow: inset 0 0 18px rgba(69, 240, 208, 0.18), 0 0 18px rgba(69, 240, 208, 0.16); }
+    .skill.disabled { opacity: 0.35; cursor: not-allowed; filter: grayscale(0.8); }
+
+    .inventory-grid { grid-template-columns: minmax(270px, 0.74fr) minmax(480px, 1.6fr) minmax(300px, 0.9fr); }
+    .items {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(56px, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .item {
+      aspect-ratio: 1;
+      border: 1px solid rgba(49, 64, 82, 0.9);
+      background: linear-gradient(145deg, rgba(21, 26, 33, 0.9), rgba(11, 15, 20, 0.92));
+      position: relative;
+      cursor: pointer;
+      clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    }
+    .item::before {
+      content: attr(data-mark);
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: rgba(234, 242, 255, 0.72);
+      font: 700 15px/1 var(--font-mono);
+    }
+    .item.rare { border-color: var(--violet); box-shadow: inset 0 0 18px rgba(154, 124, 255, 0.12); }
+    .item.gold { border-color: var(--gold); animation: shimmer 1.8s linear infinite; }
+    .item.selected { outline: 1px solid var(--teal); outline-offset: 2px; background: rgba(69, 240, 208, 0.09); }
+    .item.empty { cursor: default; border-style: dashed; opacity: 0.42; }
+    @keyframes shimmer {
+      50% { box-shadow: inset 0 0 24px rgba(245, 199, 102, 0.22), 0 0 16px rgba(245, 199, 102, 0.12); }
+    }
+
+    .toast {
+      position: absolute;
+      top: 82px;
+      right: 28px;
+      z-index: 30;
+      min-width: 240px;
+      padding: 12px 14px;
+      border: 1px solid rgba(69, 240, 208, 0.62);
+      background: rgba(11, 15, 20, 0.86);
+      color: var(--fg);
+      transform: translateX(120%);
+      opacity: 0;
+      transition: transform 220ms var(--ease), opacity 220ms var(--ease);
+      font-size: 13px;
+    }
+    .toast.show { transform: translateX(0); opacity: 1; }
+
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(3, 6, 10, 0.62);
+      backdrop-filter: blur(8px);
+      display: none;
+      place-items: center;
+      z-index: 40;
+    }
+    .modal-backdrop.show { display: grid; }
+    .modal {
+      width: min(460px, calc(100vw - 32px));
+      padding: 22px;
+      border: 1px solid rgba(95, 184, 255, 0.7);
+      background: rgba(11, 15, 20, 0.94);
+      clip-path: polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px);
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.5);
+    }
+
+    .quick-actions { display: grid; gap: 10px; margin-top: 18px; }
+    .resource { padding: 10px 12px; border: 1px solid var(--border); background: rgba(21, 26, 33, 0.5); }
+    .nameplate h1 { margin: 6px 0 10px; font: 700 clamp(42px, 7vw, 84px)/0.9 var(--font-display); letter-spacing: 0.04em; text-transform: uppercase; }
+    .nameplate p { max-width: 42ch; color: var(--muted); line-height: 1.7; }
+
+    @media (max-width: 820px) {
+      body { overflow: auto; }
+      .app { min-height: 100dvh; height: auto; overflow: visible; }
+      .topbar { height: 58px; padding: 0 14px; }
+      .brand { font-size: 12px; gap: 8px; }
+      .sigil { width: 30px; height: 30px; }
+      .status-line { display: none; }
+      .sidebar {
+        position: fixed;
+        inset: auto 0 0 0;
+        width: auto;
+        height: 70px;
+        flex-direction: row;
+        justify-content: space-around;
+        border-right: 0;
+        border-top: 1px solid var(--border);
+        padding: 10px;
+      }
+      .nav-btn { width: 44px; height: 44px; }
+      .screen { position: relative; inset: auto; padding: 74px 12px 86px; min-height: 100dvh; }
+      .screen-grid, .summon-grid, .inventory-grid { grid-template-columns: 1fr; height: auto; }
+      .panel { min-height: auto; }
+      .stage { min-height: 520px; }
+      .character { width: 74vw; height: 550px; }
+      .halo { width: 370px; }
+      .items { grid-template-columns: repeat(4, 1fr); }
+      .hp-strip { grid-template-columns: 1fr; right: 12px; left: 12px; }
+      .combat { min-height: 760px; }
+      .combat .character { left: 10%; width: 230px; height: 500px; }
+      .enemy { right: 9%; width: 120px; height: 180px; }
+      .mini-map { width: 112px; height: 112px; top: 198px; right: 14px; }
+      .skill-ring { right: 14px; bottom: 86px; grid-template-columns: repeat(3, 58px); }
+      .skill { width: 58px; height: 58px; }
+    }
+
+    /* Visual correction pass: make the first read anime action RPG, not sci-fi console. */
+    .app {
+      background:
+        radial-gradient(circle at 49% 48%, rgba(255, 255, 255, 0.08), transparent 20%),
+        radial-gradient(circle at 78% 68%, rgba(245, 199, 102, 0.09), transparent 19%),
+        linear-gradient(155deg, #071017 0%, #101723 48%, #0A0D13 100%);
+    }
+
+    .app::before { opacity: 0.16; mask-image: linear-gradient(to bottom, transparent, #000 28%, transparent 80%); }
+
+    .topbar {
+      height: 62px;
+      padding: 0 30px;
+      border-bottom-color: rgba(234, 242, 255, 0.08);
+      background: linear-gradient(180deg, rgba(4, 8, 13, 0.64), rgba(4, 8, 13, 0.08));
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      letter-spacing: 0.22em;
+      font-size: 13px;
+      text-shadow: 0 0 14px rgba(95, 184, 255, 0.2);
+    }
+
+    .sigil {
+      clip-path: none;
+      border-radius: 10px 10px 10px 3px;
+      border-color: rgba(69, 240, 208, 0.72);
+      background: rgba(95, 184, 255, 0.05);
+    }
+
+    .status-line { opacity: 0.72; }
+
+    .sidebar {
+      inset: auto 50% 20px auto;
+      width: auto;
+      height: 54px;
+      transform: translateX(50%);
+      flex-direction: row;
+      border: 1px solid rgba(234, 242, 255, 0.1);
+      border-radius: 14px 14px 14px 4px;
+      background: rgba(5, 10, 16, 0.5);
+      box-shadow: 0 18px 52px rgba(0, 0, 0, 0.34);
+      padding: 7px;
+      gap: 6px;
+      z-index: 18;
+    }
+
+    .nav-btn {
+      width: auto;
+      min-width: 74px;
+      height: 38px;
+      padding: 0 13px;
+      clip-path: none;
+      border-radius: 10px 10px 10px 3px;
+      border-color: rgba(95, 184, 255, 0.18);
+      background: rgba(11, 15, 20, 0.38);
+      color: var(--muted);
+      font: 600 12px/1 var(--font-body);
+      letter-spacing: 0.08em;
+    }
+
+    .nav-btn::before { content: none; }
+    .nav-btn:hover, .nav-btn.active {
+      transform: translateY(-2px);
+      color: var(--fg);
+      border-color: rgba(69, 240, 208, 0.72);
+      background: rgba(69, 240, 208, 0.09);
+    }
+
+    .screen {
+      inset: 0;
+      padding: 78px 26px 92px;
+    }
+
+    #home,
+    #character {
+      padding: 70px 18px 88px;
+    }
+
+    .hero-layout {
+      position: relative;
+      height: 100%;
+      min-height: 680px;
+      overflow: hidden;
+      border: 1px solid rgba(234, 242, 255, 0.08);
+      border-radius: 20px 20px 20px 6px;
+      background:
+        radial-gradient(circle at 52% 44%, rgba(95, 184, 255, 0.08), transparent 32%),
+        linear-gradient(180deg, rgba(8, 15, 22, 0.36), rgba(3, 6, 10, 0.68));
+      box-shadow: 0 32px 110px rgba(0, 0, 0, 0.46);
+    }
+
+    .art-stage {
+      position: absolute;
+      inset: 0;
+      min-height: 100%;
+      background:
+        linear-gradient(to top, rgba(6, 9, 13, 0.94) 0%, rgba(8, 13, 19, 0.44) 40%, rgba(13, 24, 36, 0.14) 100%),
+        radial-gradient(circle at 74% 34%, rgba(245, 199, 102, 0.13), transparent 18%),
+        radial-gradient(circle at 42% 44%, rgba(69, 240, 208, 0.1), transparent 25%);
+      border: 0;
+      clip-path: none;
+      box-shadow: none;
+    }
+
+    .art-stage::before,
+    .art-stage::after { display: none; }
+
+    .scene-art {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .scene-art::before {
+      content: "";
+      position: absolute;
+      left: -12%;
+      right: -10%;
+      bottom: 28%;
+      height: 88px;
+      background:
+        linear-gradient(90deg, transparent 0 10%, rgba(234, 242, 255, 0.11) 10% 11%, transparent 11% 18%, rgba(234, 242, 255, 0.08) 18% 19%, transparent 19%),
+        linear-gradient(180deg, rgba(34, 47, 62, 0.72), rgba(8, 12, 18, 0.74));
+      border-top: 1px solid rgba(234, 242, 255, 0.12);
+      border-bottom: 1px solid rgba(95, 184, 255, 0.1);
+      transform: rotate(-3deg);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.32);
+      opacity: 0.7;
+    }
+
+    .scene-art::after {
+      content: "";
+      position: absolute;
+      left: 7%;
+      right: 7%;
+      bottom: 18%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(234, 242, 255, 0.26), rgba(245, 199, 102, 0.22), transparent);
+      box-shadow: 0 34px 0 rgba(69, 240, 208, 0.08), 0 66px 0 rgba(95, 184, 255, 0.06);
+      opacity: 0.75;
+    }
+
+    .scene-sky {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 59% 26%, rgba(95, 184, 255, 0.22), transparent 6%),
+        radial-gradient(circle at 80% 36%, rgba(245, 199, 102, 0.18), transparent 5%),
+        linear-gradient(180deg, #16283A 0%, #0F1823 40%, #090D13 100%);
+    }
+
+    .scene-sky::before {
+      content: "";
+      position: absolute;
+      left: 54%;
+      top: 8%;
+      width: 420px;
+      aspect-ratio: 1;
+      border: 1px solid rgba(95, 184, 255, 0.28);
+      border-radius: 50%;
+      box-shadow: inset 0 0 42px rgba(69, 240, 208, 0.07), 0 0 38px rgba(95, 184, 255, 0.1);
+      transform: rotateX(66deg) rotateZ(-12deg);
+    }
+
+    .scene-sky::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 58%;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05), transparent 40%);
+      opacity: 0.55;
+    }
+
+    .tower {
+      position: absolute;
+      bottom: 26%;
+      width: var(--w);
+      height: var(--h);
+      left: var(--x);
+      transform: rotate(var(--r));
+      border: 1px solid rgba(95, 184, 255, 0.08);
+      background:
+        repeating-linear-gradient(to bottom, rgba(234, 242, 255, 0.055) 0 1px, transparent 1px 18px),
+        linear-gradient(180deg, rgba(31, 46, 62, 0.78), rgba(11, 15, 20, 0.92));
+      box-shadow: 0 0 38px rgba(0, 0, 0, 0.4);
+    }
+
+    .tower::before {
+      content: "";
+      position: absolute;
+      inset: 18px 18% auto;
+      height: 62%;
+      background:
+        repeating-linear-gradient(to bottom, rgba(245, 199, 102, 0.16) 0 2px, transparent 2px 28px),
+        repeating-linear-gradient(90deg, transparent 0 10px, rgba(95, 184, 255, 0.07) 10px 12px);
+      opacity: 0.45;
+    }
+
+    .tower::after {
+      content: "";
+      position: absolute;
+      left: 12%;
+      right: 24%;
+      top: -12px;
+      height: 18px;
+      border-top: 1px solid rgba(234, 242, 255, 0.12);
+      background: rgba(21, 29, 39, 0.78);
+      transform: rotate(-8deg);
+      transform-origin: left bottom;
+    }
+
+    .warm-window {
+      position: absolute;
+      width: 6px;
+      height: 46px;
+      left: var(--x);
+      top: var(--y);
+      background: linear-gradient(to bottom, transparent, rgba(245, 199, 102, 0.82), transparent);
+      filter: blur(0.4px);
+      opacity: 0.8;
+    }
+
+    .water {
+      position: absolute;
+      inset: auto -5% 0;
+      height: 34%;
+      background:
+        repeating-linear-gradient(180deg, rgba(95, 184, 255, 0.11) 0 1px, transparent 1px 18px),
+        linear-gradient(180deg, rgba(8, 17, 25, 0.1), rgba(4, 8, 12, 0.82));
+      transform: skewY(-2deg);
+      opacity: 0.82;
+    }
+
+    .water::before {
+      content: "";
+      position: absolute;
+      left: 32%;
+      right: 12%;
+      top: 26%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(234, 242, 255, 0.52), rgba(69, 240, 208, 0.35), transparent);
+      box-shadow: 0 26px 0 rgba(95, 184, 255, 0.12), 0 58px 0 rgba(245, 199, 102, 0.1);
+    }
+
+    .plants {
+      position: absolute;
+      inset: auto 0 0;
+      height: 24%;
+      background:
+        radial-gradient(ellipse at 18% 95%, rgba(69, 240, 208, 0.15), transparent 16%),
+        radial-gradient(ellipse at 76% 96%, rgba(245, 199, 102, 0.11), transparent 16%);
+    }
+
+    .plants i {
+      position: absolute;
+      bottom: 12px;
+      left: var(--x);
+      width: 3px;
+      height: var(--h);
+      border-radius: 999px;
+      background: linear-gradient(to top, rgba(19, 39, 35, 0.92), rgba(69, 240, 208, 0.42));
+      transform: rotate(var(--r));
+      transform-origin: bottom;
+    }
+
+    .character::before,
+    .character::after,
+    .weapon { display: none !important; }
+
+    .character {
+      width: min(48vw, 610px);
+      height: min(82vh, 820px);
+      z-index: 5;
+      filter: drop-shadow(0 34px 46px rgba(0, 0, 0, 0.48)) drop-shadow(0 0 30px rgba(69, 240, 208, 0.12));
+    }
+
+    .hero-character {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .home-character {
+      position: absolute;
+      left: 50%;
+      bottom: 2%;
+      transform: translateX(-50%);
+      animation: stageFloat 4.8s ease-in-out infinite;
+    }
+
+    @keyframes stageFloat {
+      0%, 100% { transform: translate(-50%, 0); }
+      50% { transform: translate(-50%, -10px); }
+    }
+
+    .character-layout .home-character {
+      left: 54%;
+      bottom: 1%;
+      width: min(50vw, 640px);
+      height: min(84vh, 840px);
+    }
+
+    .character-glow {
+      position: absolute;
+      left: 28%;
+      right: 20%;
+      bottom: 3%;
+      height: 15%;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(95, 184, 255, 0.22), transparent 64%);
+      filter: blur(12px);
+      z-index: -1;
+    }
+
+    .stage-ui-card {
+      position: absolute;
+      z-index: 8;
+      width: min(310px, 28vw);
+      padding: 16px;
+      border: 1px solid rgba(234, 242, 255, 0.11);
+      border-radius: 16px 16px 16px 4px;
+      background: linear-gradient(180deg, rgba(12, 18, 25, 0.58), rgba(7, 11, 16, 0.36));
+      backdrop-filter: blur(16px);
+      box-shadow: 0 22px 58px rgba(0, 0, 0, 0.32);
+    }
+
+    .stage-ui-card::before {
+      content: "";
+      position: absolute;
+      inset: 7px auto auto 7px;
+      width: 22px;
+      height: 22px;
+      border-top: 1px solid rgba(69, 240, 208, 0.76);
+      border-left: 1px solid rgba(69, 240, 208, 0.76);
+    }
+
+    .home-brief { left: 34px; top: 56px; }
+    .home-missions { right: 34px; top: 82px; }
+    .character-stats { left: 34px; top: 58px; }
+    .character-resonance { right: 34px; top: 66px; }
+    .character-bottom {
+      left: 34px;
+      right: auto;
+      bottom: 28px;
+      width: min(460px, 34vw);
+      display: block;
+    }
+
+    .character-bottom .resource-row { margin-top: 14px; }
+
+    .hero-title {
+      position: absolute;
+      left: 36px;
+      bottom: 176px;
+      z-index: 8;
+      max-width: 520px;
+      pointer-events: none;
+    }
+
+    .hero-title h1 {
+      margin: 4px 0 10px;
+      font: 800 clamp(42px, 5.8vw, 76px)/0.9 var(--font-display);
+      letter-spacing: 0.055em;
+      text-transform: uppercase;
+      text-shadow: 0 12px 44px rgba(0, 0, 0, 0.55);
+    }
+
+    .hero-title p {
+      max-width: 42ch;
+      margin: 0;
+      color: rgba(234, 242, 255, 0.74);
+      line-height: 1.7;
+    }
+
+    .cta-dock {
+      position: absolute;
+      left: 36px;
+      bottom: 98px;
+      z-index: 9;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .screen-grid { margin-left: 0; }
+    .combat .character { left: 35%; bottom: 2%; width: 310px; height: 610px; }
+
+    @media (max-width: 820px) {
+      .topbar { height: 58px; padding: 0 12px; }
+      .sidebar {
+        inset: auto 10px 10px 10px;
+        transform: none;
+        height: 56px;
+        justify-content: space-between;
+      }
+      .nav-btn { min-width: 0; flex: 1; padding: 0 6px; font-size: 11px; }
+      .screen { padding: 68px 10px 78px; }
+      #home, #character { padding: 62px 8px 74px; }
+      .hero-layout {
+        min-height: 780px;
+        height: calc(100dvh - 136px);
+        border-radius: 14px;
+      }
+      .home-character,
+      .character-layout .home-character {
+        left: 50% !important;
+        right: auto !important;
+        bottom: 58px !important;
+        width: 78vw !important;
+        height: 590px !important;
+        transform: translateX(-50%) !important;
+      }
+      .stage-ui-card {
+        position: absolute;
+        width: auto;
+        margin: 0;
+        padding: 12px;
+      }
+      .home-brief {
+        left: 12px !important;
+        right: auto !important;
+        top: 70px !important;
+        bottom: auto !important;
+        width: 146px !important;
+      }
+      .home-missions { display: none; }
+      .character-stats {
+        left: 12px !important;
+        right: auto !important;
+        top: 70px !important;
+        bottom: auto !important;
+        width: 156px !important;
+      }
+      .character-resonance {
+        left: auto !important;
+        right: 12px !important;
+        top: auto !important;
+        bottom: 92px !important;
+        width: 166px !important;
+      }
+      .character-bottom { left: 12px; right: 12px; bottom: 18px; width: auto; display: none; }
+      .home-brief .progress,
+      .home-brief .stat:nth-of-type(n+2),
+      .home-missions .mission:nth-child(n+2),
+      .home-missions .resource-row,
+      .character-resonance .mission:nth-child(n+2),
+      .character-resonance .eq { display: none; }
+      .hero-title {
+        left: 18px;
+        right: 18px;
+        bottom: 146px;
+      }
+      .hero-title h1 { font-size: 44px; }
+      .hero-title p { max-width: 22ch; }
+      .cta-dock { left: 18px; right: 18px; bottom: 86px; }
+      .cta-dock .btn { min-width: 96px; }
+      .scene-sky::before { left: 18%; width: 320px; }
+      .tower { opacity: 0.76; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app" aria-label="Resonance Afterlight">
+    <div class="scanline"></div>
+    <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden">
+      <defs>
+        <linearGradient id="ra-hair" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#F3F8FF"/>
+          <stop offset="0.55" stop-color="#AFC6DF"/>
+          <stop offset="1" stop-color="#53D9F4"/>
+        </linearGradient>
+        <linearGradient id="ra-skin" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#FFF4F2"/>
+          <stop offset="0.58" stop-color="#EED7D2"/>
+          <stop offset="1" stop-color="#CFAEB0"/>
+        </linearGradient>
+        <linearGradient id="ra-eye" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#EFFFFB"/>
+          <stop offset="0.45" stop-color="#45F0D0"/>
+          <stop offset="1" stop-color="#226E9E"/>
+        </linearGradient>
+        <linearGradient id="ra-metal" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#F8FBFF"/>
+          <stop offset="0.48" stop-color="#6E7C8F"/>
+          <stop offset="1" stop-color="#161D28"/>
+        </linearGradient>
+        <linearGradient id="ra-blade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#EFFFFB"/>
+          <stop offset="0.35" stop-color="#45F0D0"/>
+          <stop offset="1" stop-color="#5FB8FF" stop-opacity="0.08"/>
+        </linearGradient>
+        <linearGradient id="ra-suit" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#F4F7FC"/>
+          <stop offset="0.36" stop-color="#2B3443"/>
+          <stop offset="1" stop-color="#0B1017"/>
+        </linearGradient>
+        <linearGradient id="ra-cloak" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#EAF2FF" stop-opacity="0.58"/>
+          <stop offset="0.45" stop-color="#5FB8FF" stop-opacity="0.18"/>
+          <stop offset="1" stop-color="#45F0D0" stop-opacity="0.08"/>
+        </linearGradient>
+        <radialGradient id="ra-core" cx="50%" cy="50%" r="50%">
+          <stop offset="0" stop-color="#EFFFFB"/>
+          <stop offset="0.45" stop-color="#45F0D0"/>
+          <stop offset="1" stop-color="#45F0D0" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <symbol id="mio-character" viewBox="0 0 360 760">
+        <ellipse cx="184" cy="720" rx="116" ry="24" fill="#5FB8FF" opacity="0.12"/>
+        <g opacity="0.95">
+          <path d="M306 84 C299 196 290 330 272 526 C269 563 264 602 256 642" fill="none" stroke="url(#ra-blade)" stroke-width="7" stroke-linecap="round"/>
+          <path d="M318 75 C309 103 301 130 292 158" fill="none" stroke="#EFFFFB" stroke-width="4" stroke-linecap="round"/>
+          <path d="M296 75 C312 77 329 86 340 100" fill="none" stroke="#45F0D0" stroke-width="4" stroke-linecap="round"/>
+          <path d="M286 166 C296 173 305 174 316 168" fill="none" stroke="#5FB8FF" stroke-opacity="0.65" stroke-width="3" stroke-linecap="round"/>
+        </g>
+        <path d="M182 54 C126 57 92 95 89 156 C84 251 119 342 112 455 C109 523 95 598 71 673 C66 688 82 699 95 688 C130 658 143 587 145 509 C147 425 130 346 141 279 C150 221 132 164 145 111 C164 92 199 88 222 108 C234 160 211 222 221 281 C232 348 216 425 218 509 C220 588 235 657 265 687 C277 699 294 688 289 673 C265 597 251 522 248 454 C243 342 279 250 272 155 C268 95 237 57 182 54Z" fill="url(#ra-hair)"/>
+        <path d="M106 175 C83 250 85 362 111 470 C130 548 123 617 103 684" fill="none" stroke="#EAF2FF" stroke-opacity="0.28" stroke-width="3"/>
+        <path d="M249 174 C274 250 272 362 247 470 C229 547 237 617 255 684" fill="none" stroke="#45F0D0" stroke-opacity="0.22" stroke-width="3"/>
+        <path d="M99 250 C65 286 49 366 58 456 C60 474 82 478 91 463 C119 416 132 345 128 278 Z" fill="url(#ra-cloak)"/>
+        <path d="M236 250 C276 286 296 366 289 456 C287 476 264 478 255 462 C225 414 214 346 219 279 Z" fill="url(#ra-cloak)"/>
+        <path d="M132 218 C152 202 207 201 229 219 C249 274 252 346 237 419 C225 477 223 572 237 695 C219 708 195 708 177 696 C178 596 174 512 167 455 C157 520 153 606 154 696 C134 708 111 704 96 691 C113 564 116 476 103 420 C86 344 92 275 132 218Z" fill="url(#ra-suit)"/>
+        <path d="M139 226 C157 248 201 248 222 226 C219 264 205 292 181 300 C157 293 143 265 139 226Z" fill="#F8FBFF"/>
+        <path d="M127 288 C158 322 206 321 236 287 C246 334 243 386 234 423 C205 443 154 445 105 421 C96 376 98 326 127 288Z" fill="#131B26"/>
+        <path d="M145 234 C157 275 170 309 181 343 C193 308 205 274 217 234" fill="none" stroke="#8F9AAA" stroke-opacity="0.55" stroke-width="2"/>
+        <path d="M116 430 C101 497 88 585 88 690 C103 706 123 710 142 695 C141 612 149 524 167 455" fill="#0B1017"/>
+        <path d="M229 430 C248 494 263 582 264 690 C248 707 226 710 207 694 C209 611 200 524 181 455" fill="#0B1017"/>
+        <path d="M89 690 C107 704 126 705 143 695 L149 727 C133 738 99 736 78 720 Z" fill="#111925"/>
+        <path d="M207 694 C225 705 246 704 264 690 L277 720 C257 736 223 738 203 727 Z" fill="#111925"/>
+        <path d="M134 604 C143 615 153 615 162 604" fill="none" stroke="#5FB8FF" stroke-opacity="0.28" stroke-width="3"/>
+        <path d="M198 604 C210 615 225 614 236 602" fill="none" stroke="#5FB8FF" stroke-opacity="0.28" stroke-width="3"/>
+        <path d="M128 120 C143 78 209 75 232 119 C252 158 232 210 181 214 C131 211 110 160 128 120Z" fill="url(#ra-skin)"/>
+        <path d="M116 135 C123 84 160 56 202 66 C238 74 261 108 255 151 C231 124 197 118 157 131 C137 138 123 140 116 135Z" fill="url(#ra-hair)"/>
+        <path d="M113 147 C137 121 183 112 223 129 C210 153 181 166 140 164 C124 163 114 157 113 147Z" fill="#F6FAFF" opacity="0.78"/>
+        <path d="M148 132 C138 157 126 181 113 203 C140 193 162 173 173 134Z" fill="#EAF2FF" opacity="0.82"/>
+        <path d="M205 128 C223 149 238 172 249 202 C222 190 204 170 194 135Z" fill="#9EDCF0" opacity="0.48"/>
+        <path d="M139 164 C151 157 165 158 177 166" fill="none" stroke="#4C596A" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M190 166 C204 157 219 158 231 166" fill="none" stroke="#4C596A" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M144 177 C154 168 170 169 179 178 C170 185 154 185 144 177Z" fill="#F8FBFF"/>
+        <path d="M192 178 C202 168 219 168 229 178 C219 185 202 186 192 178Z" fill="#F8FBFF"/>
+        <ellipse cx="162" cy="177" rx="8" ry="10" fill="url(#ra-eye)"/>
+        <ellipse cx="211" cy="178" rx="8" ry="10" fill="url(#ra-eye)"/>
+        <circle cx="165" cy="173" r="2.4" fill="#FFFFFF"/>
+        <circle cx="214" cy="174" r="2.4" fill="#FFFFFF"/>
+        <path d="M184 180 C182 187 181 191 178 196" fill="none" stroke="#B58F91" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M172 203 C179 207 188 207 195 202" fill="none" stroke="#7D5962" stroke-width="2" stroke-linecap="round"/>
+        <path d="M133 216 C154 232 208 233 229 217" fill="none" stroke="#EAF2FF" stroke-opacity="0.55" stroke-width="4" stroke-linecap="round"/>
+        <path d="M181 300 C198 319 206 356 198 393 C193 419 176 419 166 393 C154 356 164 319 181 300Z" fill="url(#ra-core)" opacity="0.95"/>
+        <circle cx="181" cy="357" r="14" fill="url(#ra-core)"/>
+        <circle cx="181" cy="357" r="30" fill="none" stroke="#45F0D0" stroke-opacity="0.42"/>
+        <path d="M106 421 C135 448 215 449 239 422" fill="none" stroke="#45F0D0" stroke-opacity="0.48" stroke-width="3"/>
+        <path d="M79 318 C55 358 47 414 53 473" fill="none" stroke="#EAF2FF" stroke-opacity="0.42" stroke-width="7" stroke-linecap="round"/>
+        <path d="M282 320 C307 357 315 414 307 473" fill="none" stroke="#EAF2FF" stroke-opacity="0.42" stroke-width="7" stroke-linecap="round"/>
+        <path d="M101 228 C116 230 127 239 135 252" fill="none" stroke="#45F0D0" stroke-opacity="0.34" stroke-width="2"/>
+        <path d="M226 252 C237 238 251 230 267 229" fill="none" stroke="#45F0D0" stroke-opacity="0.32" stroke-width="2"/>
+        <path d="M134 236 C153 255 207 255 227 236" fill="none" stroke="url(#ra-metal)" stroke-width="3" stroke-linecap="round"/>
+      </symbol>
+    </svg>
+
+    <header class="topbar">
+      <div class="brand"><span class="sigil"></span><span>Resonance Afterlight</span></div>
+      <div class="status-line"><span class="status-dot"></span><span>LINK 07 / 23:48 / NORTH RELAY</span></div>
+    </header>
+
+    <nav class="sidebar" aria-label="核心界面">
+      <button class="nav-btn active" data-target="home" aria-label="主菜单">首页</button>
+      <button class="nav-btn" data-target="character" aria-label="角色">角色</button>
+      <button class="nav-btn" data-target="summon" aria-label="共鸣">共鸣</button>
+      <button class="nav-btn" data-target="combat" aria-label="战斗">战斗</button>
+      <button class="nav-btn" data-target="inventory" aria-label="背包">背包</button>
+    </nav>
+
+    <section class="screen active" id="home">
+      <div class="hero-layout">
+        <div class="stage art-stage">
+          <div class="scene-art">
+            <div class="scene-sky"></div>
+            <span class="tower" style="--x:7%;--w:58px;--h:310px;--r:-5deg"></span>
+            <span class="tower" style="--x:18%;--w:84px;--h:420px;--r:3deg"></span>
+            <span class="tower" style="--x:72%;--w:92px;--h:360px;--r:-7deg"></span>
+            <span class="tower" style="--x:84%;--w:48px;--h:250px;--r:8deg"></span>
+            <span class="warm-window" style="--x:76%;--y:32%"></span>
+            <span class="warm-window" style="--x:21%;--y:40%"></span>
+            <div class="water"></div>
+            <div class="plants">
+              <i style="--x:9%;--h:88px;--r:-12deg"></i>
+              <i style="--x:13%;--h:58px;--r:16deg"></i>
+              <i style="--x:78%;--h:76px;--r:10deg"></i>
+              <i style="--x:82%;--h:108px;--r:-10deg"></i>
+            </div>
+          </div>
+          <div class="character home-character">
+            <svg class="hero-character" viewBox="0 0 360 760"><use href="#mio-character"></use></svg>
+            <span class="character-glow"></span>
+          </div>
+        </div>
+        <div class="hero-title">
+          <div class="eyebrow">Afterlight Gate</div>
+          <h1>北环中继站</h1>
+          <p>夜后高架仍在回声中漂移。澪已完成同步，等待进入下一段频谱裂隙。</p>
+        </div>
+        <div class="cta-dock">
+          <button class="btn" data-action="toast">开始探索</button>
+          <button class="btn secondary">编队</button>
+          <button class="btn secondary" disabled>深层扫描</button>
+        </div>
+        <aside class="stage-ui-card home-brief">
+          <div class="eyebrow">Afterlight Gate</div>
+          <h2 class="section-title">信标状态</h2>
+          <div class="stat-list">
+            <div class="stat"><span>信标稳定</span><strong>86%</strong></div>
+            <div class="progress" aria-label="信标稳定度"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
+            <div class="stat"><span>队伍同步</span><strong>4/4</strong></div>
+            <div class="stat"><span>异常层级</span><strong style="color:var(--gold)">II</strong></div>
+          </div>
+        </aside>
+        <aside class="stage-ui-card home-missions">
+          <div class="eyebrow">Current Echo</div>
+          <h2 class="section-title">今日回声</h2>
+          <div class="mission-list">
+            <div class="mission selected"><strong>频谱裂隙</strong><br><span class="muted">坐标 K-17 / 12 分钟</span></div>
+            <div class="mission"><strong>失真样本</strong><br><span class="muted">采集 3 份残留声纹</span></div>
+            <div class="mission"><strong>空白档案</strong><br><span class="muted">等待同步</span></div>
+          </div>
+          <div class="resource-row" style="margin-top:18px">
+            <span class="resource mono">CR 1280</span>
+            <span class="resource mono">SR 046</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="screen" id="character">
+      <div class="hero-layout character-layout">
+        <div class="stage art-stage">
+          <div class="scene-art">
+            <div class="scene-sky"></div>
+            <span class="tower" style="--x:9%;--w:72px;--h:330px;--r:4deg"></span>
+            <span class="tower" style="--x:69%;--w:110px;--h:460px;--r:-4deg"></span>
+            <span class="tower" style="--x:82%;--w:56px;--h:270px;--r:9deg"></span>
+            <span class="warm-window" style="--x:72%;--y:30%"></span>
+            <span class="warm-window" style="--x:16%;--y:44%"></span>
+            <div class="water"></div>
+            <div class="plants">
+              <i style="--x:7%;--h:72px;--r:-14deg"></i>
+              <i style="--x:12%;--h:104px;--r:11deg"></i>
+              <i style="--x:81%;--h:90px;--r:-8deg"></i>
+            </div>
+          </div>
+          <div class="halo"></div>
+          <div class="character home-character">
+            <svg class="hero-character" viewBox="0 0 360 760"><use href="#mio-character"></use></svg>
+            <span class="character-glow"></span>
+          </div>
+        </div>
+        <aside class="stage-ui-card character-stats">
+          <div class="eyebrow">Operative 03</div>
+          <h2 class="section-title">澪 / Mio</h2>
+          <div class="tabs" role="tablist">
+            <button class="tab active">属性</button>
+            <button class="tab">回响</button>
+            <button class="tab">武装</button>
+          </div>
+          <div class="stat-list">
+            <div class="stat"><span>生命</span><strong>18420</strong></div>
+            <div class="stat"><span>攻击</span><strong>2481</strong></div>
+            <div class="stat"><span>共鸣效率</span><strong style="color:var(--teal)">72%</strong></div>
+            <div class="stat"><span>频谱抗性</span><strong>41</strong></div>
+          </div>
+          <div class="btn-row" style="margin-top:18px"><button class="btn">强化</button><button class="btn secondary">详情</button></div>
+        </aside>
+        <aside class="stage-ui-card character-resonance">
+          <div class="eyebrow">Resonance Profile</div>
+          <h2 class="section-title">声纹配置</h2>
+          <div class="mission-list">
+            <div class="mission selected"><strong>主频：冷蓝切相</strong><br><span class="muted">选中 / 冷却 -8%</span></div>
+            <div class="mission"><strong>副频：余光折返</strong><br><span class="muted">护盾触发后增幅</span></div>
+            <div class="mission" style="opacity:.5"><strong>空槽</strong><br><span class="muted">等待校准</span></div>
+          </div>
+          <div class="eq"><i style="--h:42px;--delay:0ms"></i><i style="--h:66px;--delay:80ms"></i><i style="--h:34px;--delay:160ms"></i><i style="--h:58px;--delay:220ms"></i><i style="--h:48px;--delay:120ms"></i></div>
+        </aside>
+        <aside class="stage-ui-card character-bottom">
+          <div>
+            <div class="eyebrow">Character Stage</div>
+            <h2 class="section-title">银灰长发 / 青绿共鸣核心 / 音叉式能量刃</h2>
+            <p class="muted">黑白灰战斗服与半透明机能披肩保留轻薄科幻感，角色脸部和站姿优先可见。</p>
+          </div>
+          <div class="resource-row">
+            <span class="resource mono">SYNC 72%</span>
+            <span class="resource mono" style="color:var(--gold)">CORE II</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="screen" id="summon">
+      <div class="screen-grid summon-grid">
+        <aside class="panel panel-pad">
+          <div class="eyebrow">Signal Pool</div>
+          <h2 class="section-title">余光频段</h2>
+          <p class="muted">消耗声标，捕获新的回响单元。</p>
+          <div class="stat-list">
+            <div class="stat"><span>声标</span><strong>128</strong></div>
+            <div class="stat"><span>高频保底</span><strong>62/80</strong></div>
+          </div>
+        </aside>
+        <div class="summon-stage panel">
+          <span class="particle" style="--x:26%;--y:76%;--d:3.2s"></span>
+          <span class="particle" style="--x:44%;--y:68%;--d:2.8s"></span>
+          <span class="particle" style="--x:66%;--y:72%;--d:3.6s"></span>
+          <span class="particle" style="--x:58%;--y:88%;--d:2.5s"></span>
+          <div class="summon-core"></div>
+        </div>
+        <aside class="panel panel-pad">
+          <div class="eyebrow">Ritual Control</div>
+          <h2 class="section-title">共鸣召唤</h2>
+          <div class="quick-actions">
+            <button class="btn" data-action="summon">共鸣一次</button>
+            <button class="btn secondary" data-action="modal">共鸣十次</button>
+            <button class="btn secondary" disabled>频段锁定</button>
+          </div>
+          <div class="eq"><i style="--h:56px;--delay:0ms"></i><i style="--h:28px;--delay:70ms"></i><i style="--h:72px;--delay:120ms"></i><i style="--h:44px;--delay:180ms"></i><i style="--h:62px;--delay:240ms"></i><i style="--h:36px;--delay:300ms"></i></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="screen hud-screen" id="combat">
+      <div class="combat">
+        <div class="ruin"></div>
+        <div class="hp-strip">
+          <div class="hud-panel"><span class="eyebrow">Mio</span><div class="progress" style="margin-top:8px"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div></div>
+          <div class="hud-panel"><span class="eyebrow">Resonance Meter</span><div class="progress" style="margin-top:8px"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div></div>
+          <div class="hud-panel"><span class="eyebrow" style="color:var(--red)">Anomaly</span><div class="progress" style="margin-top:8px"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div></div>
+        </div>
+        <div class="character">
+          <svg class="hero-character" viewBox="0 0 360 760"><use href="#mio-character"></use></svg>
+          <span class="character-glow"></span>
+        </div>
+        <div class="enemy"></div>
+        <div class="mini-map"></div>
+        <div class="skill-ring">
+          <button class="skill selected">Q</button><button class="skill">E</button><button class="skill disabled">R</button>
+          <button class="skill">1</button><button class="skill">2</button><button class="skill">3</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="inventory">
+      <div class="screen-grid inventory-grid">
+        <aside class="panel panel-pad">
+          <div class="eyebrow">Storage</div>
+          <h2 class="section-title">背包</h2>
+          <div class="tabs">
+            <button class="tab active" data-filter="all">全部</button>
+            <button class="tab" data-filter="weapon">武装</button>
+            <button class="tab" data-filter="echo">回响</button>
+          </div>
+          <div class="quick-actions"><button class="btn">整理</button><button class="btn secondary">筛选</button></div>
+        </aside>
+        <div class="panel panel-pad">
+          <div class="items">
+            <button class="item selected gold" data-type="weapon" data-mark="A1"></button>
+            <button class="item rare" data-type="echo" data-mark="E7"></button>
+            <button class="item" data-type="weapon" data-mark="B4"></button>
+            <button class="item rare" data-type="echo" data-mark="K2"></button>
+            <button class="item" data-type="weapon" data-mark="C8"></button>
+            <button class="item" data-type="echo" data-mark="M0"></button>
+            <button class="item" data-type="weapon" data-mark="D5"></button>
+            <button class="item rare" data-type="echo" data-mark="R9"></button>
+            <button class="item" data-type="weapon" data-mark="L1"></button>
+            <button class="item empty" data-type="empty" data-mark="—"></button>
+            <button class="item empty" data-type="empty" data-mark="—"></button>
+            <button class="item empty" data-type="empty" data-mark="—"></button>
+          </div>
+        </div>
+        <aside class="panel panel-pad">
+          <div class="eyebrow">Selected Gear</div>
+          <h2 class="section-title">裂相刃 A1</h2>
+          <div class="stat-list">
+            <div class="stat"><span>稀有度</span><strong style="color:var(--gold)">V</strong></div>
+            <div class="stat"><span>攻击增幅</span><strong>+412</strong></div>
+            <div class="stat"><span>同步等级</span><strong>18</strong></div>
+          </div>
+          <div class="btn-row" style="margin-top:18px"><button class="btn">强化</button><button class="btn secondary">返回</button></div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="toast" role="status" aria-live="polite">中继已响应</div>
+    <div class="modal-backdrop" aria-hidden="true">
+      <div class="modal">
+        <div class="eyebrow">Confirm Resonance</div>
+        <h2 class="section-title">执行十连共鸣</h2>
+        <p class="muted">将消耗 10 枚声标。频段记录会在本地终端暂存。</p>
+        <div class="btn-row" style="margin-top:20px"><button class="btn" data-action="close-modal">确认</button><button class="btn secondary" data-action="close-modal">返回</button></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const screens = document.querySelectorAll(".screen");
+    const navButtons = document.querySelectorAll(".nav-btn");
+    const toast = document.querySelector(".toast");
+    const modal = document.querySelector(".modal-backdrop");
+
+    function activateScreen(target) {
+      if (!document.getElementById(target)) return;
+      navButtons.forEach((item) => item.classList.toggle("active", item.dataset.target === target));
+      screens.forEach((screen) => screen.classList.toggle("active", screen.id === target));
+    }
+
+    activateScreen(window.location.hash.slice(1) || "home");
+
+    function showToast(text) {
+      toast.textContent = text;
+      toast.classList.add("show");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => toast.classList.remove("show"), 1800);
+    }
+
+    navButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        activateScreen(button.dataset.target);
+        history.replaceState(null, "", `#${button.dataset.target}`);
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      const action = event.target.closest("[data-action]")?.dataset.action;
+      if (action === "toast") showToast("探索队列已启动");
+      if (action === "summon") showToast("捕获到微弱回响");
+      if (action === "modal") modal.classList.add("show");
+      if (action === "close-modal") modal.classList.remove("show");
+    });
+
+    document.querySelectorAll(".skill:not(.disabled), .item:not(.empty)").forEach((node) => {
+      node.addEventListener("click", () => {
+        const group = node.classList.contains("skill") ? ".skill" : ".item";
+        document.querySelectorAll(group).forEach((item) => item.classList.remove("selected"));
+        node.classList.add("selected");
+      });
+    });
+
+    document.querySelectorAll("[data-filter]").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll("[data-filter]").forEach((item) => item.classList.remove("active"));
+        tab.classList.add("active");
+        const filter = tab.dataset.filter;
+        document.querySelectorAll(".item").forEach((item) => {
+          item.style.display = filter === "all" || item.dataset.type === filter || item.dataset.type === "empty" ? "" : "none";
+        });
+      });
+    });
+  </script>
+</body>
+</html>

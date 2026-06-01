@@ -1,0 +1,26 @@
+{
+  "image_urls": [
+    "__DATA_URI:front_rgba__",
+    "__DATA_URI:left_side__",
+    "__DATA_URI:back__"
+  ],
+  "ai_model": "meshy-6",
+  "should_texture": true,
+  "enable_pbr": true,
+  "hd_texture": true,
+  "texture_prompt": "Original anime action RPG heroine YUNA. Preserve silver-gray long hair with cyan-blue gradient, calm anime face, black white gray battle outfit, translucent mantle, teal core, white stockings, dark boots. Clean stylized PBR, not realistic, not robotic.",
+  "should_remesh": true,
+  "topology": "quad",
+  "target_polycount": 80000,
+  "save_pre_remeshed_model": true,
+  "pose_mode": "a-pose",
+  "image_enhancement": false,
+  "remove_lighting": true,
+  "moderation": true,
+  "target_formats": [
+    "glb",
+    "fbx",
+    "obj"
+  ],
+  "auto_size": false
+}

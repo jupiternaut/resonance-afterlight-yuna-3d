@@ -1,0 +1,79 @@
+{
+  "created_at": "2026-05-24T18:14:40.715208+00:00",
+  "route": "semantic_layer_v9_weapon_hardsurface_ortho_v0",
+  "actuator": "weapon_hardsurface_ortho_v0",
+  "status": "generated_with_warnings",
+  "part_id": "weapon",
+  "decision_source": "CharacterPackage/semantic_layer_v9_candidate/filter_report.json",
+  "generated_files": {
+    "spec": "CharacterPackage/semantic_layer_v9_weapon/specs/yuna_semantic_layer_v9_weapon.json",
+    "obj": "CharacterPackage/semantic_layer_v9_weapon/exports/yuna_semantic_layer_v9_weapon.obj",
+    "mtl": "CharacterPackage/semantic_layer_v9_weapon/exports/yuna_semantic_layer_v9_weapon.mtl",
+    "glb": "CharacterPackage/semantic_layer_v9_weapon/exports/yuna_semantic_layer_v9_weapon.glb",
+    "blend": "CharacterPackage/semantic_layer_v9_weapon/exports/yuna_semantic_layer_v9_weapon.blend",
+    "report": "CharacterPackage/semantic_layer_v9_weapon/validation_report.json"
+  },
+  "mesh_summary": {
+    "vertices": 216,
+    "uvs": 216,
+    "faces": 214,
+    "section_count": 36,
+    "thickness": 0.16,
+    "bevel": 0.035,
+    "material_face_counts": {
+      "textured": 70,
+      "side": 144
+    }
+  },
+  "validation": {
+    "independent_object": true,
+    "has_thickness": true,
+    "has_bevel_proxy": true,
+    "has_uvs": true,
+    "has_front_texture_material": true,
+    "has_side_material": true,
+    "has_hand_socket_metadata": true,
+    "replace_in_beauty_glb": false,
+    "obj": {
+      "path": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_weapon/exports/yuna_semantic_layer_v9_weapon.obj",
+      "exists": true,
+      "bytes": 19594
+    },
+    "glb": {
+      "path": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_weapon/exports/yuna_semantic_layer_v9_weapon.glb",
+      "exists": true,
+      "bytes": 1606704
+    },
+    "blender_glb_export": {
+      "status": "ok",
+      "blender": "/opt/homebrew/bin/blender",
+      "exit_code": 0,
+      "glb_exists": true,
+      "glb_bytes": 1606704,
+      "blend_exists": true,
+      "blend_path": "CharacterPackage/semantic_layer_v9_weapon/exports/yuna_semantic_layer_v9_weapon.blend",
+      "log_tail": [
+        "/var/folders/9j/cx6fkz613dd_6545wf7kvt4w0000gn/T/tmpg1697rx0.py:23: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0",
+        "  front_mat.use_nodes = True",
+        "/var/folders/9j/cx6fkz613dd_6545wf7kvt4w0000gn/T/tmpg1697rx0.py:36: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0",
+        "  side_mat.use_nodes = True",
+        "Info: Saved as \"yuna_semantic_layer_v9_weapon.blend\"",
+        "INFO Draco mesh compression is available, use library at /Applications/Blender.app/Contents/Resources/5.1/scripts/addons_core/io_scene_gltf2/libextern_draco.dylib",
+        "02:14:40 | INFO: Starting glTF 2.0 export",
+        "02:14:40 | INFO: Extracting primitive: weapon_hardsurface_ortho_v0_mesh",
+        "02:14:40 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+        "02:14:40 | INFO: Primitives created: 2",
+        "02:14:40 | INFO: Finished glTF 2.0 export in 0.03303217887878418 s",
+        "",
+        "Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)",
+        "",
+        "Blender quit"
+      ]
+    }
+  },
+  "warnings": [
+    "v0 uses an alpha-profile hard-surface proxy, not a final hand-modeled weapon.",
+    "v8 beauty weapon remains active until screenshot/import validation passes."
+  ],
+  "errors": []
+}

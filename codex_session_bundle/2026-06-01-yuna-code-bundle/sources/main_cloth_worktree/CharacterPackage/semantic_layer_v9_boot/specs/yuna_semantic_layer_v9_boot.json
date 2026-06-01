@@ -1,0 +1,136 @@
+{
+  "route": "semantic_layer_v9_boot_hardsurface_ortho_v0",
+  "source_route": "semantic_layer_v9_candidate_spec_only",
+  "baseline": "semantic_layer_v8_beauty_main_debug_cage_split",
+  "boundary": "Independent boot candidate only. It does not replace v8 beauty boots until validation passes.",
+  "part": {
+    "id": "boots",
+    "category": "costume",
+    "generator": "boot_hardsurface_ortho_v0",
+    "source_texture": "CharacterPackage/semantic_layer_v8/textures/boots.png",
+    "foot_sockets": [
+      "foot_L_socket",
+      "foot_R_socket"
+    ],
+    "replace_in_beauty_glb": false,
+    "independent_objects": true,
+    "candidate_only": true
+  },
+  "source_decision": {
+    "part_id": "boots",
+    "decision": "upgrade_required",
+    "confidence": 0.88,
+    "old_generator": "curved_panel",
+    "proposed_generator": "boot_hardsurface_ortho",
+    "old_depth": 0.38,
+    "proposed_depth": 0.38,
+    "visible_in_beauty": true,
+    "visible_in_cage": true,
+    "debug_only": false,
+    "constraints_applied": [
+      "semantic_part_independence",
+      "boot_must_remain_independent",
+      "beauty_and_cage_exports_remain_separate",
+      "side_back_are_soft_constraints",
+      "existing_beauty_mesh_kept_until_replacement_validated",
+      "front_identity_preserved"
+    ],
+    "reason": "Boots are still visual-panel/proxy geometry; v9 should rebuild them as hard-surface forms with thickness and bevels.",
+    "next_action": "Create boot hard-surface mesh from silhouette and validate against front/yaw screenshots."
+  },
+  "mesh": {
+    "component_count": 4,
+    "vertices": 576,
+    "uvs": 576,
+    "faces": 568,
+    "thickness": 0.13,
+    "bevel": 0.025,
+    "components": [
+      {
+        "id": "boot_component_01",
+        "bbox": [
+          328,
+          1195,
+          343,
+          1263
+        ],
+        "area": 688,
+        "vertices": 144,
+        "uvs": 144,
+        "faces": 142,
+        "section_count": 24,
+        "thickness": 0.13,
+        "bevel": 0.025,
+        "material_face_counts": {
+          "textured": 46,
+          "side": 96
+        }
+      },
+      {
+        "id": "boot_component_02",
+        "bbox": [
+          380,
+          1195,
+          493,
+          1503
+        ],
+        "area": 17194,
+        "vertices": 144,
+        "uvs": 144,
+        "faces": 142,
+        "section_count": 24,
+        "thickness": 0.13,
+        "bevel": 0.025,
+        "material_face_counts": {
+          "textured": 46,
+          "side": 96
+        }
+      },
+      {
+        "id": "boot_component_03",
+        "bbox": [
+          507,
+          1195,
+          605,
+          1458
+        ],
+        "area": 13670,
+        "vertices": 144,
+        "uvs": 144,
+        "faces": 142,
+        "section_count": 24,
+        "thickness": 0.13,
+        "bevel": 0.025,
+        "material_face_counts": {
+          "textured": 46,
+          "side": 96
+        }
+      },
+      {
+        "id": "boot_component_04",
+        "bbox": [
+          695,
+          1195,
+          736,
+          1288
+        ],
+        "area": 2523,
+        "vertices": 144,
+        "uvs": 144,
+        "faces": 142,
+        "section_count": 24,
+        "thickness": 0.13,
+        "bevel": 0.025,
+        "material_face_counts": {
+          "textured": 46,
+          "side": 96
+        }
+      }
+    ]
+  },
+  "exports": {
+    "obj": "CharacterPackage/semantic_layer_v9_boot/exports/yuna_semantic_layer_v9_boot.obj",
+    "glb": "CharacterPackage/semantic_layer_v9_boot/exports/yuna_semantic_layer_v9_boot.glb",
+    "report": "CharacterPackage/semantic_layer_v9_boot/validation_report.json"
+  }
+}

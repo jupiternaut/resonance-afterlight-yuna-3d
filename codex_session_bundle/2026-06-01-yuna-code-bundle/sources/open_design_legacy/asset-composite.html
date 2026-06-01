@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Resonance Afterlight Asset Composite</title>
+  <style>
+    :root {
+      --bg: #030810;
+      --ink: #07111b;
+      --line: rgba(106, 180, 218, 0.52);
+      --line-soft: rgba(106, 180, 218, 0.2);
+      --cyan: #62e8ff;
+      --teal: #48f0d0;
+      --gold: #f3c064;
+      --violet: #9b7cff;
+      --white: #edf7ff;
+      --font: "Avenir Next", "DIN Alternate", "Inter", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #010409;
+      color: var(--white);
+      font-family: var(--font);
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+    }
+
+    .board {
+      position: relative;
+      width: min(100vw, 133.333vh);
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: #040910;
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.72);
+      isolation: isolate;
+    }
+
+    .board::before,
+    .board::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 60;
+      pointer-events: none;
+    }
+
+    .board::before {
+      border: 1px solid rgba(101, 179, 220, 0.72);
+      box-shadow:
+        inset 0 0 0 2px rgba(81, 166, 210, 0.15),
+        inset 0 0 44px rgba(84, 215, 245, 0.08);
+    }
+
+    .board::after {
+      inset: 8px;
+      border: 1px solid rgba(104, 180, 220, 0.3);
+      clip-path: polygon(0 20px, 20px 0, 31% 0, 32% 12px, 68% 12px, 69% 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px));
+    }
+
+    .top {
+      position: absolute;
+      inset: 0 0 auto;
+      height: 3.05%;
+      z-index: 50;
+      display: grid;
+      place-items: center;
+      text-transform: uppercase;
+      letter-spacing: 0.63em;
+      font: 500 clamp(16px, 1.65vw, 24px)/1 var(--font);
+      color: rgba(238, 248, 255, 0.92);
+      text-shadow: 0 0 18px rgba(100, 226, 255, 0.32);
+      background:
+        linear-gradient(90deg, transparent 0 13.5%, rgba(103, 231, 255, 0.3) 13.6% 13.7%, transparent 13.8% 86.2%, rgba(103, 231, 255, 0.28) 86.3% 86.4%, transparent 86.5%),
+        linear-gradient(180deg, rgba(2, 6, 12, 0.96), rgba(2, 6, 12, 0.1));
+    }
+
+    .top::before,
+    .top::after {
+      content: "";
+      position: absolute;
+      top: 14px;
+      width: 36%;
+      height: 1px;
+      background:
+        linear-gradient(90deg, transparent, rgba(128, 203, 238, 0.65), rgba(128, 203, 238, 0.15));
+      box-shadow: 0 10px 0 rgba(128, 203, 238, 0.16);
+    }
+
+    .top::before { left: 15px; }
+    .top::after {
+      right: 15px;
+      transform: scaleX(-1);
+    }
+
+    .gem {
+      position: absolute;
+      top: 3.05%;
+      left: 50%;
+      z-index: 55;
+      width: 9px;
+      height: 9px;
+      transform: translate(-50%, -50%) rotate(45deg);
+      background: var(--cyan);
+      box-shadow: 0 0 20px var(--cyan), 0 0 44px rgba(98, 232, 255, 0.5);
+    }
+
+    .hero {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 3.05%;
+      height: 76.55%;
+      display: grid;
+      grid-template-columns: 33.82% 66.18%;
+      border-top: 1px solid rgba(101, 179, 220, 0.28);
+      border-bottom: 1px solid rgba(101, 179, 220, 0.64);
+      z-index: 5;
+      background: #050a11;
+    }
+
+    .left-art {
+      position: relative;
+      overflow: hidden;
+      border-right: 1px solid rgba(123, 190, 224, 0.48);
+      background:
+        radial-gradient(ellipse at 43% 98%, rgba(244, 248, 255, 0.52), rgba(185, 205, 224, 0.2) 18%, transparent 42%),
+        radial-gradient(circle at 41% 31%, rgba(91, 214, 238, 0.16), transparent 26%),
+        linear-gradient(180deg, #07111b 0%, #07101a 56%, #111923 100%);
+    }
+
+    .left-art::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle, rgba(235, 248, 255, 0.55) 0 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(93, 226, 255, 0.36) 0 1px, transparent 1.4px);
+      background-size: 93px 102px, 141px 136px;
+      background-position: 29px 46px, 68px 18px;
+      opacity: 0.32;
+      pointer-events: none;
+    }
+
+    .left-art::after {
+      content: "";
+      position: absolute;
+      left: -5%;
+      right: -5%;
+      bottom: 0;
+      height: 16%;
+      background:
+        radial-gradient(ellipse at 49% 100%, rgba(255, 255, 255, 0.8), rgba(219, 232, 244, 0.24) 32%, transparent 66%),
+        linear-gradient(180deg, transparent, rgba(210, 226, 238, 0.18));
+      filter: blur(0.4px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .character {
+      position: absolute;
+      left: -2.5%;
+      top: -2.4%;
+      bottom: auto;
+      width: auto;
+      height: 108%;
+      object-fit: contain;
+      object-position: 50% 100%;
+      z-index: 4;
+      filter:
+        drop-shadow(0 20px 26px rgba(0, 0, 0, 0.62))
+        drop-shadow(0 0 18px rgba(190, 230, 255, 0.22));
+    }
+
+    .scene {
+      position: relative;
+      overflow: hidden;
+      background: #06101a;
+    }
+
+    .scene-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 55% 50%;
+      filter: saturate(0.95) contrast(1.03) brightness(0.9);
+      transform: scale(1.015);
+    }
+
+    .scene::before,
+    .scene::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .scene::before {
+      background:
+        linear-gradient(90deg, rgba(0, 0, 0, 0.28), transparent 18%, transparent 80%, rgba(0, 0, 0, 0.16)),
+        linear-gradient(180deg, rgba(3, 7, 12, 0.1), transparent 38%, rgba(2, 6, 10, 0.22));
+    }
+
+    .scene::after {
+      background:
+        radial-gradient(circle at 58% 74%, rgba(251, 207, 125, 0.22), transparent 13%),
+        radial-gradient(circle at 48% 31%, rgba(98, 232, 255, 0.12), transparent 25%);
+      mix-blend-mode: screen;
+    }
+
+    .hud {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 20.4%;
+      z-index: 10;
+      padding: 1.3% 0.9% 0.75%;
+      display: grid;
+      grid-template-columns: 1.08fr 1.08fr 0.95fr 1.62fr 1.4fr 0.7fr 0.7fr 0.7fr;
+      gap: 1.18%;
+      background:
+        linear-gradient(180deg, rgba(3, 8, 14, 0.48), rgba(3, 8, 14, 0.98) 20%),
+        #050a11;
+      border-top: 1px solid rgba(100, 181, 222, 0.54);
+    }
+
+    .slot {
+      position: relative;
+      min-width: 0;
+      height: 100%;
+      overflow: hidden;
+      border: 1px solid rgba(105, 185, 224, 0.56);
+      background:
+        linear-gradient(135deg, rgba(91, 146, 177, 0.22), transparent 34%),
+        radial-gradient(circle at 50% 48%, rgba(98, 232, 255, 0.07), transparent 36%),
+        rgba(8, 17, 27, 0.9);
+      box-shadow:
+        inset 0 0 0 2px rgba(92, 165, 205, 0.1),
+        inset 0 0 30px rgba(86, 215, 244, 0.05),
+        0 0 18px rgba(0, 0, 0, 0.42);
+      clip-path: polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px);
+    }
+
+    .slot::before,
+    .slot::after {
+      content: "";
+      position: absolute;
+      width: 22%;
+      height: 18%;
+      border-color: rgba(132, 226, 246, 0.82);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .slot::before {
+      left: 6%;
+      top: 6%;
+      border-top: 1px solid;
+      border-left: 1px solid;
+    }
+
+    .slot::after {
+      right: 6%;
+      bottom: 6%;
+      border-right: 1px solid;
+      border-bottom: 1px solid;
+    }
+
+    .slot.violet {
+      border-color: rgba(155, 124, 255, 0.72);
+      box-shadow: inset 0 0 0 2px rgba(155, 124, 255, 0.1), 0 0 22px rgba(155, 124, 255, 0.1);
+    }
+
+    .slot.gold {
+      border-color: rgba(243, 192, 100, 0.95);
+      box-shadow:
+        inset 0 0 0 2px rgba(243, 192, 100, 0.16),
+        0 0 34px rgba(243, 192, 100, 0.25);
+    }
+
+    .slot.gold::before,
+    .slot.gold::after { border-color: rgba(243, 192, 100, 0.96); }
+
+    .slot-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(116, 185, 220, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(116, 185, 220, 0.08) 1px, transparent 1px);
+      background-size: 29px 29px;
+      opacity: 0.62;
+    }
+
+    .diag {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 0 48%, rgba(180, 226, 248, 0.22) 48.2% 48.7%, transparent 49%);
+    }
+
+    .radar {
+      position: absolute;
+      inset: 47px 39px;
+      border-radius: 50%;
+      border: 1px solid rgba(98, 232, 255, 0.25);
+      box-shadow:
+        inset 0 0 0 40px rgba(98, 232, 255, 0.018),
+        inset 0 0 0 80px rgba(98, 232, 255, 0.02);
+    }
+
+    .radar::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 17px;
+      height: 17px;
+      transform: translate(-50%, -50%) rotate(45deg);
+      background: var(--cyan);
+      box-shadow: 0 0 24px var(--cyan);
+    }
+
+    .wave,
+    .audio {
+      position: absolute;
+      inset: 35px 26px;
+      display: grid;
+      place-items: center;
+    }
+
+    .wave svg,
+    .audio svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .gold-spark {
+      position: absolute;
+      right: -28px;
+      top: -33px;
+      width: 108px;
+      height: 108px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 224, 153, 0.9), rgba(243, 192, 100, 0.28) 36%, transparent 66%);
+      filter: blur(7px);
+      opacity: 0.78;
+    }
+
+    .grain {
+      position: absolute;
+      inset: 0;
+      z-index: 70;
+      pointer-events: none;
+      opacity: 0.014;
+      mix-blend-mode: screen;
+      background-image:
+        repeating-radial-gradient(circle at 18% 22%, #fff 0 1px, transparent 1px 4px),
+        repeating-linear-gradient(115deg, transparent 0 6px, rgba(255,255,255,.28) 6px 7px);
+      background-size: 220px 220px, 260px 260px;
+    }
+
+    @media (max-width: 900px) {
+      .top { font-size: 15px; letter-spacing: 0.36em; }
+    }
+  </style>
+</head>
+<body>
+  <main class="board" aria-label="Resonance Afterlight high precision asset composite">
+    <header class="top">Resonance Afterlight</header>
+    <span class="gem"></span>
+
+    <section class="hero">
+      <div class="left-art">
+        <img class="character" src="assets/mio-character-rembg.png" alt="原创银发角色立绘">
+      </div>
+      <div class="scene">
+        <img class="scene-bg" src="assets/city-ruins-bg.png" alt="破碎高架城市夜景">
+      </div>
+    </section>
+
+    <section class="hud" aria-label="bottom HUD slots">
+      <div class="slot">
+        <div class="slot-grid"></div>
+      </div>
+      <div class="slot">
+        <div class="slot-grid"></div>
+        <div class="diag"></div>
+      </div>
+      <div class="slot">
+        <div class="slot-grid"></div>
+        <div class="radar"></div>
+      </div>
+      <div class="slot">
+        <div class="slot-grid"></div>
+        <div class="wave">
+          <svg viewBox="0 0 320 120" aria-hidden="true">
+            <path d="M0 67 C28 36 54 36 81 67 S133 98 160 67 S212 36 240 67 S292 98 320 67" fill="none" stroke="#62e8ff" stroke-width="2.2" opacity=".92"/>
+            <path d="M0 75 C32 51 61 47 88 72 S135 96 162 70 S212 45 242 69 S291 94 320 70" fill="none" stroke="#edf7ff" stroke-width="1.2" opacity=".52"/>
+          </svg>
+        </div>
+      </div>
+      <div class="slot">
+        <div class="slot-grid"></div>
+        <div class="audio">
+          <svg viewBox="0 0 270 120" aria-hidden="true">
+            <line x1="0" y1="60" x2="270" y2="60" stroke="#62e8ff" stroke-opacity=".26"/>
+            <g stroke="#62e8ff" stroke-width="2" opacity=".82">
+              <line x1="10" y1="52" x2="10" y2="68"/><line x1="18" y1="42" x2="18" y2="78"/>
+              <line x1="27" y1="35" x2="27" y2="85"/><line x1="36" y1="47" x2="36" y2="73"/>
+              <line x1="48" y1="30" x2="48" y2="90"/><line x1="62" y1="51" x2="62" y2="69"/>
+              <line x1="78" y1="40" x2="78" y2="80"/><line x1="98" y1="54" x2="98" y2="66"/>
+              <line x1="118" y1="39" x2="118" y2="82"/><line x1="144" y1="50" x2="144" y2="70"/>
+              <line x1="170" y1="45" x2="170" y2="77"/><line x1="205" y1="52" x2="205" y2="69"/>
+              <line x1="236" y1="49" x2="236" y2="72"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="slot">
+        <div class="slot-grid"></div>
+      </div>
+      <div class="slot violet">
+        <div class="slot-grid"></div>
+      </div>
+      <div class="slot gold">
+        <div class="gold-spark"></div>
+        <div class="slot-grid"></div>
+      </div>
+    </section>
+
+    <div class="grain"></div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,3337 @@
+{
+  "route": "build_art_directed_hair_ribbons_v1",
+  "source_route": "authored_hair_ribbons_v0_failed_underfilled",
+  "baseline": "semantic_layer_v8_beauty_main_debug_cage_split",
+  "boundary": "Independent art-directed v1 hair candidate only. It does not replace v8 beauty hair cards and does not unblock cloth.",
+  "formula_binding": {
+    "state": "theta_hair_design: named primary groups, secondary/flyaway strands, scalp anchors, depth groups, and schema masks",
+    "update": "ProjectToConstraints_hair(RobustFuse(strict_hair_core, soft_hair_silhouette, forbidden_nonhair_zone, front_identity, manual_visual_review))"
+  },
+  "part": {
+    "id": "hair",
+    "category": "hair",
+    "generator": "art_directed_hair_ribbons_v1",
+    "variant": "silhouette",
+    "replace_in_beauty_glb": false,
+    "independent_objects": true,
+    "candidate_only": true,
+    "side_back_are_soft_constraints": true,
+    "source_parts": [
+      "back_hair",
+      "side_hair_left",
+      "side_hair_right",
+      "bangs"
+    ],
+    "spring_hooks": [
+      "hair_back_spring_hook",
+      "hair_bangs_spring_hook",
+      "hair_side_left_spring_hook",
+      "hair_side_right_spring_hook"
+    ],
+    "target_schema": "CharacterPackage/semantic_layer_v9_hair/target_schema_v1"
+  },
+  "mesh": {
+    "group_count": 6,
+    "depth_group_count": 6,
+    "ribbon_count": 27,
+    "vertices": 2700,
+    "uvs": 2700,
+    "faces": 2646,
+    "section_count": 25,
+    "ribbon_thickness": 0.044,
+    "ribbon_thickness_min": 0.018,
+    "component_area_min": 360,
+    "source_mask_component_count": 15,
+    "role_counts": {
+      "back_hair_mass": 2,
+      "side_hair_left_primary": 4,
+      "side_hair_right_primary": 3,
+      "bangs_primary": 6,
+      "secondary_strands": 9,
+      "flyaway_strands": 3
+    },
+    "schema_constrained": true,
+    "art_directed_primitive_intent_count": 27,
+    "scalp_anchor_continuity_passed": true,
+    "flow_continuity_passed": true,
+    "max_disconnected_fragments": 32,
+    "non_degenerate_constraints": {
+      "visible_mass": "checked by target_schema_v1 candidate_visible_area_ratio",
+      "group_presence": "checked by target_schema_v1 per-group presence ratios",
+      "scalp_anchor_continuity": "all required primary groups have anchored primitive intents",
+      "flow_continuity": "each required primary group exposes anchor, curve_path, width_profile, taper, depth_group, and material",
+      "max_disconnected_fragments": 32
+    },
+    "schema_render_correction_px": {
+      "x": 13.0,
+      "up": 8.0
+    },
+    "design_summary": {
+      "design_schema": "CharacterPackage/semantic_layer_v9_hair/hair_design_schema_v1.json",
+      "variant": {
+        "name": "silhouette",
+        "review_intent": "stronger outer silhouette and side/back mass with restrained flyaways",
+        "component_area_min": 360,
+        "secondary_strand_count": 9,
+        "flyaway_strand_count": 3,
+        "visible_mass_dilate_radius": 6,
+        "visible_mass_close_radius": 3,
+        "visible_mass_forbidden_guard_radius": 3,
+        "primary_width_fraction": 1.12,
+        "secondary_width_fraction": 0.32,
+        "flyaway_width_fraction": 0.14
+      },
+      "required_primary_groups": [
+        "back_hair_mass",
+        "bangs_primary",
+        "side_hair_left_primary",
+        "side_hair_right_primary"
+      ],
+      "primary_component_count_by_role": {
+        "back_hair_mass": 2,
+        "side_hair_left_primary": 4,
+        "side_hair_right_primary": 3,
+        "bangs_primary": 6
+      },
+      "secondary_strand_count": 9,
+      "flyaway_strand_count": 3,
+      "side_profile_volume_count": 0,
+      "visible_mass_refinement": {
+        "status": "enabled",
+        "source": "soft_hair_silhouette_intersected_with_part_region_prior",
+        "component_area_min": 360,
+        "dilate_radius_px": 6,
+        "close_radius_px": 3,
+        "forbidden_guard_radius_px": 3
+      },
+      "scalp_anchor_points": [
+        "scalp_front_center",
+        "scalp_front_left",
+        "scalp_front_right",
+        "scalp_left_temple",
+        "scalp_right_temple",
+        "scalp_crown",
+        "scalp_back_left",
+        "scalp_back_right"
+      ],
+      "depth_groups": [
+        "back_mass",
+        "flyaways",
+        "front_bangs",
+        "secondary_detail",
+        "side_left_mid",
+        "side_right_mid"
+      ],
+      "primitive_intent_count": 27,
+      "flow_continuity_passed": true
+    },
+    "primitive_intents": [
+      {
+        "id": "back_hair_mass_01",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "back_hair_mass",
+        "source_part_id": "back_hair",
+        "anchor_id": "scalp_crown",
+        "anchor_point": {
+          "source_px": [
+            802.0,
+            321.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_back_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              802.0,
+              321.0
+            ],
+            "uv": [
+              0.783203,
+              0.791016
+            ],
+            "depth": -0.607
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              807.006,
+              356.0
+            ],
+            "uv": [
+              0.788092,
+              0.768229
+            ],
+            "depth": -0.599929
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              809.08,
+              391.0
+            ],
+            "uv": [
+              0.790117,
+              0.745443
+            ],
+            "depth": -0.597
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              807.006,
+              426.0
+            ],
+            "uv": [
+              0.788092,
+              0.722656
+            ],
+            "depth": -0.599929
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              802.0,
+              461.0
+            ],
+            "uv": [
+              0.783203,
+              0.69987
+            ],
+            "depth": -0.607
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 175.546
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 194.813
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 214.08
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 194.813
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 175.546
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 175.546,
+          "mid_width_px": 214.08,
+          "tip_width_px": 175.546
+        },
+        "depth_group": "back_mass",
+        "material": {
+          "id": "alpha_textured_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/back_hair_mass_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          710,
+          321,
+          894,
+          461
+        ]
+      },
+      {
+        "id": "back_hair_mass_02",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "back_hair_mass",
+        "source_part_id": "back_hair",
+        "anchor_id": "scalp_crown",
+        "anchor_point": {
+          "source_px": [
+            192.0,
+            429.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_back_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              192.0,
+              429.0
+            ],
+            "uv": [
+              0.1875,
+              0.720703
+            ],
+            "depth": -0.597
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              197.006,
+              444.25
+            ],
+            "uv": [
+              0.192389,
+              0.710775
+            ],
+            "depth": -0.589929
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              199.08,
+              459.5
+            ],
+            "uv": [
+              0.194414,
+              0.700846
+            ],
+            "depth": -0.587
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              197.006,
+              474.75
+            ],
+            "uv": [
+              0.192389,
+              0.690918
+            ],
+            "depth": -0.589929
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              192.0,
+              490.0
+            ],
+            "uv": [
+              0.1875,
+              0.68099
+            ],
+            "depth": -0.597
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 100.237
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 111.238
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 122.24
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 111.238
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 100.237
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 100.237,
+          "mid_width_px": 122.24,
+          "tip_width_px": 100.237
+        },
+        "depth_group": "back_mass",
+        "material": {
+          "id": "alpha_textured_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/back_hair_mass_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          141,
+          429,
+          243,
+          490
+        ]
+      },
+      {
+        "id": "side_hair_left_primary_01",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "side_hair_left_primary",
+        "source_part_id": "side_hair_left",
+        "anchor_id": "scalp_left_temple",
+        "anchor_point": {
+          "source_px": [
+            192.0,
+            429.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_side_left_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              192.0,
+              429.0
+            ],
+            "uv": [
+              0.1875,
+              0.720703
+            ],
+            "depth": 0.151
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              197.006,
+              444.25
+            ],
+            "uv": [
+              0.192389,
+              0.710775
+            ],
+            "depth": 0.158071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              199.08,
+              459.5
+            ],
+            "uv": [
+              0.194414,
+              0.700846
+            ],
+            "depth": 0.161
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              197.006,
+              474.75
+            ],
+            "uv": [
+              0.192389,
+              0.690918
+            ],
+            "depth": 0.158071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              192.0,
+              490.0
+            ],
+            "uv": [
+              0.1875,
+              0.68099
+            ],
+            "depth": 0.151
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 100.237
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 111.238
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 122.24
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 111.238
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 100.237
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 100.237,
+          "mid_width_px": 122.24,
+          "tip_width_px": 100.237
+        },
+        "depth_group": "side_left_mid",
+        "material": {
+          "id": "alpha_textured_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/side_hair_left_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          141,
+          429,
+          243,
+          490
+        ]
+      },
+      {
+        "id": "side_hair_left_primary_02",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "side_hair_left_primary",
+        "source_part_id": "side_hair_left",
+        "anchor_id": "scalp_left_temple",
+        "anchor_point": {
+          "source_px": [
+            400.5,
+            263.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_side_left_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              400.5,
+              263.0
+            ],
+            "uv": [
+              0.391113,
+              0.828776
+            ],
+            "depth": 0.161
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              405.506,
+              271.25
+            ],
+            "uv": [
+              0.396002,
+              0.823405
+            ],
+            "depth": 0.168071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              407.58,
+              279.5
+            ],
+            "uv": [
+              0.398027,
+              0.818034
+            ],
+            "depth": 0.171
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              405.506,
+              287.75
+            ],
+            "uv": [
+              0.396002,
+              0.812663
+            ],
+            "depth": 0.168071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              400.5,
+              296.0
+            ],
+            "uv": [
+              0.391113,
+              0.807292
+            ],
+            "depth": 0.161
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 38.704
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 42.952
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 47.2
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 42.952
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 38.704
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 38.704,
+          "mid_width_px": 47.2,
+          "tip_width_px": 38.704
+        },
+        "depth_group": "side_left_mid",
+        "material": {
+          "id": "alpha_textured_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/side_hair_left_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          383,
+          263,
+          418,
+          296
+        ]
+      },
+      {
+        "id": "side_hair_left_primary_03",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "side_hair_left_primary",
+        "source_part_id": "side_hair_left",
+        "anchor_id": "scalp_left_temple",
+        "anchor_point": {
+          "source_px": [
+            390.5,
+            237.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_side_left_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              390.5,
+              237.0
+            ],
+            "uv": [
+              0.381348,
+              0.845703
+            ],
+            "depth": 0.171
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              395.506,
+              246.0
+            ],
+            "uv": [
+              0.386237,
+              0.839844
+            ],
+            "depth": 0.178071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              397.58,
+              255.0
+            ],
+            "uv": [
+              0.388262,
+              0.833984
+            ],
+            "depth": 0.181
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              395.506,
+              264.0
+            ],
+            "uv": [
+              0.386237,
+              0.828125
+            ],
+            "depth": 0.178071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              390.5,
+              273.0
+            ],
+            "uv": [
+              0.381348,
+              0.822266
+            ],
+            "depth": 0.171
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 44.214
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 49.067
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 53.92
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 49.067
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 44.214
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 44.214,
+          "mid_width_px": 53.92,
+          "tip_width_px": 44.214
+        },
+        "depth_group": "side_left_mid",
+        "material": {
+          "id": "alpha_textured_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/side_hair_left_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          370,
+          237,
+          411,
+          273
+        ]
+      },
+      {
+        "id": "side_hair_left_primary_04",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "side_hair_left_primary",
+        "source_part_id": "side_hair_left",
+        "anchor_id": "scalp_left_temple",
+        "anchor_point": {
+          "source_px": [
+            424.5,
+            120.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_side_left_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              424.5,
+              120.0
+            ],
+            "uv": [
+              0.414551,
+              0.921875
+            ],
+            "depth": 0.181
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              429.506,
+              132.5
+            ],
+            "uv": [
+              0.41944,
+              0.913737
+            ],
+            "depth": 0.188071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              431.58,
+              145.0
+            ],
+            "uv": [
+              0.421465,
+              0.905599
+            ],
+            "depth": 0.191
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              429.506,
+              157.5
+            ],
+            "uv": [
+              0.41944,
+              0.897461
+            ],
+            "depth": 0.188071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              424.5,
+              170.0
+            ],
+            "uv": [
+              0.414551,
+              0.889323
+            ],
+            "depth": 0.181
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 29.52
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 32.76
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 36.0
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 32.76
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 29.52
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 29.52,
+          "mid_width_px": 36.0,
+          "tip_width_px": 29.52
+        },
+        "depth_group": "side_left_mid",
+        "material": {
+          "id": "alpha_textured_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/side_hair_left_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          412,
+          120,
+          437,
+          170
+        ]
+      },
+      {
+        "id": "side_hair_right_primary_01",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "side_hair_right_primary",
+        "source_part_id": "side_hair_right",
+        "anchor_id": "scalp_right_temple",
+        "anchor_point": {
+          "source_px": [
+            802.0,
+            321.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_side_right_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              802.0,
+              321.0
+            ],
+            "uv": [
+              0.783203,
+              0.791016
+            ],
+            "depth": 0.21
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              807.006,
+              356.0
+            ],
+            "uv": [
+              0.788092,
+              0.768229
+            ],
+            "depth": 0.217071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              809.08,
+              391.0
+            ],
+            "uv": [
+              0.790117,
+              0.745443
+            ],
+            "depth": 0.22
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              807.006,
+              426.0
+            ],
+            "uv": [
+              0.788092,
+              0.722656
+            ],
+            "depth": 0.217071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              802.0,
+              461.0
+            ],
+            "uv": [
+              0.783203,
+              0.69987
+            ],
+            "depth": 0.21
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 175.546
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 194.813
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 214.08
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 194.813
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 175.546
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 175.546,
+          "mid_width_px": 214.08,
+          "tip_width_px": 175.546
+        },
+        "depth_group": "side_right_mid",
+        "material": {
+          "id": "alpha_textured_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/side_hair_right_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          710,
+          321,
+          894,
+          461
+        ]
+      },
+      {
+        "id": "side_hair_right_primary_02",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "side_hair_right_primary",
+        "source_part_id": "side_hair_right",
+        "anchor_id": "scalp_right_temple",
+        "anchor_point": {
+          "source_px": [
+            664.0,
+            245.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_side_right_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              664.0,
+              245.0
+            ],
+            "uv": [
+              0.648438,
+              0.840495
+            ],
+            "depth": 0.22
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              669.006,
+              257.75
+            ],
+            "uv": [
+              0.653326,
+              0.832194
+            ],
+            "depth": 0.227071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              671.08,
+              270.5
+            ],
+            "uv": [
+              0.655352,
+              0.823893
+            ],
+            "depth": 0.23
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              669.006,
+              283.25
+            ],
+            "uv": [
+              0.653326,
+              0.815592
+            ],
+            "depth": 0.227071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              664.0,
+              296.0
+            ],
+            "uv": [
+              0.648438,
+              0.807292
+            ],
+            "depth": 0.22
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 67.174
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 74.547
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 81.92
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 74.547
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 67.174
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 67.174,
+          "mid_width_px": 81.92,
+          "tip_width_px": 67.174
+        },
+        "depth_group": "side_right_mid",
+        "material": {
+          "id": "alpha_textured_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/side_hair_right_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          631,
+          245,
+          697,
+          296
+        ]
+      },
+      {
+        "id": "side_hair_right_primary_03",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "side_hair_right_primary",
+        "source_part_id": "side_hair_right",
+        "anchor_id": "scalp_right_temple",
+        "anchor_point": {
+          "source_px": [
+            685.0,
+            212.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_side_right_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              685.0,
+              212.0
+            ],
+            "uv": [
+              0.668945,
+              0.861979
+            ],
+            "depth": 0.23
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              690.006,
+              233.5
+            ],
+            "uv": [
+              0.673834,
+              0.847982
+            ],
+            "depth": 0.237071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              692.08,
+              255.0
+            ],
+            "uv": [
+              0.675859,
+              0.833984
+            ],
+            "depth": 0.24
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              690.006,
+              276.5
+            ],
+            "uv": [
+              0.673834,
+              0.819987
+            ],
+            "depth": 0.237071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              685.0,
+              298.0
+            ],
+            "uv": [
+              0.668945,
+              0.80599
+            ],
+            "depth": 0.23
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 85.542
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 94.931
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 104.32
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 94.931
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 85.542
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 85.542,
+          "mid_width_px": 104.32,
+          "tip_width_px": 85.542
+        },
+        "depth_group": "side_right_mid",
+        "material": {
+          "id": "alpha_textured_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/side_hair_right_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          642,
+          212,
+          728,
+          298
+        ]
+      },
+      {
+        "id": "bangs_primary_01",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "bangs_primary",
+        "source_part_id": "bangs",
+        "anchor_id": "scalp_front_center",
+        "anchor_point": {
+          "source_px": [
+            492.0,
+            46.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_bangs_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              492.0,
+              46.0
+            ],
+            "uv": [
+              0.480469,
+              0.970052
+            ],
+            "depth": 0.753
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              494.92,
+              77.0
+            ],
+            "uv": [
+              0.483321,
+              0.94987
+            ],
+            "depth": 0.760071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              496.13,
+              108.0
+            ],
+            "uv": [
+              0.484502,
+              0.929688
+            ],
+            "depth": 0.763
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              494.92,
+              139.0
+            ],
+            "uv": [
+              0.483321,
+              0.909505
+            ],
+            "depth": 0.760071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              492.0,
+              170.0
+            ],
+            "uv": [
+              0.480469,
+              0.889323
+            ],
+            "depth": 0.753
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 153.504
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 170.352
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 187.2
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 170.352
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 153.504
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 153.504,
+          "mid_width_px": 187.2,
+          "tip_width_px": 153.504
+        },
+        "depth_group": "front_bangs",
+        "material": {
+          "id": "alpha_textured_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/bangs_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          412,
+          46,
+          572,
+          170
+        ]
+      },
+      {
+        "id": "bangs_primary_02",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "bangs_primary",
+        "source_part_id": "bangs",
+        "anchor_id": "scalp_front_center",
+        "anchor_point": {
+          "source_px": [
+            664.0,
+            245.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_bangs_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              664.0,
+              245.0
+            ],
+            "uv": [
+              0.648438,
+              0.840495
+            ],
+            "depth": 0.763
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              666.92,
+              257.75
+            ],
+            "uv": [
+              0.651289,
+              0.832194
+            ],
+            "depth": 0.770071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              668.13,
+              270.5
+            ],
+            "uv": [
+              0.652471,
+              0.823893
+            ],
+            "depth": 0.773
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              666.92,
+              283.25
+            ],
+            "uv": [
+              0.651289,
+              0.815592
+            ],
+            "depth": 0.770071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              664.0,
+              296.0
+            ],
+            "uv": [
+              0.648438,
+              0.807292
+            ],
+            "depth": 0.763
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 67.174
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 74.547
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 81.92
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 74.547
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 67.174
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 67.174,
+          "mid_width_px": 81.92,
+          "tip_width_px": 67.174
+        },
+        "depth_group": "front_bangs",
+        "material": {
+          "id": "alpha_textured_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/bangs_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          631,
+          245,
+          697,
+          296
+        ]
+      },
+      {
+        "id": "bangs_primary_03",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "bangs_primary",
+        "source_part_id": "bangs",
+        "anchor_id": "scalp_front_center",
+        "anchor_point": {
+          "source_px": [
+            685.0,
+            212.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_bangs_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              685.0,
+              212.0
+            ],
+            "uv": [
+              0.668945,
+              0.861979
+            ],
+            "depth": 0.773
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              687.92,
+              233.5
+            ],
+            "uv": [
+              0.671797,
+              0.847982
+            ],
+            "depth": 0.780071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              689.13,
+              255.0
+            ],
+            "uv": [
+              0.672979,
+              0.833984
+            ],
+            "depth": 0.783
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              687.92,
+              276.5
+            ],
+            "uv": [
+              0.671797,
+              0.819987
+            ],
+            "depth": 0.780071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              685.0,
+              298.0
+            ],
+            "uv": [
+              0.668945,
+              0.80599
+            ],
+            "depth": 0.773
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 85.542
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 94.931
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 104.32
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 94.931
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 85.542
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 85.542,
+          "mid_width_px": 104.32,
+          "tip_width_px": 85.542
+        },
+        "depth_group": "front_bangs",
+        "material": {
+          "id": "alpha_textured_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/bangs_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          642,
+          212,
+          728,
+          298
+        ]
+      },
+      {
+        "id": "bangs_primary_04",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "bangs_primary",
+        "source_part_id": "bangs",
+        "anchor_id": "scalp_front_center",
+        "anchor_point": {
+          "source_px": [
+            746.0,
+            327.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_bangs_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              746.0,
+              327.0
+            ],
+            "uv": [
+              0.728516,
+              0.787109
+            ],
+            "depth": 0.783
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              748.92,
+              338.5
+            ],
+            "uv": [
+              0.731368,
+              0.779622
+            ],
+            "depth": 0.790071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              750.13,
+              350.0
+            ],
+            "uv": [
+              0.732549,
+              0.772135
+            ],
+            "depth": 0.793
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              748.92,
+              361.5
+            ],
+            "uv": [
+              0.731368,
+              0.764648
+            ],
+            "depth": 0.790071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              746.0,
+              373.0
+            ],
+            "uv": [
+              0.728516,
+              0.757161
+            ],
+            "depth": 0.783
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 72.685
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 80.662
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 88.64
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 80.662
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 72.685
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 72.685,
+          "mid_width_px": 88.64,
+          "tip_width_px": 72.685
+        },
+        "depth_group": "front_bangs",
+        "material": {
+          "id": "alpha_textured_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/bangs_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          710,
+          327,
+          782,
+          373
+        ]
+      },
+      {
+        "id": "bangs_primary_05",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "bangs_primary",
+        "source_part_id": "bangs",
+        "anchor_id": "scalp_front_center",
+        "anchor_point": {
+          "source_px": [
+            400.5,
+            263.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_bangs_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              400.5,
+              263.0
+            ],
+            "uv": [
+              0.391113,
+              0.828776
+            ],
+            "depth": 0.793
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              403.42,
+              271.25
+            ],
+            "uv": [
+              0.393965,
+              0.823405
+            ],
+            "depth": 0.800071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              404.63,
+              279.5
+            ],
+            "uv": [
+              0.395146,
+              0.818034
+            ],
+            "depth": 0.803
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              403.42,
+              287.75
+            ],
+            "uv": [
+              0.393965,
+              0.812663
+            ],
+            "depth": 0.800071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              400.5,
+              296.0
+            ],
+            "uv": [
+              0.391113,
+              0.807292
+            ],
+            "depth": 0.793
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 38.704
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 42.952
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 47.2
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 42.952
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 38.704
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 38.704,
+          "mid_width_px": 47.2,
+          "tip_width_px": 38.704
+        },
+        "depth_group": "front_bangs",
+        "material": {
+          "id": "alpha_textured_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/bangs_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          383,
+          263,
+          418,
+          296
+        ]
+      },
+      {
+        "id": "bangs_primary_06",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "bangs_primary",
+        "source_part_id": "bangs",
+        "anchor_id": "scalp_front_center",
+        "anchor_point": {
+          "source_px": [
+            390.5,
+            237.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_bangs_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              390.5,
+              237.0
+            ],
+            "uv": [
+              0.381348,
+              0.845703
+            ],
+            "depth": 0.803
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              393.42,
+              246.0
+            ],
+            "uv": [
+              0.3842,
+              0.839844
+            ],
+            "depth": 0.810071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              394.63,
+              255.0
+            ],
+            "uv": [
+              0.385381,
+              0.833984
+            ],
+            "depth": 0.813
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              393.42,
+              264.0
+            ],
+            "uv": [
+              0.3842,
+              0.828125
+            ],
+            "depth": 0.810071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              390.5,
+              273.0
+            ],
+            "uv": [
+              0.381348,
+              0.822266
+            ],
+            "depth": 0.803
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 44.214
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 49.067
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 53.92
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 49.067
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 44.214
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 44.214,
+          "mid_width_px": 53.92,
+          "tip_width_px": 44.214
+        },
+        "depth_group": "front_bangs",
+        "material": {
+          "id": "alpha_textured_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/bangs_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          370,
+          237,
+          411,
+          273
+        ]
+      },
+      {
+        "id": "secondary_strands_01",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "secondary_strands",
+        "source_part_id": "back_hair",
+        "anchor_id": "scalp_crown",
+        "anchor_point": {
+          "source_px": [
+            802.0,
+            321.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_back_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              802.0,
+              321.0
+            ],
+            "uv": [
+              0.783203,
+              0.791016
+            ],
+            "depth": -0.566
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              810.485,
+              356.0
+            ],
+            "uv": [
+              0.79149,
+              0.768229
+            ],
+            "depth": -0.558929
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              814.0,
+              391.0
+            ],
+            "uv": [
+              0.794922,
+              0.745443
+            ],
+            "depth": -0.556
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              810.485,
+              426.0
+            ],
+            "uv": [
+              0.79149,
+              0.722656
+            ],
+            "depth": -0.558929
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              802.0,
+              461.0
+            ],
+            "uv": [
+              0.783203,
+              0.69987
+            ],
+            "depth": -0.566
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 54.842
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 60.861
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 66.88
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 60.861
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 54.842
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 54.842,
+          "mid_width_px": 66.88,
+          "tip_width_px": 54.842
+        },
+        "depth_group": "secondary_detail",
+        "material": {
+          "id": "alpha_textured_secondary_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/back_hair_mass_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          710,
+          321,
+          894,
+          461
+        ]
+      },
+      {
+        "id": "secondary_strands_02",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "secondary_strands",
+        "source_part_id": "side_hair_right",
+        "anchor_id": "scalp_right_temple",
+        "anchor_point": {
+          "source_px": [
+            802.0,
+            321.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_side_right_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              802.0,
+              321.0
+            ],
+            "uv": [
+              0.783203,
+              0.791016
+            ],
+            "depth": 0.258
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              810.485,
+              356.0
+            ],
+            "uv": [
+              0.79149,
+              0.768229
+            ],
+            "depth": 0.265071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              814.0,
+              391.0
+            ],
+            "uv": [
+              0.794922,
+              0.745443
+            ],
+            "depth": 0.268
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              810.485,
+              426.0
+            ],
+            "uv": [
+              0.79149,
+              0.722656
+            ],
+            "depth": 0.265071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              802.0,
+              461.0
+            ],
+            "uv": [
+              0.783203,
+              0.69987
+            ],
+            "depth": 0.258
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 54.842
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 60.861
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 66.88
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 60.861
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 54.842
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 54.842,
+          "mid_width_px": 66.88,
+          "tip_width_px": 54.842
+        },
+        "depth_group": "secondary_detail",
+        "material": {
+          "id": "alpha_textured_secondary_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/side_hair_right_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          710,
+          321,
+          894,
+          461
+        ]
+      },
+      {
+        "id": "secondary_strands_03",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "secondary_strands",
+        "source_part_id": "bangs",
+        "anchor_id": "scalp_front_center",
+        "anchor_point": {
+          "source_px": [
+            492.0,
+            46.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_bangs_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              492.0,
+              46.0
+            ],
+            "uv": [
+              0.480469,
+              0.970052
+            ],
+            "depth": 0.818
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              500.485,
+              77.0
+            ],
+            "uv": [
+              0.488755,
+              0.94987
+            ],
+            "depth": 0.825071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              504.0,
+              108.0
+            ],
+            "uv": [
+              0.492188,
+              0.929688
+            ],
+            "depth": 0.828
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              500.485,
+              139.0
+            ],
+            "uv": [
+              0.488755,
+              0.909505
+            ],
+            "depth": 0.825071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              492.0,
+              170.0
+            ],
+            "uv": [
+              0.480469,
+              0.889323
+            ],
+            "depth": 0.818
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 48.544
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 53.872
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 59.2
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 53.872
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 48.544
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 48.544,
+          "mid_width_px": 59.2,
+          "tip_width_px": 48.544
+        },
+        "depth_group": "secondary_detail",
+        "material": {
+          "id": "alpha_textured_secondary_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/bangs_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          412,
+          46,
+          572,
+          170
+        ]
+      },
+      {
+        "id": "secondary_strands_04",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "secondary_strands",
+        "source_part_id": "back_hair",
+        "anchor_id": "scalp_crown",
+        "anchor_point": {
+          "source_px": [
+            192.0,
+            429.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_back_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              192.0,
+              429.0
+            ],
+            "uv": [
+              0.1875,
+              0.720703
+            ],
+            "depth": -0.56
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              200.485,
+              444.25
+            ],
+            "uv": [
+              0.195786,
+              0.710775
+            ],
+            "depth": -0.552929
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              204.0,
+              459.5
+            ],
+            "uv": [
+              0.199219,
+              0.700846
+            ],
+            "depth": -0.55
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              200.485,
+              474.75
+            ],
+            "uv": [
+              0.195786,
+              0.690918
+            ],
+            "depth": -0.552929
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              192.0,
+              490.0
+            ],
+            "uv": [
+              0.1875,
+              0.68099
+            ],
+            "depth": -0.56
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 33.325
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 36.982
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 40.64
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 36.982
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 33.325
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 33.325,
+          "mid_width_px": 40.64,
+          "tip_width_px": 33.325
+        },
+        "depth_group": "secondary_detail",
+        "material": {
+          "id": "alpha_textured_secondary_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/back_hair_mass_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          141,
+          429,
+          243,
+          490
+        ]
+      },
+      {
+        "id": "secondary_strands_05",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "secondary_strands",
+        "source_part_id": "side_hair_left",
+        "anchor_id": "scalp_left_temple",
+        "anchor_point": {
+          "source_px": [
+            192.0,
+            429.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_side_left_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              192.0,
+              429.0
+            ],
+            "uv": [
+              0.1875,
+              0.720703
+            ],
+            "depth": 0.21
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              200.485,
+              444.25
+            ],
+            "uv": [
+              0.195786,
+              0.710775
+            ],
+            "depth": 0.217071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              204.0,
+              459.5
+            ],
+            "uv": [
+              0.199219,
+              0.700846
+            ],
+            "depth": 0.22
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              200.485,
+              474.75
+            ],
+            "uv": [
+              0.195786,
+              0.690918
+            ],
+            "depth": 0.217071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              192.0,
+              490.0
+            ],
+            "uv": [
+              0.1875,
+              0.68099
+            ],
+            "depth": 0.21
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 33.325
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 36.982
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 40.64
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 36.982
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 33.325
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 33.325,
+          "mid_width_px": 40.64,
+          "tip_width_px": 33.325
+        },
+        "depth_group": "secondary_detail",
+        "material": {
+          "id": "alpha_textured_secondary_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/side_hair_left_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          141,
+          429,
+          243,
+          490
+        ]
+      },
+      {
+        "id": "secondary_strands_06",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "secondary_strands",
+        "source_part_id": "side_hair_right",
+        "anchor_id": "scalp_right_temple",
+        "anchor_point": {
+          "source_px": [
+            664.0,
+            245.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_side_right_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              664.0,
+              245.0
+            ],
+            "uv": [
+              0.648438,
+              0.840495
+            ],
+            "depth": 0.266
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              672.485,
+              257.75
+            ],
+            "uv": [
+              0.656724,
+              0.832194
+            ],
+            "depth": 0.273071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              676.0,
+              270.5
+            ],
+            "uv": [
+              0.660156,
+              0.823893
+            ],
+            "depth": 0.276
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              672.485,
+              283.25
+            ],
+            "uv": [
+              0.656724,
+              0.815592
+            ],
+            "depth": 0.273071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              664.0,
+              296.0
+            ],
+            "uv": [
+              0.648438,
+              0.807292
+            ],
+            "depth": 0.266
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 23.878
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 26.499
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 29.12
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 26.499
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 23.878
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 23.878,
+          "mid_width_px": 29.12,
+          "tip_width_px": 23.878
+        },
+        "depth_group": "secondary_detail",
+        "material": {
+          "id": "alpha_textured_secondary_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/side_hair_right_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          631,
+          245,
+          697,
+          296
+        ]
+      },
+      {
+        "id": "secondary_strands_07",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "secondary_strands",
+        "source_part_id": "bangs",
+        "anchor_id": "scalp_front_center",
+        "anchor_point": {
+          "source_px": [
+            664.0,
+            245.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_bangs_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              664.0,
+              245.0
+            ],
+            "uv": [
+              0.648438,
+              0.840495
+            ],
+            "depth": 0.826
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              672.485,
+              257.75
+            ],
+            "uv": [
+              0.656724,
+              0.832194
+            ],
+            "depth": 0.833071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              676.0,
+              270.5
+            ],
+            "uv": [
+              0.660156,
+              0.823893
+            ],
+            "depth": 0.836
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              672.485,
+              283.25
+            ],
+            "uv": [
+              0.656724,
+              0.815592
+            ],
+            "depth": 0.833071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              664.0,
+              296.0
+            ],
+            "uv": [
+              0.648438,
+              0.807292
+            ],
+            "depth": 0.826
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 23.878
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 26.499
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 29.12
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 26.499
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 23.878
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 23.878,
+          "mid_width_px": 29.12,
+          "tip_width_px": 23.878
+        },
+        "depth_group": "secondary_detail",
+        "material": {
+          "id": "alpha_textured_secondary_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/bangs_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          631,
+          245,
+          697,
+          296
+        ]
+      },
+      {
+        "id": "secondary_strands_08",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "secondary_strands",
+        "source_part_id": "side_hair_right",
+        "anchor_id": "scalp_right_temple",
+        "anchor_point": {
+          "source_px": [
+            685.0,
+            212.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_side_right_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              685.0,
+              212.0
+            ],
+            "uv": [
+              0.668945,
+              0.861979
+            ],
+            "depth": 0.27
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              693.485,
+              233.5
+            ],
+            "uv": [
+              0.677232,
+              0.847982
+            ],
+            "depth": 0.277071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              697.0,
+              255.0
+            ],
+            "uv": [
+              0.680664,
+              0.833984
+            ],
+            "depth": 0.28
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              693.485,
+              276.5
+            ],
+            "uv": [
+              0.677232,
+              0.819987
+            ],
+            "depth": 0.277071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              685.0,
+              298.0
+            ],
+            "uv": [
+              0.668945,
+              0.80599
+            ],
+            "depth": 0.27
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 29.126
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 32.323
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 35.52
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 32.323
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 29.126
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 29.126,
+          "mid_width_px": 35.52,
+          "tip_width_px": 29.126
+        },
+        "depth_group": "secondary_detail",
+        "material": {
+          "id": "alpha_textured_secondary_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/side_hair_right_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          642,
+          212,
+          728,
+          298
+        ]
+      },
+      {
+        "id": "secondary_strands_09",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "secondary_strands",
+        "source_part_id": "bangs",
+        "anchor_id": "scalp_front_center",
+        "anchor_point": {
+          "source_px": [
+            685.0,
+            212.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_bangs_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              685.0,
+              212.0
+            ],
+            "uv": [
+              0.668945,
+              0.861979
+            ],
+            "depth": 0.83
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              693.485,
+              233.5
+            ],
+            "uv": [
+              0.677232,
+              0.847982
+            ],
+            "depth": 0.837071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              697.0,
+              255.0
+            ],
+            "uv": [
+              0.680664,
+              0.833984
+            ],
+            "depth": 0.84
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              693.485,
+              276.5
+            ],
+            "uv": [
+              0.677232,
+              0.819987
+            ],
+            "depth": 0.837071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              685.0,
+              298.0
+            ],
+            "uv": [
+              0.668945,
+              0.80599
+            ],
+            "depth": 0.83
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 29.126
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 32.323
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 35.52
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 32.323
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 29.126
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 29.126,
+          "mid_width_px": 35.52,
+          "tip_width_px": 29.126
+        },
+        "depth_group": "secondary_detail",
+        "material": {
+          "id": "alpha_textured_secondary_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/bangs_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          642,
+          212,
+          728,
+          298
+        ]
+      },
+      {
+        "id": "flyaway_strands_01",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "flyaway_strands",
+        "source_part_id": "back_hair",
+        "anchor_id": "scalp_crown",
+        "anchor_point": {
+          "source_px": [
+            802.0,
+            321.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_back_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              802.0,
+              321.0
+            ],
+            "uv": [
+              0.783203,
+              0.791016
+            ],
+            "depth": -0.544
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              814.728,
+              356.0
+            ],
+            "uv": [
+              0.795633,
+              0.768229
+            ],
+            "depth": -0.536929
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              820.0,
+              391.0
+            ],
+            "uv": [
+              0.800781,
+              0.745443
+            ],
+            "depth": -0.534
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              814.728,
+              426.0
+            ],
+            "uv": [
+              0.795633,
+              0.722656
+            ],
+            "depth": -0.536929
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              802.0,
+              461.0
+            ],
+            "uv": [
+              0.783203,
+              0.69987
+            ],
+            "depth": -0.544
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 27.683
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 30.722
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 33.76
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 30.722
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 27.683
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 27.683,
+          "mid_width_px": 33.76,
+          "tip_width_px": 27.683
+        },
+        "depth_group": "flyaways",
+        "material": {
+          "id": "alpha_textured_flyaway_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/back_hair_mass_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          710,
+          321,
+          894,
+          461
+        ]
+      },
+      {
+        "id": "flyaway_strands_02",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "flyaway_strands",
+        "source_part_id": "side_hair_right",
+        "anchor_id": "scalp_right_temple",
+        "anchor_point": {
+          "source_px": [
+            802.0,
+            321.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_side_right_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              802.0,
+              321.0
+            ],
+            "uv": [
+              0.783203,
+              0.791016
+            ],
+            "depth": 0.28
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              814.728,
+              356.0
+            ],
+            "uv": [
+              0.795633,
+              0.768229
+            ],
+            "depth": 0.287071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              820.0,
+              391.0
+            ],
+            "uv": [
+              0.800781,
+              0.745443
+            ],
+            "depth": 0.29
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              814.728,
+              426.0
+            ],
+            "uv": [
+              0.795633,
+              0.722656
+            ],
+            "depth": 0.287071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              802.0,
+              461.0
+            ],
+            "uv": [
+              0.783203,
+              0.69987
+            ],
+            "depth": 0.28
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 27.683
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 30.722
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 33.76
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 30.722
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 27.683
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 27.683,
+          "mid_width_px": 33.76,
+          "tip_width_px": 27.683
+        },
+        "depth_group": "flyaways",
+        "material": {
+          "id": "alpha_textured_flyaway_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/side_hair_right_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          710,
+          321,
+          894,
+          461
+        ]
+      },
+      {
+        "id": "flyaway_strands_03",
+        "primitive_type": "scalp_anchored_spline_ribbon",
+        "group_id": "flyaway_strands",
+        "source_part_id": "bangs",
+        "anchor_id": "scalp_front_center",
+        "anchor_point": {
+          "source_px": [
+            492.0,
+            46.0
+          ],
+          "semantic": "scalp_attachment",
+          "spring_hook": "hair_bangs_spring_hook"
+        },
+        "curve_path": [
+          {
+            "t": 0.0,
+            "source_px": [
+              492.0,
+              46.0
+            ],
+            "uv": [
+              0.480469,
+              0.970052
+            ],
+            "depth": 0.84
+          },
+          {
+            "t": 0.25,
+            "source_px": [
+              504.728,
+              77.0
+            ],
+            "uv": [
+              0.492898,
+              0.94987
+            ],
+            "depth": 0.847071
+          },
+          {
+            "t": 0.5,
+            "source_px": [
+              510.0,
+              108.0
+            ],
+            "uv": [
+              0.498047,
+              0.929688
+            ],
+            "depth": 0.85
+          },
+          {
+            "t": 0.75,
+            "source_px": [
+              504.728,
+              139.0
+            ],
+            "uv": [
+              0.492898,
+              0.909505
+            ],
+            "depth": 0.847071
+          },
+          {
+            "t": 1.0,
+            "source_px": [
+              492.0,
+              170.0
+            ],
+            "uv": [
+              0.480469,
+              0.889323
+            ],
+            "depth": 0.84
+          }
+        ],
+        "width_profile": [
+          {
+            "t": 0.0,
+            "source_width_px": 24.928
+          },
+          {
+            "t": 0.25,
+            "source_width_px": 27.664
+          },
+          {
+            "t": 0.5,
+            "source_width_px": 30.4
+          },
+          {
+            "t": 0.75,
+            "source_width_px": 27.664
+          },
+          {
+            "t": 1.0,
+            "source_width_px": 24.928
+          }
+        ],
+        "taper": {
+          "kind": "root_to_tip_profile",
+          "root_width_px": 24.928,
+          "mid_width_px": 30.4,
+          "tip_width_px": 24.928
+        },
+        "depth_group": "flyaways",
+        "material": {
+          "id": "alpha_textured_flyaway_hair_ribbon",
+          "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/bangs_primary_art_directed_v1.png",
+          "alpha_mode": "BLEND"
+        },
+        "bbox": [
+          412,
+          46,
+          572,
+          170
+        ]
+      }
+    ],
+    "art_masks": [
+      {
+        "part_id": "back_hair",
+        "group_id": "back_hair_mass",
+        "role": "back_hair_mass",
+        "mask": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/art_masks/back_hair_mass_art_directed_v1_mask.png",
+        "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/back_hair_mass_art_directed_v1.png",
+        "component_count": 2,
+        "pixel_count": 12711,
+        "largest_component_area": 9808
+      },
+      {
+        "part_id": "side_hair_left",
+        "group_id": "side_hair_left_primary",
+        "role": "side_hair_left_primary",
+        "mask": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/art_masks/side_hair_left_primary_art_directed_v1_mask.png",
+        "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/side_hair_left_primary_art_directed_v1.png",
+        "component_count": 4,
+        "pixel_count": 4278,
+        "largest_component_area": 2903
+      },
+      {
+        "part_id": "side_hair_right",
+        "group_id": "side_hair_right_primary",
+        "role": "side_hair_right_primary",
+        "mask": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/art_masks/side_hair_right_primary_art_directed_v1_mask.png",
+        "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/side_hair_right_primary_art_directed_v1.png",
+        "component_count": 3,
+        "pixel_count": 12833,
+        "largest_component_area": 9808
+      },
+      {
+        "part_id": "bangs",
+        "group_id": "bangs_primary",
+        "role": "bangs_primary",
+        "mask": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/art_masks/bangs_primary_art_directed_v1_mask.png",
+        "texture": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/textures/bangs_primary_art_directed_v1.png",
+        "component_count": 6,
+        "pixel_count": 9974,
+        "largest_component_area": 4772
+      }
+    ]
+  },
+  "exports": {
+    "obj": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/exports/yuna_semantic_layer_v9_hair_art_directed_v1_silhouette.obj",
+    "glb": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/exports/yuna_semantic_layer_v9_hair_art_directed_v1_silhouette.glb",
+    "report": "CharacterPackage/semantic_layer_v9_hair/art_directed_v1_variants/silhouette/validation_report.json"
+  }
+}

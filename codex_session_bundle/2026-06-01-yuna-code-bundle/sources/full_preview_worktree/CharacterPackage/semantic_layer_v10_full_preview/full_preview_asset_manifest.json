@@ -1,0 +1,343 @@
+{
+  "created_at": "2026-05-29T12:38:08.014318+00:00",
+  "route": "yuna_full_character_preview_v0",
+  "formula": "PreviewScene = AssembleUnderConstraints(v8_baseline, candidate_hair, candidate_cloth, weapon, boots, debug_cage)",
+  "preview_only": true,
+  "replace_in_beauty_glb": false,
+  "hair_accepted": false,
+  "cloth_accepted": false,
+  "ready_for_cloth_seam_surface": false,
+  "manual_visual_review_required": true,
+  "source_branch": "feature/authored-hair-ribbons-v0",
+  "base_commit": "d933c6f",
+  "scene_collections": [
+    {
+      "name": "baseline_v8",
+      "default_visible": true,
+      "toggleable": false
+    },
+    {
+      "name": "candidate_hair_unaccepted",
+      "default_visible": true,
+      "toggleable": true
+    },
+    {
+      "name": "candidate_cloth_unaccepted",
+      "default_visible": false,
+      "toggleable": true
+    },
+    {
+      "name": "weapon",
+      "default_visible": true,
+      "toggleable": true
+    },
+    {
+      "name": "body_visual",
+      "default_visible": true,
+      "toggleable": true
+    },
+    {
+      "name": "debug_cage_hidden",
+      "default_visible": false,
+      "toggleable": true
+    },
+    {
+      "name": "review_cameras",
+      "default_visible": true,
+      "toggleable": false
+    },
+    {
+      "name": "lights",
+      "default_visible": true,
+      "toggleable": false
+    }
+  ],
+  "assets": {
+    "v8_beauty_glb": {
+      "role": "immutable_v8_baseline_beauty",
+      "path": "CharacterPackage/semantic_layer_v8/exports/yuna_semantic_layer_v8.glb",
+      "exists": true,
+      "available": true,
+      "required": true,
+      "bytes": 22268232,
+      "collection": "baseline_v8"
+    },
+    "v8_cage_debug_glb": {
+      "role": "debug_cage_hidden_by_default",
+      "path": "CharacterPackage/semantic_layer_v8/exports/yuna_semantic_layer_v8_cage_debug.glb",
+      "exists": true,
+      "available": true,
+      "required": false,
+      "bytes": 22403908,
+      "collection": "debug_cage_hidden"
+    },
+    "candidate_hair_glb": {
+      "role": "candidate_hair_unaccepted_curve_bundle_v1",
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/exports/yuna_curve_bundle_hair_v1.glb",
+      "exists": true,
+      "available": true,
+      "required": false,
+      "bytes": 1239076,
+      "collection": "candidate_hair_unaccepted"
+    },
+    "candidate_hair_report": {
+      "role": "candidate_hair_unaccepted_report",
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/validation_report.json",
+      "exists": true,
+      "available": true,
+      "required": false,
+      "bytes": 465725
+    },
+    "weapon_candidate_glb": {
+      "role": "weapon_candidate_context",
+      "path": "CharacterPackage/semantic_layer_v9_weapon/exports/yuna_semantic_layer_v9_weapon.glb",
+      "exists": true,
+      "available": true,
+      "required": false,
+      "bytes": 1606704,
+      "collection": "weapon"
+    },
+    "weapon_candidate_report": {
+      "role": "weapon_candidate_report",
+      "path": "CharacterPackage/semantic_layer_v9_weapon/validation_report.json",
+      "exists": true,
+      "available": true,
+      "required": false,
+      "bytes": 3563
+    },
+    "boots_candidate_glb": {
+      "role": "boots_candidate_context",
+      "path": "CharacterPackage/semantic_layer_v9_boot/exports/yuna_semantic_layer_v9_boot.glb",
+      "exists": true,
+      "available": true,
+      "required": false,
+      "bytes": 1645300,
+      "collection": "body_visual"
+    },
+    "boots_candidate_report": {
+      "role": "boots_candidate_report",
+      "path": "CharacterPackage/semantic_layer_v9_boot/validation_report.json",
+      "exists": true,
+      "available": true,
+      "required": false,
+      "bytes": 5442
+    },
+    "legs_candidate_glb": {
+      "role": "legs_candidate_context",
+      "path": "CharacterPackage/semantic_layer_v9_leg/exports/yuna_semantic_layer_v9_leg.glb",
+      "exists": true,
+      "available": true,
+      "required": false,
+      "bytes": 1670408,
+      "collection": "body_visual"
+    },
+    "legs_candidate_report": {
+      "role": "legs_candidate_report",
+      "path": "CharacterPackage/semantic_layer_v9_leg/validation_report.json",
+      "exists": true,
+      "available": true,
+      "required": false,
+      "bytes": 5641
+    },
+    "cloth_candidate_glb": {
+      "role": "candidate_cloth_unaccepted_missing",
+      "path": "CharacterPackage/semantic_layer_v9_cloth/exports/yuna_semantic_layer_v9_cloth.glb",
+      "exists": false,
+      "available": false,
+      "required": false,
+      "bytes": 0,
+      "collection": "candidate_cloth_unaccepted",
+      "reason": "semantic_layer_v9_cloth route is not present on source branch; cloth remains blocked and unaccepted"
+    }
+  },
+  "panels": {
+    "cloth_cape_skirt_jacket_panels": [
+      {
+        "role": "v8_texture_panel_cape_left",
+        "path": "CharacterPackage/semantic_layer_v8/textures/cape_left.png",
+        "exists": true,
+        "available": true,
+        "required": false,
+        "bytes": 1580578
+      },
+      {
+        "role": "v8_texture_panel_cape_right",
+        "path": "CharacterPackage/semantic_layer_v8/textures/cape_right.png",
+        "exists": true,
+        "available": true,
+        "required": false,
+        "bytes": 1580604
+      },
+      {
+        "role": "v8_texture_panel_jacket_outer",
+        "path": "CharacterPackage/semantic_layer_v8/textures/jacket_outer.png",
+        "exists": true,
+        "available": true,
+        "required": false,
+        "bytes": 1588908
+      },
+      {
+        "role": "v8_texture_panel_skirt_front",
+        "path": "CharacterPackage/semantic_layer_v8/textures/skirt_front.png",
+        "exists": true,
+        "available": true,
+        "required": false,
+        "bytes": 1579639
+      },
+      {
+        "role": "v8_texture_panel_torso_inner",
+        "path": "CharacterPackage/semantic_layer_v8/textures/torso_inner.png",
+        "exists": true,
+        "available": true,
+        "required": false,
+        "bytes": 1583502
+      },
+      {
+        "role": "v8_front_mask_cape_left",
+        "path": "CharacterPackage/semantic_layer_v8/masks/front/cape_left.png",
+        "exists": true,
+        "available": true,
+        "required": false,
+        "bytes": 10270
+      },
+      {
+        "role": "v8_front_mask_cape_right",
+        "path": "CharacterPackage/semantic_layer_v8/masks/front/cape_right.png",
+        "exists": true,
+        "available": true,
+        "required": false,
+        "bytes": 12635
+      },
+      {
+        "role": "v8_front_mask_jacket_outer",
+        "path": "CharacterPackage/semantic_layer_v8/masks/front/jacket_outer.png",
+        "exists": true,
+        "available": true,
+        "required": false,
+        "bytes": 32490
+      },
+      {
+        "role": "v8_front_mask_skirt_front",
+        "path": "CharacterPackage/semantic_layer_v8/masks/front/skirt_front.png",
+        "exists": true,
+        "available": true,
+        "required": false,
+        "bytes": 2444
+      },
+      {
+        "role": "v8_front_mask_torso_inner",
+        "path": "CharacterPackage/semantic_layer_v8/masks/front/torso_inner.png",
+        "exists": true,
+        "available": true,
+        "required": false,
+        "bytes": 16809
+      }
+    ],
+    "boots_legs_visual_panels": [
+      {
+        "role": "v8_texture_panel_boots",
+        "path": "CharacterPackage/semantic_layer_v8/textures/boots.png",
+        "exists": true,
+        "available": true,
+        "required": false,
+        "bytes": 1579504
+      },
+      {
+        "role": "v8_texture_panel_legs",
+        "path": "CharacterPackage/semantic_layer_v8/textures/legs.png",
+        "exists": true,
+        "available": true,
+        "required": false,
+        "bytes": 1579690
+      },
+      {
+        "role": "v8_texture_panel_leg_L_visual_panel",
+        "path": "CharacterPackage/semantic_layer_v8/textures/leg_L_visual_panel.png",
+        "exists": true,
+        "available": true,
+        "required": false,
+        "bytes": 1580343
+      },
+      {
+        "role": "v8_texture_panel_leg_R_visual_panel",
+        "path": "CharacterPackage/semantic_layer_v8/textures/leg_R_visual_panel.png",
+        "exists": true,
+        "available": true,
+        "required": false,
+        "bytes": 1580206
+      },
+      {
+        "role": "v8_front_mask_boots",
+        "path": "CharacterPackage/semantic_layer_v8/masks/front/boots.png",
+        "exists": true,
+        "available": true,
+        "required": false,
+        "bytes": 3509
+      },
+      {
+        "role": "v8_front_mask_legs",
+        "path": "CharacterPackage/semantic_layer_v8/masks/front/legs.png",
+        "exists": true,
+        "available": true,
+        "required": false,
+        "bytes": 3882
+      }
+    ],
+    "debug_cage_assets": [
+      {
+        "role": "debug_cage_hidden_by_default",
+        "path": "CharacterPackage/semantic_layer_v8/exports/yuna_semantic_layer_v8_cage_debug.glb",
+        "exists": true,
+        "available": true,
+        "required": false,
+        "bytes": 22403908,
+        "collection": "debug_cage_hidden"
+      },
+      {
+        "role": "v8_debug_validation_yuna_semantic_layer_v8_cage_wire.png",
+        "path": "CharacterPackage/semantic_layer_v8/validation/yuna_semantic_layer_v8_cage_wire.png",
+        "exists": true,
+        "available": true,
+        "required": false,
+        "bytes": 2199248
+      },
+      {
+        "role": "v8_debug_validation_yuna_semantic_layer_v8_exploded.png",
+        "path": "CharacterPackage/semantic_layer_v8/validation/yuna_semantic_layer_v8_exploded.png",
+        "exists": true,
+        "available": true,
+        "required": false,
+        "bytes": 2278977
+      },
+      {
+        "role": "v8_debug_validation_yuna_semantic_layer_v8_side_cage.png",
+        "path": "CharacterPackage/semantic_layer_v8/validation/yuna_semantic_layer_v8_side_cage.png",
+        "exists": true,
+        "available": true,
+        "required": false,
+        "bytes": 1037751
+      }
+    ]
+  },
+  "unavailable": [
+    {
+      "role": "candidate_cloth_unaccepted_missing",
+      "path": "CharacterPackage/semantic_layer_v9_cloth/exports/yuna_semantic_layer_v9_cloth.glb",
+      "exists": false,
+      "available": false,
+      "required": false,
+      "bytes": 0,
+      "collection": "candidate_cloth_unaccepted",
+      "reason": "semantic_layer_v9_cloth route is not present on source branch; cloth remains blocked and unaccepted"
+    }
+  ],
+  "constraints": {
+    "semantic_layer_v8": "read_only",
+    "semantic_layer_v9_hair": "read_only",
+    "debug_cage": "hidden_by_default",
+    "candidate_hair": "unaccepted_toggleable_context",
+    "candidate_cloth": "unaccepted_unavailable_on_source_branch",
+    "beauty_replacement": "forbidden",
+    "production_topology_claim": "forbidden"
+  }
+}

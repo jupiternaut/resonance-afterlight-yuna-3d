@@ -1,0 +1,428 @@
+{
+  "created_at": "2026-05-29T12:38:31.087861+00:00",
+  "route": "yuna_full_character_preview_v0",
+  "status": "preview_generated_manual_review_required",
+  "formula": "PreviewScene = AssembleUnderConstraints(v8_baseline, candidate_hair, candidate_cloth, weapon, boots, debug_cage)",
+  "preview_only": true,
+  "replace_in_beauty_glb": false,
+  "hair_accepted": false,
+  "cloth_accepted": false,
+  "ready_for_cloth_seam_surface": false,
+  "v8_unchanged": true,
+  "v9_hair_unchanged": true,
+  "manual_visual_review_required": true,
+  "source_branch": "feature/authored-hair-ribbons-v0",
+  "base_commit": "d933c6f",
+  "boundary": "Preview-only context scene. It does not accept hair or cloth, replace v8 beauty, unblock cloth_seam_surface, or claim final production topology.",
+  "asset_manifest": {
+    "role": "full_preview_asset_manifest",
+    "path": "CharacterPackage/semantic_layer_v10_full_preview/full_preview_asset_manifest.json",
+    "exists": true,
+    "available": true,
+    "required": true,
+    "bytes": 10774
+  },
+  "outputs": {
+    "blend": {
+      "role": "full_preview_blender_scene",
+      "path": "CharacterPackage/semantic_layer_v10_full_preview/exports/yuna_full_character_preview_v0.blend",
+      "exists": true,
+      "available": true,
+      "required": true,
+      "bytes": 49664676
+    },
+    "glb": {
+      "role": "full_preview_glb_export_if_possible",
+      "path": "CharacterPackage/semantic_layer_v10_full_preview/exports/yuna_full_character_preview_v0.glb",
+      "exists": true,
+      "available": true,
+      "required": false,
+      "bytes": 25417432
+    }
+  },
+  "screenshots": {
+    "front_baseline": {
+      "role": "full_preview_screenshot_front_baseline",
+      "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/front_baseline.png",
+      "exists": true,
+      "available": true,
+      "required": true,
+      "bytes": 2105446
+    },
+    "front_candidate_overlay": {
+      "role": "full_preview_screenshot_front_candidate_overlay",
+      "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/front_candidate_overlay.png",
+      "exists": true,
+      "available": true,
+      "required": true,
+      "bytes": 2199193
+    },
+    "yaw15": {
+      "role": "full_preview_screenshot_yaw15",
+      "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/yaw15.png",
+      "exists": true,
+      "available": true,
+      "required": true,
+      "bytes": 2226927
+    },
+    "yaw30": {
+      "role": "full_preview_screenshot_yaw30",
+      "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/yaw30.png",
+      "exists": true,
+      "available": true,
+      "required": true,
+      "bytes": 2174066
+    },
+    "side": {
+      "role": "full_preview_screenshot_side",
+      "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/side.png",
+      "exists": true,
+      "available": true,
+      "required": true,
+      "bytes": 1460326
+    },
+    "back": {
+      "role": "full_preview_screenshot_back",
+      "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/back.png",
+      "exists": true,
+      "available": true,
+      "required": true,
+      "bytes": 2148804
+    },
+    "wire": {
+      "role": "full_preview_screenshot_wire",
+      "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/wire.png",
+      "exists": true,
+      "available": true,
+      "required": true,
+      "bytes": 2405544
+    },
+    "exploded": {
+      "role": "full_preview_screenshot_exploded",
+      "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/exploded.png",
+      "exists": true,
+      "available": true,
+      "required": true,
+      "bytes": 2178370
+    },
+    "contact_sheet": {
+      "role": "full_preview_contact_sheet",
+      "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/contact_sheet.png",
+      "exists": true,
+      "available": true,
+      "required": true,
+      "bytes": 716991
+    }
+  },
+  "quality": {
+    "missing_screenshots": [],
+    "manual_visual_review_status": "pending",
+    "visual_sanity_status": "manual_review_required",
+    "known_limits": [
+      "curve_bundle_candidate_v1 hair remains unaccepted until manual visual review passes",
+      "cloth candidate route is unavailable on this source branch; v8 cloth panels are context only",
+      "v10 preview scene is an assembly review artifact, not a beauty replacement"
+    ]
+  },
+  "collections": [
+    {
+      "name": "baseline_v8",
+      "default_visible": true,
+      "toggleable": false
+    },
+    {
+      "name": "candidate_hair_unaccepted",
+      "default_visible": true,
+      "toggleable": true
+    },
+    {
+      "name": "candidate_cloth_unaccepted",
+      "default_visible": false,
+      "toggleable": true
+    },
+    {
+      "name": "weapon",
+      "default_visible": true,
+      "toggleable": true
+    },
+    {
+      "name": "body_visual",
+      "default_visible": true,
+      "toggleable": true
+    },
+    {
+      "name": "debug_cage_hidden",
+      "default_visible": false,
+      "toggleable": true
+    },
+    {
+      "name": "review_cameras",
+      "default_visible": true,
+      "toggleable": false
+    },
+    {
+      "name": "lights",
+      "default_visible": true,
+      "toggleable": false
+    }
+  ],
+  "review_checklist": [
+    {
+      "question": "front identity readable?",
+      "status": "pending_manual_visual_review"
+    },
+    {
+      "question": "full silhouette coherent?",
+      "status": "pending_manual_visual_review"
+    },
+    {
+      "question": "candidate hair helps or hurts?",
+      "status": "pending_manual_visual_review"
+    },
+    {
+      "question": "cloth helps or hurts?",
+      "status": "pending_manual_visual_review"
+    },
+    {
+      "question": "weapon scale acceptable?",
+      "status": "pending_manual_visual_review"
+    },
+    {
+      "question": "boots/legs acceptable?",
+      "status": "pending_manual_visual_review"
+    },
+    {
+      "question": "top priority to fix?",
+      "status": "pending_manual_visual_review"
+    }
+  ],
+  "unavailable_assets": [
+    {
+      "role": "candidate_cloth_unaccepted_missing",
+      "path": "CharacterPackage/semantic_layer_v9_cloth/exports/yuna_semantic_layer_v9_cloth.glb",
+      "exists": false,
+      "available": false,
+      "required": false,
+      "bytes": 0,
+      "collection": "candidate_cloth_unaccepted",
+      "reason": "semantic_layer_v9_cloth route is not present on source branch; cloth remains blocked and unaccepted"
+    }
+  ],
+  "git_diff_checks": {
+    "CharacterPackage/semantic_layer_v8": [],
+    "CharacterPackage/semantic_layer_v9_hair": []
+  },
+  "blender": {
+    "status": "preview_scene_generated",
+    "reason": null,
+    "blender": "/opt/homebrew/bin/blender",
+    "exit_code": 0,
+    "log": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/blender_full_preview.log",
+    "log_tail": [
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_02_04_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_03_01_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_03_02_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_03_03_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_03_04_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_04_01_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_04_02_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_04_03_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_04_04_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_05_01_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_05_02_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_05_03_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_05_04_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_06_01_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_06_02_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_06_03_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_06_04_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_07_01_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_07_02_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_07_03_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_07_04_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_08_01_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_08_02_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_08_03_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_08_04_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_09_01_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_09_02_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_09_03_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: back_hair_mass_repair_06_09_04_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: weapon_hardsurface_ortho_v0_mesh",
+      "20:38:30 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: boot_component_01_mesh",
+      "20:38:30 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: boot_component_02_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: boot_component_03_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: boot_component_04_mesh",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: leg_L_retopo_proxy_candidate_mesh",
+      "20:38:30 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Extracting primitive: leg_R_retopo_proxy_candidate_mesh",
+      "20:38:30 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+      "20:38:30 | INFO: Primitives created: 2",
+      "20:38:30 | INFO: Finished glTF 2.0 export in 0.1528470516204834 s",
+      "Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)",
+      ""
+    ],
+    "worker_report": {
+      "created_at": "2026-05-29T12:38:30.531488+00:00",
+      "route": "yuna_full_character_preview_v0",
+      "status": "preview_scene_generated",
+      "preview_only": true,
+      "replace_in_beauty_glb": false,
+      "hair_accepted": false,
+      "cloth_accepted": false,
+      "ready_for_cloth_seam_surface": false,
+      "manual_visual_review_required": true,
+      "collections": [
+        "baseline_v8",
+        "candidate_hair_unaccepted",
+        "candidate_cloth_unaccepted",
+        "weapon",
+        "body_visual",
+        "debug_cage_hidden",
+        "review_cameras",
+        "lights"
+      ],
+      "imported_counts": {
+        "baseline_v8": 23,
+        "candidate_hair_unaccepted": 92,
+        "candidate_cloth_unaccepted": 0,
+        "weapon": 2,
+        "body_visual": 12,
+        "debug_cage_hidden": 35
+      },
+      "screenshots": {
+        "front_baseline": {
+          "role": "full_preview_screenshot_front_baseline",
+          "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/front_baseline.png",
+          "exists": true,
+          "available": true,
+          "required": true,
+          "bytes": 2105446
+        },
+        "front_candidate_overlay": {
+          "role": "full_preview_screenshot_front_candidate_overlay",
+          "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/front_candidate_overlay.png",
+          "exists": true,
+          "available": true,
+          "required": true,
+          "bytes": 2199193
+        },
+        "yaw15": {
+          "role": "full_preview_screenshot_yaw15",
+          "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/yaw15.png",
+          "exists": true,
+          "available": true,
+          "required": true,
+          "bytes": 2226927
+        },
+        "yaw30": {
+          "role": "full_preview_screenshot_yaw30",
+          "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/yaw30.png",
+          "exists": true,
+          "available": true,
+          "required": true,
+          "bytes": 2174066
+        },
+        "side": {
+          "role": "full_preview_screenshot_side",
+          "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/side.png",
+          "exists": true,
+          "available": true,
+          "required": true,
+          "bytes": 1460326
+        },
+        "back": {
+          "role": "full_preview_screenshot_back",
+          "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/back.png",
+          "exists": true,
+          "available": true,
+          "required": true,
+          "bytes": 2148804
+        },
+        "wire": {
+          "role": "full_preview_screenshot_wire",
+          "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/wire.png",
+          "exists": true,
+          "available": true,
+          "required": true,
+          "bytes": 2405544
+        },
+        "exploded": {
+          "role": "full_preview_screenshot_exploded",
+          "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/exploded.png",
+          "exists": true,
+          "available": true,
+          "required": true,
+          "bytes": 2178370
+        }
+      },
+      "outputs": {
+        "blend": {
+          "role": "full_preview_blender_scene",
+          "path": "CharacterPackage/semantic_layer_v10_full_preview/exports/yuna_full_character_preview_v0.blend",
+          "exists": true,
+          "available": true,
+          "required": true,
+          "bytes": 49664676
+        },
+        "glb": {
+          "role": "full_preview_glb_export_if_possible",
+          "path": "CharacterPackage/semantic_layer_v10_full_preview/exports/yuna_full_character_preview_v0.glb",
+          "exists": true,
+          "available": true,
+          "required": false,
+          "bytes": 25417432
+        }
+      },
+      "missing_screenshots": [],
+      "camera": {
+        "center": [
+          -0.001333,
+          0.114286,
+          2.272836
+        ],
+        "ortho_scale": 8.890182,
+        "distance": 23.725454
+      }
+    },
+    "manifest_route": "yuna_full_character_preview_v0"
+  }
+}

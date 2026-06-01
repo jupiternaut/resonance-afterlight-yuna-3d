@@ -1,0 +1,176 @@
+{
+  "route": "semantic_layer_v9_executable_plan",
+  "created_from": "semantic_layer_v9_candidate",
+  "baseline": {
+    "route": "semantic_layer_v8_beauty_main_debug_cage_split",
+    "spec": "CharacterPackage/semantic_layer_v8/specs/yuna_semantic_layer_v8.json",
+    "beauty_glb": "CharacterPackage/semantic_layer_v8/exports/yuna_semantic_layer_v8.glb",
+    "cage_debug_glb": "CharacterPackage/semantic_layer_v8/exports/yuna_semantic_layer_v8_cage_debug.glb",
+    "validation_report": "CharacterPackage/semantic_layer_v8/validation_report.json"
+  },
+  "actuated_parts": [
+    {
+      "part_id": "weapon",
+      "actuator": "weapon_hardsurface_ortho_v0",
+      "status": "generated_with_warnings",
+      "candidate_exports": {
+        "spec": "CharacterPackage/semantic_layer_v9_weapon/specs/yuna_semantic_layer_v9_weapon.json",
+        "obj": "CharacterPackage/semantic_layer_v9_weapon/exports/yuna_semantic_layer_v9_weapon.obj",
+        "mtl": "CharacterPackage/semantic_layer_v9_weapon/exports/yuna_semantic_layer_v9_weapon.mtl",
+        "glb": "CharacterPackage/semantic_layer_v9_weapon/exports/yuna_semantic_layer_v9_weapon.glb",
+        "blend": "CharacterPackage/semantic_layer_v9_weapon/exports/yuna_semantic_layer_v9_weapon.blend",
+        "report": "CharacterPackage/semantic_layer_v9_weapon/validation_report.json"
+      },
+      "validation_report": "CharacterPackage/semantic_layer_v9_weapon/validation_report.json",
+      "blender_validation_report": "CharacterPackage/semantic_layer_v9_weapon/validation_ci/validation_ci_report.json",
+      "blender_validation_status": "failed_clean_hair_mask_alignment",
+      "known_limits": [
+        "v0 uses an alpha-profile hard-surface proxy, not a final hand-modeled weapon.",
+        "v8 beauty weapon remains active until screenshot/import validation passes.",
+        "weapon candidate is an actuator proxy, not final DCC hard-surface art",
+        "v8 beauty GLB remains the active baseline until replacement validation is accepted"
+      ]
+    },
+    {
+      "part_id": "boots",
+      "actuator": "boot_hardsurface_ortho_v0",
+      "status": "generated_with_warnings",
+      "candidate_exports": {
+        "spec": "CharacterPackage/semantic_layer_v9_boot/specs/yuna_semantic_layer_v9_boot.json",
+        "obj": "CharacterPackage/semantic_layer_v9_boot/exports/yuna_semantic_layer_v9_boot.obj",
+        "mtl": "CharacterPackage/semantic_layer_v9_boot/exports/yuna_semantic_layer_v9_boot.mtl",
+        "glb": "CharacterPackage/semantic_layer_v9_boot/exports/yuna_semantic_layer_v9_boot.glb",
+        "blend": "CharacterPackage/semantic_layer_v9_boot/exports/yuna_semantic_layer_v9_boot.blend",
+        "report": "CharacterPackage/semantic_layer_v9_boot/validation_report.json"
+      },
+      "validation_report": "CharacterPackage/semantic_layer_v9_boot/validation_report.json",
+      "blender_validation_report": "CharacterPackage/semantic_layer_v9_boot/validation_ci/validation_ci_report.json",
+      "blender_validation_status": "passed_with_warnings",
+      "known_limits": [
+        "v0 splits visible boot texture components but does not solve leg/ankle topology.",
+        "v8 beauty boots remain active until screenshot/import validation passes.",
+        "boots candidate is an actuator proxy, not final DCC asset",
+        "v8 beauty GLB remains the active baseline until replacement validation is accepted"
+      ]
+    },
+    {
+      "part_id": "legs",
+      "actuator": "leg_quad_loop_retopo_proxy_v0",
+      "status": "generated_with_warnings",
+      "candidate_exports": {
+        "spec": "CharacterPackage/semantic_layer_v9_leg/specs/yuna_semantic_layer_v9_leg.json",
+        "obj": "CharacterPackage/semantic_layer_v9_leg/exports/yuna_semantic_layer_v9_leg.obj",
+        "mtl": "CharacterPackage/semantic_layer_v9_leg/exports/yuna_semantic_layer_v9_leg.mtl",
+        "glb": "CharacterPackage/semantic_layer_v9_leg/exports/yuna_semantic_layer_v9_leg.glb",
+        "blend": "CharacterPackage/semantic_layer_v9_leg/exports/yuna_semantic_layer_v9_leg.blend",
+        "report": "CharacterPackage/semantic_layer_v9_leg/validation_report.json"
+      },
+      "validation_report": "CharacterPackage/semantic_layer_v9_leg/validation_report.json",
+      "blender_validation_report": "CharacterPackage/semantic_layer_v9_leg/validation_ci/validation_ci_report.json",
+      "blender_validation_status": "passed_with_warnings",
+      "known_limits": [
+        "v0 creates a quad-loop retopo proxy, not final production leg topology.",
+        "knee/ankle loops are marker metadata only; skinning and weight tests are not run in this actuator.",
+        "legs candidate is an actuator proxy, not final DCC asset",
+        "v8 beauty GLB remains the active baseline until replacement validation is accepted"
+      ]
+    },
+    {
+      "part_id": "hair",
+      "actuator": "authored_hair_ribbons_v0",
+      "status": "generated_with_warnings",
+      "candidate_exports": {
+        "spec": "CharacterPackage/semantic_layer_v9_hair/specs/yuna_semantic_layer_v9_hair.json",
+        "obj": "CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.obj",
+        "mtl": "CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.mtl",
+        "glb": "CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.glb",
+        "blend": "CharacterPackage/semantic_layer_v9_hair/exports/yuna_semantic_layer_v9_hair.blend",
+        "report": "CharacterPackage/semantic_layer_v9_hair/validation_report.json"
+      },
+      "validation_report": "CharacterPackage/semantic_layer_v9_hair/validation_report.json",
+      "blender_validation_report": "CharacterPackage/semantic_layer_v9_hair/validation_ci/validation_ci_report.json",
+      "blender_validation_status": "passed_with_warnings",
+      "known_limits": [
+        "v0 derives deterministic ribbon guides from v8 mask bounds and texture alpha; these are authored-ribbon candidates, not final hand-authored production curves.",
+        "side/back references remain soft constraints and are not treated as locked geometry truth.",
+        "v8 beauty hair cards remain active until screenshot/import validation passes.",
+        "hair candidate is an actuator proxy, not final DCC hair asset",
+        "v8 beauty GLB remains the active baseline until replacement validation is accepted",
+        "Manual review failed against the cleaned hair target.",
+        "coordinate-space debug shows the v8 hair union projection is usable but weak.",
+        "candidate_front aligns to the overbroad projected v8 hair mask union, not to a clean hair-only target.",
+        "The v8 hair target mask is dirty/overbroad and overlaps body masks heavily.",
+        "Do not advance to cloth_seam_surface until review_and_refine_hair_target_masks_v0 and a follow-up hair quality pass succeed.",
+        "Target review v0 shows refined component-prior target still does not accept the current candidate."
+      ],
+      "manual_visual_review": "failed",
+      "ready_for_cloth_seam_surface": false,
+      "visual_sanity_status": "failed_clean_hair_mask_alignment",
+      "hair_mask_alignment": {
+        "hair_mask_iou": 0.121116,
+        "outside_hair_mask_ratio": 0.05764,
+        "raw_candidate_is_hair_only": true,
+        "candidate_is_hair_only": false,
+        "coordinate_alignment_gate": "weak_pass",
+        "hair_target_quality": "dirty_or_overbroad",
+        "hair_union_target_is_clean": false,
+        "hair_union_body_overlap_ratio": 0.844485,
+        "hair_union_face_overlap_ratio": 0.044609,
+        "hair_union_weapon_overlap_ratio": 0.043164,
+        "clean_hair_mask_iou": 0.014959,
+        "clean_outside_hair_mask_ratio": 0.973581,
+        "clean_candidate_is_hair_only": false,
+        "hair_union_projection_valid": true,
+        "hair_union_projection_overlap_ratio": 0.612788,
+        "candidate_geometry_alignment_valid": true,
+        "clean_candidate_geometry_alignment_valid": false,
+        "coordinate_mapping_status": "failed_clean_hair_mask_alignment",
+        "alignment_failure_reason": "raw coordinate gate passes, but clean target alignment fails",
+        "baseline_framing_valid": true,
+        "overlay_alignment_valid": false
+      },
+      "target_review_report": "CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_review_report.json",
+      "target_review_status": "target_review_generated",
+      "refined_target_alignment": {
+        "iou": 0.120324,
+        "outside_ratio": 0.474535,
+        "candidate_visible_pixel_count": 45611,
+        "target_pixel_count": 177544,
+        "candidate_bbox": [
+          305,
+          73,
+          1002,
+          1056
+        ],
+        "target_bbox": [
+          201,
+          51,
+          1117,
+          1078
+        ],
+        "candidate_is_inside_target": false
+      }
+    }
+  ],
+  "kept_from_v8_parts": [
+    "back_hair",
+    "side_hair_left",
+    "side_hair_right",
+    "torso_inner",
+    "jacket_outer",
+    "cape_left",
+    "cape_right",
+    "skirt_front",
+    "face",
+    "bangs"
+  ],
+  "replacement_policy": {
+    "replace_in_beauty_glb": false,
+    "reason": "v9 weapon, boot, leg, and hair outputs are candidate actuator outputs. v8 beauty meshes remain active until user accepts validation and integration pass.",
+    "must_preserve_front_identity": true,
+    "must_keep_debug_guides_out_of_beauty": true,
+    "side_back_are_soft_constraints": true
+  },
+  "next_recommended_actuator": "fix_authored_hair_ribbons_v0_to_refined_target",
+  "next_recommended_reason": "The refined target is cleaner than the raw union, but the current candidate must be explicitly rebuilt/evaluated against it before any cloth actuator starts."
+}

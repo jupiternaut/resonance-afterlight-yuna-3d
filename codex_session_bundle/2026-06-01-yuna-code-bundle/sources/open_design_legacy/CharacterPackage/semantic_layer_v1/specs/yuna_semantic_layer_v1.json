@@ -1,0 +1,312 @@
+{
+  "character": {
+    "id": "YUNA",
+    "route": "semantic_layer_v1",
+    "boundary": "Structured 2.5D render-shell asset with draft masks and DCC hooks; not a final rigged volumetric character.",
+    "coordinate_system": {
+      "right": "X",
+      "up": "Y",
+      "front_depth": "Z"
+    },
+    "viewing_cone": {
+      "primary_yaw_degrees": [
+        -30,
+        30
+      ],
+      "side_is_reference_only": true
+    }
+  },
+  "source_images": {
+    "front": "refs/front_rgba/yuna_front_rgba.png"
+  },
+  "mask_source": "auto_draft_rules_from_locked_front_rgba",
+  "parts": [
+    {
+      "id": "back_hair",
+      "category": "hair",
+      "parent": "head_proxy",
+      "mesh_generator": "curved_cutout",
+      "mask": "semantic_layer_v1/masks/front/back_hair.png",
+      "texture": "semantic_layer_v1/textures/back_hair.png",
+      "depth": -0.055,
+      "thickness": 0.02,
+      "curvature": "wide_wrap",
+      "animation_hook": "back_hair_spring_hook",
+      "validation_role": "hair_depth_back",
+      "mask_pixels": 16067,
+      "mask_bbox": [
+        136,
+        661,
+        1010,
+        1014
+      ]
+    },
+    {
+      "id": "side_hair_left",
+      "category": "hair",
+      "parent": "head_proxy",
+      "mesh_generator": "ribbon_like_cutout",
+      "mask": "semantic_layer_v1/masks/front/side_hair_left.png",
+      "texture": "semantic_layer_v1/textures/side_hair_left.png",
+      "depth": 0.02,
+      "thickness": 0.018,
+      "curvature": "left_ribbon",
+      "animation_hook": "side_hair_left_spring_hook",
+      "validation_role": "hair_depth_mid",
+      "mask_pixels": 24062,
+      "mask_bbox": [
+        134,
+        200,
+        512,
+        830
+      ]
+    },
+    {
+      "id": "side_hair_right",
+      "category": "hair",
+      "parent": "head_proxy",
+      "mesh_generator": "ribbon_like_cutout",
+      "mask": "semantic_layer_v1/masks/front/side_hair_right.png",
+      "texture": "semantic_layer_v1/textures/side_hair_right.png",
+      "depth": 0.035,
+      "thickness": 0.018,
+      "curvature": "right_ribbon",
+      "animation_hook": "side_hair_right_spring_hook",
+      "validation_role": "hair_depth_mid",
+      "mask_pixels": 49290,
+      "mask_bbox": [
+        543,
+        200,
+        982,
+        861
+      ]
+    },
+    {
+      "id": "torso_inner",
+      "category": "body",
+      "parent": "torso_proxy",
+      "mesh_generator": "curved_cutout",
+      "mask": "semantic_layer_v1/masks/front/torso_inner.png",
+      "texture": "semantic_layer_v1/textures/torso_inner.png",
+      "depth": 0.0,
+      "thickness": 0.048,
+      "curvature": "torso_wrap",
+      "animation_hook": "torso_inner_pivot",
+      "validation_role": "body_shell",
+      "mask_pixels": 61034,
+      "mask_bbox": [
+        297,
+        323,
+        707,
+        876
+      ]
+    },
+    {
+      "id": "jacket_outer",
+      "category": "costume",
+      "parent": "torso_proxy",
+      "mesh_generator": "curved_cutout",
+      "mask": "semantic_layer_v1/masks/front/jacket_outer.png",
+      "texture": "semantic_layer_v1/textures/jacket_outer.png",
+      "depth": 0.05,
+      "thickness": 0.034,
+      "curvature": "torso_wrap",
+      "animation_hook": "jacket_outer_pivot",
+      "validation_role": "costume_shell",
+      "mask_pixels": 69141,
+      "mask_bbox": [
+        297,
+        323,
+        707,
+        876
+      ]
+    },
+    {
+      "id": "cape_left",
+      "category": "cloth",
+      "parent": "torso_proxy",
+      "mesh_generator": "cloth_surface",
+      "mask": "semantic_layer_v1/masks/front/cape_left.png",
+      "texture": "semantic_layer_v1/textures/cape_left.png",
+      "depth": -0.025,
+      "thickness": 0.016,
+      "curvature": "left_cloth_drape",
+      "animation_hook": "cape_left_swing_hook",
+      "validation_role": "cape_independent",
+      "mask_pixels": 42702,
+      "mask_bbox": [
+        21,
+        507,
+        410,
+        1383
+      ]
+    },
+    {
+      "id": "cape_right",
+      "category": "cloth",
+      "parent": "torso_proxy",
+      "mesh_generator": "cloth_surface",
+      "mask": "semantic_layer_v1/masks/front/cape_right.png",
+      "texture": "semantic_layer_v1/textures/cape_right.png",
+      "depth": -0.02,
+      "thickness": 0.016,
+      "curvature": "right_cloth_drape",
+      "animation_hook": "cape_right_swing_hook",
+      "validation_role": "cape_independent",
+      "mask_pixels": 100182,
+      "mask_bbox": [
+        615,
+        507,
+        1012,
+        1344
+      ]
+    },
+    {
+      "id": "skirt_front",
+      "category": "cloth",
+      "parent": "torso_proxy",
+      "mesh_generator": "folded_panel",
+      "mask": "semantic_layer_v1/masks/front/skirt_front.png",
+      "texture": "semantic_layer_v1/textures/skirt_front.png",
+      "depth": 0.075,
+      "thickness": 0.024,
+      "curvature": "shallow_panel",
+      "animation_hook": "skirt_front_swing_hook",
+      "validation_role": "skirt_panel",
+      "mask_pixels": 18750,
+      "mask_bbox": [
+        359,
+        661,
+        656,
+        876
+      ]
+    },
+    {
+      "id": "legs",
+      "category": "body",
+      "parent": "torso_proxy",
+      "mesh_generator": "curved_cutout",
+      "mask": "semantic_layer_v1/masks/front/legs.png",
+      "texture": "semantic_layer_v1/textures/legs.png",
+      "depth": 0.015,
+      "thickness": 0.045,
+      "curvature": "leg_rounding",
+      "animation_hook": "legs_pivot",
+      "validation_role": "leg_shell",
+      "mask_pixels": 35171,
+      "mask_bbox": [
+        320,
+        846,
+        676,
+        1291
+      ]
+    },
+    {
+      "id": "boots",
+      "category": "costume",
+      "parent": "torso_proxy",
+      "mesh_generator": "hard_cutout",
+      "mask": "semantic_layer_v1/masks/front/boots.png",
+      "texture": "semantic_layer_v1/textures/boots.png",
+      "depth": 0.06,
+      "thickness": 0.052,
+      "curvature": "hard_surface",
+      "animation_hook": "boots_pivot",
+      "validation_role": "boot_shell",
+      "mask_pixels": 27024,
+      "mask_bbox": [
+        380,
+        1214,
+        717,
+        1503
+      ]
+    },
+    {
+      "id": "face",
+      "category": "face",
+      "parent": "head_proxy",
+      "mesh_generator": "curved_face_plate",
+      "mask": "semantic_layer_v1/masks/front/face.png",
+      "texture": "semantic_layer_v1/textures/face.png",
+      "depth": 0.115,
+      "thickness": 0.018,
+      "curvature": "face_convex",
+      "animation_hook": "face_expression_texture_swap",
+      "validation_role": "front_identity",
+      "mask_pixels": 12168,
+      "mask_bbox": [
+        429,
+        117,
+        613,
+        351
+      ]
+    },
+    {
+      "id": "bangs",
+      "category": "hair",
+      "parent": "head_proxy",
+      "mesh_generator": "ribbon_like_cutout",
+      "mask": "semantic_layer_v1/masks/front/bangs.png",
+      "texture": "semantic_layer_v1/textures/bangs.png",
+      "depth": 0.16,
+      "thickness": 0.014,
+      "curvature": "bangs_convex",
+      "animation_hook": "bangs_spring_hook",
+      "validation_role": "hair_depth_front",
+      "mask_pixels": 65980,
+      "mask_bbox": [
+        297,
+        49,
+        738,
+        661
+      ]
+    },
+    {
+      "id": "weapon",
+      "category": "weapon",
+      "parent": "hand_R_socket",
+      "mesh_generator": "hard_surface_prop",
+      "mask": "semantic_layer_v1/masks/front/weapon.png",
+      "texture": "semantic_layer_v1/textures/weapon.png",
+      "depth": 0.19,
+      "thickness": 0.075,
+      "curvature": "weapon_bevel_proxy",
+      "animation_hook": "hand_R_socket",
+      "validation_role": "weapon_independent",
+      "mask_pixels": 32258,
+      "mask_bbox": [
+        5,
+        621,
+        350,
+        1456
+      ]
+    }
+  ],
+  "acceptance_v1": {
+    "must_have_independent_meshes": [
+      "face",
+      "bangs",
+      "back_hair",
+      "cape_left",
+      "cape_right",
+      "weapon"
+    ],
+    "hair_depth_groups_min": 3,
+    "weapon_independent_object": true,
+    "cape_independent_object": true,
+    "exports_required": [
+      "blend",
+      "glb",
+      "fbx",
+      "obj"
+    ],
+    "validation_views_required": [
+      "front",
+      "yaw15",
+      "yaw30",
+      "side",
+      "exploded",
+      "masks_contact"
+    ]
+  }
+}

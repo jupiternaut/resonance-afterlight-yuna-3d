@@ -1,0 +1,398 @@
+{
+  "created_at": "2026-05-22T16:00:37.402427+00:00",
+  "route": "semantic_layer_v1_asset_compiler",
+  "status": "generated",
+  "boundary": "This is a structured 2.5D render-shell and DCC handoff asset, not a final production rigged character.",
+  "source": "refs/front_rgba/yuna_front_rgba.png",
+  "spec": "semantic_layer_v1/specs/yuna_semantic_layer_v1.json",
+  "mask_contact_sheet": "semantic_layer_v1/validation/yuna_semantic_masks_contact.png",
+  "mask_stats": {
+    "back_hair": {
+      "pixels": 16067,
+      "bbox": [
+        136,
+        661,
+        1010,
+        1014
+      ]
+    },
+    "side_hair_left": {
+      "pixels": 24062,
+      "bbox": [
+        134,
+        200,
+        512,
+        830
+      ]
+    },
+    "side_hair_right": {
+      "pixels": 49290,
+      "bbox": [
+        543,
+        200,
+        982,
+        861
+      ]
+    },
+    "torso_inner": {
+      "pixels": 61034,
+      "bbox": [
+        297,
+        323,
+        707,
+        876
+      ]
+    },
+    "jacket_outer": {
+      "pixels": 69141,
+      "bbox": [
+        297,
+        323,
+        707,
+        876
+      ]
+    },
+    "cape_left": {
+      "pixels": 42702,
+      "bbox": [
+        21,
+        507,
+        410,
+        1383
+      ]
+    },
+    "cape_right": {
+      "pixels": 100182,
+      "bbox": [
+        615,
+        507,
+        1012,
+        1344
+      ]
+    },
+    "skirt_front": {
+      "pixels": 18750,
+      "bbox": [
+        359,
+        661,
+        656,
+        876
+      ]
+    },
+    "legs": {
+      "pixels": 35171,
+      "bbox": [
+        320,
+        846,
+        676,
+        1291
+      ]
+    },
+    "boots": {
+      "pixels": 27024,
+      "bbox": [
+        380,
+        1214,
+        717,
+        1503
+      ]
+    },
+    "face": {
+      "pixels": 12168,
+      "bbox": [
+        429,
+        117,
+        613,
+        351
+      ]
+    },
+    "bangs": {
+      "pixels": 65980,
+      "bbox": [
+        297,
+        49,
+        738,
+        661
+      ]
+    },
+    "weapon": {
+      "pixels": 32258,
+      "bbox": [
+        5,
+        621,
+        350,
+        1456
+      ]
+    }
+  },
+  "parts": {
+    "back_hair": {
+      "part": "back_hair",
+      "obj": "semantic_layer_v1/obj/parts/back_hair.obj",
+      "occupied_cells": 1934,
+      "vertices": 23176,
+      "faces": 5794,
+      "category": "hair",
+      "mesh_generator": "curved_cutout",
+      "depth": -0.055,
+      "thickness": 0.02
+    },
+    "side_hair_left": {
+      "part": "side_hair_left",
+      "obj": "semantic_layer_v1/obj/parts/side_hair_left.obj",
+      "occupied_cells": 2361,
+      "vertices": 24504,
+      "faces": 6126,
+      "category": "hair",
+      "mesh_generator": "ribbon_like_cutout",
+      "depth": 0.02,
+      "thickness": 0.018
+    },
+    "side_hair_right": {
+      "part": "side_hair_right",
+      "obj": "semantic_layer_v1/obj/parts/side_hair_right.obj",
+      "occupied_cells": 4754,
+      "vertices": 49288,
+      "faces": 12322,
+      "category": "hair",
+      "mesh_generator": "ribbon_like_cutout",
+      "depth": 0.035,
+      "thickness": 0.018
+    },
+    "torso_inner": {
+      "part": "torso_inner",
+      "obj": "semantic_layer_v1/obj/parts/torso_inner.obj",
+      "occupied_cells": 6676,
+      "vertices": 72328,
+      "faces": 18082,
+      "category": "body",
+      "mesh_generator": "curved_cutout",
+      "depth": 0.0,
+      "thickness": 0.048
+    },
+    "jacket_outer": {
+      "part": "jacket_outer",
+      "obj": "semantic_layer_v1/obj/parts/jacket_outer.obj",
+      "occupied_cells": 6678,
+      "vertices": 63840,
+      "faces": 15960,
+      "category": "costume",
+      "mesh_generator": "curved_cutout",
+      "depth": 0.05,
+      "thickness": 0.034
+    },
+    "cape_left": {
+      "part": "cape_left",
+      "obj": "semantic_layer_v1/obj/parts/cape_left.obj",
+      "occupied_cells": 4306,
+      "vertices": 42128,
+      "faces": 10532,
+      "category": "cloth",
+      "mesh_generator": "cloth_surface",
+      "depth": -0.025,
+      "thickness": 0.016
+    },
+    "cape_right": {
+      "part": "cape_right",
+      "obj": "semantic_layer_v1/obj/parts/cape_right.obj",
+      "occupied_cells": 9551,
+      "vertices": 89672,
+      "faces": 22418,
+      "category": "cloth",
+      "mesh_generator": "cloth_surface",
+      "depth": -0.02,
+      "thickness": 0.016
+    },
+    "skirt_front": {
+      "part": "skirt_front",
+      "obj": "semantic_layer_v1/obj/parts/skirt_front.obj",
+      "occupied_cells": 1794,
+      "vertices": 17904,
+      "faces": 4476,
+      "category": "cloth",
+      "mesh_generator": "folded_panel",
+      "depth": 0.075,
+      "thickness": 0.024
+    },
+    "legs": {
+      "part": "legs",
+      "obj": "semantic_layer_v1/obj/parts/legs.obj",
+      "occupied_cells": 3330,
+      "vertices": 31432,
+      "faces": 7858,
+      "category": "body",
+      "mesh_generator": "curved_cutout",
+      "depth": 0.015,
+      "thickness": 0.045
+    },
+    "boots": {
+      "part": "boots",
+      "obj": "semantic_layer_v1/obj/parts/boots.obj",
+      "occupied_cells": 2286,
+      "vertices": 20688,
+      "faces": 5172,
+      "category": "costume",
+      "mesh_generator": "hard_cutout",
+      "depth": 0.06,
+      "thickness": 0.052
+    },
+    "face": {
+      "part": "face",
+      "obj": "semantic_layer_v1/obj/parts/face.obj",
+      "occupied_cells": 1386,
+      "vertices": 15472,
+      "faces": 3868,
+      "category": "face",
+      "mesh_generator": "curved_face_plate",
+      "depth": 0.115,
+      "thickness": 0.018
+    },
+    "bangs": {
+      "part": "bangs",
+      "obj": "semantic_layer_v1/obj/parts/bangs.obj",
+      "occupied_cells": 6604,
+      "vertices": 68152,
+      "faces": 17038,
+      "category": "hair",
+      "mesh_generator": "ribbon_like_cutout",
+      "depth": 0.16,
+      "thickness": 0.014
+    },
+    "weapon": {
+      "part": "weapon",
+      "obj": "semantic_layer_v1/obj/parts/weapon.obj",
+      "occupied_cells": 2760,
+      "vertices": 26576,
+      "faces": 6644,
+      "category": "weapon",
+      "mesh_generator": "hard_surface_prop",
+      "depth": 0.19,
+      "thickness": 0.075
+    }
+  },
+  "combined_obj": {
+    "obj": "semantic_layer_v1/obj/yuna_semantic_layer_v1.obj",
+    "mtl": "semantic_layer_v1/obj/yuna_semantic_layer_v1.mtl",
+    "parts": 13,
+    "vertices": 545160,
+    "uvs": 545160
+  },
+  "exports": {
+    "blend": "semantic_layer_v1/exports/yuna_semantic_layer_v1.blend",
+    "glb": "semantic_layer_v1/exports/yuna_semantic_layer_v1.glb",
+    "fbx": "semantic_layer_v1/exports/yuna_semantic_layer_v1.fbx",
+    "obj": "semantic_layer_v1/exports/yuna_semantic_layer_v1.obj",
+    "validation_screenshots": {
+      "front": "semantic_layer_v1/validation/yuna_semantic_layer_v1_front.png",
+      "yaw15": "semantic_layer_v1/validation/yuna_semantic_layer_v1_yaw15.png",
+      "yaw30": "semantic_layer_v1/validation/yuna_semantic_layer_v1_yaw30.png",
+      "side": "semantic_layer_v1/validation/yuna_semantic_layer_v1_side.png",
+      "exploded": "semantic_layer_v1/validation/yuna_semantic_layer_v1_exploded.png"
+    },
+    "blender_exit_code": 0,
+    "blender_log_tail": [
+      "INFO Draco mesh compression is available, use library at /Applications/Blender.app/Contents/Resources/5.1/scripts/addons_core/io_scene_gltf2/libextern_draco.dylib",
+      "00:00:35 | INFO: Starting glTF 2.0 export",
+      "00:00:35 | INFO: Extracting primitive: back_hair",
+      "00:00:35 | INFO: Primitives created: 2",
+      "00:00:35 | INFO: Extracting primitive: bangs",
+      "00:00:35 | INFO: Primitives created: 2",
+      "00:00:35 | INFO: Extracting primitive: boots",
+      "00:00:35 | INFO: Primitives created: 2",
+      "00:00:35 | INFO: Extracting primitive: cape_left",
+      "00:00:35 | INFO: Primitives created: 2",
+      "00:00:35 | INFO: Extracting primitive: cape_right",
+      "00:00:36 | INFO: Primitives created: 2",
+      "00:00:36 | INFO: Extracting primitive: face",
+      "00:00:36 | INFO: Primitives created: 2",
+      "00:00:36 | INFO: Extracting primitive: jacket_outer",
+      "00:00:36 | INFO: Primitives created: 2",
+      "00:00:36 | INFO: Extracting primitive: legs",
+      "00:00:36 | INFO: Primitives created: 2",
+      "00:00:36 | INFO: Extracting primitive: side_hair_left",
+      "00:00:36 | INFO: Primitives created: 2",
+      "00:00:36 | INFO: Extracting primitive: side_hair_right",
+      "00:00:36 | INFO: Primitives created: 2",
+      "00:00:36 | INFO: Extracting primitive: skirt_front",
+      "00:00:36 | INFO: Primitives created: 2",
+      "00:00:36 | INFO: Extracting primitive: torso_inner",
+      "00:00:36 | INFO: Primitives created: 2",
+      "00:00:36 | INFO: Extracting primitive: weapon",
+      "00:00:36 | INFO: Primitives created: 2",
+      "00:00:36 | INFO: Finished glTF 2.0 export in 0.17728209495544434 s",
+      "",
+      "",
+      "FBX export starting... '/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/semantic_layer_v1/exports/yuna_semantic_layer_v1.fbx'",
+      "export finished in 0.0526 sec.",
+      "Info: File exported successfully",
+      "Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)",
+      "OBJ import of 'yuna_semantic_layer_v1.obj' took 113.47 ms",
+      "Writing to /Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/semantic_layer_v1/exports/yuna_semantic_layer_v1.obj",
+      "OBJ export of 'yuna_semantic_layer_v1.obj' took 37.55 ms",
+      "",
+      "Blender quit"
+    ]
+  },
+  "glb_roundtrip": {
+    "mesh_count": 13,
+    "empty_count": 5,
+    "material_count": 28,
+    "mesh_names": [
+      "back_hair",
+      "bangs",
+      "boots",
+      "cape_left",
+      "cape_right",
+      "face",
+      "jacket_outer",
+      "legs",
+      "side_hair_left",
+      "side_hair_right",
+      "skirt_front",
+      "torso_inner",
+      "weapon"
+    ],
+    "empty_names": [
+      "hook_bangs_spring",
+      "hook_back_hair_spring",
+      "hook_cape_left_swing",
+      "hook_cape_right_swing",
+      "hand_R_socket_weapon"
+    ],
+    "status": "ok",
+    "blender_exit_code": 0
+  },
+  "acceptance_v1": {
+    "independent_part_meshes": [
+      "back_hair",
+      "side_hair_left",
+      "side_hair_right",
+      "torso_inner",
+      "jacket_outer",
+      "cape_left",
+      "cape_right",
+      "skirt_front",
+      "legs",
+      "boots",
+      "face",
+      "bangs",
+      "weapon"
+    ],
+    "hair_depth_groups": [
+      "back_hair",
+      "side_hair_left",
+      "side_hair_right",
+      "bangs"
+    ],
+    "weapon_independent_object": true,
+    "cape_independent_objects": true,
+    "proxy_guides_added_in_blender": true,
+    "boundary": "semantic-layer v1 uses auto-draft masks; human mask cleanup is expected before production DCC retopo."
+  },
+  "next_manual_cleanup": [
+    "Review auto-draft masks, especially cape/body overlap and weapon/hand boundary.",
+    "Replace heuristic hair masks with hand-authored bangs, side hair and back hair groups.",
+    "Add side/back masks before the multi-view constraint cage stage.",
+    "Convert proxy guides into a real retopo cage only after mask cleanup."
+  ]
+}

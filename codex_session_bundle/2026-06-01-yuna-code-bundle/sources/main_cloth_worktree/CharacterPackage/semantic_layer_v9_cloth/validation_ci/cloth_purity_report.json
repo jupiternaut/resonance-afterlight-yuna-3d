@@ -1,0 +1,25 @@
+{
+  "created_at": "2026-05-27T21:38:24.690892+00:00",
+  "route": "cloth_volume_and_purity_gate_v1",
+  "status": "manual_review_required_purity_gate_passed_overlay_not_sufficient",
+  "target_parts": [
+    "jacket_outer",
+    "cape_left",
+    "cape_right",
+    "skirt_front"
+  ],
+  "candidate_front_scope": "source-space cloth candidate coverage; overlay_front is not an acceptance gate",
+  "metrics": {
+    "cloth_mask_purity_ratio": 1.0,
+    "non_cloth_texture_leak_ratio": 0.0,
+    "candidate_pixels": 460765,
+    "target_pixels": 460765,
+    "target_overlap_pixels": 460765,
+    "forbidden_overlap_pixels": 0
+  },
+  "files": {
+    "cloth_target_mask_union": "CharacterPackage/semantic_layer_v9_cloth/validation_ci/cloth_target_mask_union.png",
+    "cloth_forbidden_noncloth_zone": "CharacterPackage/semantic_layer_v9_cloth/validation_ci/cloth_forbidden_noncloth_zone.png",
+    "cloth_candidate_vs_target_overlay": "CharacterPackage/semantic_layer_v9_cloth/validation_ci/cloth_candidate_vs_target_overlay.png"
+  }
+}

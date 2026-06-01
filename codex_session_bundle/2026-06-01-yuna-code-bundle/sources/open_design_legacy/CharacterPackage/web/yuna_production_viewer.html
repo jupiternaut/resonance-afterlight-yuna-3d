@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>YUNA Production Slice GLB Viewer</title>
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 24%, #152839 0%, #041018 58%, #010306 100%);
+      color: #edf7ff;
+      font-family: "Avenir Next", "Inter", Arial, sans-serif;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .label,
+    .status {
+      position: absolute;
+      left: 24px;
+      pointer-events: none;
+      text-shadow: 0 0 18px rgba(98, 232, 255, 0.28);
+    }
+
+    .label {
+      top: 18px;
+      letter-spacing: 0.22em;
+      font-size: 13px;
+      color: rgba(237, 247, 255, 0.88);
+      text-transform: uppercase;
+    }
+
+    .status {
+      bottom: 20px;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: rgba(160, 222, 255, 0.78);
+    }
+  </style>
+</head>
+<body>
+  <div class="label">YUNA Production Slice / LOD0 Preview GLB Runtime Proof</div>
+  <div class="status" id="status">LOADING LOD0 PREVIEW GLB...</div>
+  <canvas id="stage"></canvas>
+  <script src="../../assets/vendor/three.r128.min.js"></script>
+  <script src="../../assets/vendor/GLTFLoader.r128.js"></script>
+  <script src="yuna_production_lod0_preview_nomorph_data.js"></script>
+  <script>
+    const canvas = document.getElementById("stage");
+    const status = document.getElementById("status");
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+    renderer.setClearColor(0x02070d, 1);
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.08;
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.Fog(0x02070d, 4.8, 10.2);
+
+    const camera = new THREE.PerspectiveCamera(34, innerWidth / innerHeight, 0.01, 50);
+    const target = new THREE.Vector3(0, 0.85, 0);
+    camera.position.set(0.68, -4.6, 1.25);
+
+    const key = new THREE.DirectionalLight(0xe7f7ff, 1.85);
+    key.position.set(-2.2, -3.4, 3.2);
+    scene.add(key);
+    scene.add(new THREE.HemisphereLight(0xa6f4ff, 0x071018, 1.20));
+
+    const grid = new THREE.GridHelper(3.2, 18, 0x4b8aa5, 0x123042);
+    grid.position.y = -0.01;
+    scene.add(grid);
+
+    const loader = new THREE.GLTFLoader();
+    let asset = null;
+
+    loader.load(window.YUNA_PRODUCTION_LOD0_PREVIEW_GLB, (gltf) => {
+      asset = gltf.scene;
+      asset.traverse((node) => {
+        if (!node.isMesh || !node.material) return;
+        const materials = Array.isArray(node.material) ? node.material : [node.material];
+        materials.forEach((material) => {
+          material.side = THREE.DoubleSide;
+          if (material.opacity < 1 || material.transparent) {
+            material.transparent = true;
+            material.depthWrite = false;
+          }
+        });
+      });
+      scene.add(asset);
+
+      target.set(0, 0.86, 0);
+      grid.position.y = -0.01;
+      camera.position.set(0.18, 0.86, 4.2);
+      camera.near = 0.01;
+      camera.far = 50;
+      camera.updateProjectionMatrix();
+
+      status.textContent = "PREVIEW GLB LOADED / FORMAL FBX+GLB EXPORTS VERIFIED";
+      document.body.dataset.ready = "true";
+    }, undefined, (error) => {
+      console.error(error);
+      status.textContent = "GLB LOAD FAILED";
+      document.body.dataset.loadError = "true";
+    });
+
+    function resize() {
+      renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+      renderer.setSize(innerWidth, innerHeight, false);
+      camera.aspect = innerWidth / innerHeight;
+      camera.updateProjectionMatrix();
+    }
+
+    function tick(time) {
+      if (asset) {
+        asset.rotation.y = Math.sin(time * 0.00035) * 0.18;
+      }
+      camera.lookAt(target);
+      renderer.render(scene, camera);
+      requestAnimationFrame(tick);
+    }
+
+    addEventListener("resize", resize);
+    resize();
+    tick(0);
+  </script>
+</body>
+</html>

@@ -1,0 +1,820 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Resonance Afterlight Reference Frame</title>
+  <style>
+    :root {
+      --bg: #05090f;
+      --ink: #0a111a;
+      --panel: rgba(10, 18, 27, 0.84);
+      --panel-soft: rgba(14, 26, 38, 0.68);
+      --line: rgba(108, 176, 214, 0.44);
+      --line-soft: rgba(89, 152, 187, 0.22);
+      --cyan: #67e7ff;
+      --cyan-2: #44d6e8;
+      --teal: #49f0d0;
+      --white: #e9f4ff;
+      --muted: #8ea5b8;
+      --gold: #f6c56d;
+      --violet: #9a7cff;
+      --shadow: rgba(0, 0, 0, 0.62);
+      --font: "Avenir Next", "DIN Alternate", "Inter", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; }
+    body {
+      margin: 0;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 4%, rgba(74, 216, 240, 0.18), transparent 28%),
+        radial-gradient(circle at 85% 92%, rgba(246, 197, 109, 0.1), transparent 24%),
+        #02060b;
+      color: var(--white);
+      font-family: var(--font);
+    }
+
+    .frame {
+      position: relative;
+      width: min(100vw, 160vh);
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(11, 19, 28, 0.95), rgba(3, 8, 13, 0.98)),
+        var(--bg);
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.72);
+      isolation: isolate;
+    }
+
+    .frame::before,
+    .frame::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    .frame::before {
+      inset: 0;
+      border: 1px solid rgba(105, 185, 226, 0.58);
+      box-shadow:
+        inset 0 0 0 2px rgba(81, 149, 188, 0.12),
+        inset 0 0 42px rgba(72, 185, 227, 0.07);
+    }
+
+    .frame::after {
+      inset: 7px;
+      border: 1px solid rgba(104, 175, 214, 0.23);
+      box-shadow:
+        inset 0 0 24px rgba(78, 207, 231, 0.05),
+        0 0 18px rgba(78, 207, 231, 0.05);
+    }
+
+    .top-rail {
+      position: absolute;
+      inset: 0 0 auto;
+      height: 43px;
+      z-index: 30;
+      color: rgba(235, 245, 255, 0.88);
+      letter-spacing: 0.58em;
+      font: 500 clamp(15px, 1.7vw, 24px)/1 var(--font);
+      text-align: center;
+      text-transform: uppercase;
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(90deg, transparent 0 13%, rgba(82, 159, 202, 0.28) 13.1% 13.2%, transparent 13.2% 86.8%, rgba(82, 159, 202, 0.28) 86.9% 87%, transparent 87%),
+        linear-gradient(180deg, rgba(5, 10, 16, 0.9), rgba(3, 8, 14, 0.2));
+      text-shadow: 0 0 16px rgba(126, 224, 255, 0.32);
+    }
+
+    .top-rail::before,
+    .top-rail::after {
+      content: "";
+      position: absolute;
+      top: 12px;
+      width: 34%;
+      height: 1px;
+      background:
+        linear-gradient(90deg, transparent, rgba(113, 190, 228, 0.6), rgba(113, 190, 228, 0.12));
+      box-shadow: 0 8px 0 rgba(113, 190, 228, 0.14);
+    }
+
+    .top-rail::before { left: 14px; }
+    .top-rail::after {
+      right: 14px;
+      transform: scaleX(-1);
+    }
+
+    .top-gem {
+      position: absolute;
+      left: 50%;
+      top: 25px;
+      width: 8px;
+      height: 8px;
+      z-index: 31;
+      transform: translateX(-50%) rotate(45deg);
+      background: var(--cyan);
+      box-shadow: 0 0 20px var(--cyan), 0 0 42px rgba(103, 231, 255, 0.42);
+    }
+
+    .main-stage {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 36px;
+      bottom: 205px;
+      display: grid;
+      grid-template-columns: 33.8% 66.2%;
+      border-top: 1px solid rgba(83, 156, 197, 0.28);
+      border-bottom: 1px solid rgba(83, 156, 197, 0.42);
+      background: #050a11;
+      z-index: 3;
+    }
+
+    .portrait {
+      position: relative;
+      overflow: hidden;
+      border-right: 1px solid rgba(111, 178, 216, 0.42);
+      background:
+        radial-gradient(circle at 40% 98%, rgba(239, 244, 255, 0.34), transparent 30%),
+        radial-gradient(circle at 28% 34%, rgba(89, 192, 220, 0.13), transparent 24%),
+        linear-gradient(180deg, #07101a 0%, #09111a 58%, #151d28 100%);
+    }
+
+    .portrait::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(218, 244, 255, 0.62) 0 1px, transparent 1.2px),
+        radial-gradient(circle, rgba(103, 231, 255, 0.38) 0 1px, transparent 1.2px);
+      background-size: 78px 82px, 119px 112px;
+      background-position: 16px 36px, 44px 12px;
+      opacity: 0.36;
+    }
+
+    .portrait::after {
+      content: "";
+      position: absolute;
+      left: -8%;
+      right: -8%;
+      bottom: 0;
+      height: 16%;
+      background:
+        radial-gradient(ellipse at 50% 100%, rgba(242, 247, 255, 0.72), transparent 56%),
+        linear-gradient(180deg, transparent, rgba(234, 240, 250, 0.22));
+      filter: blur(0.2px);
+    }
+
+    .character-svg {
+      position: absolute;
+      left: 50%;
+      bottom: 18px;
+      width: 91%;
+      height: 93%;
+      transform: translateX(-50%);
+      filter:
+        drop-shadow(0 22px 26px rgba(0, 0, 0, 0.62))
+        drop-shadow(0 0 21px rgba(165, 218, 255, 0.18));
+      z-index: 5;
+    }
+
+    .character-svg > :not(defs):not(.hero-v2) { display: none; }
+
+    .scene {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(4, 10, 18, 0.16), rgba(3, 7, 12, 0.76) 73%, rgba(2, 5, 9, 0.98)),
+        radial-gradient(circle at 62% 76%, rgba(246, 197, 109, 0.36), transparent 12%),
+        radial-gradient(circle at 60% 42%, rgba(58, 192, 236, 0.16), transparent 30%),
+        linear-gradient(180deg, #132235 0%, #0c1725 45%, #08101a 100%);
+    }
+
+    .scene::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 62% 8%, rgba(244, 249, 255, 0.78), rgba(217, 231, 245, 0.3) 1.8%, transparent 2.7%),
+        radial-gradient(circle at 61.5% 7.4%, rgba(255, 255, 255, 0.8), transparent 0.8%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 25%);
+      opacity: 0.9;
+      z-index: 2;
+    }
+
+    .clouds {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 54% 12%, rgba(227, 237, 248, 0.17), transparent 16%),
+        radial-gradient(ellipse at 74% 17%, rgba(202, 218, 235, 0.11), transparent 18%),
+        radial-gradient(ellipse at 37% 11%, rgba(202, 218, 235, 0.1), transparent 20%);
+      filter: blur(1.5px);
+      z-index: 1;
+    }
+
+    .spectral-ring {
+      position: absolute;
+      left: 42%;
+      top: 24%;
+      width: 36%;
+      aspect-ratio: 1 / 0.28;
+      border: 2px solid rgba(103, 231, 255, 0.42);
+      border-radius: 50%;
+      transform: rotate(-3deg);
+      z-index: 8;
+      box-shadow:
+        0 0 16px rgba(103, 231, 255, 0.44),
+        inset 0 0 28px rgba(103, 231, 255, 0.18);
+    }
+
+    .spectral-ring::before,
+    .spectral-ring::after {
+      content: "";
+      position: absolute;
+      inset: -6px 8px;
+      border-top: 1px dashed rgba(103, 231, 255, 0.54);
+      border-radius: 50%;
+      filter: blur(0.2px);
+    }
+
+    .spectral-ring::after {
+      inset: 7px 34px;
+      opacity: 0.38;
+    }
+
+    .rain {
+      position: absolute;
+      inset: 0;
+      z-index: 7;
+      background:
+        linear-gradient(180deg, transparent, rgba(103, 231, 255, 0.42), transparent),
+        linear-gradient(180deg, transparent, rgba(103, 231, 255, 0.3), transparent),
+        linear-gradient(180deg, transparent, rgba(103, 231, 255, 0.24), transparent);
+      background-size: 1px 260px, 1px 330px, 1px 420px;
+      background-position: 18% 0, 47% 28px, 76% 56px;
+      background-repeat: repeat-x;
+      opacity: 0.46;
+      mix-blend-mode: screen;
+    }
+
+    .bridge {
+      position: absolute;
+      left: -7%;
+      top: 13%;
+      width: 62%;
+      height: 31%;
+      transform: rotate(8deg);
+      z-index: 11;
+      transform-origin: 0 50%;
+      border-bottom: 26px solid rgba(28, 33, 38, 0.86);
+      border-top: 3px solid rgba(147, 161, 176, 0.22);
+      background:
+        repeating-linear-gradient(90deg, rgba(225, 238, 247, 0.11) 0 1px, transparent 1px 54px),
+        linear-gradient(180deg, rgba(53, 60, 68, 0.66), rgba(12, 17, 23, 0.86));
+      box-shadow:
+        0 20px 34px rgba(0, 0, 0, 0.5),
+        inset 0 -20px 20px rgba(0, 0, 0, 0.38);
+    }
+
+    .bridge::before {
+      content: "";
+      position: absolute;
+      left: 6%;
+      right: 3%;
+      top: 14px;
+      height: 10px;
+      background:
+        repeating-linear-gradient(90deg, rgba(151, 164, 178, 0.32) 0 2px, transparent 2px 28px),
+        rgba(12, 16, 21, 0.78);
+    }
+
+    .bridge::after {
+      content: "";
+      position: absolute;
+      left: 22%;
+      top: 30%;
+      width: 9px;
+      height: 72%;
+      background: linear-gradient(180deg, rgba(86, 104, 120, 0.64), rgba(10, 13, 18, 0.94));
+      box-shadow:
+        96px 15px 0 rgba(14, 19, 25, 0.86),
+        198px 30px 0 rgba(11, 17, 23, 0.9),
+        310px 44px 0 rgba(11, 17, 23, 0.92);
+    }
+
+    .city {
+      position: absolute;
+      inset: 8% 0 24%;
+      z-index: 5;
+    }
+
+    .tower {
+      position: absolute;
+      bottom: 0;
+      left: var(--x);
+      width: var(--w);
+      height: var(--h);
+      border-left: 1px solid rgba(118, 164, 196, 0.18);
+      border-right: 1px solid rgba(118, 164, 196, 0.1);
+      background:
+        repeating-linear-gradient(180deg, rgba(246, 197, 109, 0.16) 0 2px, transparent 2px 31px),
+        repeating-linear-gradient(90deg, rgba(103, 231, 255, 0.08) 0 1px, transparent 1px 18px),
+        linear-gradient(180deg, rgba(29, 46, 64, 0.82), rgba(8, 13, 19, 0.94));
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.45);
+      opacity: var(--o);
+    }
+
+    .tower::before {
+      content: "";
+      position: absolute;
+      left: 44%;
+      top: -70px;
+      width: 2px;
+      height: 80px;
+      background: linear-gradient(transparent, rgba(103, 231, 255, 0.65));
+      box-shadow: 0 0 15px rgba(103, 231, 255, 0.44);
+    }
+
+    .foreground {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 31%;
+      z-index: 13;
+      background:
+        radial-gradient(ellipse at 61% 8%, rgba(252, 208, 132, 0.64), transparent 9%),
+        radial-gradient(ellipse at 61% 16%, rgba(255, 248, 224, 0.26), transparent 18%),
+        linear-gradient(180deg, transparent, rgba(3, 7, 11, 0.82) 46%, #03070b 100%);
+    }
+
+    .water {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 42%;
+      z-index: 12;
+      background:
+        repeating-linear-gradient(178deg, transparent 0 21px, rgba(114, 201, 233, 0.15) 22px 23px),
+        radial-gradient(ellipse at 61% 31%, rgba(252, 217, 154, 0.34), transparent 21%),
+        linear-gradient(180deg, rgba(14, 25, 35, 0.08), rgba(6, 12, 18, 0.92));
+    }
+
+    .water::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 34%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(234, 246, 255, 0.55), rgba(246, 197, 109, 0.55), transparent);
+      box-shadow:
+        0 26px 0 rgba(103, 231, 255, 0.2),
+        0 52px 0 rgba(246, 197, 109, 0.16),
+        0 78px 0 rgba(103, 231, 255, 0.12);
+    }
+
+    .plants {
+      position: absolute;
+      inset: auto 0 0;
+      height: 29%;
+      z-index: 16;
+      pointer-events: none;
+    }
+
+    .plant {
+      position: absolute;
+      bottom: -4px;
+      left: var(--x);
+      width: var(--w);
+      height: var(--h);
+      opacity: var(--o);
+    }
+
+    .plant::before,
+    .plant::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      height: 100%;
+      border-radius: 100%;
+      background: linear-gradient(to top, rgba(58, 83, 65, 0.92), rgba(235, 245, 255, 0.72));
+      transform: rotate(var(--r));
+      box-shadow:
+        -12px -26px 0 -2px rgba(239, 247, 255, 0.7),
+        15px -48px 0 -2px rgba(239, 247, 255, 0.46),
+        26px -18px 0 -2px rgba(246, 197, 109, 0.38);
+    }
+
+    .plant::after {
+      transform: rotate(calc(var(--r) * -0.8));
+      opacity: 0.65;
+    }
+
+    .panel-zone {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 204px;
+      z-index: 6;
+      display: grid;
+      grid-template-columns: 12% 12% 11% 20% 15.5% 8.5% 8.5% 8.5%;
+      gap: 17px;
+      padding: 19px 18px 17px;
+      background:
+        linear-gradient(180deg, rgba(2, 7, 12, 0.36), rgba(4, 10, 16, 0.98) 22%),
+        #050a10;
+      border-top: 1px solid rgba(95, 165, 205, 0.42);
+    }
+
+    .hud-card {
+      position: relative;
+      height: 100%;
+      border: 1px solid rgba(96, 179, 213, 0.48);
+      background:
+        linear-gradient(135deg, rgba(77, 138, 174, 0.2), transparent 36%),
+        radial-gradient(circle at 42% 50%, rgba(103, 231, 255, 0.08), transparent 34%),
+        rgba(10, 18, 27, 0.86);
+      box-shadow:
+        inset 0 0 0 2px rgba(80, 151, 185, 0.08),
+        inset 0 0 28px rgba(74, 185, 227, 0.05),
+        0 0 20px rgba(0, 0, 0, 0.38);
+      overflow: hidden;
+    }
+
+    .hud-card::before,
+    .hud-card::after {
+      content: "";
+      position: absolute;
+      width: 40px;
+      height: 28px;
+      border-color: rgba(104, 218, 238, 0.78);
+      pointer-events: none;
+    }
+
+    .hud-card::before {
+      left: 8px;
+      top: 8px;
+      border-top: 1px solid;
+      border-left: 1px solid;
+    }
+
+    .hud-card::after {
+      right: 8px;
+      bottom: 8px;
+      border-right: 1px solid;
+      border-bottom: 1px solid;
+    }
+
+    .hud-card.dim {
+      border-color: rgba(101, 154, 189, 0.36);
+      opacity: 0.84;
+    }
+
+    .hud-card.violet {
+      border-color: rgba(154, 124, 255, 0.7);
+      box-shadow: inset 0 0 0 2px rgba(154, 124, 255, 0.08), 0 0 22px rgba(154, 124, 255, 0.08);
+    }
+
+    .hud-card.gold {
+      border-color: rgba(246, 197, 109, 0.86);
+      box-shadow:
+        inset 0 0 0 2px rgba(246, 197, 109, 0.12),
+        0 0 30px rgba(246, 197, 109, 0.24);
+    }
+
+    .hud-card.gold::before,
+    .hud-card.gold::after {
+      border-color: rgba(246, 197, 109, 0.92);
+    }
+
+    .grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(118, 180, 214, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(118, 180, 214, 0.08) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.55;
+    }
+
+    .diag {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, transparent 0 46%, rgba(165, 221, 255, 0.22) 46.4% 47%, transparent 47.4%);
+    }
+
+    .radar {
+      position: absolute;
+      inset: 14%;
+      border-radius: 50%;
+      border: 1px solid rgba(103, 231, 255, 0.24);
+      box-shadow:
+        inset 0 0 0 32px rgba(103, 231, 255, 0.02),
+        inset 0 0 0 64px rgba(103, 231, 255, 0.025);
+    }
+
+    .radar::before {
+      content: "";
+      position: absolute;
+      inset: 44%;
+      background: var(--cyan);
+      transform: rotate(45deg);
+      box-shadow: 0 0 24px var(--cyan);
+    }
+
+    .wave,
+    .audio {
+      position: absolute;
+      inset: 22px 18px;
+    }
+
+    .wave svg,
+    .audio svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: visible;
+    }
+
+    .slot-glow {
+      position: absolute;
+      inset: -24px -16px auto auto;
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, rgba(246, 197, 109, 0.85), transparent 60%);
+      filter: blur(8px);
+      opacity: 0.64;
+    }
+
+    .micro-lines {
+      position: absolute;
+      inset: 12px;
+      border-top: 1px solid rgba(130, 216, 238, 0.2);
+      border-left: 1px solid rgba(130, 216, 238, 0.16);
+      opacity: 0.8;
+    }
+
+    .grain {
+      position: absolute;
+      inset: 0;
+      z-index: 40;
+      pointer-events: none;
+      opacity: 0.018;
+      mix-blend-mode: screen;
+      background-image:
+        repeating-radial-gradient(circle at 11% 17%, #fff 0 1px, transparent 1px 3px),
+        repeating-linear-gradient(115deg, transparent 0 6px, rgba(255, 255, 255, 0.3) 6px 7px);
+      background-size: 180px 180px, 220px 220px;
+    }
+  </style>
+</head>
+<body>
+  <main class="frame" aria-label="Resonance Afterlight one-to-one reference frame">
+    <div class="top-rail">Resonance Afterlight</div>
+    <span class="top-gem"></span>
+
+    <section class="main-stage">
+      <div class="portrait">
+        <svg class="character-svg" viewBox="0 0 520 760" role="img" aria-label="Original anime heroine">
+          <defs>
+            <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#fff4f0"/>
+              <stop offset=".52" stop-color="#e7c9c8"/>
+              <stop offset="1" stop-color="#c99ca2"/>
+            </linearGradient>
+            <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#f7fbff"/>
+              <stop offset=".5" stop-color="#b8c8db"/>
+              <stop offset="1" stop-color="#58d7ea"/>
+            </linearGradient>
+            <linearGradient id="hairDark" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#c4d1e0"/>
+              <stop offset=".62" stop-color="#6f8197"/>
+              <stop offset="1" stop-color="#244358"/>
+            </linearGradient>
+            <linearGradient id="coat" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#303946"/>
+              <stop offset=".48" stop-color="#101820"/>
+              <stop offset="1" stop-color="#080c12"/>
+            </linearGradient>
+            <linearGradient id="whiteCloth" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#f7f9ff"/>
+              <stop offset=".62" stop-color="#c7d1dc"/>
+              <stop offset="1" stop-color="#758494"/>
+            </linearGradient>
+            <linearGradient id="cape" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#edf7ff" stop-opacity=".62"/>
+              <stop offset=".48" stop-color="#67e7ff" stop-opacity=".22"/>
+              <stop offset="1" stop-color="#111b26" stop-opacity=".28"/>
+            </linearGradient>
+            <linearGradient id="blade" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f3fffb"/>
+              <stop offset=".26" stop-color="#52f5e0"/>
+              <stop offset="1" stop-color="#67e7ff" stop-opacity=".1"/>
+            </linearGradient>
+            <radialGradient id="core" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stop-color="#f7fffb"/>
+              <stop offset=".36" stop-color="#49f0d0"/>
+              <stop offset="1" stop-color="#49f0d0" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          <ellipse cx="260" cy="720" rx="130" ry="26" fill="#dce8ff" opacity=".26"/>
+          <path d="M181 112 C102 143 59 229 54 344 C50 451 91 564 95 698 C129 710 166 690 177 654 C201 574 187 482 203 399 C217 326 181 240 181 112Z" fill="url(#hairDark)" opacity=".62"/>
+          <path d="M318 109 C393 144 430 236 424 354 C418 464 365 566 361 700 C321 713 291 686 289 650 C285 554 323 480 307 401 C292 329 315 238 318 109Z" fill="url(#hairDark)" opacity=".58"/>
+          <path d="M252 50 C166 53 114 109 110 185 C105 281 151 344 154 446 C157 551 136 630 92 704 C121 740 178 716 200 666 C225 607 222 522 238 440 C252 522 264 606 259 717 C302 727 344 708 361 671 C326 584 344 505 348 423 C354 311 408 260 396 171 C387 102 331 47 252 50Z" fill="url(#hair)"/>
+          <path d="M135 194 C111 266 102 359 123 469 C137 542 119 617 77 697" fill="none" stroke="#f3fbff" stroke-width="4" stroke-opacity=".45"/>
+          <path d="M363 191 C390 270 390 367 366 469 C348 546 360 617 392 696" fill="none" stroke="#67e7ff" stroke-width="4" stroke-opacity=".36"/>
+
+          <path d="M200 135 C222 86 288 82 318 129 C346 174 326 235 263 242 C197 239 177 181 200 135Z" fill="url(#skin)"/>
+          <path d="M168 157 C190 91 252 52 309 80 C348 99 369 131 364 184 C328 150 284 139 230 151 C199 157 181 164 168 157Z" fill="url(#hair)"/>
+          <path d="M177 176 C205 143 269 128 330 148 C303 185 251 201 196 194 C182 191 174 185 177 176Z" fill="#f7fbff" opacity=".86"/>
+          <path d="M219 143 C207 178 186 212 159 246 C205 227 238 194 249 145Z" fill="#eef6ff" opacity=".82"/>
+          <path d="M298 139 C330 169 354 204 369 248 C333 228 307 195 289 145Z" fill="#80e3f0" opacity=".38"/>
+          <path d="M204 190 C222 178 244 181 258 194" fill="none" stroke="#455363" stroke-width="3" stroke-linecap="round"/>
+          <path d="M275 194 C294 180 319 181 335 195" fill="none" stroke="#455363" stroke-width="3" stroke-linecap="round"/>
+          <path d="M207 209 C225 192 248 194 263 210 C247 224 224 222 207 209Z" fill="#f7fbff"/>
+          <path d="M276 211 C294 193 320 194 337 212 C320 225 293 225 276 211Z" fill="#f7fbff"/>
+          <ellipse cx="236" cy="210" rx="10" ry="13" fill="#67e7ff"/>
+          <ellipse cx="307" cy="211" rx="10" ry="13" fill="#67e7ff"/>
+          <circle cx="240" cy="205" r="3" fill="#fff"/>
+          <circle cx="311" cy="206" r="3" fill="#fff"/>
+          <path d="M267 210 C265 221 261 229 257 237" fill="none" stroke="#a4777c" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M247 252 C263 262 285 261 301 251" fill="none" stroke="#855b63" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M186 255 C214 282 309 284 342 254" fill="none" stroke="#eaf4ff" stroke-width="5" stroke-opacity=".8"/>
+
+          <path d="M179 278 C204 258 319 257 347 279 C374 349 375 429 356 498 C340 556 344 628 372 702 C334 731 287 713 270 665 C262 618 262 545 256 490 C247 548 232 624 215 690 C178 715 139 709 116 680 C156 592 164 548 149 493 C127 414 132 345 179 278Z" fill="url(#coat)"/>
+          <path d="M189 281 C222 311 302 310 340 280 C330 339 303 373 262 383 C221 371 198 337 189 281Z" fill="url(#whiteCloth)"/>
+          <path d="M181 345 C218 391 314 391 358 341 C371 401 367 462 352 500 C302 533 210 536 147 495 C135 437 139 386 181 345Z" fill="#101821"/>
+          <path d="M195 294 C215 356 240 394 262 448 C286 394 308 356 329 294" fill="none" stroke="#bdc8d6" stroke-width="2.2" stroke-opacity=".62"/>
+          <path d="M257 388 C286 420 297 475 279 518 C266 549 238 547 226 516 C211 475 225 419 257 388Z" fill="url(#core)" filter="url(#softGlow)"/>
+          <circle cx="257" cy="468" r="23" fill="url(#core)" filter="url(#softGlow)"/>
+          <circle cx="257" cy="468" r="43" fill="none" stroke="#49f0d0" stroke-opacity=".38" stroke-width="2"/>
+
+          <path d="M154 298 C96 350 73 461 84 585 C87 619 124 622 141 593 C185 518 204 410 198 333Z" fill="url(#cape)"/>
+          <path d="M348 300 C399 351 423 459 415 580 C412 619 374 625 357 591 C318 515 301 411 307 334Z" fill="url(#cape)"/>
+          <path d="M153 496 C198 536 307 538 357 498" fill="none" stroke="#49f0d0" stroke-width="3.5" stroke-opacity=".55"/>
+
+          <path d="M162 506 C150 574 141 646 131 704 C158 730 199 724 215 693 C225 625 233 553 251 490" fill="#080d14"/>
+          <path d="M317 505 C328 580 346 645 374 699 C351 728 305 725 286 696 C278 626 271 553 260 490" fill="#080d14"/>
+          <path d="M128 702 C157 720 188 722 217 698 L232 734 C197 752 143 746 110 718Z" fill="#111a25"/>
+          <path d="M285 697 C314 722 348 720 375 699 L405 719 C377 746 321 752 280 733Z" fill="#111a25"/>
+          <path d="M151 515 C177 535 202 535 226 516" fill="none" stroke="#67e7ff" stroke-width="3" stroke-opacity=".34"/>
+          <path d="M286 517 C309 534 337 534 361 514" fill="none" stroke="#67e7ff" stroke-width="3" stroke-opacity=".34"/>
+
+          <path d="M99 414 C65 462 52 532 61 612" fill="none" stroke="#dceaff" stroke-width="8" stroke-linecap="round" stroke-opacity=".52"/>
+          <path d="M407 414 C439 463 450 531 439 612" fill="none" stroke="#dceaff" stroke-width="8" stroke-linecap="round" stroke-opacity=".52"/>
+          <path d="M332 92 C315 266 285 435 210 708" fill="none" stroke="url(#blade)" stroke-width="8" stroke-linecap="round" filter="url(#softGlow)"/>
+          <path d="M354 105 C330 273 300 440 236 718" fill="none" stroke="url(#blade)" stroke-width="7" stroke-linecap="round" opacity=".88"/>
+          <path d="M318 82 C343 83 363 94 377 114" fill="none" stroke="#49f0d0" stroke-width="5" stroke-linecap="round"/>
+          <path d="M350 72 C340 104 331 136 320 168" fill="none" stroke="#eefaff" stroke-width="5" stroke-linecap="round"/>
+          <path d="M199 281 C235 305 294 306 336 281" fill="none" stroke="#d8e3f0" stroke-opacity=".7" stroke-width="4"/>
+          <path d="M178 295 C205 322 318 323 350 295" fill="none" stroke="#49f0d0" stroke-opacity=".23" stroke-width="2"/>
+          <g class="hero-v2" transform="translate(58 -8) scale(.78 1.04)">
+            <ellipse cx="254" cy="724" rx="126" ry="23" fill="#e8f3ff" opacity=".2"/>
+            <path d="M101 705 C139 608 153 494 141 364 C132 257 160 125 247 71 C332 128 358 260 349 369 C339 487 359 603 407 704 C367 729 325 718 312 666 C296 596 284 501 271 419 C252 506 238 602 224 686 C191 716 142 725 101 705Z" fill="url(#hair)" opacity=".82"/>
+            <path d="M94 318 C47 367 27 482 38 615 C41 650 78 656 95 627 C145 542 161 420 153 340Z" fill="url(#cape)"/>
+            <path d="M335 318 C392 371 418 482 410 617 C408 656 369 663 350 627 C305 541 288 421 297 341Z" fill="url(#cape)"/>
+            <path d="M206 178 C226 136 285 132 311 173 C337 214 317 266 258 271 C202 267 186 217 206 178Z" fill="url(#skin)"/>
+            <path d="M178 195 C194 124 250 83 304 98 C349 111 372 146 365 202 C333 168 291 158 238 169 C207 175 190 197 178 195Z" fill="url(#hair)"/>
+            <path d="M186 210 C214 177 274 164 330 182 C307 215 257 231 207 224 C193 222 184 218 186 210Z" fill="#f7fbff" opacity=".9"/>
+            <path d="M220 178 C208 211 191 239 164 272 C203 255 236 221 248 179Z" fill="#eef7ff" opacity=".82"/>
+            <path d="M290 178 C319 202 343 234 358 274 C326 253 305 222 286 183Z" fill="#80e6f5" opacity=".42"/>
+            <path d="M211 226 C229 214 249 216 263 228" fill="none" stroke="#455363" stroke-width="3" stroke-linecap="round"/>
+            <path d="M278 229 C297 216 319 217 334 230" fill="none" stroke="#455363" stroke-width="3" stroke-linecap="round"/>
+            <path d="M214 242 C230 226 252 228 266 243 C251 256 229 255 214 242Z" fill="#f9fcff"/>
+            <path d="M281 244 C298 227 322 229 337 245 C321 258 298 257 281 244Z" fill="#f9fcff"/>
+            <ellipse cx="239" cy="242" rx="9" ry="12" fill="#67e7ff"/>
+            <ellipse cx="309" cy="244" rx="9" ry="12" fill="#67e7ff"/>
+            <circle cx="242" cy="237" r="3" fill="#fff"/>
+            <circle cx="312" cy="239" r="3" fill="#fff"/>
+            <path d="M267 245 C265 254 262 261 257 269" fill="none" stroke="#a4777c" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M246 285 C262 294 284 294 300 284" fill="none" stroke="#855b63" stroke-width="2.4" stroke-linecap="round"/>
+            <path d="M188 295 C221 322 304 323 340 296" fill="url(#whiteCloth)"/>
+            <path d="M171 319 C203 294 316 294 350 321 C376 404 367 514 343 676 C320 713 276 718 257 686 C253 599 256 514 259 455 C240 529 226 611 203 696 C162 718 119 706 103 675 C141 552 139 455 128 398 C122 364 134 337 171 319Z" fill="url(#coat)"/>
+            <path d="M182 321 C214 357 303 358 341 321 C331 382 305 420 262 431 C219 421 194 383 182 321Z" fill="url(#whiteCloth)"/>
+            <path d="M174 415 C216 456 304 457 353 414 C361 471 355 533 337 570 C286 603 193 597 132 566 C124 506 131 453 174 415Z" fill="#101821"/>
+            <path d="M260 420 C288 455 296 512 277 552 C263 582 235 577 224 548 C211 508 226 454 260 420Z" fill="url(#core)" filter="url(#softGlow)"/>
+            <circle cx="260" cy="496" r="20" fill="url(#core)" filter="url(#softGlow)"/>
+            <circle cx="260" cy="496" r="39" fill="none" stroke="#49f0d0" stroke-opacity=".45" stroke-width="2"/>
+            <path d="M127 568 C180 611 289 612 342 570" fill="none" stroke="#49f0d0" stroke-width="3" stroke-opacity=".58"/>
+            <path d="M151 573 C139 630 126 681 103 715 C132 737 181 733 207 700 C223 621 238 547 255 458" fill="#080d14"/>
+            <path d="M309 573 C322 631 344 681 374 713 C351 740 299 735 273 700 C267 624 262 540 260 458" fill="#080d14"/>
+            <path d="M103 714 C136 733 178 733 209 702 L227 735 C193 754 128 750 83 725Z" fill="#111a25"/>
+            <path d="M271 701 C304 731 347 733 376 713 L411 726 C374 753 310 754 265 735Z" fill="#111a25"/>
+            <path d="M52 422 C27 485 21 565 36 632" fill="none" stroke="#dceaff" stroke-width="8" stroke-linecap="round" stroke-opacity=".55"/>
+            <path d="M406 424 C437 485 449 564 439 633" fill="none" stroke="#dceaff" stroke-width="8" stroke-linecap="round" stroke-opacity=".55"/>
+            <path d="M65 699 C87 589 115 480 159 393" fill="none" stroke="url(#blade)" stroke-width="9" stroke-linecap="round" filter="url(#softGlow)"/>
+            <path d="M92 714 C111 602 138 493 177 405" fill="none" stroke="url(#blade)" stroke-width="8" stroke-linecap="round" opacity=".88"/>
+            <path d="M55 688 L34 736" fill="none" stroke="#67e7ff" stroke-width="6" stroke-linecap="round" filter="url(#softGlow)"/>
+            <path d="M85 700 L71 747" fill="none" stroke="#67e7ff" stroke-width="6" stroke-linecap="round" filter="url(#softGlow)"/>
+            <path d="M156 387 C177 388 193 399 205 416" fill="none" stroke="#bfcbd7" stroke-width="5" stroke-linecap="round"/>
+            <path d="M187 317 C229 348 293 349 338 318" fill="none" stroke="#eaf4ff" stroke-opacity=".74" stroke-width="4"/>
+            <path d="M183 338 C218 363 308 363 345 339" fill="none" stroke="#49f0d0" stroke-opacity=".27" stroke-width="2"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="scene">
+        <div class="clouds"></div>
+        <div class="rain"></div>
+        <div class="spectral-ring"></div>
+        <div class="city">
+          <span class="tower" style="--x:20%;--w:42px;--h:44%;--o:.58"></span>
+          <span class="tower" style="--x:31%;--w:52px;--h:58%;--o:.68"></span>
+          <span class="tower" style="--x:42%;--w:34px;--h:72%;--o:.78"></span>
+          <span class="tower" style="--x:51%;--w:62px;--h:64%;--o:.72"></span>
+          <span class="tower" style="--x:62%;--w:45px;--h:52%;--o:.56"></span>
+          <span class="tower" style="--x:72%;--w:86px;--h:92%;--o:.92"></span>
+          <span class="tower" style="--x:84%;--w:48px;--h:49%;--o:.62"></span>
+        </div>
+        <div class="bridge"></div>
+        <div class="water"></div>
+        <div class="foreground"></div>
+        <div class="plants">
+          <i class="plant" style="--x:2%;--w:86px;--h:102px;--r:-17deg;--o:.65"></i>
+          <i class="plant" style="--x:11%;--w:76px;--h:86px;--r:13deg;--o:.56"></i>
+          <i class="plant" style="--x:82%;--w:96px;--h:146px;--r:18deg;--o:.82"></i>
+          <i class="plant" style="--x:90%;--w:82px;--h:110px;--r:-9deg;--o:.72"></i>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel-zone" aria-label="Bottom HUD cards">
+      <div class="hud-card dim">
+        <div class="grid-lines"></div>
+        <div class="micro-lines"></div>
+      </div>
+      <div class="hud-card dim">
+        <div class="grid-lines"></div>
+        <div class="diag"></div>
+      </div>
+      <div class="hud-card dim">
+        <div class="grid-lines"></div>
+        <div class="radar"></div>
+      </div>
+      <div class="hud-card">
+        <div class="grid-lines"></div>
+        <div class="wave">
+          <svg viewBox="0 0 300 116" aria-hidden="true">
+            <path d="M0 64 C26 34 49 34 75 64 S126 94 151 64 S202 34 226 64 S275 94 300 64" fill="none" stroke="#67e7ff" stroke-width="2" opacity=".85"/>
+            <path d="M0 72 C31 48 54 45 82 70 S130 92 155 68 S200 42 228 66 S271 91 300 65" fill="none" stroke="#e7fbff" stroke-width="1.2" opacity=".5"/>
+          </svg>
+        </div>
+      </div>
+      <div class="hud-card">
+        <div class="grid-lines"></div>
+        <div class="audio">
+          <svg viewBox="0 0 260 116" aria-hidden="true">
+            <line x1="0" y1="58" x2="260" y2="58" stroke="#67e7ff" stroke-opacity=".28"/>
+            <g stroke="#67e7ff" stroke-width="2" opacity=".78">
+              <line x1="10" y1="48" x2="10" y2="69"/><line x1="17" y1="36" x2="17" y2="81"/>
+              <line x1="24" y1="54" x2="24" y2="62"/><line x1="31" y1="28" x2="31" y2="88"/>
+              <line x1="38" y1="45" x2="38" y2="72"/><line x1="48" y1="24" x2="48" y2="92"/>
+              <line x1="62" y1="52" x2="62" y2="65"/><line x1="75" y1="39" x2="75" y2="78"/>
+              <line x1="94" y1="31" x2="94" y2="85"/><line x1="116" y1="45" x2="116" y2="72"/>
+              <line x1="140" y1="41" x2="140" y2="75"/><line x1="168" y1="34" x2="168" y2="82"/>
+              <line x1="198" y1="51" x2="198" y2="66"/><line x1="226" y1="43" x2="226" y2="74"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="hud-card dim">
+        <div class="grid-lines"></div>
+        <div class="micro-lines"></div>
+      </div>
+      <div class="hud-card violet">
+        <div class="grid-lines"></div>
+        <div class="micro-lines"></div>
+      </div>
+      <div class="hud-card gold">
+        <div class="slot-glow"></div>
+        <div class="grid-lines"></div>
+        <div class="micro-lines"></div>
+      </div>
+    </section>
+
+    <div class="grain"></div>
+  </main>
+</body>
+</html>

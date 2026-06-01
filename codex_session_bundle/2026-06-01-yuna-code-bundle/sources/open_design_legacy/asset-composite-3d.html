@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Resonance Afterlight WebGL Stage</title>
+  <style>
+    :root {
+      --cyan: #62e8ff;
+      --teal: #48f0d0;
+      --gold: #f3c064;
+      --violet: #9b7cff;
+      --white: #edf7ff;
+      --font: "Avenir Next", "DIN Alternate", "Inter", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 45%, rgba(38, 83, 105, 0.2), transparent 34%),
+        #010409;
+      color: var(--white);
+      font-family: var(--font);
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+    }
+
+    .board {
+      position: relative;
+      width: min(100vw, 133.333vh);
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: #03070d;
+      box-shadow: 0 30px 110px rgba(0, 0, 0, 0.76);
+      isolation: isolate;
+    }
+
+    #three-stage {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      display: block;
+      background: #03070d;
+    }
+
+    .frame,
+    .frame::before,
+    .frame::after,
+    .grid-grain,
+    .top,
+    .gem,
+    .split-line,
+    .hud {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .frame {
+      inset: 0;
+      z-index: 40;
+      border: 1px solid rgba(101, 179, 220, 0.72);
+      box-shadow:
+        inset 0 0 0 2px rgba(81, 166, 210, 0.15),
+        inset 0 0 46px rgba(84, 215, 245, 0.08);
+    }
+
+    .frame::before {
+      content: "";
+      inset: 8px;
+      border: 1px solid rgba(104, 180, 220, 0.3);
+      clip-path: polygon(0 20px, 20px 0, 31% 0, 32% 12px, 68% 12px, 69% 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px));
+    }
+
+    .frame::after {
+      content: "";
+      left: 0;
+      right: 0;
+      top: 79.6%;
+      height: 1px;
+      background: rgba(100, 181, 222, 0.62);
+      box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .top {
+      inset: 0 0 auto;
+      height: 3.05%;
+      z-index: 45;
+      display: grid;
+      place-items: center;
+      text-transform: uppercase;
+      letter-spacing: 0.63em;
+      font: 500 clamp(16px, 1.65vw, 25px)/1 var(--font);
+      color: rgba(238, 248, 255, 0.95);
+      text-shadow: 0 0 18px rgba(100, 226, 255, 0.34);
+      background:
+        linear-gradient(90deg, transparent 0 13.5%, rgba(103, 231, 255, 0.35) 13.6% 13.7%, transparent 13.8% 86.2%, rgba(103, 231, 255, 0.34) 86.3% 86.4%, transparent 86.5%),
+        linear-gradient(180deg, rgba(2, 6, 12, 0.96), rgba(2, 6, 12, 0.12));
+    }
+
+    .top::before,
+    .top::after {
+      content: "";
+      position: absolute;
+      top: 14px;
+      width: 36%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(128, 203, 238, 0.65), rgba(128, 203, 238, 0.15));
+      box-shadow: 0 10px 0 rgba(128, 203, 238, 0.16);
+    }
+
+    .top::before { left: 15px; }
+    .top::after {
+      right: 15px;
+      transform: scaleX(-1);
+    }
+
+    .gem {
+      top: 3.05%;
+      left: 50%;
+      z-index: 46;
+      width: 9px;
+      height: 9px;
+      transform: translate(-50%, -50%) rotate(45deg);
+      background: var(--cyan);
+      box-shadow: 0 0 20px var(--cyan), 0 0 44px rgba(98, 232, 255, 0.5);
+    }
+
+    .split-line {
+      left: 33.82%;
+      top: 3.05%;
+      bottom: 20.4%;
+      z-index: 35;
+      width: 1px;
+      background: linear-gradient(180deg, rgba(123, 190, 224, 0.42), rgba(123, 190, 224, 0.66), rgba(123, 190, 224, 0.2));
+      box-shadow: 0 0 20px rgba(98, 232, 255, 0.12);
+    }
+
+    .grid-grain {
+      inset: 0;
+      z-index: 38;
+      opacity: 0.014;
+      mix-blend-mode: screen;
+      background-image:
+        repeating-radial-gradient(circle at 18% 22%, #fff 0 1px, transparent 1px 4px),
+        repeating-linear-gradient(115deg, transparent 0 6px, rgba(255, 255, 255, 0.28) 6px 7px);
+      background-size: 220px 220px, 260px 260px;
+    }
+
+    .hud {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 34;
+      height: 20.4%;
+      padding: 1.3% 0.9% 0.75%;
+      display: grid;
+      grid-template-columns: 1.08fr 1.08fr 0.95fr 1.62fr 1.4fr 0.7fr 0.7fr 0.7fr;
+      gap: 1.18%;
+      background:
+        linear-gradient(180deg, rgba(2, 7, 13, 0.26), rgba(3, 8, 14, 0.96) 22%),
+        rgba(5, 10, 17, 0.82);
+      transform-origin: 50% 100%;
+      transform: perspective(1100px) rotateX(7deg);
+      border-top: 1px solid rgba(100, 181, 222, 0.54);
+    }
+
+    .slot {
+      position: relative;
+      min-width: 0;
+      height: 100%;
+      overflow: hidden;
+      border: 1px solid rgba(105, 185, 224, 0.56);
+      background:
+        linear-gradient(135deg, rgba(91, 146, 177, 0.18), transparent 34%),
+        radial-gradient(circle at 50% 48%, rgba(98, 232, 255, 0.07), transparent 36%),
+        rgba(8, 17, 27, 0.72);
+      box-shadow:
+        inset 0 0 0 2px rgba(92, 165, 205, 0.1),
+        inset 0 0 30px rgba(86, 215, 244, 0.05),
+        0 16px 34px rgba(0, 0, 0, 0.34);
+      clip-path: polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px);
+    }
+
+    .slot::before,
+    .slot::after {
+      content: "";
+      position: absolute;
+      width: 22%;
+      height: 18%;
+      border-color: rgba(132, 226, 246, 0.82);
+      z-index: 2;
+    }
+
+    .slot::before {
+      left: 6%;
+      top: 6%;
+      border-top: 1px solid;
+      border-left: 1px solid;
+    }
+
+    .slot::after {
+      right: 6%;
+      bottom: 6%;
+      border-right: 1px solid;
+      border-bottom: 1px solid;
+    }
+
+    .slot-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(116, 185, 220, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(116, 185, 220, 0.08) 1px, transparent 1px);
+      background-size: 29px 29px;
+      opacity: 0.62;
+    }
+
+    .slot.violet {
+      border-color: rgba(155, 124, 255, 0.72);
+      box-shadow: inset 0 0 0 2px rgba(155, 124, 255, 0.1), 0 0 22px rgba(155, 124, 255, 0.1);
+    }
+
+    .slot.gold {
+      border-color: rgba(243, 192, 100, 0.95);
+      box-shadow: inset 0 0 0 2px rgba(243, 192, 100, 0.16), 0 0 34px rgba(243, 192, 100, 0.24);
+    }
+
+    .slot.gold::before,
+    .slot.gold::after { border-color: rgba(243, 192, 100, 0.96); }
+
+    .diag {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 0 48%, rgba(180, 226, 248, 0.22) 48.2% 48.7%, transparent 49%);
+    }
+
+    .radar {
+      position: absolute;
+      inset: 19% 25%;
+      border-radius: 50%;
+      border: 1px solid rgba(98, 232, 255, 0.25);
+      box-shadow:
+        inset 0 0 0 30px rgba(98, 232, 255, 0.018),
+        inset 0 0 0 60px rgba(98, 232, 255, 0.02);
+    }
+
+    .radar::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 15px;
+      height: 15px;
+      transform: translate(-50%, -50%) rotate(45deg);
+      background: var(--cyan);
+      box-shadow: 0 0 24px var(--cyan);
+    }
+
+    .wave,
+    .audio {
+      position: absolute;
+      inset: 18% 12%;
+      display: grid;
+      place-items: center;
+    }
+
+    .wave svg,
+    .audio svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .gold-spark {
+      position: absolute;
+      right: -28px;
+      top: -33px;
+      width: 108px;
+      height: 108px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 224, 153, 0.9), rgba(243, 192, 100, 0.28) 36%, transparent 66%);
+      filter: blur(7px);
+      opacity: 0.78;
+    }
+
+    @media (max-width: 900px) {
+      .top {
+        font-size: 15px;
+        letter-spacing: 0.36em;
+      }
+
+      .hud {
+        gap: 0.8%;
+        padding-inline: 0.7%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="board" id="board" aria-label="Resonance Afterlight WebGL stage">
+    <canvas id="three-stage"></canvas>
+    <div class="frame"></div>
+    <header class="top">Resonance Afterlight</header>
+    <span class="gem"></span>
+    <span class="split-line"></span>
+    <div class="grid-grain"></div>
+
+    <section class="hud" aria-label="bottom HUD slots">
+      <div class="slot"><div class="slot-grid"></div></div>
+      <div class="slot"><div class="slot-grid"></div><div class="diag"></div></div>
+      <div class="slot"><div class="slot-grid"></div><div class="radar"></div></div>
+      <div class="slot">
+        <div class="slot-grid"></div>
+        <div class="wave">
+          <svg viewBox="0 0 320 120" aria-hidden="true">
+            <path d="M0 67 C28 36 54 36 81 67 S133 98 160 67 S212 36 240 67 S292 98 320 67" fill="none" stroke="#62e8ff" stroke-width="2.2" opacity=".92"/>
+            <path d="M0 75 C32 51 61 47 88 72 S135 96 162 70 S212 45 242 69 S291 94 320 70" fill="none" stroke="#edf7ff" stroke-width="1.2" opacity=".52"/>
+          </svg>
+        </div>
+      </div>
+      <div class="slot">
+        <div class="slot-grid"></div>
+        <div class="audio">
+          <svg viewBox="0 0 270 120" aria-hidden="true">
+            <line x1="0" y1="60" x2="270" y2="60" stroke="#62e8ff" stroke-opacity=".26"/>
+            <g stroke="#62e8ff" stroke-width="2" opacity=".82">
+              <line x1="10" y1="52" x2="10" y2="68"/><line x1="18" y1="42" x2="18" y2="78"/>
+              <line x1="27" y1="35" x2="27" y2="85"/><line x1="36" y1="47" x2="36" y2="73"/>
+              <line x1="48" y1="30" x2="48" y2="90"/><line x1="62" y1="51" x2="62" y2="69"/>
+              <line x1="78" y1="40" x2="78" y2="80"/><line x1="98" y1="54" x2="98" y2="66"/>
+              <line x1="118" y1="39" x2="118" y2="82"/><line x1="144" y1="50" x2="144" y2="70"/>
+              <line x1="170" y1="45" x2="170" y2="77"/><line x1="205" y1="52" x2="205" y2="69"/>
+              <line x1="236" y1="49" x2="236" y2="72"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="slot"><div class="slot-grid"></div></div>
+      <div class="slot violet"><div class="slot-grid"></div></div>
+      <div class="slot gold"><div class="gold-spark"></div><div class="slot-grid"></div></div>
+    </section>
+  </main>
+
+  <script src="assets/generated/asset-data.js"></script>
+  <script src="assets/vendor/three.r128.min.js"></script>
+  <script>
+    const THREE = window.THREE;
+    const board = document.getElementById("board");
+    const canvas = document.getElementById("three-stage");
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      alpha: false,
+      antialias: true,
+      powerPreference: "high-performance"
+    });
+    renderer.setClearColor(0x03070d, 1);
+    if ("outputColorSpace" in renderer) {
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+    } else {
+      renderer.outputEncoding = THREE.sRGBEncoding;
+    }
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.04;
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x06111a, 0.035);
+
+    const camera = new THREE.PerspectiveCamera(34, 4 / 3, 0.1, 80);
+    camera.position.set(0, 0.35, 19.8);
+
+    const stage = new THREE.Group();
+    scene.add(stage);
+
+    const loader = new THREE.TextureLoader();
+    const loadTexture = (url) => new Promise((resolve, reject) => {
+      loader.load(url, (texture) => {
+        if ("colorSpace" in texture) {
+          texture.colorSpace = THREE.SRGBColorSpace;
+        } else {
+          texture.encoding = THREE.sRGBEncoding;
+        }
+        texture.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 8);
+        texture.needsUpdate = true;
+        resolve(texture);
+      }, undefined, reject);
+    });
+
+    function makeGradientTexture(kind) {
+      const c = document.createElement("canvas");
+      c.width = 1024;
+      c.height = 1024;
+      const ctx = c.getContext("2d");
+      const bg = ctx.createLinearGradient(0, 0, 0, c.height);
+      bg.addColorStop(0, "#07111b");
+      bg.addColorStop(0.55, "#07101a");
+      bg.addColorStop(1, "#151e28");
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, c.width, c.height);
+
+      if (kind === "left") {
+        const foot = ctx.createRadialGradient(460, 970, 10, 460, 970, 520);
+        foot.addColorStop(0, "rgba(255,255,255,0.78)");
+        foot.addColorStop(0.24, "rgba(190,208,226,0.22)");
+        foot.addColorStop(0.64, "rgba(0,0,0,0)");
+        ctx.fillStyle = foot;
+        ctx.fillRect(0, 0, c.width, c.height);
+
+        const aura = ctx.createRadialGradient(440, 310, 10, 440, 310, 360);
+        aura.addColorStop(0, "rgba(82,223,246,0.18)");
+        aura.addColorStop(1, "rgba(0,0,0,0)");
+        ctx.fillStyle = aura;
+        ctx.fillRect(0, 0, c.width, c.height);
+      }
+
+      const texture = new THREE.CanvasTexture(c);
+      if ("colorSpace" in texture) {
+        texture.colorSpace = THREE.SRGBColorSpace;
+      } else {
+        texture.encoding = THREE.sRGBEncoding;
+      }
+      texture.needsUpdate = true;
+      return texture;
+    }
+
+    function makePlane({ width, height, texture, x, y, z, opacity = 1, rotationY = 0, rotationX = 0, color = 0xffffff }) {
+      const material = new THREE.MeshBasicMaterial({
+        map: texture,
+        color,
+        transparent: opacity < 1 || Boolean(texture?.source),
+        opacity,
+        depthWrite: false,
+        side: THREE.DoubleSide
+      });
+      const mesh = new THREE.Mesh(new THREE.PlaneGeometry(width, height, 1, 1), material);
+      mesh.position.set(x, y, z);
+      mesh.rotation.set(rotationX, rotationY, 0);
+      stage.add(mesh);
+      return mesh;
+    }
+
+    function seeded(seed) {
+      let value = seed % 2147483647;
+      return () => {
+        value = value * 16807 % 2147483647;
+        return (value - 1) / 2147483646;
+      };
+    }
+
+    function addLine(x1, y1, z1, x2, y2, z2, color, opacity) {
+      const geometry = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(x1, y1, z1),
+        new THREE.Vector3(x2, y2, z2)
+      ]);
+      const material = new THREE.LineBasicMaterial({
+        color,
+        transparent: true,
+        opacity,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
+      });
+      const line = new THREE.Line(geometry, material);
+      stage.add(line);
+      return line;
+    }
+
+    function addRing() {
+      const curve = new THREE.EllipseCurve(0, 0, 1.95, 0.52, 0, Math.PI * 2, false, 0);
+      const points = curve.getPoints(180).map((p) => new THREE.Vector3(p.x, p.y, 0));
+      const geometry = new THREE.BufferGeometry().setFromPoints(points);
+      const ring = new THREE.LineLoop(
+        geometry,
+        new THREE.LineBasicMaterial({
+          color: 0x62e8ff,
+          transparent: true,
+          opacity: 0.7,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false
+        })
+      );
+      ring.position.set(4.95, 3.42, 0.52);
+      ring.rotation.set(0.1, -0.08, -0.02);
+      stage.add(ring);
+      return ring;
+    }
+
+    function addParticles() {
+      const random = seeded(42691);
+      const count = 460;
+      const positions = new Float32Array(count * 3);
+      const colors = new Float32Array(count * 3);
+      const color = new THREE.Color();
+
+      for (let i = 0; i < count; i += 1) {
+        const panelBias = random();
+        const x = panelBias < 0.33 ? -7.2 + random() * 5 : -1.8 + random() * 9.5;
+        const y = -4.2 + random() * 8.6;
+        const z = -0.55 + random() * 3.5;
+        positions[i * 3] = x;
+        positions[i * 3 + 1] = y;
+        positions[i * 3 + 2] = z;
+
+        const warm = random() > 0.91;
+        color.set(warm ? 0xf3c064 : (random() > 0.68 ? 0xedf7ff : 0x62e8ff));
+        colors[i * 3] = color.r;
+        colors[i * 3 + 1] = color.g;
+        colors[i * 3 + 2] = color.b;
+      }
+
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+      geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+
+      const material = new THREE.PointsMaterial({
+        size: 0.035,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.82,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
+      });
+      const points = new THREE.Points(geometry, material);
+      stage.add(points);
+      return points;
+    }
+
+    function addHudDepthLines() {
+      for (let i = 0; i < 15; i += 1) {
+        const x = -8 + i * 1.14;
+        addLine(x, -3.42, -0.15, x + 0.42, -5.58, 0.8, 0x315d75, 0.16);
+      }
+      addLine(-8, -3.35, 0.12, 8, -3.35, 0.12, 0x62e8ff, 0.34);
+    }
+
+    const pointer = { x: 0, y: 0 };
+    const target = { x: 0, y: 0 };
+    const tracked = [];
+
+    Promise.all([
+      loadTexture(window.RA_ASSETS.city),
+      loadTexture(window.RA_ASSETS.character)
+    ]).then(([cityTexture, characterTexture]) => {
+      makePlane({
+        width: 16,
+        height: 12,
+        texture: null,
+        x: 0,
+        y: 0,
+        z: -2.7,
+        opacity: 1,
+        color: 0x03070d
+      });
+
+      const leftPane = makePlane({
+        width: 5.45,
+        height: 9.22,
+        texture: makeGradientTexture("left"),
+        x: -5.29,
+        y: 0.97,
+        z: -1.0,
+        opacity: 1
+      });
+      leftPane.rotation.y = 0.035;
+
+      const city = makePlane({
+        width: 11.7,
+        height: 9.82,
+        texture: cityTexture,
+        x: 2.85,
+        y: 0.92,
+        z: -1.35,
+        opacity: 1
+      });
+      city.rotation.y = -0.055;
+      city.material.color.set(0xd6e8ff);
+
+      const haze = makePlane({
+        width: 11.72,
+        height: 9.84,
+        texture: makeGradientTexture("haze"),
+        x: 2.85,
+        y: 0.92,
+        z: -0.78,
+        opacity: 0.18,
+        color: 0x6ccaff
+      });
+      haze.material.blending = THREE.AdditiveBlending;
+
+      const character = makePlane({
+        width: 5.1,
+        height: 9.7,
+        texture: characterTexture,
+        x: -5.15,
+        y: 0.68,
+        z: 0.64,
+        opacity: 1
+      });
+      character.rotation.y = 0.05;
+
+      const footGlow = makePlane({
+        width: 4.2,
+        height: 1.25,
+        texture: makeGradientTexture("left"),
+        x: -5.18,
+        y: -4.52,
+        z: 0.06,
+        opacity: 0.22,
+        rotationX: -0.72,
+        color: 0xbfd8ee
+      });
+      footGlow.material.blending = THREE.AdditiveBlending;
+
+      const ring = addRing();
+      const particles = addParticles();
+      addHudDepthLines();
+
+      const random = seeded(9811);
+      for (let i = 0; i < 54; i += 1) {
+        const x = -1.15 + random() * 8.8;
+        const y = 1.15 + random() * 3.8;
+        const length = 0.35 + random() * 1.45;
+        addLine(x, y, 0.34 + random() * 0.9, x, y - length, 0.34 + random() * 0.9, 0x62e8ff, 0.13 + random() * 0.3);
+      }
+
+      tracked.push({ mesh: city, factor: 0.16 });
+      tracked.push({ mesh: haze, factor: 0.1 });
+      tracked.push({ mesh: character, factor: 0.34 });
+      tracked.push({ mesh: ring, factor: 0.22 });
+      tracked.push({ mesh: particles, factor: 0.45 });
+
+      start();
+    }).catch((error) => {
+      console.error(error);
+      document.body.dataset.webglError = "true";
+    });
+
+    function resize() {
+      const rect = board.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      renderer.setPixelRatio(dpr);
+      renderer.setSize(rect.width, rect.height, false);
+      camera.aspect = rect.width / rect.height;
+      camera.updateProjectionMatrix();
+    }
+
+    function renderAt(time) {
+      target.x += (pointer.x - target.x) * 0.07;
+      target.y += (pointer.y - target.y) * 0.07;
+
+      stage.rotation.y = target.x * 0.035;
+      stage.rotation.x = -target.y * 0.018;
+      camera.position.x = target.x * 0.52;
+      camera.position.y = 0.35 + target.y * 0.18 + Math.sin(time * 0.45) * 0.035;
+      camera.lookAt(0.05, 0.25, 0);
+
+      for (const { mesh, factor } of tracked) {
+        mesh.position.x += (mesh.userData.baseX + target.x * factor - mesh.position.x) * 0.08;
+        mesh.position.y += (mesh.userData.baseY + target.y * factor * 0.34 - mesh.position.y) * 0.08;
+      }
+
+      const ring = tracked[3]?.mesh;
+      if (ring) {
+        ring.scale.setScalar(1 + Math.sin(time * 1.35) * 0.035);
+        ring.material.opacity = 0.55 + Math.sin(time * 1.8) * 0.12;
+      }
+
+      const particles = tracked[4]?.mesh;
+      if (particles) {
+        particles.rotation.z = Math.sin(time * 0.14) * 0.012;
+        particles.rotation.y = target.x * 0.025;
+      }
+
+      renderer.render(scene, camera);
+    }
+
+    function start() {
+      resize();
+      for (const item of tracked) {
+        item.mesh.userData.baseX = item.mesh.position.x;
+        item.mesh.userData.baseY = item.mesh.position.y;
+      }
+
+      let startTime = performance.now();
+      const tick = () => {
+        renderAt((performance.now() - startTime) / 1000);
+        requestAnimationFrame(tick);
+      };
+      tick();
+    }
+
+    window.addEventListener("resize", resize);
+    window.addEventListener("pointermove", (event) => {
+      const rect = board.getBoundingClientRect();
+      pointer.x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+      pointer.y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+    });
+
+    window.addEventListener("pointerleave", () => {
+      pointer.x = 0;
+      pointer.y = 0;
+    });
+
+    window.addEventListener("hf-seek", (event) => {
+      renderAt(event.detail.time);
+    });
+  </script>
+</body>
+</html>

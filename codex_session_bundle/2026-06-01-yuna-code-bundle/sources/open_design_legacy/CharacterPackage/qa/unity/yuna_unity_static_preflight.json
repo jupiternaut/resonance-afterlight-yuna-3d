@@ -1,0 +1,86 @@
+{
+  "character_id": "yuna-white-sword",
+  "status": "static_preflight_ok_unity_runtime_blocked",
+  "unity_batchmode": "blocked_by_missing_editor_license",
+  "license_log": "CharacterPackage/qa/unity/create_project.log",
+  "staged_project": "CharacterPackage/unity/ValidationProject",
+  "models": [
+    {
+      "path": "CharacterPackage/rig/yuna_production_lod0.fbx",
+      "exists": true,
+      "bytes": 946348
+    },
+    {
+      "path": "CharacterPackage/rig/yuna_production_lod1.fbx",
+      "exists": true,
+      "bytes": 912860
+    },
+    {
+      "path": "CharacterPackage/rig/yuna_production_lod2.fbx",
+      "exists": true,
+      "bytes": 870972
+    }
+  ],
+  "glb_headers": [
+    {
+      "path": "CharacterPackage/web/yuna_production_lod0.glb",
+      "exists": true,
+      "bytes": 310824,
+      "magic": "glTF",
+      "version": 2,
+      "declared_length": 310824,
+      "length_matches": true
+    },
+    {
+      "path": "CharacterPackage/web/yuna_production_lod1.glb",
+      "exists": true,
+      "bytes": 198628,
+      "magic": "glTF",
+      "version": 2,
+      "declared_length": 198628,
+      "length_matches": true
+    },
+    {
+      "path": "CharacterPackage/web/yuna_production_lod2.glb",
+      "exists": true,
+      "bytes": 134212,
+      "magic": "glTF",
+      "version": 2,
+      "declared_length": 134212,
+      "length_matches": true
+    },
+    {
+      "path": "CharacterPackage/web/yuna_production_lod0_preview_nomorph.glb",
+      "exists": true,
+      "bytes": 303520,
+      "magic": "glTF",
+      "version": 2,
+      "declared_length": 303520,
+      "length_matches": true
+    }
+  ],
+  "textures": [
+    {
+      "path": "CharacterPackage/textures/export_unity_urp/yuna_urp_basecolor.png",
+      "exists": true,
+      "bytes": 22867
+    },
+    {
+      "path": "CharacterPackage/textures/export_unity_urp/yuna_urp_emission.png",
+      "exists": true,
+      "bytes": 22294
+    },
+    {
+      "path": "CharacterPackage/textures/export_unity_urp/yuna_urp_mask_metallic_occlusion_smoothness.png",
+      "exists": true,
+      "bytes": 21394
+    },
+    {
+      "path": "CharacterPackage/textures/export_unity_urp/yuna_urp_normal.png",
+      "exists": true,
+      "bytes": 20723
+    }
+  ],
+  "validator_script": "CharacterPackage/unity/editor_tools/YunaProductionValidator.cs",
+  "next_unity_command": "/Applications/Unity/Hub/Editor/6000.4.5f1/Unity.app/Contents/MacOS/Unity -batchmode -nographics -quit -projectPath CharacterPackage/unity/ValidationProject -executeMethod YunaProductionValidator.Run -logFile CharacterPackage/qa/unity/yuna_unity_validation.log"
+}

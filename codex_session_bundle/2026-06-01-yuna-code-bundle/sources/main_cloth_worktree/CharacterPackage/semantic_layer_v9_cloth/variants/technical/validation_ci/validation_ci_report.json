@@ -1,0 +1,316 @@
+{
+  "created_at": "2026-05-28T03:24:31.446985+00:00",
+  "route": "blender_semantic_validation_v0",
+  "status": "passed_with_warnings",
+  "boundary": "Candidate validation only. It does not replace v8 beauty GLB.",
+  "inputs": {
+    "baseline_glb": {
+      "path": "CharacterPackage/semantic_layer_v8/exports/yuna_semantic_layer_v8.glb",
+      "exists": true,
+      "bytes": 22268232
+    },
+    "cage_glb": {
+      "path": "CharacterPackage/semantic_layer_v8/exports/yuna_semantic_layer_v8_cage_debug.glb",
+      "exists": true,
+      "bytes": 22403908
+    },
+    "candidate_glb": {
+      "path": "CharacterPackage/semantic_layer_v9_cloth/variants/technical/exports/yuna_semantic_layer_v9_cloth_technical.glb",
+      "exists": true,
+      "bytes": 6461004
+    },
+    "candidate_report": {
+      "path": "CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_report.json",
+      "exists": true,
+      "bytes": 24408
+    }
+  },
+  "screenshots": {
+    "front": {
+      "path": "CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/yuna_semantic_layer_v9_cloth_technical_validation_front.png",
+      "exists": true,
+      "bytes": 1880486
+    },
+    "candidate_front": {
+      "path": "CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/yuna_semantic_layer_v9_cloth_technical_validation_candidate_front.png",
+      "exists": true,
+      "bytes": 1880486
+    },
+    "baseline_front": {
+      "path": "CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/yuna_semantic_layer_v9_cloth_technical_validation_baseline_front.png",
+      "exists": true,
+      "bytes": 2157553
+    },
+    "overlay_front": {
+      "path": "CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/yuna_semantic_layer_v9_cloth_technical_validation_overlay_front.png",
+      "exists": true,
+      "bytes": 2165769
+    },
+    "yaw15": {
+      "path": "CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/yuna_semantic_layer_v9_cloth_technical_validation_yaw15.png",
+      "exists": true,
+      "bytes": 1979268
+    },
+    "yaw30": {
+      "path": "CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/yuna_semantic_layer_v9_cloth_technical_validation_yaw30.png",
+      "exists": true,
+      "bytes": 1965277
+    },
+    "side": {
+      "path": "CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/yuna_semantic_layer_v9_cloth_technical_validation_side.png",
+      "exists": true,
+      "bytes": 1135180
+    },
+    "wire": {
+      "path": "CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/yuna_semantic_layer_v9_cloth_technical_validation_wire.png",
+      "exists": true,
+      "bytes": 1965276
+    },
+    "exploded": {
+      "path": "CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/yuna_semantic_layer_v9_cloth_technical_validation_exploded.png",
+      "exists": true,
+      "bytes": 1949615
+    }
+  },
+  "inventory": {
+    "baseline_object_count": 23,
+    "cage_object_count": 35,
+    "candidate_mesh_count": 12,
+    "candidate_empty_count": 21,
+    "candidate_mesh_names": [
+      "jacket_outer_cloth_seam_surface_technical_v1",
+      "cape_left_cloth_seam_surface_technical_v1",
+      "cape_right_cloth_seam_surface_technical_v1",
+      "skirt_front_cloth_seam_surface_technical_v1",
+      "cloth_shoulder_anchors",
+      "cloth_cape_root_left",
+      "cloth_cape_root_right",
+      "cloth_skirt_waist_seam",
+      "cloth_lower_edge_jacket_outer",
+      "cloth_lower_edge_cape_left",
+      "cloth_lower_edge_cape_right",
+      "cloth_lower_edge_skirt_front"
+    ],
+    "candidate_empty_names": [
+      "cloth_shoulder_anchors_shoulder_anchor_left",
+      "cloth_shoulder_anchors_shoulder_anchor_right",
+      "cloth_cape_root_left_cape_left_root_shoulder",
+      "cloth_cape_root_left_cape_left_root_falloff",
+      "cloth_cape_root_right_cape_right_root_shoulder",
+      "cloth_cape_root_right_cape_right_root_falloff",
+      "cloth_skirt_waist_seam_waist_left",
+      "cloth_skirt_waist_seam_waist_mid",
+      "cloth_skirt_waist_seam_waist_right",
+      "cloth_lower_edge_jacket_outer_lower_left",
+      "cloth_lower_edge_jacket_outer_lower_mid",
+      "cloth_lower_edge_jacket_outer_lower_right",
+      "cloth_lower_edge_cape_left_lower_left",
+      "cloth_lower_edge_cape_left_lower_mid",
+      "cloth_lower_edge_cape_left_lower_right",
+      "cloth_lower_edge_cape_right_lower_left",
+      "cloth_lower_edge_cape_right_lower_mid",
+      "cloth_lower_edge_cape_right_lower_right",
+      "cloth_lower_edge_skirt_front_lower_left",
+      "cloth_lower_edge_skirt_front_lower_mid",
+      "cloth_lower_edge_skirt_front_lower_right"
+    ]
+  },
+  "candidate_contract": {
+    "part_id": "cloth",
+    "has_independent_candidate_mesh": true,
+    "has_independent_weapon_mesh": false,
+    "has_boot_candidate_meshes": null,
+    "has_leg_candidate_meshes": null,
+    "has_hair_candidate_meshes": null,
+    "has_hand_R_socket": false,
+    "has_foot_sockets": false,
+    "has_leg_loop_markers": false,
+    "has_hair_spring_hooks": false,
+    "has_hair_depth_groups": false,
+    "replace_in_beauty_glb": false,
+    "cloth_volume_and_purity_gate": {
+      "cloth_side_volume_present": true,
+      "cloth_edge_thickness_present": true,
+      "replace_in_beauty_glb": false,
+      "candidate_only": true
+    }
+  },
+  "quality": {
+    "missing_screenshots": [],
+    "known_limits": [
+      "cloth candidate is an actuator proxy, not final DCC asset",
+      "v8 beauty GLB remains the active baseline until replacement validation is accepted"
+    ]
+  },
+  "wrapper": {
+    "blender": "/opt/homebrew/bin/blender",
+    "exit_code": 0,
+    "log": "CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/blender_semantic_validation.log",
+    "log_tail": [
+      "11:24:11 | INFO: Data are loaded, start creating Blender stuff",
+      "11:24:11 | INFO: Blender create Mesh node back_hair_mesh",
+      "11:24:11 | INFO: Blender create Mesh node side_hair_left_mesh",
+      "11:24:11 | INFO: Blender create Mesh node side_hair_right_mesh",
+      "11:24:11 | INFO: Blender create Mesh node torso_inner_mesh",
+      "11:24:11 | INFO: Blender create Mesh node jacket_outer_mesh",
+      "11:24:11 | INFO: Blender create Mesh node cape_left_mesh",
+      "11:24:11 | INFO: Blender create Mesh node cape_right_mesh",
+      "11:24:11 | INFO: Blender create Mesh node skirt_front_mesh",
+      "11:24:11 | INFO: Blender create Mesh node boots_mesh",
+      "11:24:11 | INFO: Blender create Mesh node face_mesh",
+      "11:24:11 | INFO: Blender create Mesh node bangs_mesh",
+      "11:24:11 | INFO: Blender create Mesh node weapon_mesh",
+      "11:24:11 | INFO: Blender create Mesh node leg_L_visual_panel_mesh",
+      "11:24:11 | INFO: Blender create Mesh node leg_R_visual_panel_mesh",
+      "11:24:11 | INFO: glTF import finished in 0.01s",
+      "11:24:11 | INFO: Data are loaded, start creating Blender stuff",
+      "11:24:11 | INFO: Blender create Mesh node back_hair_mesh",
+      "11:24:11 | INFO: Blender create Mesh node side_hair_left_mesh",
+      "11:24:11 | INFO: Blender create Mesh node side_hair_right_mesh",
+      "11:24:11 | INFO: Blender create Mesh node torso_inner_mesh",
+      "11:24:11 | INFO: Blender create Mesh node jacket_outer_mesh",
+      "11:24:11 | INFO: Blender create Mesh node cape_left_mesh",
+      "11:24:11 | INFO: Blender create Mesh node cape_right_mesh",
+      "11:24:11 | INFO: Blender create Mesh node skirt_front_mesh",
+      "11:24:11 | INFO: Blender create Mesh node boots_mesh",
+      "11:24:11 | INFO: Blender create Mesh node face_mesh",
+      "11:24:11 | INFO: Blender create Mesh node bangs_mesh",
+      "11:24:11 | INFO: Blender create Mesh node weapon_mesh",
+      "11:24:11 | INFO: Blender create Mesh node leg_L_visual_panel_mesh",
+      "11:24:11 | INFO: Blender create Mesh node leg_R_visual_panel_mesh",
+      "11:24:11 | INFO: Blender create Mesh node leg_L_retopo_proxy_mesh",
+      "11:24:11 | INFO: Blender create Mesh node leg_R_retopo_proxy_mesh",
+      "11:24:11 | INFO: Blender create Mesh node boot_L_hardsurface_proxy_mesh",
+      "11:24:11 | INFO: Blender create Mesh node boot_R_hardsurface_proxy_mesh",
+      "11:24:11 | INFO: Blender create Mesh node Torus",
+      "11:24:11 | INFO: Blender create Mesh node Torus.001",
+      "11:24:11 | INFO: Blender create Mesh node Torus.002",
+      "11:24:11 | INFO: Blender create Mesh node Torus.003",
+      "11:24:11 | INFO: Blender create Mesh node Sphere",
+      "11:24:11 | INFO: Blender create Mesh node Sphere.001",
+      "11:24:11 | INFO: Blender create Mesh node Cylinder",
+      "11:24:11 | INFO: Blender create Mesh node Cylinder.001",
+      "11:24:11 | INFO: glTF import finished in 0.02s",
+      "11:24:11 | INFO: Data are loaded, start creating Blender stuff",
+      "11:24:11 | INFO: Blender create Mesh node jacket_outer_cloth_seam_surface_technical_v1_mesh",
+      "11:24:11 | INFO: Blender create Mesh node cape_left_cloth_seam_surface_technical_v1_mesh",
+      "11:24:11 | INFO: Blender create Mesh node cape_right_cloth_seam_surface_technical_v1_mesh",
+      "11:24:11 | INFO: Blender create Mesh node skirt_front_cloth_seam_surface_technical_v1_mesh",
+      "11:24:11 | INFO: Blender create Mesh node cloth_shoulder_anchors_mesh",
+      "11:24:11 | INFO: Blender create Mesh node cloth_cape_root_left_mesh",
+      "11:24:11 | INFO: Blender create Mesh node cloth_cape_root_right_mesh",
+      "11:24:11 | INFO: Blender create Mesh node cloth_skirt_waist_seam_mesh",
+      "11:24:11 | INFO: Blender create Mesh node cloth_lower_edge_jacket_outer_mesh",
+      "11:24:11 | INFO: Blender create Mesh node cloth_lower_edge_cape_left_mesh",
+      "11:24:11 | INFO: Blender create Mesh node cloth_lower_edge_cape_right_mesh",
+      "11:24:11 | INFO: Blender create Mesh node cloth_lower_edge_skirt_front_mesh",
+      "11:24:11 | INFO: glTF import finished in 0.01s",
+      "00:02.323  render           | Saved: './CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/yuna_semantic_layer_v9_cloth_technical_validation_front.png'",
+      "00:04.366  render           | Saved: './CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/yuna_semantic_layer_v9_cloth_technical_validation_candidate_front.png'",
+      "00:06.676  render           | Saved: './CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/yuna_semantic_layer_v9_cloth_technical_validation_baseline_front.png'",
+      "00:10.750  render           | Saved: './CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/yuna_semantic_layer_v9_cloth_technical_validation_overlay_front.png'",
+      "00:12.813  render           | Saved: './CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/yuna_semantic_layer_v9_cloth_technical_validation_yaw15.png'",
+      "00:14.818  render           | Saved: './CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/yuna_semantic_layer_v9_cloth_technical_validation_yaw30.png'",
+      "00:15.907  render           | Saved: './CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/yuna_semantic_layer_v9_cloth_technical_validation_side.png'",
+      "00:17.899  render           | Saved: './CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/yuna_semantic_layer_v9_cloth_technical_validation_wire.png'",
+      "00:19.828  render           | Saved: './CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/yuna_semantic_layer_v9_cloth_technical_validation_exploded.png'",
+      "Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)"
+    ]
+  },
+  "wrapper_exit_code": 0,
+  "wrapper_log_tail": [],
+  "cloth_volume_and_purity_gate_v1": {
+    "metrics": {
+      "cloth_mask_purity_ratio": 1.0,
+      "non_cloth_texture_leak_ratio": 0.0,
+      "cloth_side_volume_present": true,
+      "cloth_edge_thickness_present": true,
+      "cloth_panel_curvature_score": 0.211425,
+      "cloth_drape_depth_span": 1.144,
+      "cloth_body_attachment_valid": true,
+      "seam_count": 8,
+      "anchor_count": 21,
+      "silhouette_readability_front": 0.92,
+      "yaw30_cloth_readability": 0.801996,
+      "side_volume_readability": 0.79168,
+      "material_alpha_stability": 1.0,
+      "cloth_front_visual_candidate_status": "manual_review_required_purity_gate_passed_overlay_not_sufficient",
+      "cloth_dcc_handoff_status": "manual_review_required_candidate_only_hair_blocked"
+    },
+    "purity": {
+      "status": "manual_review_required_purity_gate_passed_overlay_not_sufficient",
+      "metrics": {
+        "cloth_mask_purity_ratio": 1.0,
+        "non_cloth_texture_leak_ratio": 0.0,
+        "candidate_pixels": 460765,
+        "target_pixels": 460765,
+        "target_overlap_pixels": 460765,
+        "forbidden_overlap_pixels": 0
+      },
+      "files": {
+        "cloth_target_mask_union": "CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/cloth_target_mask_union.png",
+        "cloth_forbidden_noncloth_zone": "CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/cloth_forbidden_noncloth_zone.png",
+        "cloth_candidate_vs_target_overlay": "CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/cloth_candidate_vs_target_overlay.png",
+        "cloth_purity_report": "CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/cloth_purity_report.json"
+      }
+    },
+    "side_volume": {
+      "status": "side_volume_refined_manual_review_required",
+      "metrics": {
+        "cloth_side_volume_present": true,
+        "cloth_edge_thickness_present": true,
+        "cloth_panel_curvature_score": 0.211425,
+        "cloth_drape_depth_span": 1.144
+      },
+      "panels": [
+        {
+          "part_id": "jacket_outer",
+          "edge_thickness": 0.0645,
+          "depth_min": 0.27135,
+          "depth_max": 0.40425,
+          "depth_span": 0.1329,
+          "edge_faces": 61,
+          "edge_thickness_present": true,
+          "front_back_depth_separation_present": true
+        },
+        {
+          "part_id": "cape_left",
+          "edge_thickness": 0.0946,
+          "depth_min": -0.6051,
+          "depth_max": -0.3319,
+          "depth_span": 0.2732,
+          "edge_faces": 62,
+          "edge_thickness_present": true,
+          "front_back_depth_separation_present": true
+        },
+        {
+          "part_id": "cape_right",
+          "edge_thickness": 0.0946,
+          "depth_min": -0.5451,
+          "depth_max": -0.2719,
+          "depth_span": 0.2732,
+          "edge_faces": 62,
+          "edge_thickness_present": true,
+          "front_back_depth_separation_present": true
+        },
+        {
+          "part_id": "skirt_front",
+          "edge_thickness": 0.0602,
+          "depth_min": 0.3725,
+          "depth_max": 0.5389,
+          "depth_span": 0.1664,
+          "edge_faces": 61,
+          "edge_thickness_present": true,
+          "front_back_depth_separation_present": true
+        }
+      ],
+      "files": {
+        "cloth_side_volume_debug": "CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/cloth_side_volume_debug.png",
+        "cloth_depth_span_report": "CharacterPackage/semantic_layer_v9_cloth/variants/technical/validation_ci/cloth_depth_span_report.json"
+      }
+    },
+    "overlay_front_is_acceptance_gate": false,
+    "candidate_only": true,
+    "cloth_integration_unblocked": false
+  }
+}

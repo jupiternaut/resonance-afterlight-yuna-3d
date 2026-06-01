@@ -1,0 +1,15 @@
+{
+  "run_id": "meshy_yuna_multiview_20260522",
+  "line": "Meshy 6 Multi-view",
+  "created_at_utc": "2026-05-22T11:50:42Z",
+  "official_api_confirmed": true,
+  "api_key_env_present": false,
+  "local_config_key_reference_present": false,
+  "submitted": false,
+  "blocked_on_credentials": true,
+  "blocking_reason": "No Meshy API key was present in environment variables or common local config locations.",
+  "primary_payload_ready": true,
+  "cloud_result_available": false,
+  "task_id": null,
+  "success_definition": "A Meshy cloud-generated YUNA base mesh with downloadable GLB/FBX/OBJ files, not a local procedural dummy."
+}

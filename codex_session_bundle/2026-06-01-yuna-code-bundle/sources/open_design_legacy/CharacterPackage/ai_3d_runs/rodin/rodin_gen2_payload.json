@@ -1,0 +1,53 @@
+{
+  "run_id": "rodin_yuna_character_fbx_gen2_v1",
+  "status": "blocked_on_credentials",
+  "endpoint": "https://api.hyper3d.com/api/v2/rodin",
+  "method": "POST",
+  "request_format": "multipart/form-data",
+  "auth": {
+    "header": "Authorization: Bearer ${HYPER3D_API_KEY or RODIN_API_KEY}",
+    "secret_policy": "Read from environment only; never write token to disk."
+  },
+  "images_field_name": "images",
+  "images_ordered": [
+    "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/refs/front_rgba/yuna_front_rgba.png",
+    "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/refs/ai_turnarounds/cutouts/yuna_left_side.png",
+    "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/refs/ai_turnarounds/cutouts/yuna_back.png",
+    "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/refs/dcc_reference/chatgpt_generated/yuna_dcc_material_texture_reference.png",
+    "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/refs/dcc_reference/chatgpt_generated/yuna_dcc_turnaround_3view.png"
+  ],
+  "form_fields": {
+    "tier": "Gen-2",
+    "prompt": "Original anime-style female open-world action RPG character named YUNA. Preserve the supplied front identity: silver-white long hair with cyan gradient ends, calm anime face, black white gray sci-fi combat outfit, white stockings, black mechanical boots, translucent mantle, teal resonance core, thin energy sword. Generate a clean editable DCC base mesh for Blender and Unity. Keep character feminine, elegant, high-fidelity, non-realistic anime style. Avoid robot face, low-poly dummy, faceless mannequin, bulky armor, western realistic face, and fused weapon geometry.",
+    "use_original_alpha": "true",
+    "geometry_file_format": "fbx",
+    "material": "All",
+    "quality_override": "150000",
+    "TAPose": "true",
+    "mesh_mode": "Quad",
+    "addons": "[]",
+    "preview_render": "true",
+    "hd_texture": "true"
+  },
+  "optional_fields_not_sent_by_default": {
+    "bbox_condition": {
+      "value": [120, 185, 55],
+      "reason": "Only use if a second attempt needs stronger body proportion constraints. Rodin expects [width_y, height_z, length_x]."
+    },
+    "geometry_file_format_glb_second_run": {
+      "value": "glb",
+      "reason": "Use for a separate WebGL preview task only if FBX cannot be converted cleanly in Blender."
+    },
+    "addons_highpack": {
+      "value": ["HighPack"],
+      "reason": "Extra-cost texture/face-count boost. Do not enable in the first A/B run unless budget is explicitly approved."
+    }
+  },
+  "post_submit": {
+    "status_endpoint": "https://api.hyper3d.com/api/v2/status",
+    "download_endpoint": "https://api.hyper3d.com/api/v2/download",
+    "status_payload_field": "subscription_key",
+    "download_payload_field": "task_uuid"
+  }
+}
+

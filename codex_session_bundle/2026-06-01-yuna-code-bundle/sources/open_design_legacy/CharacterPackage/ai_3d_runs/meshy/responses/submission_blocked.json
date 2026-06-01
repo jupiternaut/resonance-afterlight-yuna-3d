@@ -1,0 +1,13 @@
+{
+  "status": "blocked_on_credentials",
+  "reason": "No Meshy API key environment variable is present.",
+  "accepted_env_names": [
+    "MESHY_API_KEY",
+    "MESHY_KEY",
+    "MESHY_TOKEN",
+    "MESHY_BEARER_TOKEN",
+    "MESHY_AI_API_KEY",
+    "MESHYAI_API_KEY"
+  ],
+  "api_key_value_logged": false
+}
