@@ -1,0 +1,235 @@
+{
+  "schema": "hair_design_schema_v1",
+  "version": 1,
+  "status": "design_input_required_before_next_generator",
+  "boundary": "Art-direction and generator contract only. This file does not replace v8 beauty, does not generate a GLB, and does not approve cloth_seam_surface.",
+  "source_route": "authored_hair_ribbons_v0",
+  "formula_binding": {
+    "state": "theta_hair_design: named strand groups, scalp anchors, silhouette regions, depth groups, and forbidden occlusion zones",
+    "update": "ProjectToConstraints_hair(RobustFuse(strict_hair_core, soft_hair_silhouette, forbidden_nonhair_zone, front_identity, manual_visual_review))"
+  },
+  "design_intent": {
+    "style": "premium cinematic sci-fi heroine",
+    "material_palette": [
+      "pearl white hair mass",
+      "graphite shadow accents",
+      "cyan translucent highlights"
+    ],
+    "shape_language": "long flowing scalp-anchored ribbons with readable bangs, side hair, and back hair mass; not sparse alpha shards"
+  },
+  "required_primary_groups": {
+    "bangs_primary": {
+      "source_part": "bangs",
+      "role": "front identity and face framing",
+      "required": true,
+      "minimum_presence_ratio": 0.15,
+      "anchor_ids": [
+        "scalp_front_center",
+        "scalp_front_left",
+        "scalp_front_right"
+      ],
+      "forbidden_behavior": [
+        "large opaque face occlusion",
+        "detached floating strips",
+        "single thin shard only"
+      ]
+    },
+    "side_hair_left_primary": {
+      "source_part": "side_hair_left",
+      "role": "left silhouette and shoulder-length flow",
+      "required": true,
+      "minimum_presence_ratio": 0.30,
+      "anchor_ids": [
+        "scalp_left_temple",
+        "scalp_left_side"
+      ],
+      "forbidden_behavior": [
+        "torso texture leakage",
+        "horizontal slat pattern",
+        "detached lower fragments without scalp path"
+      ]
+    },
+    "side_hair_right_primary": {
+      "source_part": "side_hair_right",
+      "role": "right silhouette and asymmetric cyan-white flow",
+      "required": true,
+      "minimum_presence_ratio": 0.30,
+      "anchor_ids": [
+        "scalp_right_temple",
+        "scalp_right_side"
+      ],
+      "forbidden_behavior": [
+        "weapon texture leakage",
+        "isolated blocks outside soft silhouette",
+        "detached lower fragments without scalp path"
+      ]
+    },
+    "back_hair_mass": {
+      "source_part": "back_hair",
+      "role": "main rear volume and long flowing mass",
+      "required": true,
+      "minimum_presence_ratio": 0.35,
+      "anchor_ids": [
+        "scalp_crown",
+        "scalp_back_left",
+        "scalp_back_right"
+      ],
+      "forbidden_behavior": [
+        "too little visible mass",
+        "fragment-only candidate",
+        "body or cape texture masquerading as hair"
+      ]
+    }
+  },
+  "secondary_strands": {
+    "role": "support silhouette richness after primary groups are present",
+    "minimum_count": 8,
+    "maximum_count": 24,
+    "allowed_sources": [
+      "back_hair",
+      "side_hair_left",
+      "side_hair_right",
+      "bangs"
+    ],
+    "must_attach_to": [
+      "scalp_front_center",
+      "scalp_left_side",
+      "scalp_right_side",
+      "scalp_crown"
+    ],
+    "notes": "Secondary strands may be thinner, but they cannot be the only visible hair mass."
+  },
+  "flyaway_strands": {
+    "role": "small expressive silhouette wisps",
+    "minimum_count": 4,
+    "maximum_count": 18,
+    "allowed_silhouette_expansion_px": 18,
+    "opacity_policy": "alpha-tested or correctly blended; no black-alpha leakage",
+    "notes": "Flyaways are optional detail after primary groups pass coverage gates."
+  },
+  "scalp_anchor_points": [
+    {
+      "id": "scalp_front_center",
+      "semantic_location": "front hairline center above face",
+      "source": "v8 front masks plus manual visual review",
+      "confidence": "estimated"
+    },
+    {
+      "id": "scalp_front_left",
+      "semantic_location": "front-left bangs root",
+      "source": "v8 front masks plus manual visual review",
+      "confidence": "estimated"
+    },
+    {
+      "id": "scalp_front_right",
+      "semantic_location": "front-right bangs root",
+      "source": "v8 front masks plus manual visual review",
+      "confidence": "estimated"
+    },
+    {
+      "id": "scalp_left_temple",
+      "semantic_location": "left temple / side hair root",
+      "source": "v8 front masks plus manual visual review",
+      "confidence": "estimated"
+    },
+    {
+      "id": "scalp_right_temple",
+      "semantic_location": "right temple / side hair root",
+      "source": "v8 front masks plus manual visual review",
+      "confidence": "estimated"
+    },
+    {
+      "id": "scalp_crown",
+      "semantic_location": "crown and upper back hair root",
+      "source": "v8 front masks plus manual visual review",
+      "confidence": "estimated"
+    },
+    {
+      "id": "scalp_back_left",
+      "semantic_location": "left rear hair mass root",
+      "source": "v8 front masks plus manual visual review",
+      "confidence": "estimated"
+    },
+    {
+      "id": "scalp_back_right",
+      "semantic_location": "right rear hair mass root",
+      "source": "v8 front masks plus manual visual review",
+      "confidence": "estimated"
+    }
+  ],
+  "depth_groups": [
+    {
+      "id": "front_bangs",
+      "role": "front-facing bangs near face",
+      "z_order": "front",
+      "source_groups": [
+        "bangs_primary"
+      ]
+    },
+    {
+      "id": "side_ribbons",
+      "role": "left and right side-hair flow",
+      "z_order": "mid",
+      "source_groups": [
+        "side_hair_left_primary",
+        "side_hair_right_primary"
+      ]
+    },
+    {
+      "id": "back_mass",
+      "role": "rear long-hair volume",
+      "z_order": "back",
+      "source_groups": [
+        "back_hair_mass"
+      ]
+    },
+    {
+      "id": "flyaways",
+      "role": "thin silhouette wisps",
+      "z_order": "distributed",
+      "source_groups": [
+        "secondary_strands",
+        "flyaway_strands"
+      ]
+    }
+  ],
+  "forbidden_face_occlusion_zones": [
+    {
+      "id": "eyes_and_brows_band",
+      "policy": "hair may cross only as intentional bangs; large dark or opaque coverage fails visual sanity"
+    },
+    {
+      "id": "nose_mouth_face_center",
+      "policy": "no broad ribbon coverage; preserve front identity"
+    },
+    {
+      "id": "torso_and_weapon_contaminants",
+      "policy": "body, cloth, legs, boots, and weapon texture pixels must not be treated as hair"
+    }
+  ],
+  "allowed_silhouette_expansion": {
+    "source": "soft_hair_silhouette",
+    "maximum_px": 18,
+    "allowed_for": [
+      "secondary_strands",
+      "flyaway_strands"
+    ],
+    "not_allowed_for": [
+      "primary mass replacement",
+      "body texture leakage",
+      "weapon texture leakage"
+    ]
+  },
+  "non_degenerate_coverage_gate": {
+    "candidate_visible_area_ratio_min": 0.005,
+    "soft_silhouette_coverage_ratio_min": 0.25,
+    "bangs_presence_ratio_min": 0.15,
+    "side_hair_left_presence_ratio_min": 0.30,
+    "side_hair_right_presence_ratio_min": 0.30,
+    "back_hair_mass_presence_ratio_min": 0.35,
+    "component_count_max": 32,
+    "scalp_anchor_continuity_min": 0.15
+  },
+  "next_valid_route": "build_art_directed_hair_ribbons_v1",
+  "blocked_route": "cloth_seam_surface"
+}

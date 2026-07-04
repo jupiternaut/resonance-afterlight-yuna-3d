@@ -1,0 +1,37 @@
+{
+  "run_id": "rodin_yuna_gen2_ab_20260522",
+  "agent": "rodin",
+  "created_at": "2026-05-22T19:49:06+08:00",
+  "write_scope": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/ai_3d_runs/rodin",
+  "official_api_confirmed": true,
+  "credentials": {
+    "env_present": false,
+    "local_config_present": false,
+    "secret_values_logged": false
+  },
+  "submission": {
+    "attempted": false,
+    "submitted": false,
+    "blocked_on_credentials": true,
+    "task_uuid": null,
+    "subscription_key": null
+  },
+  "verification": {
+    "json_parse_ok": true,
+    "scripts_compile_ok": true,
+    "submit_script_dry_run": "blocked_on_missing_credentials",
+    "external_python_dependencies": []
+  },
+  "primary_payload": "rodin_gen2_payload.json",
+  "optional_weapon_payload": "rodin_weapon_payload.json",
+  "created_files": [
+    "README.md",
+    "upload_manifest.json",
+    "rodin_gen2_payload.json",
+    "rodin_weapon_payload.json",
+    "submit_rodin_gen2.py",
+    "rodin_status_download.py",
+    "execution_log.md",
+    "status.json"
+  ]
+}

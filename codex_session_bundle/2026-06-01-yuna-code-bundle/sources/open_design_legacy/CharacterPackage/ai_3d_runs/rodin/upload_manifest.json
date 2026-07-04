@@ -1,0 +1,88 @@
+{
+  "run_id": "rodin_yuna_gen2_ab_20260522",
+  "agent": "rodin",
+  "created_at": "2026-05-22T19:49:06+08:00",
+  "project_root": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef",
+  "character": {
+    "id": "yuna-white-sword",
+    "display_name": "YUNA",
+    "target": "high-fidelity anime action RPG character base mesh"
+  },
+  "primary_character_run": {
+    "purpose": "Generate Rodin Gen-2 DCC base mesh for YUNA body, hair, outfit, mantle, and visible weapon silhouette.",
+    "max_images_allowed_by_api": 5,
+    "images": [
+      {
+        "order": 1,
+        "role": "locked_front_material_identity",
+        "path": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/refs/front_rgba/yuna_front_rgba.png",
+        "size_px": "1024x1536",
+        "source": "locked 2D cutout",
+        "upload": true,
+        "notes": "Must be first because Rodin uses first uploaded image for material generation."
+      },
+      {
+        "order": 2,
+        "role": "left_side_structure",
+        "path": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/refs/ai_turnarounds/cutouts/yuna_left_side.png",
+        "size_px": "1024x1536",
+        "source": "AI-inferred side reference",
+        "upload": true,
+        "notes": "Use as structure reference only; front identity remains authoritative."
+      },
+      {
+        "order": 3,
+        "role": "back_structure",
+        "path": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/refs/ai_turnarounds/cutouts/yuna_back.png",
+        "size_px": "1024x1536",
+        "source": "AI-inferred back reference",
+        "upload": true,
+        "notes": "Use as structure reference for hair, mantle, boots, and rear garment logic."
+      },
+      {
+        "order": 4,
+        "role": "material_texture_reference",
+        "path": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/refs/dcc_reference/chatgpt_generated/yuna_dcc_material_texture_reference.png",
+        "size_px": "1024x1536",
+        "source": "ChatGPT-generated DCC material reference",
+        "upload": true,
+        "notes": "Reinforces black/white/gray outfit, teal core, translucent mantle, gold trim, and white stockings."
+      },
+      {
+        "order": 5,
+        "role": "turnaround_reinforcement",
+        "path": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/refs/dcc_reference/chatgpt_generated/yuna_dcc_turnaround_3view.png",
+        "size_px": "1608x978",
+        "source": "ChatGPT-generated DCC 3-view sheet",
+        "upload": true,
+        "notes": "Combined sheet used as final layout/shape reinforcement."
+      }
+    ],
+    "excluded_from_primary_run": [
+      {
+        "role": "expression_sheet",
+        "path": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/refs/dcc_reference/chatgpt_generated/yuna_dcc_face_expression_sheet.png",
+        "reason": "Expression sheet is for later blendshape sculpting, not body reconstruction."
+      },
+      {
+        "role": "weapon_orthographic_sheet",
+        "path": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/refs/dcc_reference/chatgpt_generated/yuna_dcc_weapon_orthographic_sheet.png",
+        "reason": "Weapon should be generated separately if the main body run fuses or simplifies it."
+      }
+    ]
+  },
+  "optional_weapon_run": {
+    "purpose": "Generate the energy blade as a separate prop if the primary character run does not preserve it.",
+    "images": [
+      {
+        "order": 1,
+        "role": "weapon_orthographic",
+        "path": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/refs/dcc_reference/chatgpt_generated/yuna_dcc_weapon_orthographic_sheet.png",
+        "size_px": "1536x1024",
+        "source": "ChatGPT-generated DCC weapon ortho sheet",
+        "upload": true
+      }
+    ]
+  }
+}
+

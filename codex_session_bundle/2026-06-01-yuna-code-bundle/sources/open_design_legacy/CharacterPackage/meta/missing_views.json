@@ -1,0 +1,30 @@
+{
+  "character_id": "yuna-white-sword",
+  "missing_views": [
+    {
+      "view": "left_side",
+      "status": "generated_ai_inferred",
+      "file": "../refs/ai_turnarounds/cutouts/yuna_left_side.png",
+      "required_for": ["body_volume", "hair_depth", "skirt_and_mantle_layering", "boot_profile"]
+    },
+    {
+      "view": "back",
+      "status": "generated_ai_inferred",
+      "file": "../refs/ai_turnarounds/cutouts/yuna_back.png",
+      "required_for": ["hair_back_volume", "back_clothing_closure", "mantle_attachment", "weapon_back_clearance"]
+    },
+    {
+      "view": "face_expression_sheet",
+      "status": "generated_ai_inferred",
+      "file": "../refs/ai_turnarounds/cutouts/yuna_face_expression_sheet.png",
+      "required_for": ["blendshape_identity_lock", "eye_shape", "mouth_shape", "brow_range"]
+    },
+    {
+      "view": "weapon_orthographic",
+      "status": "generated_ai_inferred",
+      "file": "../refs/ai_turnarounds/cutouts/yuna_weapon_orthographic.png",
+      "required_for": ["separate_weapon_mesh", "handle_scale", "blade_thickness"]
+    }
+  ],
+  "policy": "Any generated side/back view must be marked view_source=ai_inferred and used as modeling reference only. Final front-view QA remains locked to front_rgba."
+}

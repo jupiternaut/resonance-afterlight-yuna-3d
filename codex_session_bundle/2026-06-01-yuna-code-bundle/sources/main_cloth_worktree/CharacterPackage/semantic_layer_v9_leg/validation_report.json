@@ -1,0 +1,147 @@
+{
+  "created_at": "2026-05-25T00:24:38.135921+00:00",
+  "route": "semantic_layer_v9_leg_quad_loop_retopo_proxy_v0",
+  "actuator": "leg_quad_loop_retopo_proxy_v0",
+  "status": "generated_with_warnings",
+  "part_id": "legs",
+  "decision_source": "CharacterPackage/semantic_layer_v9_candidate/filter_report.json",
+  "generated_files": {
+    "spec": "CharacterPackage/semantic_layer_v9_leg/specs/yuna_semantic_layer_v9_leg.json",
+    "obj": "CharacterPackage/semantic_layer_v9_leg/exports/yuna_semantic_layer_v9_leg.obj",
+    "mtl": "CharacterPackage/semantic_layer_v9_leg/exports/yuna_semantic_layer_v9_leg.mtl",
+    "glb": "CharacterPackage/semantic_layer_v9_leg/exports/yuna_semantic_layer_v9_leg.glb",
+    "blend": "CharacterPackage/semantic_layer_v9_leg/exports/yuna_semantic_layer_v9_leg.blend",
+    "report": "CharacterPackage/semantic_layer_v9_leg/validation_report.json"
+  },
+  "mesh_summary": {
+    "component_count": 2,
+    "vertices": 672,
+    "uvs": 672,
+    "faces": 648,
+    "ring_count": 28,
+    "radial_segments": 12,
+    "quad_faces_only": true,
+    "components": [
+      {
+        "id": "leg_L_retopo_proxy_candidate",
+        "side": "L",
+        "bbox": [
+          308,
+          812,
+          550,
+          1264
+        ],
+        "loop_rings": {
+          "hip": 2,
+          "knee": 13,
+          "ankle": 24,
+          "foot_socket": 26
+        },
+        "loop_world_z": {
+          "hip": 0.7344247787610619,
+          "knee": 0.034247787610619466,
+          "ankle": -0.665929203539823,
+          "foot_socket": -0.791504424778761
+        },
+        "texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/textures/legs.png",
+        "vertices": 336,
+        "uvs": 336,
+        "faces": 324,
+        "section_count": 28,
+        "thickness": 0.6115929203539823,
+        "bevel": 0.0,
+        "material_face_counts": {
+          "textured": 162,
+          "side": 162
+        }
+      },
+      {
+        "id": "leg_R_retopo_proxy_candidate",
+        "side": "R",
+        "bbox": [
+          573,
+          812,
+          714,
+          1195
+        ],
+        "loop_rings": {
+          "hip": 2,
+          "knee": 13,
+          "ankle": 24,
+          "foot_socket": 26
+        },
+        "loop_world_z": {
+          "hip": 0.7342558746736292,
+          "knee": 0.033681462140992165,
+          "ankle": -0.6668929503916449,
+          "foot_socket": -0.7926370757180156
+        },
+        "texture": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v8/textures/legs.png",
+        "vertices": 336,
+        "uvs": 336,
+        "faces": 324,
+        "section_count": 28,
+        "thickness": 0.42720626631853786,
+        "bevel": 0.0,
+        "material_face_counts": {
+          "textured": 162,
+          "side": 162
+        }
+      }
+    ]
+  },
+  "validation": {
+    "independent_objects": true,
+    "has_quad_loop_topology": true,
+    "quad_faces_only": true,
+    "has_knee_ankle_loop_metadata": true,
+    "has_uvs": true,
+    "replace_in_beauty_glb": false,
+    "deformation_test_status": "not_run_requires_skinning_stage",
+    "obj": {
+      "path": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_leg/exports/yuna_semantic_layer_v9_leg.obj",
+      "exists": true,
+      "bytes": 59146
+    },
+    "glb": {
+      "path": "/Users/gengrf/resonance-afterlight-yuna-3d/CharacterPackage/semantic_layer_v9_leg/exports/yuna_semantic_layer_v9_leg.glb",
+      "exists": true,
+      "bytes": 1670408
+    },
+    "blender_glb_export": {
+      "status": "ok",
+      "blender": "/opt/homebrew/bin/blender",
+      "exit_code": 0,
+      "glb_exists": true,
+      "glb_bytes": 1670408,
+      "blend_exists": true,
+      "blend_path": "CharacterPackage/semantic_layer_v9_leg/exports/yuna_semantic_layer_v9_leg.blend",
+      "log_tail": [
+        "/var/folders/9j/cx6fkz613dd_6545wf7kvt4w0000gn/T/tmptomhcop3.py:11: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0",
+        "  side_mat.use_nodes = True",
+        "/var/folders/9j/cx6fkz613dd_6545wf7kvt4w0000gn/T/tmptomhcop3.py:18: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0",
+        "  front_mat.use_nodes = True",
+        "Info: Saved as \"yuna_semantic_layer_v9_leg.blend\"",
+        "INFO Draco mesh compression is available, use library at /Applications/Blender.app/Contents/Resources/5.1/scripts/addons_core/io_scene_gltf2/libextern_draco.dylib",
+        "08:24:38 | INFO: Starting glTF 2.0 export",
+        "08:24:38 | INFO: Extracting primitive: leg_L_retopo_proxy_candidate_mesh",
+        "08:24:38 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+        "08:24:38 | INFO: Primitives created: 2",
+        "08:24:38 | INFO: Extracting primitive: leg_R_retopo_proxy_candidate_mesh",
+        "08:24:38 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.",
+        "08:24:38 | INFO: Primitives created: 2",
+        "08:24:38 | INFO: Finished glTF 2.0 export in 0.033986806869506836 s",
+        "",
+        "Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)",
+        "",
+        "Blender quit"
+      ]
+    }
+  },
+  "warnings": [
+    "v0 creates a quad-loop retopo proxy, not final production leg topology.",
+    "knee/ankle loops are marker metadata only; skinning and weight tests are not run in this actuator.",
+    "v8 beauty leg panels remain active until deformation validation passes."
+  ],
+  "errors": []
+}

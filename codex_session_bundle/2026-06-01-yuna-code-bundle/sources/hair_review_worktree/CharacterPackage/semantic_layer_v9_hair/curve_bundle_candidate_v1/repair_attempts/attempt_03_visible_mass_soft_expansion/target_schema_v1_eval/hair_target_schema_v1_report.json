@@ -1,0 +1,160 @@
+{
+  "created_at": "2026-05-29T11:21:45.069389+00:00",
+  "route": "build_hair_target_schema_v1",
+  "status": "schema_gate_passed_manual_review_required",
+  "boundary": "Target-schema generation only. Does not modify semantic_layer_v8, generate GLB, or unblock cloth.",
+  "candidate_route_label": "repair_curve_bundle_hair_candidate_v1_until_schema_gate",
+  "candidate_route_status": "schema_gate_passed_manual_review_required",
+  "candidate_front": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_03_visible_mass_soft_expansion/validation_ci/yuna_curve_bundle_hair_v1_repair_attempt_03_validation_candidate_front.png",
+  "formula_binding": {
+    "state": "theta_hair target masks and validation fields, not raw mesh vertices",
+    "update": "ProjectToConstraints_hair(RobustFuse(strict_hair_core, soft_hair_silhouette, forbidden_nonhair_zone, front_identity, manual_visual_review))"
+  },
+  "layers": {
+    "strict_hair_core": {
+      "source": [
+        "v8 front hair masks",
+        "CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_mask_refined_component_priors.png",
+        "face/body/weapon contaminant subtraction"
+      ],
+      "confidence": "medium",
+      "confidence_score": 0.8,
+      "estimated": true
+    },
+    "soft_hair_silhouette": {
+      "source": [
+        "v8 front hair masks",
+        "CharacterPackage/semantic_layer_v9_hair/target_review/hair_target_mask_refined_component_priors.png",
+        "dilated flyaway allowance",
+        "forbidden nonhair subtraction"
+      ],
+      "confidence": "medium_low",
+      "confidence_score": 0.72,
+      "estimated": true
+    },
+    "forbidden_nonhair_zone": {
+      "source": [
+        "v8 face mask",
+        "v8 body/cloth/legs/boots masks",
+        "v8 weapon mask"
+      ],
+      "confidence": "high",
+      "confidence_score": 0.86,
+      "estimated": true
+    }
+  },
+  "render_size": [
+    1200,
+    1600
+  ],
+  "schema_render_correction_px": {
+    "x": 13.0,
+    "y": 8.0,
+    "source": "same correction used by art-directed hair mesh generation"
+  },
+  "candidate_visible_pixel_count": 12576,
+  "strict_core_render_pixel_count": 22088,
+  "soft_silhouette_render_pixel_count": 32451,
+  "forbidden_zone_render_pixel_count": 723309,
+  "strict_core_area": 20309,
+  "soft_silhouette_area": 29823,
+  "forbidden_zone_area": 666429,
+  "core_body_overlap_ratio": 0.0,
+  "soft_body_overlap_ratio": 0.0,
+  "candidate_visible_area_ratio": 0.00655,
+  "forbidden_candidate_leak_ratio": 0.0,
+  "candidate_core_coverage_ratio": 0.355397,
+  "candidate_soft_inside_ratio": 0.840092,
+  "soft_silhouette_coverage_ratio": 0.325568,
+  "per_group_visible_pixel_count": {
+    "bangs": 1811,
+    "side_hair_left": 739,
+    "side_hair_right": 3424,
+    "back_hair": 4704
+  },
+  "per_group_soft_inside_ratio": {
+    "bangs": 0.144004,
+    "side_hair_left": 0.058763,
+    "side_hair_right": 0.272265,
+    "back_hair": 0.374046
+  },
+  "bangs_presence_ratio": 0.917427,
+  "side_hair_left_presence_ratio": 0.686165,
+  "side_hair_right_presence_ratio": 0.676546,
+  "back_hair_mass_presence_ratio": 0.511861,
+  "component_count": 11,
+  "scalp_anchor_continuity": 0.511861,
+  "candidate_front_visible_hair_mass": false,
+  "primary_group_presence_passed": true,
+  "yaw30_hair_readability": true,
+  "side_hair_readability": true,
+  "side_hair_readability_reason": "left and right side hair groups meet front-readable presence thresholds",
+  "manual_visual_review_status": "failed_visible_mass_readability_gate",
+  "yaw30_render_exists": true,
+  "yaw30_visible_pixel_count": 19171,
+  "yaw30_visible_ratio_to_front": 1.524412,
+  "yaw30_component_count": 12,
+  "yaw30_hair_readability_reason": "yaw30 foreground remains visible relative to front render",
+  "side_render_exists": true,
+  "side_visible_pixel_count": 0,
+  "side_visible_ratio_to_front": 0.0,
+  "side_component_count": 0,
+  "side_view_hair_edge_readability": false,
+  "side_view_hair_edge_readability_reason": "side foreground is too weak or missing relative to front render",
+  "non_degenerate_hair_coverage_passed": true,
+  "non_degenerate_hair_coverage_reason": "candidate has enough visible mass, group presence, and continuity",
+  "candidate_target_schema_status": "schema_gate_passed_manual_review_required",
+  "schema_ready_for_ribbon_rebuild": true,
+  "thresholds": {
+    "core_body_overlap_ratio": 0.02,
+    "soft_body_overlap_ratio": 0.2,
+    "forbidden_candidate_leak_ratio": 0.1,
+    "candidate_core_coverage_ratio": 0.1,
+    "candidate_soft_inside_ratio": 0.7,
+    "candidate_visible_area_ratio": 0.005,
+    "candidate_front_visible_hair_mass_ratio": 0.01,
+    "soft_silhouette_coverage_ratio": 0.25,
+    "yaw30_visible_ratio_to_front": 0.45,
+    "side_view_visible_ratio_to_front": 0.18,
+    "bangs_presence_ratio": 0.15,
+    "side_hair_left_presence_ratio": 0.3,
+    "side_hair_right_presence_ratio": 0.3,
+    "back_hair_mass_presence_ratio": 0.35,
+    "component_count_max": 32,
+    "scalp_anchor_continuity": 0.15
+  },
+  "ready_for_cloth_seam_surface": false,
+  "recommended_next": "manual_review_repair_curve_bundle_hair_candidate_v1_until_schema_gate_quality",
+  "artifacts": {
+    "strict_hair_core_mask": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_03_visible_mass_soft_expansion/target_schema_v1_eval/strict_hair_core_mask.png",
+      "exists": true,
+      "bytes": 6555
+    },
+    "soft_hair_silhouette_mask": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_03_visible_mass_soft_expansion/target_schema_v1_eval/soft_hair_silhouette_mask.png",
+      "exists": true,
+      "bytes": 6789
+    },
+    "forbidden_nonhair_zone_mask": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_03_visible_mass_soft_expansion/target_schema_v1_eval/forbidden_nonhair_zone_mask.png",
+      "exists": true,
+      "bytes": 16345
+    },
+    "candidate_vs_schema_overlay": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_03_visible_mass_soft_expansion/target_schema_v1_eval/candidate_vs_schema_overlay.png",
+      "exists": true,
+      "bytes": 35370
+    },
+    "schema_debug_contact_sheet": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_03_visible_mass_soft_expansion/target_schema_v1_eval/schema_debug_contact_sheet.png",
+      "exists": true,
+      "bytes": 372346
+    },
+    "report": {
+      "path": "CharacterPackage/semantic_layer_v9_hair/curve_bundle_candidate_v1/repair_attempts/attempt_03_visible_mass_soft_expansion/target_schema_v1_eval/hair_target_schema_v1_report.json",
+      "exists": true,
+      "bytes": 6794
+    }
+  }
+}

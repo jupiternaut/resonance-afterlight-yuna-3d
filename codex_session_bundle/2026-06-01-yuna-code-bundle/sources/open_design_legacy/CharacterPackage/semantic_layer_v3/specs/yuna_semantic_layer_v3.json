@@ -1,0 +1,456 @@
+{
+  "character": {
+    "id": "YUNA",
+    "route": "semantic_layer_v3",
+    "boundary": "Structured 2.5D render-shell asset with expanded depth bands and side/back constraint metadata; not final rigged volumetric topology.",
+    "coordinate_system": {
+      "right": "X",
+      "up": "Y",
+      "front_depth": "Z"
+    },
+    "viewing_cone": {
+      "primary_yaw_degrees": [
+        -30,
+        30
+      ],
+      "side_is_reference_only": true
+    }
+  },
+  "source_images": {
+    "front": "refs/front_rgba/yuna_front_rgba.png"
+  },
+  "mask_source": "semantic_layer_v2_front_masks_reused_with_v3_depth_bands",
+  "parts": [
+    {
+      "id": "back_hair",
+      "category": "hair",
+      "parent": "head_proxy",
+      "mesh_generator": "curved_cutout",
+      "mask": "semantic_layer_v3/masks/front/back_hair.png",
+      "texture": "semantic_layer_v3/textures/back_hair.png",
+      "depth": -0.42,
+      "thickness": 0.06,
+      "curvature": "wide_wrap",
+      "animation_hook": "back_hair_spring_hook",
+      "validation_role": "hair_depth_back",
+      "mask_pixels": 121159,
+      "mask_bbox": [
+        130,
+        480,
+        1009,
+        1035
+      ]
+    },
+    {
+      "id": "side_hair_left",
+      "category": "hair",
+      "parent": "head_proxy",
+      "mesh_generator": "ribbon_like_cutout",
+      "mask": "semantic_layer_v3/masks/front/side_hair_left.png",
+      "texture": "semantic_layer_v3/textures/side_hair_left.png",
+      "depth": 0.16,
+      "thickness": 0.045,
+      "curvature": "left_ribbon",
+      "animation_hook": "side_hair_left_spring_hook",
+      "validation_role": "hair_depth_mid",
+      "mask_pixels": 60950,
+      "mask_bbox": [
+        134,
+        192,
+        509,
+        822
+      ]
+    },
+    {
+      "id": "side_hair_right",
+      "category": "hair",
+      "parent": "head_proxy",
+      "mesh_generator": "ribbon_like_cutout",
+      "mask": "semantic_layer_v3/masks/front/side_hair_right.png",
+      "texture": "semantic_layer_v3/textures/side_hair_right.png",
+      "depth": 0.2,
+      "thickness": 0.045,
+      "curvature": "right_ribbon",
+      "animation_hook": "side_hair_right_spring_hook",
+      "validation_role": "hair_depth_mid",
+      "mask_pixels": 71480,
+      "mask_bbox": [
+        542,
+        130,
+        986,
+        875
+      ]
+    },
+    {
+      "id": "torso_inner",
+      "category": "body",
+      "parent": "torso_proxy",
+      "mesh_generator": "curved_cutout",
+      "mask": "semantic_layer_v3/masks/front/torso_inner.png",
+      "texture": "semantic_layer_v3/textures/torso_inner.png",
+      "depth": 0.0,
+      "thickness": 0.18,
+      "curvature": "torso_wrap",
+      "animation_hook": "torso_inner_pivot",
+      "validation_role": "body_shell",
+      "mask_pixels": 55394,
+      "mask_bbox": [
+        263,
+        302,
+        739,
+        887
+      ]
+    },
+    {
+      "id": "jacket_outer",
+      "category": "costume",
+      "parent": "torso_proxy",
+      "mesh_generator": "curved_cutout",
+      "mask": "semantic_layer_v3/masks/front/jacket_outer.png",
+      "texture": "semantic_layer_v3/textures/jacket_outer.png",
+      "depth": 0.3,
+      "thickness": 0.075,
+      "curvature": "torso_wrap",
+      "animation_hook": "jacket_outer_pivot",
+      "validation_role": "costume_shell",
+      "mask_pixels": 190363,
+      "mask_bbox": [
+        221,
+        293,
+        832,
+        1021
+      ]
+    },
+    {
+      "id": "cape_left",
+      "category": "cloth",
+      "parent": "torso_proxy",
+      "mesh_generator": "cloth_surface",
+      "mask": "semantic_layer_v3/masks/front/cape_left.png",
+      "texture": "semantic_layer_v3/textures/cape_left.png",
+      "depth": -0.27,
+      "thickness": 0.04,
+      "curvature": "left_cloth_drape",
+      "animation_hook": "cape_left_swing_hook",
+      "validation_role": "cape_independent",
+      "mask_pixels": 117625,
+      "mask_bbox": [
+        73,
+        470,
+        443,
+        1371
+      ]
+    },
+    {
+      "id": "cape_right",
+      "category": "cloth",
+      "parent": "torso_proxy",
+      "mesh_generator": "cloth_surface",
+      "mask": "semantic_layer_v3/masks/front/cape_right.png",
+      "texture": "semantic_layer_v3/textures/cape_right.png",
+      "depth": -0.23,
+      "thickness": 0.04,
+      "curvature": "right_cloth_drape",
+      "animation_hook": "cape_right_swing_hook",
+      "validation_role": "cape_independent",
+      "mask_pixels": 226031,
+      "mask_bbox": [
+        585,
+        430,
+        1012,
+        1344
+      ]
+    },
+    {
+      "id": "skirt_front",
+      "category": "cloth",
+      "parent": "torso_proxy",
+      "mesh_generator": "folded_panel",
+      "mask": "semantic_layer_v3/masks/front/skirt_front.png",
+      "texture": "semantic_layer_v3/textures/skirt_front.png",
+      "depth": 0.54,
+      "thickness": 0.075,
+      "curvature": "shallow_panel",
+      "animation_hook": "skirt_front_swing_hook",
+      "validation_role": "skirt_panel",
+      "mask_pixels": 87771,
+      "mask_bbox": [
+        340,
+        640,
+        695,
+        906
+      ]
+    },
+    {
+      "id": "legs",
+      "category": "body",
+      "parent": "torso_proxy",
+      "mesh_generator": "curved_cutout",
+      "mask": "semantic_layer_v3/masks/front/legs.png",
+      "texture": "semantic_layer_v3/textures/legs.png",
+      "depth": 0.03,
+      "thickness": 0.14,
+      "curvature": "leg_rounding",
+      "animation_hook": "legs_pivot",
+      "validation_role": "leg_shell",
+      "mask_pixels": 75716,
+      "mask_bbox": [
+        308,
+        812,
+        714,
+        1264
+      ]
+    },
+    {
+      "id": "boots",
+      "category": "costume",
+      "parent": "torso_proxy",
+      "mesh_generator": "hard_cutout",
+      "mask": "semantic_layer_v3/masks/front/boots.png",
+      "texture": "semantic_layer_v3/textures/boots.png",
+      "depth": 0.41,
+      "thickness": 0.12,
+      "curvature": "hard_surface",
+      "animation_hook": "boots_pivot",
+      "validation_role": "boot_shell",
+      "mask_pixels": 34076,
+      "mask_bbox": [
+        328,
+        1195,
+        736,
+        1503
+      ]
+    },
+    {
+      "id": "face",
+      "category": "face",
+      "parent": "head_proxy",
+      "mesh_generator": "curved_face_plate",
+      "mask": "semantic_layer_v3/masks/front/face.png",
+      "texture": "semantic_layer_v3/textures/face.png",
+      "depth": 0.68,
+      "thickness": 0.045,
+      "curvature": "face_convex",
+      "animation_hook": "face_expression_texture_swap",
+      "validation_role": "front_identity",
+      "mask_pixels": 46795,
+      "mask_bbox": [
+        414,
+        81,
+        637,
+        362
+      ]
+    },
+    {
+      "id": "bangs",
+      "category": "hair",
+      "parent": "head_proxy",
+      "mesh_generator": "ribbon_like_cutout",
+      "mask": "semantic_layer_v3/masks/front/bangs.png",
+      "texture": "semantic_layer_v3/textures/bangs.png",
+      "depth": 0.8,
+      "thickness": 0.035,
+      "curvature": "bangs_convex",
+      "animation_hook": "bangs_spring_hook",
+      "validation_role": "hair_depth_front",
+      "mask_pixels": 18212,
+      "mask_bbox": [
+        367,
+        49,
+        715,
+        438
+      ]
+    },
+    {
+      "id": "weapon",
+      "category": "weapon",
+      "parent": "hand_R_socket",
+      "mesh_generator": "hard_surface_prop",
+      "mask": "semantic_layer_v3/masks/front/weapon.png",
+      "texture": "semantic_layer_v3/textures/weapon.png",
+      "depth": 0.96,
+      "thickness": 0.12,
+      "curvature": "weapon_bevel_proxy",
+      "animation_hook": "hand_R_socket",
+      "validation_role": "weapon_independent",
+      "mask_pixels": 28998,
+      "mask_bbox": [
+        5,
+        607,
+        369,
+        1456
+      ]
+    }
+  ],
+  "acceptance_v1": {
+    "must_have_independent_meshes": [
+      "face",
+      "bangs",
+      "back_hair",
+      "cape_left",
+      "cape_right",
+      "weapon"
+    ],
+    "hair_depth_groups_min": 3,
+    "weapon_independent_object": true,
+    "cape_independent_object": true,
+    "exports_required": [
+      "blend",
+      "glb",
+      "fbx",
+      "obj"
+    ],
+    "validation_views_required": [
+      "front",
+      "yaw15",
+      "yaw30",
+      "side",
+      "exploded",
+      "masks_contact"
+    ]
+  },
+  "side_back_constraints": {
+    "policy": "side/back are ai_inferred modeling constraints, not locked geometry truth",
+    "side": {
+      "path": "refs/ai_turnarounds/cutouts/yuna_left_side.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "alpha_bbox": [
+        23,
+        50,
+        940,
+        1477
+      ],
+      "alpha_pixels": 475598,
+      "alpha_coverage": 0.3024,
+      "vertical_bands": [
+        {
+          "y": [
+            0.05,
+            0.2
+          ],
+          "alpha_width_px": 309,
+          "width_ratio": 0.3018
+        },
+        {
+          "y": [
+            0.2,
+            0.38
+          ],
+          "alpha_width_px": 461,
+          "width_ratio": 0.4502
+        },
+        {
+          "y": [
+            0.38,
+            0.58
+          ],
+          "alpha_width_px": 612,
+          "width_ratio": 0.5977
+        },
+        {
+          "y": [
+            0.58,
+            0.78
+          ],
+          "alpha_width_px": 805,
+          "width_ratio": 0.7861
+        },
+        {
+          "y": [
+            0.78,
+            0.95
+          ],
+          "alpha_width_px": 798,
+          "width_ratio": 0.7793
+        }
+      ]
+    },
+    "back": {
+      "path": "refs/ai_turnarounds/cutouts/yuna_back.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "alpha_bbox": [
+        74,
+        50,
+        1003,
+        1455
+      ],
+      "alpha_pixels": 536068,
+      "alpha_coverage": 0.3408,
+      "vertical_bands": [
+        {
+          "y": [
+            0.05,
+            0.2
+          ],
+          "alpha_width_px": 353,
+          "width_ratio": 0.3447
+        },
+        {
+          "y": [
+            0.2,
+            0.38
+          ],
+          "alpha_width_px": 513,
+          "width_ratio": 0.501
+        },
+        {
+          "y": [
+            0.38,
+            0.58
+          ],
+          "alpha_width_px": 671,
+          "width_ratio": 0.6553
+        },
+        {
+          "y": [
+            0.58,
+            0.78
+          ],
+          "alpha_width_px": 852,
+          "width_ratio": 0.832
+        },
+        {
+          "y": [
+            0.78,
+            0.95
+          ],
+          "alpha_width_px": 909,
+          "width_ratio": 0.8877
+        }
+      ]
+    },
+    "saved_alpha_constraints": {
+      "side": "semantic_layer_v3/constraints/side_alpha_constraint.png",
+      "back": "semantic_layer_v3/constraints/back_alpha_constraint.png"
+    },
+    "reference_contact_sheet": "semantic_layer_v3/validation/yuna_semantic_layer_v3_reference_constraints.png"
+  },
+  "acceptance_v3": {
+    "must_have_independent_meshes": [
+      "face",
+      "bangs",
+      "back_hair",
+      "cape_left",
+      "cape_right",
+      "weapon",
+      "torso_inner"
+    ],
+    "target_z_to_height_ratio_min": 0.1,
+    "max_overlap_warning_count": 8,
+    "max_overlap_warning_value": 0.015,
+    "dcc_face_budget": 120000,
+    "runtime_face_budget": 80000,
+    "known_limits": [
+      "side/back references are AI-inferred and only constrain depth/volume plausibility",
+      "front masks remain coarse and require hand-painted cleanup",
+      "hair groups are still cutout surfaces, not final spline hair cards",
+      "this route improves side thickness but can increase stage-layer feeling in yaw views"
+    ]
+  }
+}

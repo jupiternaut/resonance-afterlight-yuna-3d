@@ -1,0 +1,28 @@
+{
+  "run_id": "rodin_yuna_weapon_fbx_gen2_v1",
+  "status": "optional_not_submitted",
+  "endpoint": "https://api.hyper3d.com/api/v2/rodin",
+  "method": "POST",
+  "request_format": "multipart/form-data",
+  "auth": {
+    "header": "Authorization: Bearer ${HYPER3D_API_KEY or RODIN_API_KEY}",
+    "secret_policy": "Read from environment only; never write token to disk."
+  },
+  "images_field_name": "images",
+  "images_ordered": [
+    "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/refs/dcc_reference/chatgpt_generated/yuna_dcc_weapon_orthographic_sheet.png"
+  ],
+  "form_fields": {
+    "tier": "Gen-2",
+    "prompt": "Standalone anime sci-fi energy sword prop for YUNA. Thin elegant blade, teal glowing energy edge, black graphite grip, small gold accent, clean hard-surface geometry, centered orthographic object, no character body, no hands, no background. Generate an editable DCC prop mesh for Blender and Unity.",
+    "use_original_alpha": "true",
+    "geometry_file_format": "fbx",
+    "material": "All",
+    "quality_override": "30000",
+    "mesh_mode": "Quad",
+    "addons": "[]",
+    "preview_render": "true",
+    "hd_texture": "true"
+  }
+}
+

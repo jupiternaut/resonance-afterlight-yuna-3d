@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>YUNA Proxy GLB Viewer</title>
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #02070d;
+      color: #edf7ff;
+      font-family: "Avenir Next", "Inter", Arial, sans-serif;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .label {
+      position: absolute;
+      left: 24px;
+      top: 18px;
+      letter-spacing: 0.24em;
+      font-size: 14px;
+      color: rgba(237, 247, 255, 0.82);
+      text-transform: uppercase;
+      text-shadow: 0 0 18px rgba(98, 232, 255, 0.28);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="label">YUNA Proxy GLB / Runtime Preview</div>
+  <canvas id="stage"></canvas>
+  <script src="../../assets/vendor/three.r128.min.js"></script>
+  <script src="../../assets/vendor/GLTFLoader.r128.js"></script>
+  <script src="yuna_proxy_data.js"></script>
+  <script>
+    const canvas = document.getElementById("stage");
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+    renderer.setClearColor(0x02070d, 1);
+    renderer.outputEncoding = THREE.sRGBEncoding;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(35, innerWidth / innerHeight, 0.01, 50);
+    camera.position.set(0, 0.95, 5.2);
+
+    scene.add(new THREE.HemisphereLight(0xdff7ff, 0x07111b, 1.5));
+
+    const grid = new THREE.GridHelper(3.2, 16, 0x315d75, 0x102636);
+    grid.position.y = -0.01;
+    scene.add(grid);
+
+    const loader = new THREE.GLTFLoader();
+    let asset = null;
+
+    loader.load(window.YUNA_PROXY_GLB, (gltf) => {
+      asset = gltf.scene;
+      asset.position.set(0, 0, 0);
+      asset.traverse((node) => {
+        if (node.isMesh) {
+          node.material.depthWrite = false;
+          node.material.side = THREE.DoubleSide;
+          node.material.transparent = true;
+        }
+      });
+      scene.add(asset);
+    }, undefined, (error) => {
+      console.error(error);
+      document.body.dataset.loadError = "true";
+    });
+
+    function resize() {
+      renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+      renderer.setSize(innerWidth, innerHeight, false);
+      camera.aspect = innerWidth / innerHeight;
+      camera.updateProjectionMatrix();
+    }
+
+    function tick(time) {
+      if (asset) {
+        asset.rotation.y = Math.sin(time * 0.00045) * 0.18;
+      }
+      camera.lookAt(0, 0.92, 0);
+      renderer.render(scene, camera);
+      requestAnimationFrame(tick);
+    }
+
+    addEventListener("resize", resize);
+    resize();
+    tick(0);
+  </script>
+</body>
+</html>

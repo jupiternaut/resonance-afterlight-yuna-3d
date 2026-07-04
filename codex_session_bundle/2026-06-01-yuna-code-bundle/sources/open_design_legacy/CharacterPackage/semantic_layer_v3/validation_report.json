@@ -1,0 +1,595 @@
+{
+  "created_at": "2026-05-22T16:49:34.059250+00:00",
+  "route": "semantic_layer_v3_side_back_constraint_compiler",
+  "status": "generated_with_warnings",
+  "boundary": "Structured 2.5D render-shell and DCC handoff asset; not final production topology.",
+  "source": "refs/front_rgba/yuna_front_rgba.png",
+  "spec": "semantic_layer_v3/specs/yuna_semantic_layer_v3.json",
+  "mask_contact_sheet": "semantic_layer_v3/validation/yuna_semantic_masks_contact.png",
+  "side_back_constraints": {
+    "policy": "side/back are ai_inferred modeling constraints, not locked geometry truth",
+    "side": {
+      "path": "refs/ai_turnarounds/cutouts/yuna_left_side.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "alpha_bbox": [
+        23,
+        50,
+        940,
+        1477
+      ],
+      "alpha_pixels": 475598,
+      "alpha_coverage": 0.3024,
+      "vertical_bands": [
+        {
+          "y": [
+            0.05,
+            0.2
+          ],
+          "alpha_width_px": 309,
+          "width_ratio": 0.3018
+        },
+        {
+          "y": [
+            0.2,
+            0.38
+          ],
+          "alpha_width_px": 461,
+          "width_ratio": 0.4502
+        },
+        {
+          "y": [
+            0.38,
+            0.58
+          ],
+          "alpha_width_px": 612,
+          "width_ratio": 0.5977
+        },
+        {
+          "y": [
+            0.58,
+            0.78
+          ],
+          "alpha_width_px": 805,
+          "width_ratio": 0.7861
+        },
+        {
+          "y": [
+            0.78,
+            0.95
+          ],
+          "alpha_width_px": 798,
+          "width_ratio": 0.7793
+        }
+      ]
+    },
+    "back": {
+      "path": "refs/ai_turnarounds/cutouts/yuna_back.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "alpha_bbox": [
+        74,
+        50,
+        1003,
+        1455
+      ],
+      "alpha_pixels": 536068,
+      "alpha_coverage": 0.3408,
+      "vertical_bands": [
+        {
+          "y": [
+            0.05,
+            0.2
+          ],
+          "alpha_width_px": 353,
+          "width_ratio": 0.3447
+        },
+        {
+          "y": [
+            0.2,
+            0.38
+          ],
+          "alpha_width_px": 513,
+          "width_ratio": 0.501
+        },
+        {
+          "y": [
+            0.38,
+            0.58
+          ],
+          "alpha_width_px": 671,
+          "width_ratio": 0.6553
+        },
+        {
+          "y": [
+            0.58,
+            0.78
+          ],
+          "alpha_width_px": 852,
+          "width_ratio": 0.832
+        },
+        {
+          "y": [
+            0.78,
+            0.95
+          ],
+          "alpha_width_px": 909,
+          "width_ratio": 0.8877
+        }
+      ]
+    },
+    "saved_alpha_constraints": {
+      "side": "semantic_layer_v3/constraints/side_alpha_constraint.png",
+      "back": "semantic_layer_v3/constraints/back_alpha_constraint.png"
+    },
+    "reference_contact_sheet": "semantic_layer_v3/validation/yuna_semantic_layer_v3_reference_constraints.png"
+  },
+  "quality": {
+    "status": "generated_with_warnings",
+    "failures": [],
+    "warnings": [
+      "mesh is above runtime budget: 115588 faces",
+      "visual review still required: v3 widens side depth, but is not a true volumetric body",
+      "front masks are inherited from v2 and still need hand-painted cleanup"
+    ],
+    "depth": {
+      "z_min": -0.45,
+      "z_max": 1.02,
+      "z_span": 1.47,
+      "z_to_height_ratio": 0.2297,
+      "intervals": [
+        {
+          "part": "back_hair",
+          "z_min": -0.45,
+          "z_max": -0.39
+        },
+        {
+          "part": "side_hair_left",
+          "z_min": 0.1375,
+          "z_max": 0.1825
+        },
+        {
+          "part": "side_hair_right",
+          "z_min": 0.1775,
+          "z_max": 0.2225
+        },
+        {
+          "part": "torso_inner",
+          "z_min": -0.09,
+          "z_max": 0.09
+        },
+        {
+          "part": "jacket_outer",
+          "z_min": 0.2625,
+          "z_max": 0.3375
+        },
+        {
+          "part": "cape_left",
+          "z_min": -0.29,
+          "z_max": -0.25
+        },
+        {
+          "part": "cape_right",
+          "z_min": -0.25,
+          "z_max": -0.21
+        },
+        {
+          "part": "skirt_front",
+          "z_min": 0.5025,
+          "z_max": 0.5775
+        },
+        {
+          "part": "legs",
+          "z_min": -0.04,
+          "z_max": 0.1
+        },
+        {
+          "part": "boots",
+          "z_min": 0.35,
+          "z_max": 0.47
+        },
+        {
+          "part": "face",
+          "z_min": 0.6575,
+          "z_max": 0.7025
+        },
+        {
+          "part": "bangs",
+          "z_min": 0.7825,
+          "z_max": 0.8175
+        },
+        {
+          "part": "weapon",
+          "z_min": 0.9,
+          "z_max": 1.02
+        }
+      ],
+      "overlaps": [
+        {
+          "a": "torso_inner",
+          "b": "legs",
+          "overlap": 0.13
+        },
+        {
+          "a": "side_hair_left",
+          "b": "side_hair_right",
+          "overlap": 0.005
+        }
+      ],
+      "unallowed_overlaps": []
+    },
+    "mesh_budget": {
+      "total_faces": 115588,
+      "runtime_face_budget": 80000,
+      "dcc_face_budget": 120000,
+      "over_runtime_budget": true,
+      "over_dcc_budget": false
+    }
+  },
+  "mask_stats": {
+    "back_hair": {
+      "pixels": 121159,
+      "bbox": [
+        130,
+        480,
+        1009,
+        1035
+      ]
+    },
+    "side_hair_left": {
+      "pixels": 60950,
+      "bbox": [
+        134,
+        192,
+        509,
+        822
+      ]
+    },
+    "side_hair_right": {
+      "pixels": 71480,
+      "bbox": [
+        542,
+        130,
+        986,
+        875
+      ]
+    },
+    "torso_inner": {
+      "pixels": 55394,
+      "bbox": [
+        263,
+        302,
+        739,
+        887
+      ]
+    },
+    "jacket_outer": {
+      "pixels": 190363,
+      "bbox": [
+        221,
+        293,
+        832,
+        1021
+      ]
+    },
+    "cape_left": {
+      "pixels": 117625,
+      "bbox": [
+        73,
+        470,
+        443,
+        1371
+      ]
+    },
+    "cape_right": {
+      "pixels": 226031,
+      "bbox": [
+        585,
+        430,
+        1012,
+        1344
+      ]
+    },
+    "skirt_front": {
+      "pixels": 87771,
+      "bbox": [
+        340,
+        640,
+        695,
+        906
+      ]
+    },
+    "legs": {
+      "pixels": 75716,
+      "bbox": [
+        308,
+        812,
+        714,
+        1264
+      ]
+    },
+    "boots": {
+      "pixels": 34076,
+      "bbox": [
+        328,
+        1195,
+        736,
+        1503
+      ]
+    },
+    "face": {
+      "pixels": 46795,
+      "bbox": [
+        414,
+        81,
+        637,
+        362
+      ]
+    },
+    "bangs": {
+      "pixels": 18212,
+      "bbox": [
+        367,
+        49,
+        715,
+        438
+      ]
+    },
+    "weapon": {
+      "pixels": 28998,
+      "bbox": [
+        5,
+        607,
+        369,
+        1456
+      ]
+    }
+  },
+  "parts": {
+    "back_hair": {
+      "part": "back_hair",
+      "obj": "semantic_layer_v3/obj/parts/back_hair.obj",
+      "occupied_cells": 5854,
+      "vertices": 61752,
+      "faces": 15438,
+      "category": "hair",
+      "mesh_generator": "curved_cutout",
+      "depth": -0.42,
+      "thickness": 0.06
+    },
+    "side_hair_left": {
+      "part": "side_hair_left",
+      "obj": "semantic_layer_v3/obj/parts/side_hair_left.obj",
+      "occupied_cells": 2913,
+      "vertices": 30000,
+      "faces": 7500,
+      "category": "hair",
+      "mesh_generator": "ribbon_like_cutout",
+      "depth": 0.16,
+      "thickness": 0.045
+    },
+    "side_hair_right": {
+      "part": "side_hair_right",
+      "obj": "semantic_layer_v3/obj/parts/side_hair_right.obj",
+      "occupied_cells": 3608,
+      "vertices": 39864,
+      "faces": 9966,
+      "category": "hair",
+      "mesh_generator": "ribbon_like_cutout",
+      "depth": 0.2,
+      "thickness": 0.045
+    },
+    "torso_inner": {
+      "part": "torso_inner",
+      "obj": "semantic_layer_v3/obj/parts/torso_inner.obj",
+      "occupied_cells": 2913,
+      "vertices": 32072,
+      "faces": 8018,
+      "category": "body",
+      "mesh_generator": "curved_cutout",
+      "depth": 0.0,
+      "thickness": 0.18
+    },
+    "jacket_outer": {
+      "part": "jacket_outer",
+      "obj": "semantic_layer_v3/obj/parts/jacket_outer.obj",
+      "occupied_cells": 8584,
+      "vertices": 81816,
+      "faces": 20454,
+      "category": "costume",
+      "mesh_generator": "curved_cutout",
+      "depth": 0.3,
+      "thickness": 0.075
+    },
+    "cape_left": {
+      "part": "cape_left",
+      "obj": "semantic_layer_v3/obj/parts/cape_left.obj",
+      "occupied_cells": 4596,
+      "vertices": 41096,
+      "faces": 10274,
+      "category": "cloth",
+      "mesh_generator": "cloth_surface",
+      "depth": -0.27,
+      "thickness": 0.04
+    },
+    "cape_right": {
+      "part": "cape_right",
+      "obj": "semantic_layer_v3/obj/parts/cape_right.obj",
+      "occupied_cells": 8440,
+      "vertices": 71800,
+      "faces": 17950,
+      "category": "cloth",
+      "mesh_generator": "cloth_surface",
+      "depth": -0.23,
+      "thickness": 0.04
+    },
+    "skirt_front": {
+      "part": "skirt_front",
+      "obj": "semantic_layer_v3/obj/parts/skirt_front.obj",
+      "occupied_cells": 3253,
+      "vertices": 27048,
+      "faces": 6762,
+      "category": "cloth",
+      "mesh_generator": "folded_panel",
+      "depth": 0.54,
+      "thickness": 0.075
+    },
+    "legs": {
+      "part": "legs",
+      "obj": "semantic_layer_v3/obj/parts/legs.obj",
+      "occupied_cells": 2923,
+      "vertices": 25784,
+      "faces": 6446,
+      "category": "body",
+      "mesh_generator": "curved_cutout",
+      "depth": 0.03,
+      "thickness": 0.14
+    },
+    "boots": {
+      "part": "boots",
+      "obj": "semantic_layer_v3/obj/parts/boots.obj",
+      "occupied_cells": 1363,
+      "vertices": 12640,
+      "faces": 3160,
+      "category": "costume",
+      "mesh_generator": "hard_cutout",
+      "depth": 0.41,
+      "thickness": 0.12
+    },
+    "face": {
+      "part": "face",
+      "obj": "semantic_layer_v3/obj/parts/face.obj",
+      "occupied_cells": 1741,
+      "vertices": 14840,
+      "faces": 3710,
+      "category": "face",
+      "mesh_generator": "curved_face_plate",
+      "depth": 0.68,
+      "thickness": 0.045
+    },
+    "bangs": {
+      "part": "bangs",
+      "obj": "semantic_layer_v3/obj/parts/bangs.obj",
+      "occupied_cells": 939,
+      "vertices": 10384,
+      "faces": 2596,
+      "category": "hair",
+      "mesh_generator": "ribbon_like_cutout",
+      "depth": 0.8,
+      "thickness": 0.035
+    },
+    "weapon": {
+      "part": "weapon",
+      "obj": "semantic_layer_v3/obj/parts/weapon.obj",
+      "occupied_cells": 1274,
+      "vertices": 13256,
+      "faces": 3314,
+      "category": "weapon",
+      "mesh_generator": "hard_surface_prop",
+      "depth": 0.96,
+      "thickness": 0.12
+    }
+  },
+  "combined_obj": {
+    "obj": "semantic_layer_v3/obj/yuna_semantic_layer_v3.obj",
+    "mtl": "semantic_layer_v3/obj/yuna_semantic_layer_v3.mtl",
+    "parts": 13,
+    "vertices": 462352,
+    "uvs": 462352
+  },
+  "exports": {
+    "blend": "semantic_layer_v3/exports/yuna_semantic_layer_v3.blend",
+    "glb": "semantic_layer_v3/exports/yuna_semantic_layer_v3.glb",
+    "fbx": "semantic_layer_v3/exports/yuna_semantic_layer_v3.fbx",
+    "obj": "semantic_layer_v3/exports/yuna_semantic_layer_v3.obj",
+    "validation_screenshots": {
+      "front": "semantic_layer_v3/validation/yuna_semantic_layer_v3_front.png",
+      "yaw15": "semantic_layer_v3/validation/yuna_semantic_layer_v3_yaw15.png",
+      "yaw30": "semantic_layer_v3/validation/yuna_semantic_layer_v3_yaw30.png",
+      "side": "semantic_layer_v3/validation/yuna_semantic_layer_v3_side.png",
+      "exploded": "semantic_layer_v3/validation/yuna_semantic_layer_v3_exploded.png"
+    },
+    "blender_exit_code": 0,
+    "blender_log_tail": [
+      "INFO Draco mesh compression is available, use library at /Applications/Blender.app/Contents/Resources/5.1/scripts/addons_core/io_scene_gltf2/libextern_draco.dylib",
+      "00:49:32 | INFO: Starting glTF 2.0 export",
+      "00:49:32 | INFO: Extracting primitive: back_hair",
+      "00:49:32 | INFO: Primitives created: 2",
+      "00:49:32 | INFO: Extracting primitive: bangs",
+      "00:49:32 | INFO: Primitives created: 2",
+      "00:49:32 | INFO: Extracting primitive: boots",
+      "00:49:32 | INFO: Primitives created: 2",
+      "00:49:32 | INFO: Extracting primitive: cape_left",
+      "00:49:32 | INFO: Primitives created: 2",
+      "00:49:32 | INFO: Extracting primitive: cape_right",
+      "00:49:32 | INFO: Primitives created: 2",
+      "00:49:32 | INFO: Extracting primitive: face",
+      "00:49:32 | INFO: Primitives created: 2",
+      "00:49:32 | INFO: Extracting primitive: jacket_outer",
+      "00:49:32 | INFO: Primitives created: 2",
+      "00:49:32 | INFO: Extracting primitive: legs",
+      "00:49:32 | INFO: Primitives created: 2",
+      "00:49:32 | INFO: Extracting primitive: side_hair_left",
+      "00:49:32 | INFO: Primitives created: 2",
+      "00:49:32 | INFO: Extracting primitive: side_hair_right",
+      "00:49:32 | INFO: Primitives created: 2",
+      "00:49:32 | INFO: Extracting primitive: skirt_front",
+      "00:49:32 | INFO: Primitives created: 2",
+      "00:49:32 | INFO: Extracting primitive: torso_inner",
+      "00:49:32 | INFO: Primitives created: 2",
+      "00:49:32 | INFO: Extracting primitive: weapon",
+      "00:49:32 | INFO: Primitives created: 2",
+      "00:49:32 | INFO: Finished glTF 2.0 export in 0.1800229549407959 s",
+      "",
+      "",
+      "FBX export starting... '/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/semantic_layer_v3/exports/yuna_semantic_layer_v3.fbx'",
+      "export finished in 0.0543 sec.",
+      "Info: File exported successfully",
+      "Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)",
+      "OBJ import of 'yuna_semantic_layer_v3.obj' took 110.72 ms",
+      "Writing to /Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/semantic_layer_v3/exports/yuna_semantic_layer_v3.obj",
+      "OBJ export of 'yuna_semantic_layer_v3.obj' took 34.19 ms",
+      "",
+      "Blender quit"
+    ]
+  },
+  "glb_roundtrip": {
+    "mesh_count": 13,
+    "empty_count": 5,
+    "material_count": 28,
+    "mesh_names": [
+      "back_hair",
+      "bangs",
+      "boots",
+      "cape_left",
+      "cape_right",
+      "face",
+      "jacket_outer",
+      "legs",
+      "side_hair_left",
+      "side_hair_right",
+      "skirt_front",
+      "torso_inner",
+      "weapon"
+    ],
+    "empty_names": [
+      "hook_bangs_spring",
+      "hook_back_hair_spring",
+      "hook_cape_left_swing",
+      "hook_cape_right_swing",
+      "hand_R_socket_weapon"
+    ],
+    "status": "ok",
+    "blender_exit_code": 0
+  },
+  "next_manual_cleanup": [
+    "Paint final semantic masks over face/bangs and torso/cape boundaries.",
+    "Replace cutout hair groups with explicit strand curves/cards.",
+    "Use side/back constraints to author per-part cage meshes instead of just widened depth bands.",
+    "Add a Three.js v2/v3 comparison viewer before judging the route visually."
+  ]
+}

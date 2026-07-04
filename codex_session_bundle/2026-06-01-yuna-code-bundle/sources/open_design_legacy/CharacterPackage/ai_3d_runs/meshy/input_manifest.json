@@ -1,0 +1,82 @@
+{
+  "run_id": "meshy_yuna_multiview_20260522",
+  "character": "YUNA",
+  "purpose": "Meshy 6 Multi-Image to 3D A/B run against the Rodin route",
+  "created_at_utc": "2026-05-22T11:50:42Z",
+  "write_scope": "CharacterPackage/ai_3d_runs/meshy/",
+  "api_endpoint": "https://api.meshy.ai/openapi/v1/multi-image-to-3d",
+  "recommended_upload_order": [
+    {
+      "slot": 1,
+      "id": "front_rgba",
+      "role": "front_identity_locked",
+      "use_in_primary_payload": true,
+      "path": "../../refs/front_rgba/yuna_front_rgba.png",
+      "absolute_path": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/refs/front_rgba/yuna_front_rgba.png",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "3bd730627774ba881eb54e0b27bdf31fbea56a37c6867b7a6ab0695bc835c2d5",
+      "data_uri_token": "__DATA_URI:front_rgba__",
+      "notes": "Locked front identity and texture reference. This must be first."
+    },
+    {
+      "slot": 2,
+      "id": "left_side",
+      "role": "side_volume_reference",
+      "use_in_primary_payload": true,
+      "path": "../../refs/ai_turnarounds/cutouts/yuna_left_side.png",
+      "absolute_path": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/refs/ai_turnarounds/cutouts/yuna_left_side.png",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "54c938aebb9bd348eb809b1cd126fc4d150dc930e1c4da8355bc6c5fcc83ee14",
+      "data_uri_token": "__DATA_URI:left_side__",
+      "notes": "Use for profile, hair depth, mantle thickness, boot and leg volume."
+    },
+    {
+      "slot": 3,
+      "id": "back",
+      "role": "back_volume_reference",
+      "use_in_primary_payload": true,
+      "path": "../../refs/ai_turnarounds/cutouts/yuna_back.png",
+      "absolute_path": "/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/refs/ai_turnarounds/cutouts/yuna_back.png",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "6e2b1cb3728499cb67ec58e6a8edcd2a3e97435c88f9a53c902f0a1e42cf2606",
+      "data_uri_token": "__DATA_URI:back__",
+      "notes": "Use for rear hair fall, mantle closure, rear boots and skirt/coat logic."
+    }
+  ],
+  "available_but_excluded_from_primary_payload": [
+    {
+      "id": "turnaround_3view_sheet",
+      "path": "../../refs/dcc_reference/chatgpt_generated/yuna_dcc_turnaround_3view.png",
+      "width": 1608,
+      "height": 978,
+      "sha256": "76bcc67b7024415c8fc04f772f371638a0afe97441a2a86dbd3a42558cb9a2fe",
+      "reason": "Combined sheets can confuse a multi-image API that expects one object view per image. Keep as human review reference."
+    },
+    {
+      "id": "weapon_orthographic_sheet",
+      "path": "../../refs/dcc_reference/chatgpt_generated/yuna_dcc_weapon_orthographic_sheet.png",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "03125c5a003c39dd17489c7e0ad58c6c18cf1780ebf4bfaf0708856c50e50078",
+      "reason": "Run weapon as a separate prop task. Including it in the character payload risks fusing it to the body."
+    },
+    {
+      "id": "face_expression_sheet",
+      "path": "../../refs/dcc_reference/chatgpt_generated/yuna_dcc_face_expression_sheet.png",
+      "width": 1402,
+      "height": 1122,
+      "sha256": "813942b08ff0be09ee85680f8facb04393f8f49efa3169682dee24ca0307808f",
+      "reason": "Use later for blendshape sculpting, not base-body reconstruction."
+    }
+  ],
+  "submission_policy": {
+    "do_not_accept": "Procedural dummy geometry or a local blockout as a successful Meshy result.",
+    "accept_only": "A Meshy cloud-generated base mesh task with downloadable GLB/FBX/OBJ outputs."
+  }
+}

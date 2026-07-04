@@ -1,0 +1,112 @@
+{
+  "character_id": "yuna-white-sword",
+  "created_at": "2026-05-22T11:49:49.304005+00:00",
+  "purpose": "Shared immutable input set for Rodin Gen-2 vs Meshy 6 Multi-view A/B generation.",
+  "upload_order": [
+    "locked_front_rgba",
+    "dcc_front_crop",
+    "dcc_side_crop",
+    "dcc_back_crop",
+    "dcc_expression_sheet",
+    "dcc_weapon_sheet",
+    "dcc_material_reference",
+    "transparent_side_ref",
+    "transparent_back_ref"
+  ],
+  "inputs": {
+    "locked_front_rgba": {
+      "path": "ai_3d_runs/common/inputs/yuna_locked_front_rgba.png",
+      "source": "refs/front_rgba/yuna_front_rgba.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "3bd730627774ba881eb54e0b27bdf31fbea56a37c6867b7a6ab0695bc835c2d5"
+    },
+    "transparent_side_ref": {
+      "path": "ai_3d_runs/common/inputs/yuna_transparent_side_ref.png",
+      "source": "refs/ai_turnarounds/cutouts/yuna_left_side.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "54c938aebb9bd348eb809b1cd126fc4d150dc930e1c4da8355bc6c5fcc83ee14"
+    },
+    "transparent_back_ref": {
+      "path": "ai_3d_runs/common/inputs/yuna_transparent_back_ref.png",
+      "source": "refs/ai_turnarounds/cutouts/yuna_back.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "6e2b1cb3728499cb67ec58e6a8edcd2a3e97435c88f9a53c902f0a1e42cf2606"
+    },
+    "dcc_turnaround_3view": {
+      "path": "ai_3d_runs/common/inputs/yuna_dcc_turnaround_3view.png",
+      "source": "refs/dcc_reference/chatgpt_generated/yuna_dcc_turnaround_3view.png",
+      "width": 1608,
+      "height": 978,
+      "sha256": "76bcc67b7024415c8fc04f772f371638a0afe97441a2a86dbd3a42558cb9a2fe"
+    },
+    "dcc_expression_sheet": {
+      "path": "ai_3d_runs/common/inputs/yuna_dcc_expression_sheet.png",
+      "source": "refs/dcc_reference/chatgpt_generated/yuna_dcc_face_expression_sheet.png",
+      "width": 1402,
+      "height": 1122,
+      "sha256": "813942b08ff0be09ee85680f8facb04393f8f49efa3169682dee24ca0307808f"
+    },
+    "dcc_weapon_sheet": {
+      "path": "ai_3d_runs/common/inputs/yuna_dcc_weapon_sheet.png",
+      "source": "refs/dcc_reference/chatgpt_generated/yuna_dcc_weapon_orthographic_sheet.png",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "03125c5a003c39dd17489c7e0ad58c6c18cf1780ebf4bfaf0708856c50e50078"
+    },
+    "dcc_material_reference": {
+      "path": "ai_3d_runs/common/inputs/yuna_dcc_material_reference.png",
+      "source": "refs/dcc_reference/chatgpt_generated/yuna_dcc_material_texture_reference.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "a9315100906294a7b333142db75950d2b4639423a5b3f27a8196df19ef397a7b"
+    },
+    "dcc_front_crop": {
+      "path": "ai_3d_runs/common/inputs/yuna_dcc_front_crop.png",
+      "source": "refs/dcc_reference/chatgpt_generated/yuna_dcc_turnaround_3view.png",
+      "crop_box": [
+        0,
+        0,
+        536,
+        978
+      ],
+      "width": 536,
+      "height": 978,
+      "sha256": "924846aea62fad1821efe3433f588f0102d9dd68df24f02057b9bcc1c1329534"
+    },
+    "dcc_side_crop": {
+      "path": "ai_3d_runs/common/inputs/yuna_dcc_side_crop.png",
+      "source": "refs/dcc_reference/chatgpt_generated/yuna_dcc_turnaround_3view.png",
+      "crop_box": [
+        536,
+        0,
+        1072,
+        978
+      ],
+      "width": 536,
+      "height": 978,
+      "sha256": "e47fd9601fc9b2f8322cb5f2036e2a438cc93a46319deb87a8b9eb357b9f2540"
+    },
+    "dcc_back_crop": {
+      "path": "ai_3d_runs/common/inputs/yuna_dcc_back_crop.png",
+      "source": "refs/dcc_reference/chatgpt_generated/yuna_dcc_turnaround_3view.png",
+      "crop_box": [
+        1072,
+        0,
+        1608,
+        978
+      ],
+      "width": 536,
+      "height": 978,
+      "sha256": "ce7d6bddbc4bac761f7465596f8932239ea8049a277604c36e57828bf88c12c4"
+    }
+  },
+  "contact_sheet": {
+    "path": "ai_3d_runs/common/yuna_ab_input_contact_sheet.png",
+    "width": 970,
+    "height": 550,
+    "sha256": "ed09e878fa67378028347bf8e5089a660639171cc7965031bf41ef7aec515fac"
+  }
+}

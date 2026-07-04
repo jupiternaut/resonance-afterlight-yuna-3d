@@ -1,0 +1,123 @@
+{
+  "created_at": "2026-05-29T12:38:30.531488+00:00",
+  "route": "yuna_full_character_preview_v0",
+  "status": "preview_scene_generated",
+  "preview_only": true,
+  "replace_in_beauty_glb": false,
+  "hair_accepted": false,
+  "cloth_accepted": false,
+  "ready_for_cloth_seam_surface": false,
+  "manual_visual_review_required": true,
+  "collections": [
+    "baseline_v8",
+    "candidate_hair_unaccepted",
+    "candidate_cloth_unaccepted",
+    "weapon",
+    "body_visual",
+    "debug_cage_hidden",
+    "review_cameras",
+    "lights"
+  ],
+  "imported_counts": {
+    "baseline_v8": 23,
+    "candidate_hair_unaccepted": 92,
+    "candidate_cloth_unaccepted": 0,
+    "weapon": 2,
+    "body_visual": 12,
+    "debug_cage_hidden": 35
+  },
+  "screenshots": {
+    "front_baseline": {
+      "role": "full_preview_screenshot_front_baseline",
+      "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/front_baseline.png",
+      "exists": true,
+      "available": true,
+      "required": true,
+      "bytes": 2105446
+    },
+    "front_candidate_overlay": {
+      "role": "full_preview_screenshot_front_candidate_overlay",
+      "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/front_candidate_overlay.png",
+      "exists": true,
+      "available": true,
+      "required": true,
+      "bytes": 2199193
+    },
+    "yaw15": {
+      "role": "full_preview_screenshot_yaw15",
+      "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/yaw15.png",
+      "exists": true,
+      "available": true,
+      "required": true,
+      "bytes": 2226927
+    },
+    "yaw30": {
+      "role": "full_preview_screenshot_yaw30",
+      "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/yaw30.png",
+      "exists": true,
+      "available": true,
+      "required": true,
+      "bytes": 2174066
+    },
+    "side": {
+      "role": "full_preview_screenshot_side",
+      "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/side.png",
+      "exists": true,
+      "available": true,
+      "required": true,
+      "bytes": 1460326
+    },
+    "back": {
+      "role": "full_preview_screenshot_back",
+      "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/back.png",
+      "exists": true,
+      "available": true,
+      "required": true,
+      "bytes": 2148804
+    },
+    "wire": {
+      "role": "full_preview_screenshot_wire",
+      "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/wire.png",
+      "exists": true,
+      "available": true,
+      "required": true,
+      "bytes": 2405544
+    },
+    "exploded": {
+      "role": "full_preview_screenshot_exploded",
+      "path": "CharacterPackage/semantic_layer_v10_full_preview/validation_ci/exploded.png",
+      "exists": true,
+      "available": true,
+      "required": true,
+      "bytes": 2178370
+    }
+  },
+  "outputs": {
+    "blend": {
+      "role": "full_preview_blender_scene",
+      "path": "CharacterPackage/semantic_layer_v10_full_preview/exports/yuna_full_character_preview_v0.blend",
+      "exists": true,
+      "available": true,
+      "required": true,
+      "bytes": 49664676
+    },
+    "glb": {
+      "role": "full_preview_glb_export_if_possible",
+      "path": "CharacterPackage/semantic_layer_v10_full_preview/exports/yuna_full_character_preview_v0.glb",
+      "exists": true,
+      "available": true,
+      "required": false,
+      "bytes": 25417432
+    }
+  },
+  "missing_screenshots": [],
+  "camera": {
+    "center": [
+      -0.001333,
+      0.114286,
+      2.272836
+    ],
+    "ortho_scale": 8.890182,
+    "distance": 23.725454
+  }
+}

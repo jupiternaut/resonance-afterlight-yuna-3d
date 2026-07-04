@@ -1,0 +1,141 @@
+{
+  "created_at": "2026-05-22T13:53:08.077273+00:00",
+  "route": "deterministic_png_alpha_to_textured_relief_mesh",
+  "status": "image_constructed_exports_generated",
+  "boundary": "These are 2.5D relief/reference assets built from image alpha and texture data, not full volumetric animation-ready character meshes.",
+  "front_relief": {
+    "key": "front",
+    "obj": "image_constructed/obj/yuna_image_constructed_front_relief.obj",
+    "mtl": "image_constructed/obj/yuna_image_constructed_front_relief.mtl",
+    "texture": "../textures/yuna_image_constructed_front.png",
+    "source": "refs/front_rgba/yuna_front_rgba.png",
+    "resampled_size": [
+      213,
+      320
+    ],
+    "occupied_cells": 28726,
+    "vertices": 245056,
+    "faces": 61264
+  },
+  "turnaround_views": [
+    {
+      "key": "front",
+      "obj": "image_constructed/obj/yuna_image_constructed_front_view.obj",
+      "mtl": "image_constructed/obj/yuna_image_constructed_front_view.mtl",
+      "texture": "../textures/yuna_image_constructed_front.png",
+      "source": "refs/front_rgba/yuna_front_rgba.png",
+      "resampled_size": [
+        213,
+        320
+      ],
+      "occupied_cells": 28726,
+      "vertices": 245056,
+      "faces": 61264
+    },
+    {
+      "key": "side",
+      "obj": "image_constructed/obj/yuna_image_constructed_side_view.obj",
+      "mtl": "image_constructed/obj/yuna_image_constructed_side_view.mtl",
+      "texture": "../textures/yuna_image_constructed_side.png",
+      "source": "refs/ai_turnarounds/cutouts/yuna_left_side.png",
+      "resampled_size": [
+        173,
+        260
+      ],
+      "occupied_cells": 14100,
+      "vertices": 120296,
+      "faces": 30074
+    },
+    {
+      "key": "back",
+      "obj": "image_constructed/obj/yuna_image_constructed_back_view.obj",
+      "mtl": "image_constructed/obj/yuna_image_constructed_back_view.mtl",
+      "texture": "../textures/yuna_image_constructed_back.png",
+      "source": "refs/ai_turnarounds/cutouts/yuna_back.png",
+      "resampled_size": [
+        173,
+        260
+      ],
+      "occupied_cells": 15981,
+      "vertices": 137176,
+      "faces": 34294
+    }
+  ],
+  "combined_turnaround": {
+    "obj": "image_constructed/obj/yuna_image_constructed_turnaround.obj",
+    "mtl_files": [
+      "image_constructed/obj/yuna_image_constructed_front_view.mtl",
+      "image_constructed/obj/yuna_image_constructed_side_view.mtl",
+      "image_constructed/obj/yuna_image_constructed_back_view.mtl"
+    ],
+    "views": 3
+  },
+  "exports": {
+    "front_relief": {
+      "obj": "image_constructed/obj/yuna_image_constructed_front_relief.obj",
+      "blend": "image_constructed/yuna_image_constructed_front_relief.blend",
+      "glb": "image_constructed/exports/yuna_image_constructed_front_relief.glb",
+      "fbx": "image_constructed/exports/yuna_image_constructed_front_relief.fbx",
+      "preview": "qa/turntable/yuna_image_constructed_front_relief_preview.png",
+      "blender_exit_code": 0,
+      "blender_log_tail": [
+        "/var/folders/9j/cx6fkz613dd_6545wf7kvt4w0000gn/T/tmp5560cczr.py:16: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0",
+        "  mat.use_nodes = True",
+        "/var/folders/9j/cx6fkz613dd_6545wf7kvt4w0000gn/T/tmp5560cczr.py:28: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0",
+        "  mat.use_nodes = True",
+        "/var/folders/9j/cx6fkz613dd_6545wf7kvt4w0000gn/T/tmp5560cczr.py:67: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0",
+        "  mat.use_nodes = True",
+        "Info: Saved as \"yuna_image_constructed_front_relief.blend\"",
+        "INFO Draco mesh compression is available, use library at /Applications/Blender.app/Contents/Resources/5.1/scripts/addons_core/io_scene_gltf2/libextern_draco.dylib",
+        "21:53:03 | INFO: Starting glTF 2.0 export",
+        "21:53:03 | INFO: Extracting primitive: yuna_image_constructed_front_relief",
+        "21:53:03 | INFO: Primitives created: 2",
+        "21:53:03 | INFO: Finished glTF 2.0 export in 0.09123611450195312 s",
+        "00:02.338  render           | Saved: '/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/qa/turntable/yuna_image_constructed_front_relief_preview.png'",
+        "",
+        "",
+        "FBX export starting... '/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/image_constructed/exports/yuna_image_constructed_front_relief.fbx'",
+        "export finished in 0.0413 sec.",
+        "Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)",
+        "OBJ import of 'yuna_image_constructed_front_relief.obj' took 51.69 ms",
+        "",
+        "Blender quit"
+      ]
+    },
+    "turnaround": {
+      "obj": "image_constructed/obj/yuna_image_constructed_turnaround.obj",
+      "blend": "image_constructed/yuna_image_constructed_turnaround.blend",
+      "glb": "image_constructed/exports/yuna_image_constructed_turnaround.glb",
+      "fbx": "image_constructed/exports/yuna_image_constructed_turnaround.fbx",
+      "preview": "qa/turntable/yuna_image_constructed_turnaround_preview.png",
+      "blender_exit_code": 0,
+      "blender_log_tail": [
+        "/var/folders/9j/cx6fkz613dd_6545wf7kvt4w0000gn/T/tmp3x76xprc.py:16: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0",
+        "  mat.use_nodes = True",
+        "/var/folders/9j/cx6fkz613dd_6545wf7kvt4w0000gn/T/tmp3x76xprc.py:28: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0",
+        "  mat.use_nodes = True",
+        "/var/folders/9j/cx6fkz613dd_6545wf7kvt4w0000gn/T/tmp3x76xprc.py:67: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0",
+        "  mat.use_nodes = True",
+        "Info: Saved as \"yuna_image_constructed_turnaround.blend\"",
+        "INFO Draco mesh compression is available, use library at /Applications/Blender.app/Contents/Resources/5.1/scripts/addons_core/io_scene_gltf2/libextern_draco.dylib",
+        "21:53:06 | INFO: Starting glTF 2.0 export",
+        "21:53:06 | INFO: Extracting primitive: view0_yuna_image_constructed_front_view",
+        "21:53:06 | INFO: Primitives created: 2",
+        "21:53:06 | INFO: Extracting primitive: view1_yuna_image_constructed_side_view",
+        "21:53:06 | INFO: Primitives created: 2",
+        "21:53:06 | INFO: Extracting primitive: view2_yuna_image_constructed_back_view",
+        "21:53:06 | INFO: Primitives created: 2",
+        "21:53:06 | INFO: Finished glTF 2.0 export in 0.17817020416259766 s",
+        "00:02.326  render           | Saved: '/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/qa/turntable/yuna_image_constructed_turnaround_preview.png'",
+        "",
+        "",
+        "FBX export starting... '/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef/CharacterPackage/image_constructed/exports/yuna_image_constructed_turnaround.fbx'",
+        "export finished in 0.0508 sec.",
+        "Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)",
+        "OBJ import of 'yuna_image_constructed_turnaround.obj' took 93.63 ms",
+        "",
+        "Blender quit"
+      ]
+    }
+  }
+}

@@ -1,0 +1,635 @@
+{
+  "route": "cloth_seam_surface_v1_review_pack",
+  "variant": "minimal",
+  "hypothesis": "Conservative pass: preserve the v0 front silhouette and reduce side-volume changes to the minimum readable shell.",
+  "source_route": "semantic_layer_v8_beauty_main_debug_cage_split",
+  "baseline": "semantic_layer_v8",
+  "boundary": "Independent cloth seam-surface DCC handoff candidate only. It does not replace v8 beauty cloth.",
+  "part": {
+    "id": "cloth",
+    "target_parts": [
+      "jacket_outer",
+      "cape_left",
+      "cape_right",
+      "skirt_front"
+    ],
+    "category": "cloth",
+    "generator": "cloth_seam_surface_v0",
+    "replace_in_beauty_glb": false,
+    "candidate_only": true,
+    "dcc_handoff_only": true,
+    "production_cloth_topology": false
+  },
+  "mesh": {
+    "component_count": 4,
+    "target_parts": [
+      "jacket_outer",
+      "cape_left",
+      "cape_right",
+      "skirt_front"
+    ],
+    "vertices": 1656,
+    "uvs": 1656,
+    "faces": 1654,
+    "row_count": 23,
+    "column_count": 9,
+    "quad_faces_only": true,
+    "edge_thickness_min": 0.0406,
+    "edge_thickness_max": 0.0638,
+    "drape_depth_span": 1.05545,
+    "panels": [
+      {
+        "id": "jacket_outer_cloth_seam_surface_minimal_v1",
+        "source_part_id": "jacket_outer",
+        "category": "costume",
+        "source_generator": "curved_panel",
+        "bbox": [
+          221,
+          293,
+          832,
+          1021
+        ],
+        "depth": 0.3,
+        "texture": "variants/minimal/textures/jacket_outer.png",
+        "mask": "semantic_layer_v8/masks/front/jacket_outer.png",
+        "solidify": {
+          "schema": "cloth_volume_and_purity_gate_v1",
+          "part_id": "jacket_outer",
+          "edge_thickness": 0.0435,
+          "depth_span": 0.093375,
+          "has_front_back_depth_separation": true,
+          "edge_faces": 61,
+          "front_back_surface_faces": 352,
+          "method": "minimal_solidify_shell_for_dcc_handoff"
+        },
+        "vertices": 414,
+        "uvs": 414,
+        "faces": 413,
+        "section_count": 23,
+        "thickness": 0.0435,
+        "bevel": 0.0,
+        "material_face_counts": {
+          "textured": 352,
+          "side": 61
+        }
+      },
+      {
+        "id": "cape_left_cloth_seam_surface_minimal_v1",
+        "source_part_id": "cape_left",
+        "category": "cloth",
+        "source_generator": "cloth_sheet",
+        "bbox": [
+          73,
+          470,
+          443,
+          1371
+        ],
+        "depth": -0.42,
+        "texture": "variants/minimal/textures/cape_left.png",
+        "mask": "semantic_layer_v8/masks/front/cape_left.png",
+        "solidify": {
+          "schema": "cloth_volume_and_purity_gate_v1",
+          "part_id": "cape_left",
+          "edge_thickness": 0.0638,
+          "depth_span": 0.1758,
+          "has_front_back_depth_separation": true,
+          "edge_faces": 62,
+          "front_back_surface_faces": 352,
+          "method": "minimal_solidify_shell_for_dcc_handoff"
+        },
+        "vertices": 414,
+        "uvs": 414,
+        "faces": 414,
+        "section_count": 23,
+        "thickness": 0.0638,
+        "bevel": 0.0,
+        "material_face_counts": {
+          "textured": 352,
+          "side": 62
+        }
+      },
+      {
+        "id": "cape_right_cloth_seam_surface_minimal_v1",
+        "source_part_id": "cape_right",
+        "category": "cloth",
+        "source_generator": "cloth_sheet",
+        "bbox": [
+          585,
+          430,
+          1012,
+          1344
+        ],
+        "depth": -0.36,
+        "texture": "variants/minimal/textures/cape_right.png",
+        "mask": "semantic_layer_v8/masks/front/cape_right.png",
+        "solidify": {
+          "schema": "cloth_volume_and_purity_gate_v1",
+          "part_id": "cape_right",
+          "edge_thickness": 0.0638,
+          "depth_span": 0.1758,
+          "has_front_back_depth_separation": true,
+          "edge_faces": 62,
+          "front_back_surface_faces": 352,
+          "method": "minimal_solidify_shell_for_dcc_handoff"
+        },
+        "vertices": 414,
+        "uvs": 414,
+        "faces": 414,
+        "section_count": 23,
+        "thickness": 0.0638,
+        "bevel": 0.0,
+        "material_face_counts": {
+          "textured": 352,
+          "side": 62
+        }
+      },
+      {
+        "id": "skirt_front_cloth_seam_surface_minimal_v1",
+        "source_part_id": "skirt_front",
+        "category": "cloth",
+        "source_generator": "cloth_sheet",
+        "bbox": [
+          340,
+          640,
+          695,
+          906
+        ],
+        "depth": 0.48,
+        "texture": "variants/minimal/textures/skirt_front.png",
+        "mask": "semantic_layer_v8/masks/front/skirt_front.png",
+        "solidify": {
+          "schema": "cloth_volume_and_purity_gate_v1",
+          "part_id": "skirt_front",
+          "edge_thickness": 0.0406,
+          "depth_span": 0.1071,
+          "has_front_back_depth_separation": true,
+          "edge_faces": 61,
+          "front_back_surface_faces": 352,
+          "method": "minimal_solidify_shell_for_dcc_handoff"
+        },
+        "vertices": 414,
+        "uvs": 414,
+        "faces": 413,
+        "section_count": 23,
+        "thickness": 0.040600000000000004,
+        "bevel": 0.0,
+        "material_face_counts": {
+          "textured": 352,
+          "side": 61
+        }
+      }
+    ]
+  },
+  "seams": {
+    "schema": "cloth_seam_surface_v0",
+    "shoulder_anchors": {
+      "left": {
+        "label": "shoulder_anchor_left",
+        "part_id": "jacket_outer",
+        "uv_hint": [
+          0.24,
+          0.05
+        ],
+        "pixel": [
+          367.64,
+          329.4
+        ],
+        "world": [
+          -0.6015,
+          0.326565,
+          5.0275
+        ]
+      },
+      "right": {
+        "label": "shoulder_anchor_right",
+        "part_id": "jacket_outer",
+        "uv_hint": [
+          0.76,
+          0.05
+        ],
+        "pixel": [
+          685.36,
+          329.4
+        ],
+        "world": [
+          0.722333,
+          0.326565,
+          5.0275
+        ]
+      }
+    },
+    "cape_roots": {
+      "left": [
+        {
+          "label": "cape_left_root_shoulder",
+          "part_id": "cape_left",
+          "uv_hint": [
+            0.78,
+            0.02
+          ],
+          "pixel": [
+            361.6,
+            488.02
+          ],
+          "world": [
+            -0.626667,
+            -0.48811,
+            4.366583
+          ]
+        },
+        {
+          "label": "cape_left_root_falloff",
+          "part_id": "cape_left",
+          "uv_hint": [
+            0.62,
+            0.1
+          ],
+          "pixel": [
+            302.4,
+            560.1
+          ],
+          "world": [
+            -0.873333,
+            -0.47439,
+            4.06625
+          ]
+        }
+      ],
+      "right": [
+        {
+          "label": "cape_right_root_shoulder",
+          "part_id": "cape_right",
+          "uv_hint": [
+            0.2,
+            0.02
+          ],
+          "pixel": [
+            670.4,
+            448.28
+          ],
+          "world": [
+            0.66,
+            -0.4293,
+            4.532167
+          ]
+        },
+        {
+          "label": "cape_right_root_falloff",
+          "part_id": "cape_right",
+          "uv_hint": [
+            0.36,
+            0.1
+          ],
+          "pixel": [
+            738.72,
+            521.4
+          ],
+          "world": [
+            0.944667,
+            -0.41558,
+            4.2275
+          ]
+        }
+      ]
+    },
+    "skirt_waist_seam": [
+      {
+        "label": "waist_left",
+        "part_id": "skirt_front",
+        "uv_hint": [
+          0.08,
+          0.04
+        ],
+        "pixel": [
+          368.4,
+          650.64
+        ],
+        "world": [
+          -0.598333,
+          0.441542,
+          3.689
+        ]
+      },
+      {
+        "label": "waist_mid",
+        "part_id": "skirt_front",
+        "uv_hint": [
+          0.5,
+          0.02
+        ],
+        "pixel": [
+          517.5,
+          645.32
+        ],
+        "world": [
+          0.022917,
+          0.45641,
+          3.711167
+        ]
+      },
+      {
+        "label": "waist_right",
+        "part_id": "skirt_front",
+        "uv_hint": [
+          0.92,
+          0.04
+        ],
+        "pixel": [
+          666.6,
+          650.64
+        ],
+        "world": [
+          0.644167,
+          0.441542,
+          3.689
+        ]
+      }
+    ],
+    "lower_cloth_edge": {
+      "jacket_outer": [
+        {
+          "label": "lower_left",
+          "part_id": "jacket_outer",
+          "uv_hint": [
+            0.04,
+            0.98
+          ],
+          "pixel": [
+            245.44,
+            1006.44
+          ],
+          "world": [
+            -1.110667,
+            0.306615,
+            2.2065
+          ]
+        },
+        {
+          "label": "lower_mid",
+          "part_id": "jacket_outer",
+          "uv_hint": [
+            0.5,
+            0.995
+          ],
+          "pixel": [
+            526.5,
+            1017.36
+          ],
+          "world": [
+            0.060417,
+            0.3525,
+            2.161
+          ]
+        },
+        {
+          "label": "lower_right",
+          "part_id": "jacket_outer",
+          "uv_hint": [
+            0.96,
+            0.98
+          ],
+          "pixel": [
+            807.56,
+            1006.44
+          ],
+          "world": [
+            1.2315,
+            0.306615,
+            2.2065
+          ]
+        }
+      ],
+      "cape_left": [
+        {
+          "label": "lower_left",
+          "part_id": "cape_left",
+          "uv_hint": [
+            0.04,
+            0.98
+          ],
+          "pixel": [
+            87.8,
+            1352.98
+          ],
+          "world": [
+            -1.7675,
+            -0.39368,
+            0.762583
+          ]
+        },
+        {
+          "label": "lower_mid",
+          "part_id": "cape_left",
+          "uv_hint": [
+            0.5,
+            0.995
+          ],
+          "pixel": [
+            258.0,
+            1366.49
+          ],
+          "world": [
+            -1.058333,
+            -0.420262,
+            0.706271
+          ]
+        },
+        {
+          "label": "lower_right",
+          "part_id": "cape_left",
+          "uv_hint": [
+            0.96,
+            0.98
+          ],
+          "pixel": [
+            428.2,
+            1352.98
+          ],
+          "world": [
+            -0.349167,
+            -0.44842,
+            0.762583
+          ]
+        }
+      ],
+      "cape_right": [
+        {
+          "label": "lower_left",
+          "part_id": "cape_right",
+          "uv_hint": [
+            0.04,
+            0.98
+          ],
+          "pixel": [
+            602.08,
+            1325.72
+          ],
+          "world": [
+            0.375333,
+            -0.38842,
+            0.876167
+          ]
+        },
+        {
+          "label": "lower_mid",
+          "part_id": "cape_right",
+          "uv_hint": [
+            0.5,
+            0.995
+          ],
+          "pixel": [
+            798.5,
+            1339.43
+          ],
+          "world": [
+            1.19375,
+            -0.360262,
+            0.819042
+          ]
+        },
+        {
+          "label": "lower_right",
+          "part_id": "cape_right",
+          "uv_hint": [
+            0.96,
+            0.98
+          ],
+          "pixel": [
+            994.92,
+            1325.72
+          ],
+          "world": [
+            2.012167,
+            -0.33368,
+            0.876167
+          ]
+        }
+      ],
+      "skirt_front": [
+        {
+          "label": "lower_left",
+          "part_id": "skirt_front",
+          "uv_hint": [
+            0.04,
+            0.98
+          ],
+          "pixel": [
+            354.2,
+            900.68
+          ],
+          "world": [
+            -0.6575,
+            0.481722,
+            2.647167
+          ]
+        },
+        {
+          "label": "lower_mid",
+          "part_id": "skirt_front",
+          "uv_hint": [
+            0.5,
+            0.995
+          ],
+          "pixel": [
+            517.5,
+            904.67
+          ],
+          "world": [
+            0.022917,
+            0.500772,
+            2.630542
+          ]
+        },
+        {
+          "label": "lower_right",
+          "part_id": "skirt_front",
+          "uv_hint": [
+            0.96,
+            0.98
+          ],
+          "pixel": [
+            680.8,
+            900.68
+          ],
+          "world": [
+            0.703333,
+            0.481722,
+            2.647167
+          ]
+        }
+      ]
+    },
+    "solidify": {
+      "jacket_outer": {
+        "schema": "cloth_volume_and_purity_gate_v1",
+        "part_id": "jacket_outer",
+        "edge_thickness": 0.0435,
+        "depth_span": 0.093375,
+        "has_front_back_depth_separation": true,
+        "edge_faces": 61,
+        "front_back_surface_faces": 352,
+        "method": "minimal_solidify_shell_for_dcc_handoff"
+      },
+      "cape_left": {
+        "schema": "cloth_volume_and_purity_gate_v1",
+        "part_id": "cape_left",
+        "edge_thickness": 0.0638,
+        "depth_span": 0.1758,
+        "has_front_back_depth_separation": true,
+        "edge_faces": 62,
+        "front_back_surface_faces": 352,
+        "method": "minimal_solidify_shell_for_dcc_handoff"
+      },
+      "cape_right": {
+        "schema": "cloth_volume_and_purity_gate_v1",
+        "part_id": "cape_right",
+        "edge_thickness": 0.0638,
+        "depth_span": 0.1758,
+        "has_front_back_depth_separation": true,
+        "edge_faces": 62,
+        "front_back_surface_faces": 352,
+        "method": "minimal_solidify_shell_for_dcc_handoff"
+      },
+      "skirt_front": {
+        "schema": "cloth_volume_and_purity_gate_v1",
+        "part_id": "skirt_front",
+        "edge_thickness": 0.0406,
+        "depth_span": 0.1071,
+        "has_front_back_depth_separation": true,
+        "edge_faces": 61,
+        "front_back_surface_faces": 352,
+        "method": "minimal_solidify_shell_for_dcc_handoff"
+      }
+    },
+    "integration_boundary": "Metadata is for DCC handoff only; hair route still blocks cloth integration."
+  },
+  "validation_gates": {
+    "cloth_volume_and_purity_gate_v1": {
+      "metrics": {
+        "cloth_mask_purity_ratio": 1.0,
+        "non_cloth_texture_leak_ratio": 0.0,
+        "cloth_side_volume_present": true,
+        "cloth_edge_thickness_present": true,
+        "cloth_panel_curvature_score": 0.138019,
+        "cloth_drape_depth_span": 1.05545,
+        "cloth_body_attachment_valid": true,
+        "seam_count": 8,
+        "anchor_count": 21,
+        "silhouette_readability_front": 0.88,
+        "yaw30_cloth_readability": 0.68492,
+        "side_volume_readability": 0.732199,
+        "material_alpha_stability": 1.0,
+        "cloth_front_visual_candidate_status": "manual_review_required_purity_gate_passed_overlay_not_sufficient",
+        "cloth_dcc_handoff_status": "manual_review_required_candidate_only_hair_blocked"
+      },
+      "overlay_front_is_acceptance_gate": false,
+      "candidate_only": true
+    }
+  },
+  "exports": {
+    "obj": "CharacterPackage/semantic_layer_v9_cloth/variants/minimal/exports/yuna_semantic_layer_v9_cloth_minimal.obj",
+    "glb": "CharacterPackage/semantic_layer_v9_cloth/variants/minimal/exports/yuna_semantic_layer_v9_cloth_minimal.glb",
+    "blend": "CharacterPackage/semantic_layer_v9_cloth/variants/minimal/exports/yuna_semantic_layer_v9_cloth_minimal.blend",
+    "report": "CharacterPackage/semantic_layer_v9_cloth/variants/minimal/validation_report.json"
+  }
+}

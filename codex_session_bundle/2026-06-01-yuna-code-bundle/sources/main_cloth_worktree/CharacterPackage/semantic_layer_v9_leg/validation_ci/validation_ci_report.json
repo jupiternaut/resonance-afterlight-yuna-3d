@@ -1,0 +1,156 @@
+{
+  "created_at": "2026-05-25T00:26:33.472148+00:00",
+  "route": "blender_semantic_validation_v0",
+  "status": "passed_with_warnings",
+  "boundary": "Candidate validation only. It does not replace v8 beauty GLB.",
+  "inputs": {
+    "baseline_glb": {
+      "path": "CharacterPackage/semantic_layer_v8/exports/yuna_semantic_layer_v8.glb",
+      "exists": true,
+      "bytes": 22268232
+    },
+    "cage_glb": {
+      "path": "CharacterPackage/semantic_layer_v8/exports/yuna_semantic_layer_v8_cage_debug.glb",
+      "exists": true,
+      "bytes": 22403908
+    },
+    "candidate_glb": {
+      "path": "CharacterPackage/semantic_layer_v9_leg/exports/yuna_semantic_layer_v9_leg.glb",
+      "exists": true,
+      "bytes": 1670408
+    },
+    "candidate_report": {
+      "path": "CharacterPackage/semantic_layer_v9_leg/validation_report.json",
+      "exists": true,
+      "bytes": 5641
+    }
+  },
+  "screenshots": {
+    "front": {
+      "path": "CharacterPackage/semantic_layer_v9_leg/validation_ci/yuna_semantic_layer_v9_leg_validation_front.png",
+      "exists": true,
+      "bytes": 1230127
+    },
+    "yaw15": {
+      "path": "CharacterPackage/semantic_layer_v9_leg/validation_ci/yuna_semantic_layer_v9_leg_validation_yaw15.png",
+      "exists": true,
+      "bytes": 1256563
+    },
+    "yaw30": {
+      "path": "CharacterPackage/semantic_layer_v9_leg/validation_ci/yuna_semantic_layer_v9_leg_validation_yaw30.png",
+      "exists": true,
+      "bytes": 1262947
+    },
+    "side": {
+      "path": "CharacterPackage/semantic_layer_v9_leg/validation_ci/yuna_semantic_layer_v9_leg_validation_side.png",
+      "exists": true,
+      "bytes": 1110410
+    },
+    "wire": {
+      "path": "CharacterPackage/semantic_layer_v9_leg/validation_ci/yuna_semantic_layer_v9_leg_validation_wire.png",
+      "exists": true,
+      "bytes": 1262946
+    },
+    "exploded": {
+      "path": "CharacterPackage/semantic_layer_v9_leg/validation_ci/yuna_semantic_layer_v9_leg_validation_exploded.png",
+      "exists": true,
+      "bytes": 1255018
+    }
+  },
+  "inventory": {
+    "baseline_object_count": 23,
+    "cage_object_count": 35,
+    "candidate_mesh_count": 2,
+    "candidate_empty_count": 4,
+    "candidate_mesh_names": [
+      "leg_L_retopo_proxy_candidate",
+      "leg_R_retopo_proxy_candidate"
+    ],
+    "candidate_empty_names": [
+      "leg_L_knee_loop",
+      "leg_L_ankle_loop",
+      "leg_R_knee_loop",
+      "leg_R_ankle_loop"
+    ]
+  },
+  "candidate_contract": {
+    "part_id": "legs",
+    "has_independent_candidate_mesh": true,
+    "has_independent_weapon_mesh": false,
+    "has_boot_candidate_meshes": null,
+    "has_leg_candidate_meshes": true,
+    "has_hand_R_socket": false,
+    "has_foot_sockets": false,
+    "has_leg_loop_markers": true,
+    "replace_in_beauty_glb": false
+  },
+  "quality": {
+    "missing_screenshots": [],
+    "known_limits": [
+      "legs candidate is an actuator proxy, not final DCC asset",
+      "v8 beauty GLB remains the active baseline until replacement validation is accepted"
+    ]
+  },
+  "wrapper": {
+    "blender": "/opt/homebrew/bin/blender",
+    "exit_code": 0,
+    "log": "CharacterPackage/semantic_layer_v9_leg/validation_ci/blender_semantic_validation.log",
+    "log_tail": [
+      "08:26:20 | INFO: Data are loaded, start creating Blender stuff",
+      "08:26:20 | INFO: Blender create Mesh node back_hair_mesh",
+      "08:26:20 | INFO: Blender create Mesh node side_hair_left_mesh",
+      "08:26:20 | INFO: Blender create Mesh node side_hair_right_mesh",
+      "08:26:20 | INFO: Blender create Mesh node torso_inner_mesh",
+      "08:26:20 | INFO: Blender create Mesh node jacket_outer_mesh",
+      "08:26:20 | INFO: Blender create Mesh node cape_left_mesh",
+      "08:26:20 | INFO: Blender create Mesh node cape_right_mesh",
+      "08:26:20 | INFO: Blender create Mesh node skirt_front_mesh",
+      "08:26:20 | INFO: Blender create Mesh node boots_mesh",
+      "08:26:20 | INFO: Blender create Mesh node face_mesh",
+      "08:26:20 | INFO: Blender create Mesh node bangs_mesh",
+      "08:26:20 | INFO: Blender create Mesh node weapon_mesh",
+      "08:26:20 | INFO: Blender create Mesh node leg_L_visual_panel_mesh",
+      "08:26:20 | INFO: Blender create Mesh node leg_R_visual_panel_mesh",
+      "08:26:20 | INFO: glTF import finished in 0.02s",
+      "08:26:21 | INFO: Data are loaded, start creating Blender stuff",
+      "08:26:21 | INFO: Blender create Mesh node back_hair_mesh",
+      "08:26:21 | INFO: Blender create Mesh node side_hair_left_mesh",
+      "08:26:21 | INFO: Blender create Mesh node side_hair_right_mesh",
+      "08:26:21 | INFO: Blender create Mesh node torso_inner_mesh",
+      "08:26:21 | INFO: Blender create Mesh node jacket_outer_mesh",
+      "08:26:21 | INFO: Blender create Mesh node cape_left_mesh",
+      "08:26:21 | INFO: Blender create Mesh node cape_right_mesh",
+      "08:26:21 | INFO: Blender create Mesh node skirt_front_mesh",
+      "08:26:21 | INFO: Blender create Mesh node boots_mesh",
+      "08:26:21 | INFO: Blender create Mesh node face_mesh",
+      "08:26:21 | INFO: Blender create Mesh node bangs_mesh",
+      "08:26:21 | INFO: Blender create Mesh node weapon_mesh",
+      "08:26:21 | INFO: Blender create Mesh node leg_L_visual_panel_mesh",
+      "08:26:21 | INFO: Blender create Mesh node leg_R_visual_panel_mesh",
+      "08:26:21 | INFO: Blender create Mesh node leg_L_retopo_proxy_mesh",
+      "08:26:21 | INFO: Blender create Mesh node leg_R_retopo_proxy_mesh",
+      "08:26:21 | INFO: Blender create Mesh node boot_L_hardsurface_proxy_mesh",
+      "08:26:21 | INFO: Blender create Mesh node boot_R_hardsurface_proxy_mesh",
+      "08:26:21 | INFO: Blender create Mesh node Torus",
+      "08:26:21 | INFO: Blender create Mesh node Torus.001",
+      "08:26:21 | INFO: Blender create Mesh node Torus.002",
+      "08:26:21 | INFO: Blender create Mesh node Torus.003",
+      "08:26:21 | INFO: Blender create Mesh node Sphere",
+      "08:26:21 | INFO: Blender create Mesh node Sphere.001",
+      "08:26:21 | INFO: Blender create Mesh node Cylinder",
+      "08:26:21 | INFO: Blender create Mesh node Cylinder.001",
+      "08:26:21 | INFO: glTF import finished in 0.03s",
+      "08:26:21 | INFO: Data are loaded, start creating Blender stuff",
+      "08:26:21 | INFO: Blender create Mesh node leg_L_retopo_proxy_candidate_mesh",
+      "08:26:21 | INFO: Blender create Mesh node leg_R_retopo_proxy_candidate_mesh",
+      "08:26:21 | INFO: glTF import finished in 0.01s",
+      "00:02.729  render           | Saved: 'CharacterPackage/semantic_layer_v9_leg/validation_ci/yuna_semantic_layer_v9_leg_validation_front.png'",
+      "00:04.820  render           | Saved: 'CharacterPackage/semantic_layer_v9_leg/validation_ci/yuna_semantic_layer_v9_leg_validation_yaw15.png'",
+      "00:06.961  render           | Saved: 'CharacterPackage/semantic_layer_v9_leg/validation_ci/yuna_semantic_layer_v9_leg_validation_yaw30.png'",
+      "00:09.084  render           | Saved: 'CharacterPackage/semantic_layer_v9_leg/validation_ci/yuna_semantic_layer_v9_leg_validation_side.png'",
+      "00:11.145  render           | Saved: 'CharacterPackage/semantic_layer_v9_leg/validation_ci/yuna_semantic_layer_v9_leg_validation_wire.png'",
+      "00:13.035  render           | Saved: 'CharacterPackage/semantic_layer_v9_leg/validation_ci/yuna_semantic_layer_v9_leg_validation_exploded.png'",
+      "Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)"
+    ]
+  }
+}
