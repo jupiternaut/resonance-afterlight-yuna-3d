@@ -1,70 +1,87 @@
 # Resonance Afterlight YUNA 2.5D-to-3D
 
-This repository is a curated migration of the local OpenDesign project
-`resonance-afterlight-20260521-692194ef`.
+## What it is
 
-It preserves the runnable HTML prototype, generated visual assets, and the
-current best YUNA `semantic_layer_v8` DCC handoff package.
+This repository is a curated Resonance Afterlight prototype and YUNA character handoff package.
 
-## What This Is
+It preserves static HTML UI prototypes, generated character cutouts, a Three.js roster/stage experiment, and the current best YUNA 2.5D-to-3D semantic-layer asset route.
 
-- A local research/prototype package for anime RPG UI and 2.5D-to-3D character asset construction.
-- A deterministic, inspectable alternative to black-box image-to-3D output.
-- A handoff repo for further Blender/DCC cleanup, retopology, boot reconstruction, and Unity validation.
+## Current state
 
-## What This Is Not
+- Top-level experience: static HTML prototypes.
+- WebGL stack: bundled Three.js r128 files under `assets/vendor/`.
+- Character package: `CharacterPackage/`.
+- Current best YUNA route: `CharacterPackage/semantic_layer_v8/`.
+- v8 main beauty asset: `CharacterPackage/semantic_layer_v8/exports/yuna_semantic_layer_v8.glb`.
+- v8 DCC guide asset: `CharacterPackage/semantic_layer_v8/exports/yuna_semantic_layer_v8_cage_debug.glb`.
+- v8 handoff exports: GLB, cage-debug GLB, FBX, OBJ, BLEND, textures, masks, validation screenshots, and `validation_report.json`.
 
-- Not a final production-ready rigged YUNA character.
-- Not a commercial image-to-3D API wrapper.
-- Not a full copy of OpenDesign runtime state.
+v8 is still the current-best visual-review baseline. It keeps the beauty GLB separate from the DCC cage/debug GLB so gray guide volumes do not leak into the review asset.
 
-## Main Entrypoints
+## v9 partial experiments
 
-- `index.html`: OpenDesign prototype entry.
-- `asset-composite.html`: 2D composite prototype.
-- `asset-composite-3d.html`: Three.js/WebGL scene prototype.
-- `asset-composite-3d-roster.html`: Three.js roster scene prototype.
-- `CharacterPackage/README.md`: detailed YUNA DCC/package inventory.
-- `CharacterPackage/semantic_layer_v8/`: current best semantic-layer visual-review output.
+The repository also contains partial v9 experiments:
 
-## Current Best 3D Asset Route
+- `CharacterPackage/semantic_layer_v9_candidate/`
+- `CharacterPackage/semantic_layer_v9_weapon/`
+- `CharacterPackage/semantic_layer_v9_boot/`
+- `CharacterPackage/semantic_layer_v9_leg/`
 
-Use `CharacterPackage/semantic_layer_v8/`:
+These are candidate actuator outputs, not a new full-character route. Their reports state `generated_with_warnings` or `passed_with_warnings`, and their validation boundary is candidate-only. They do not replace the v8 beauty GLB.
 
-- `exports/yuna_semantic_layer_v8.glb`: main beauty/review GLB.
-- `exports/yuna_semantic_layer_v8_cage_debug.glb`: debug GLB with DCC guides.
-- `exports/yuna_semantic_layer_v8.fbx`: FBX handoff export.
-- `exports/yuna_semantic_layer_v8.obj`: OBJ static geometry export.
-- `validation/`: front, yaw15, yaw30, side cage, wire, exploded, mask and constraint screenshots.
-- `validation_report.json`: machine-readable export/roundtrip report.
+Use v9 as targeted evidence for weapon hard-surface reconstruction, boot hard-surface proxy work, and leg quad-loop retopo proxy exploration. Use v8 when Fable5 needs the current full YUNA visual-review package.
 
-The v8 route intentionally keeps the beauty GLB separate from the DCC debug cage.
-The main GLB no longer exposes the gray leg/boot guide volumes that made the
-legs look broken in earlier versions.
+## Run it
 
-## Migration Scope
+Open the static prototypes directly:
 
-This repo includes:
+```bash
+open index.html
+open asset-composite.html
+open asset-composite-3d.html
+open asset-composite-3d-roster.html
+open reference-one-to-one.html
+```
 
-- top-level HTML prototypes and visible assets
-- screenshots for review
-- YUNA references, docs, metadata and scripts
-- `semantic_layer_v8` exports, textures, masks, reports and validation images
-- small Unity-facing editor tools/prefab assets
+If a browser blocks local asset loading, serve the folder:
 
-This repo excludes:
+```bash
+python3 -m http.server 8000
+```
 
-- the `.od` runtime database and cache
-- older `semantic_layer_v1` through `semantic_layer_v7` full output folders
-- Unity generated `Library`, `Temp`, `Logs`, and user settings
-- local tool caches and Python bytecode
+Then open `http://127.0.0.1:8000`.
 
-See `MIGRATION_MANIFEST.md` for exact notes.
+## Project layout
 
-## Local Provenance
+```text
+index.html                         Main Resonance Afterlight UI prototype
+asset-composite.html               2D character composite prototype
+asset-composite-3d.html            Three.js stage prototype
+asset-composite-3d-roster.html     Three.js roster prototype
+reference-one-to-one.html          Reference inspection page
+assets/                            Generated UI and character cutout assets
+screenshots/                       Review screenshots
+CharacterPackage/                  YUNA DCC, semantic-layer, Unity, docs, and tool package
+CharacterPackage/semantic_layer_v8/ Current best full semantic-layer handoff
+CharacterPackage/semantic_layer_v9_*/ Partial v9 candidate experiments
+MIGRATION_MANIFEST.md              Curated migration inventory
+CODEX_TASK.md                      Project invariants and anti-patterns
+```
 
-Migrated from:
+## Assets
 
-`/Users/gengrf/open-design/.od/projects/resonance-afterlight-20260521-692194ef`
+The repository includes visible prototype assets, YUNA references, v8 semantic-layer exports, v9 partial candidate exports, validation screenshots, and small Unity-facing editor/prefab files.
 
-Generated on local macOS with Blender/OpenDesign tooling.
+It does not include the original `.od` runtime database, cache, older full v1-v7 semantic-layer output folders, Unity generated folders, or local tool caches.
+
+## Limitations
+
+- YUNA is not a final production-ready rigged character.
+- v8 is a 2.5D DCC handoff asset, not final skinned topology.
+- v9 outputs are partial experiments and should not be treated as the current full-body package.
+- Unity runtime validation remains dependent on local Unity licensing and setup.
+- Commercial image-to-3D API runs are not included as completed runtime assets.
+
+## Maintainer
+
+Keep `README.md`, `MIGRATION_MANIFEST.md`, `CODEX_TASK.md`, and `CharacterPackage/README.md` aligned. Fable5 should read this repository as a curated prototype plus asset-handoff package, with v8 as the current-best full route and v9 as partial candidate evidence.
